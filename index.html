@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>כלי להפקת חשבוניות | מערכת חשבוניות מקצועית</title>
+  <title>אליאב קידוחים ופיתוח | קידוחי כלונסאות, עבודות עפר ופיתוח תשתיות</title>
+  <meta name="description" content="אליאב קידוחים ופיתוח - מעל 10 שנות ניסיון בקידוחי כלונסאות, עבודות עפר, הריסת מבנים, פינוי פסולת ופיתוח תשתיות. קבלן רשום 36281.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -30,1061 +31,204 @@
       --radius-lg: 16px;
       --radius-xl: 24px;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Heebo', sans-serif;
-      color: var(--text-dark);
-      line-height: 1.6;
-      background: var(--white);
-      overflow-x: hidden;
-    }
-
-    /* Typography */
-    h1, h2, h3, h4, h5, h6 {
-      font-family: 'Rubik', sans-serif;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Heebo', sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--white); overflow-x: hidden; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Rubik', sans-serif; font-weight: 700; line-height: 1.2; }
     h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
     h2 { font-size: clamp(2rem, 4vw, 2.75rem); }
     h3 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
-
-    p {
-      color: var(--text-gray);
-      font-size: 1.05rem;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-      transition: color 0.2s ease;
-    }
-
-    /* Buttons */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 14px 32px;
-      font-family: 'Heebo', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: var(--radius-md);
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: var(--white);
-      box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4);
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(249, 115, 22, 0.5);
-    }
-
-    .btn-secondary {
-      background: var(--white);
-      color: var(--text-dark);
-      border: 2px solid var(--border);
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--primary);
-      border: 2px solid var(--primary);
-    }
-
-    .btn-outline:hover {
-      background: var(--primary);
-      color: var(--white);
-    }
-
-    /* Container */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* ==================== HEADER ==================== */
-    header {
-      position: fixed;
-      top: 0;
-      right: 0;
-      left: 0;
-      z-index: 1000;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      transition: all 0.3s ease;
-    }
-
-    header.scrolled {
-      box-shadow: var(--shadow-md);
-    }
-
-    .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 80px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: 'Rubik', sans-serif;
-      font-weight: 700;
-      font-size: 1.5rem;
-      color: var(--primary);
-    }
-
-    .logo-icon {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 1.2rem;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 40px;
-    }
-
-    nav a {
-      font-weight: 500;
-      color: var(--text-gray);
-      position: relative;
-      padding: 8px 0;
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 0;
-      height: 2px;
-      background: var(--primary);
-      transition: width 0.3s ease;
-    }
-
-    nav a:hover {
-      color: var(--text-dark);
-    }
-
-    nav a:hover::after {
-      width: 100%;
-    }
-
-    .header-cta {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .mobile-menu {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 10px;
-    }
-
-    .mobile-menu span {
-      width: 25px;
-      height: 3px;
-      background: var(--text-dark);
-      border-radius: 2px;
-      transition: all 0.3s ease;
-    }
-
-    /* ==================== HERO SECTION ==================== */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding-top: 80px;
-      background: linear-gradient(135deg, var(--secondary) 0%, #0F172A 100%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-      opacity: 0.5;
-    }
-
-    .hero-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-text {
-      color: var(--white);
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(249, 115, 22, 0.2);
-      color: var(--primary-light);
-      padding: 8px 16px;
-      border-radius: 50px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      margin-bottom: 24px;
-      border: 1px solid rgba(249, 115, 22, 0.3);
-    }
-
-    .hero-badge svg {
-      width: 16px;
-      height: 16px;
-    }
-
-    .hero h1 {
-      margin-bottom: 24px;
-      background: linear-gradient(135deg, var(--white) 0%, var(--text-light) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero p {
-      color: var(--text-light);
-      font-size: 1.2rem;
-      margin-bottom: 32px;
-      max-width: 500px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .hero-stats {
-      display: flex;
-      gap: 40px;
-      margin-top: 48px;
-      padding-top: 32px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .stat {
-      text-align: center;
-    }
-
-    .stat-number {
-      font-family: 'Rubik', sans-serif;
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .stat-label {
-      color: var(--text-light);
-      font-size: 0.9rem;
-    }
-
-    .hero-image {
-      position: relative;
-    }
-
-    .hero-image-wrapper {
-      position: relative;
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      box-shadow: var(--shadow-xl);
-    }
-
-    .hero-image img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .hero-image-overlay {
-      position: absolute;
-      bottom: -20px;
-      right: -20px;
-      background: var(--white);
-      padding: 20px 24px;
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-lg);
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .overlay-icon {
-      width: 50px;
-      height: 50px;
-      background: var(--bg-cream);
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-      font-size: 1.5rem;
-    }
-
-    .overlay-text h4 {
-      font-size: 1rem;
-      color: var(--text-dark);
-      margin-bottom: 4px;
-    }
-
-    .overlay-text span {
-      color: var(--text-gray);
-      font-size: 0.85rem;
-    }
-
-    /* ==================== FEATURES SECTION ==================== */
-    .features {
-      padding: 100px 0;
-      background: var(--white);
-    }
-
-    .section-header {
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto 60px;
-    }
-
-    .section-tag {
-      display: inline-block;
-      background: var(--bg-cream);
-      color: var(--primary);
-      padding: 8px 16px;
-      border-radius: 50px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
-
-    .section-header h2 {
-      margin-bottom: 16px;
-      color: var(--text-dark);
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-    }
-
-    .feature-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 32px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .feature-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 100px;
-      height: 100px;
-      background: var(--bg-cream);
-      border-radius: 0 0 0 100%;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .feature-card:hover {
-      border-color: var(--primary);
-      box-shadow: var(--shadow-lg);
-      transform: translateY(-4px);
-    }
-
-    .feature-card:hover::before {
-      opacity: 1;
-    }
-
-    .feature-icon {
-      width: 60px;
-      height: 60px;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--white);
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .feature-card h3 {
-      margin-bottom: 12px;
-      color: var(--text-dark);
-    }
-
-    .feature-card p {
-      font-size: 0.95rem;
-      line-height: 1.7;
-    }
-
-    /* ==================== HOW IT WORKS ==================== */
-    .how-it-works {
-      padding: 100px 0;
-      background: var(--bg-light);
-    }
-
-    .steps-container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-      position: relative;
-    }
-
-    .steps-container::before {
-      content: '';
-      position: absolute;
-      top: 50px;
-      right: 12.5%;
-      left: 12.5%;
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
-      z-index: 0;
-    }
-
-    .step-card {
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .step-number {
-      width: 100px;
-      height: 100px;
-      background: var(--white);
-      border: 3px solid var(--primary);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Rubik', sans-serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin: 0 auto 24px;
-      position: relative;
-      box-shadow: var(--shadow-md);
-    }
-
-    .step-card h3 {
-      margin-bottom: 12px;
-    }
-
-    .step-card p {
-      font-size: 0.9rem;
-      max-width: 200px;
-      margin: 0 auto;
-    }
-
-    /* ==================== SHOWCASE SECTION ==================== */
-    .showcase {
-      padding: 100px 0;
-      background: var(--white);
-    }
-
-    .showcase-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .showcase-content.reverse {
-      direction: ltr;
-    }
-
-    .showcase-content.reverse > * {
-      direction: rtl;
-    }
-
-    .showcase-image {
-      position: relative;
-    }
-
-    .showcase-image img {
-      width: 100%;
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-xl);
-    }
-
-    .showcase-image-badge {
-      position: absolute;
-      top: -20px;
-      left: -20px;
-      background: var(--primary);
-      color: var(--white);
-      padding: 12px 20px;
-      border-radius: var(--radius-md);
-      font-weight: 600;
-      box-shadow: var(--shadow-md);
-    }
-
-    .showcase-text h2 {
-      margin-bottom: 20px;
-    }
-
-    .showcase-text p {
-      margin-bottom: 24px;
-      font-size: 1.1rem;
-    }
-
-    .showcase-list {
-      list-style: none;
-      margin-bottom: 32px;
-    }
-
-    .showcase-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 16px;
-      color: var(--text-gray);
-    }
-
-    .showcase-list li svg {
-      width: 24px;
-      height: 24px;
-      color: var(--primary);
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    /* ==================== PRICING SECTION ==================== */
-    .pricing {
-      padding: 100px 0;
-      background: linear-gradient(135deg, var(--secondary) 0%, #0F172A 100%);
-    }
-
-    .pricing .section-header h2,
-    .pricing .section-header p {
-      color: var(--white);
-    }
-
-    .pricing .section-tag {
-      background: rgba(249, 115, 22, 0.2);
-      color: var(--primary-light);
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .pricing-card {
-      background: var(--white);
-      border-radius: var(--radius-xl);
-      padding: 40px 32px;
-      text-align: center;
-      position: relative;
-      transition: all 0.3s ease;
-    }
-
-    .pricing-card:hover {
-      transform: translateY(-8px);
-    }
-
-    .pricing-card.featured {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-      color: var(--white);
-      transform: scale(1.05);
-      box-shadow: 0 20px 40px rgba(249, 115, 22, 0.3);
-    }
-
-    .pricing-card.featured:hover {
-      transform: scale(1.05) translateY(-8px);
-    }
-
-    .pricing-badge {
-      position: absolute;
-      top: -12px;
-      right: 50%;
-      transform: translateX(50%);
-      background: var(--secondary);
-      color: var(--white);
-      padding: 6px 20px;
-      border-radius: 50px;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-
-    .pricing-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 8px;
-    }
-
-    .pricing-card.featured h3 {
-      color: var(--white);
-    }
-
-    .pricing-description {
-      font-size: 0.9rem;
-      margin-bottom: 24px;
-      opacity: 0.8;
-    }
-
-    .pricing-price {
-      margin-bottom: 32px;
-    }
-
-    .pricing-price .currency {
-      font-size: 1.5rem;
-      vertical-align: super;
-    }
-
-    .pricing-price .amount {
-      font-family: 'Rubik', sans-serif;
-      font-size: 4rem;
-      font-weight: 700;
-      line-height: 1;
-    }
-
-    .pricing-price .period {
-      font-size: 1rem;
-      opacity: 0.7;
-    }
-
-    .pricing-features {
-      list-style: none;
-      margin-bottom: 32px;
-      text-align: right;
-    }
-
-    .pricing-features li {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.95rem;
-    }
-
-    .pricing-card.featured .pricing-features li {
-      border-color: rgba(255,255,255,0.2);
-    }
-
-    .pricing-features li:last-child {
-      border-bottom: none;
-    }
-
-    .pricing-features li svg {
-      width: 20px;
-      height: 20px;
-      color: var(--primary);
-      flex-shrink: 0;
-    }
-
-    .pricing-card.featured .pricing-features li svg {
-      color: var(--white);
-    }
-
-    .pricing-card .btn {
-      width: 100%;
-    }
-
-    .pricing-card.featured .btn-primary {
-      background: var(--white);
-      color: var(--primary);
-      box-shadow: none;
-    }
-
-    .pricing-card.featured .btn-primary:hover {
-      background: var(--bg-light);
-    }
-
-    /* ==================== TESTIMONIALS ==================== */
-    .testimonials {
-      padding: 100px 0;
-      background: var(--bg-light);
-    }
-
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-    }
-
-    .testimonial-card {
-      background: var(--white);
-      border-radius: var(--radius-lg);
-      padding: 32px;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--border);
-    }
-
-    .testimonial-rating {
-      display: flex;
-      gap: 4px;
-      margin-bottom: 16px;
-    }
-
-    .testimonial-rating svg {
-      width: 20px;
-      height: 20px;
-      color: #FBBF24;
-      fill: #FBBF24;
-    }
-
-    .testimonial-text {
-      font-size: 1rem;
-      line-height: 1.8;
-      margin-bottom: 24px;
-      color: var(--text-dark);
-    }
-
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .testimonial-avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--white);
-      font-weight: 700;
-      font-size: 1.2rem;
-    }
-
-    .testimonial-info h4 {
-      font-size: 1rem;
-      margin-bottom: 4px;
-    }
-
-    .testimonial-info span {
-      color: var(--text-gray);
-      font-size: 0.85rem;
-    }
-
-    /* ==================== CTA SECTION ==================== */
-    .cta {
-      padding: 100px 0;
-      background: var(--bg-cream);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -20%;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
-      opacity: 0.3;
-    }
-
-    .cta-content {
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    .cta h2 {
-      margin-bottom: 20px;
-    }
-
-    .cta p {
-      font-size: 1.2rem;
-      margin-bottom: 32px;
-    }
-
-    .cta-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    /* ==================== FOOTER ==================== */
-    footer {
-      background: var(--secondary);
-      color: var(--white);
-      padding: 80px 0 30px;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 60px;
-      margin-bottom: 60px;
-    }
-
-    .footer-brand .logo {
-      margin-bottom: 20px;
-    }
-
-    .footer-brand p {
-      color: var(--text-light);
-      font-size: 0.95rem;
-      max-width: 300px;
-    }
-
-    .footer-social {
-      display: flex;
-      gap: 12px;
-      margin-top: 24px;
-    }
-
-    .footer-social a {
-      width: 40px;
-      height: 40px;
-      background: rgba(255,255,255,0.1);
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--white);
-      transition: all 0.3s ease;
-    }
-
-    .footer-social a:hover {
-      background: var(--primary);
-    }
-
-    .footer-column h4 {
-      font-size: 1.1rem;
-      margin-bottom: 24px;
-      color: var(--white);
-    }
-
-    .footer-column ul {
-      list-style: none;
-    }
-
-    .footer-column ul li {
-      margin-bottom: 12px;
-    }
-
-    .footer-column ul li a {
-      color: var(--text-light);
-      font-size: 0.95rem;
-      transition: color 0.2s ease;
-    }
-
-    .footer-column ul li a:hover {
-      color: var(--primary);
-    }
-
-    .footer-bottom {
-      padding-top: 30px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .footer-bottom p {
-      color: var(--text-light);
-      font-size: 0.9rem;
-    }
-
-    .footer-bottom-links {
-      display: flex;
-      gap: 24px;
-    }
-
-    .footer-bottom-links a {
-      color: var(--text-light);
-      font-size: 0.9rem;
-    }
-
-    .footer-bottom-links a:hover {
-      color: var(--primary);
-    }
-
-    /* ==================== ANIMATIONS ==================== */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .animate-fade-in {
-      animation: fadeInUp 0.6s ease forwards;
-    }
-
-    .animate-float {
-      animation: float 3s ease-in-out infinite;
-    }
-
-    /* ==================== RESPONSIVE ==================== */
+    p { color: var(--text-gray); font-size: 1.05rem; }
+    a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 32px; font-family: 'Heebo', sans-serif; font-size: 1rem; font-weight: 600; border-radius: var(--radius-md); border: none; cursor: pointer; transition: all 0.3s ease; }
+    .btn-primary { background: var(--primary); color: var(--white); box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4); }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.5); }
+    .btn-secondary { background: var(--white); color: var(--text-dark); border: 2px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+    .btn-outline:hover { background: var(--primary); color: var(--white); }
+    .btn-whatsapp { background: #25D366; color: var(--white); }
+    .btn-whatsapp:hover { background: #1ea952; transform: translateY(-2px); }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* HEADER */
+    header { position: fixed; top: 0; right: 0; left: 0; z-index: 1000; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); transition: all 0.3s ease; }
+    header.scrolled { box-shadow: var(--shadow-md); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; height: 80px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 1.5rem; color: var(--primary); }
+    .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; }
+    nav { display: flex; align-items: center; gap: 32px; }
+    nav a { font-weight: 500; color: var(--text-gray); position: relative; padding: 8px 0; }
+    nav a::after { content: ''; position: absolute; bottom: 0; right: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s ease; }
+    nav a:hover { color: var(--text-dark); }
+    nav a:hover::after { width: 100%; }
+    .header-cta { display: flex; align-items: center; gap: 12px; }
+    .mobile-menu { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 10px; }
+    .mobile-menu span { width: 25px; height: 3px; background: var(--text-dark); border-radius: 2px; transition: all 0.3s ease; }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 80px; background: linear-gradient(135deg, var(--secondary) 0%, #0F172A 100%); position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.5; }
+    .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
+    .hero-text { color: var(--white); }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(249,115,22,0.2); color: var(--primary-light); padding: 8px 16px; border-radius: 50px; font-size: 0.9rem; font-weight: 500; margin-bottom: 24px; border: 1px solid rgba(249,115,22,0.3); }
+    .hero h1 { margin-bottom: 24px; background: linear-gradient(135deg, var(--white) 0%, var(--text-light) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero p { color: var(--text-light); font-size: 1.2rem; margin-bottom: 32px; max-width: 500px; }
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-trust { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 24px; }
+    .hero-trust span { color: var(--text-light); font-size: 0.9rem; display: flex; align-items: center; gap: 6px; }
+    .hero-trust svg { color: var(--primary); width: 18px; height: 18px; }
+    .hero-stats { display: flex; gap: 40px; margin-top: 32px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .stat { text-align: center; }
+    .stat-number { font-family: 'Rubik', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--primary); }
+    .stat-label { color: var(--text-light); font-size: 0.9rem; }
+    .hero-image { position: relative; }
+    .hero-image-wrapper { position: relative; border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-xl); }
+    .hero-image img { width: 100%; height: auto; display: block; }
+    .hero-image-overlay { position: absolute; bottom: -20px; right: -20px; background: var(--white); padding: 20px 24px; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 16px; }
+    .overlay-icon { width: 50px; height: 50px; background: var(--bg-cream); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.5rem; }
+    .overlay-text h4 { font-size: 1rem; color: var(--text-dark); margin-bottom: 4px; }
+    .overlay-text span { color: var(--text-gray); font-size: 0.85rem; }
+
+    /* SECTION COMMON */
+    .section-header { text-align: center; max-width: 700px; margin: 0 auto 60px; }
+    .section-tag { display: inline-block; background: var(--bg-cream); color: var(--primary); padding: 8px 16px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; margin-bottom: 16px; }
+    .section-header h2 { margin-bottom: 16px; color: var(--text-dark); }
+
+    /* SERVICES */
+    .services { padding: 100px 0; background: var(--white); }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .service-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; transition: all 0.3s ease; position: relative; overflow: hidden; cursor: pointer; }
+    .service-card::before { content: ''; position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: var(--bg-cream); border-radius: 0 0 0 100%; opacity: 0; transition: opacity 0.3s ease; }
+    .service-card:hover { border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon { width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.5rem; margin-bottom: 20px; position: relative; z-index: 1; }
+    .service-card h3 { margin-bottom: 12px; color: var(--text-dark); }
+    .service-card > p { font-size: 0.95rem; line-height: 1.7; }
+    .service-details { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
+    .service-details.open { max-height: 600px; }
+    .service-details ul { list-style: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .service-details li { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; color: var(--text-gray); font-size: 0.93rem; }
+    .service-details li svg { width: 20px; height: 20px; color: var(--primary); flex-shrink: 0; margin-top: 2px; }
+    .service-toggle { display: inline-flex; align-items: center; gap: 6px; color: var(--primary); font-weight: 600; font-size: 0.9rem; margin-top: 12px; cursor: pointer; }
+
+    /* WHY US */
+    .why-us { padding: 100px 0; background: var(--bg-light); }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .why-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; transition: all 0.3s ease; cursor: pointer; }
+    .why-card:hover { border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .why-card.featured { border: 2px solid var(--primary); background: var(--bg-cream); }
+    .why-icon { width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.5rem; margin-bottom: 20px; }
+    .why-card h3 { margin-bottom: 12px; }
+    .why-card p { font-size: 0.95rem; line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
+    .why-card p.open { max-height: 200px; }
+
+    /* GALLERY */
+    .gallery { padding: 100px 0; background: var(--white); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .gallery-placeholder { background: var(--bg-light); border: 2px dashed var(--border); border-radius: var(--radius-lg); height: 250px; display: flex; align-items: center; justify-content: center; color: var(--text-light); font-size: 1.1rem; }
+
+    /* SERVICE AREAS */
+    .areas { padding: 100px 0; background: var(--bg-light); }
+    .areas-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 800px; margin: 0 auto 40px; }
+    .area-tag { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px 20px; text-align: center; font-weight: 500; transition: all 0.3s ease; }
+    .area-tag:hover { border-color: var(--primary); color: var(--primary); box-shadow: var(--shadow-sm); }
+    .areas-note { text-align: center; background: var(--bg-cream); padding: 20px; border-radius: var(--radius-md); max-width: 600px; margin: 0 auto; }
+    .areas-note p { color: var(--text-dark); font-weight: 500; }
+    .areas-note span { color: var(--text-gray); font-size: 0.95rem; }
+
+    /* TESTIMONIALS */
+    .testimonials { padding: 100px 0; background: var(--white); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .testimonial-card { background: var(--white); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
+    .testimonial-rating { display: flex; gap: 4px; margin-bottom: 16px; }
+    .testimonial-rating svg { width: 20px; height: 20px; color: #FBBF24; fill: #FBBF24; }
+    .testimonial-text { font-size: 1rem; line-height: 1.8; margin-bottom: 24px; color: var(--text-dark); }
+    .testimonial-author { display: flex; align-items: center; gap: 16px; }
+    .testimonial-avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 700; font-size: 1.2rem; }
+    .testimonial-info h4 { font-size: 1rem; margin-bottom: 4px; }
+    .testimonial-info span { color: var(--text-gray); font-size: 0.85rem; }
+
+    /* FAQ */
+    .faq { padding: 100px 0; background: var(--bg-light); }
+    .faq-list { max-width: 800px; margin: 0 auto; }
+    .faq-item { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); margin-bottom: 12px; overflow: hidden; }
+    .faq-question { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; cursor: pointer; font-weight: 600; font-size: 1.05rem; color: var(--text-dark); transition: color 0.2s; }
+    .faq-question:hover { color: var(--primary); }
+    .faq-question svg { width: 20px; height: 20px; transition: transform 0.3s ease; flex-shrink: 0; margin-right: 12px; }
+    .faq-item.open .faq-question svg { transform: rotate(180deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .faq-answer-inner { padding: 0 24px 20px; color: var(--text-gray); line-height: 1.8; font-size: 0.98rem; }
+
+    /* CTA */
+    .cta-section { padding: 80px 0; background: var(--bg-cream); position: relative; overflow: hidden; }
+    .cta-section::before { content: ''; position: absolute; top: -50%; left: -20%; width: 500px; height: 500px; background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%); opacity: 0.3; }
+    .cta-content { text-align: center; max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
+    .cta-content h2 { margin-bottom: 16px; }
+    .cta-content > p { font-size: 1.1rem; margin-bottom: 28px; }
+    .cta-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+    /* CONTACT */
+    .contact { padding: 100px 0; background: linear-gradient(135deg, var(--secondary) 0%, #0F172A 100%); }
+    .contact .section-header h2, .contact .section-header p { color: var(--white); }
+    .contact .section-tag { background: rgba(249,115,22,0.2); color: var(--primary-light); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+    .contact-info { color: var(--white); }
+    .contact-item { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 28px; }
+    .contact-item-icon { width: 50px; height: 50px; background: rgba(249,115,22,0.15); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--primary); flex-shrink: 0; }
+    .contact-item h4 { color: var(--white); font-size: 1rem; margin-bottom: 4px; }
+    .contact-item p, .contact-item a { color: var(--text-light); font-size: 0.95rem; }
+    .contact-item a:hover { color: var(--primary); }
+    .contact-form { background: var(--white); border-radius: var(--radius-xl); padding: 40px; }
+    .contact-form h3 { margin-bottom: 24px; text-align: center; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-weight: 500; margin-bottom: 6px; font-size: 0.95rem; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-family: 'Heebo', sans-serif; font-size: 1rem; transition: border-color 0.2s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .contact-form .btn { width: 100%; margin-top: 8px; }
+
+    /* FOOTER */
+    footer { background: var(--secondary); color: var(--white); padding: 60px 0 30px; }
+    .footer-content { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 40px; margin-bottom: 40px; }
+    .footer-brand .logo { margin-bottom: 16px; }
+    .footer-brand p { color: var(--text-light); font-size: 0.95rem; max-width: 300px; }
+    .footer-links { display: flex; gap: 60px; }
+    .footer-column h4 { font-size: 1.1rem; margin-bottom: 16px; color: var(--white); }
+    .footer-column ul { list-style: none; }
+    .footer-column ul li { margin-bottom: 10px; }
+    .footer-column ul li a { color: var(--text-light); font-size: 0.95rem; }
+    .footer-column ul li a:hover { color: var(--primary); }
+    .footer-bottom { padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
+    .footer-bottom p { color: var(--text-light); font-size: 0.9rem; }
+
+    /* ANIMATIONS */
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    .animate-float { animation: float 3s ease-in-out infinite; }
+
+    /* RESPONSIVE */
     @media (max-width: 1024px) {
-      .hero-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .hero p {
-        margin: 0 auto 32px;
-      }
-
-      .hero-buttons {
-        justify-content: center;
-      }
-
-      .hero-stats {
-        justify-content: center;
-      }
-
-      .hero-image {
-        max-width: 500px;
-        margin: 0 auto;
-      }
-
-      .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .steps-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 40px;
-      }
-
-      .steps-container::before {
-        display: none;
-      }
-
-      .showcase-content {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-
-      .pricing-grid {
-        grid-template-columns: 1fr;
-        max-width: 400px;
-      }
-
-      .pricing-card.featured {
-        transform: none;
-      }
-
-      .testimonials-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 40px;
-      }
+      .hero-content { grid-template-columns: 1fr; text-align: center; }
+      .hero p { margin: 0 auto 32px; }
+      .hero-buttons, .hero-trust { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .hero-image { max-width: 500px; margin: 0 auto; }
+      .services-grid, .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .areas-grid { grid-template-columns: repeat(3, 1fr); }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
     }
-
     @media (max-width: 768px) {
-      nav {
-        display: none;
-      }
-
-      .mobile-menu {
-        display: flex;
-      }
-
-      .header-cta .btn-secondary {
-        display: none;
-      }
-
-      .features-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .steps-container {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-stats {
-        flex-direction: column;
-        gap: 24px;
-      }
-
-      .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
-        text-align: center;
-      }
-
-      .footer-brand p {
-        margin: 0 auto;
-      }
-
-      .footer-social {
-        justify-content: center;
-      }
-
-      .footer-bottom {
-        flex-direction: column;
-        text-align: center;
-      }
+      nav { display: none; }
+      .mobile-menu { display: flex; }
+      .header-cta .btn-secondary { display: none; }
+      .services-grid, .why-grid, .gallery-grid { grid-template-columns: 1fr; }
+      .hero-stats { flex-direction: column; gap: 24px; }
+      .areas-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-links { flex-direction: column; gap: 24px; }
+      .footer-content { flex-direction: column; align-items: center; text-align: center; }
+      .footer-brand p { margin: 0 auto; }
     }
   </style>
 </head>
@@ -1096,34 +240,23 @@
         <div class="logo">
           <div class="logo-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-              <polyline points="10 9 9 9 8 9"></polyline>
+              <path d="M2 20h20"></path><path d="M5 20V8l7-5 7 5v12"></path><path d="M9 20v-6h6v6"></path>
             </svg>
           </div>
-          חשבונית פלוס
+          אליאב קידוחים ופיתוח
         </div>
-
         <nav>
-          <a href="#features">תכונות</a>
-          <a href="#how-it-works">איך זה עובד</a>
-          <a href="#pricing">מחירים</a>
-          <a href="#testimonials">לקוחות ממליצים</a>
+          <a href="#services">שירותים</a>
+          <a href="#why-us">למה אנחנו</a>
+          <a href="#gallery">גלריה</a>
+          <a href="#faq">שאלות נפוצות</a>
           <a href="#contact">צור קשר</a>
         </nav>
-
         <div class="header-cta">
-          <a href="#" class="btn btn-secondary">התחברות</a>
-          <a href="#" class="btn btn-primary">נסה בחינם</a>
+          <a href="tel:0529556123" class="btn btn-secondary">052-9556123</a>
+          <a href="#contact" class="btn btn-primary">הצעת מחיר</a>
         </div>
-
-        <div class="mobile-menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+        <div class="mobile-menu"><span></span><span></span><span></span></div>
       </div>
     </div>
   </header>
@@ -1134,379 +267,269 @@
       <div class="hero-content">
         <div class="hero-text">
           <div class="hero-badge">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-            </svg>
-            הפתרון המוביל להפקת חשבוניות
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            מעל 10 שנות ניסיון | קבלן רשום: 36281
           </div>
-          <h1>כלי להפקת חשבוניות של כאן המדריכות</h1>
-          <p>הפקת חשבוניות מקצועיות בקלות ובמהירות. מערכת מתקדמת לניהול עסק, מעקב תשלומים והפקת דוחות - הכל במקום אחד.</p>
+          <h1>קידוחי כלונסאות ופיתוח לכל סוגי הפרויקטים</h1>
+          <p>מתמחים בקידוחים מורכבים, בנטונייט, בורות חלחול, עבודות עפר ופיתוח תשתיות. פתרונות מקצועיים ללקוחות פרטיים ועסקיים.</p>
           <div class="hero-buttons">
-            <a href="#" class="btn btn-primary">
-              התחל עכשיו בחינם
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="19" y1="12" x2="5" y2="12"></line>
-                <polyline points="12 19 5 12 12 5"></polyline>
-              </svg>
+            <a href="#contact" class="btn btn-primary">
+              קבל הצעת מחיר חינם
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
             </a>
-            <a href="#" class="btn btn-outline" style="border-color: rgba(255,255,255,0.3); color: white;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon>
-              </svg>
-              צפה בסרטון
+            <a href="tel:0529556123" class="btn btn-outline" style="border-color: rgba(255,255,255,0.3); color: white;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              התקשר עכשיו
             </a>
+          </div>
+          <div class="hero-trust">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> קבלן רשום ומנהל עבודה רשום</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> ציוד מתקדם</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> ביטוח מלא לעבודה</span>
           </div>
           <div class="hero-stats">
-            <div class="stat">
-              <div class="stat-number">50K+</div>
-              <div class="stat-label">חשבוניות הופקו</div>
-            </div>
-            <div class="stat">
-              <div class="stat-number">10K+</div>
-              <div class="stat-label">עסקים פעילים</div>
-            </div>
-            <div class="stat">
-              <div class="stat-number">99.9%</div>
-              <div class="stat-label">זמינות השירות</div>
-            </div>
+            <div class="stat"><div class="stat-number">10+</div><div class="stat-label">שנות ניסיון</div></div>
+            <div class="stat"><div class="stat-number">500+</div><div class="stat-label">פרויקטים הושלמו</div></div>
+            <div class="stat"><div class="stat-number">100%</div><div class="stat-label">שביעות רצון לקוחות</div></div>
           </div>
         </div>
         <div class="hero-image">
           <div class="hero-image-wrapper">
-            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=700&fit=crop" alt="עובד בנייה מקצועי">
+            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=700&fit=crop" alt="קידוחי כלונסאות מקצועיים">
           </div>
           <div class="hero-image-overlay animate-float">
             <div class="overlay-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-              </svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
             </div>
-            <div class="overlay-text">
-              <h4>חשבונית נשלחה!</h4>
-              <span>ללקוח: משה כהן</span>
-            </div>
+            <div class="overlay-text"><h4>מקצועיות ללא פשרות</h4><span>קבלן רשום 36281</span></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Features Section -->
-  <section class="features" id="features">
+  <!-- Services Section -->
+  <section class="services" id="services">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">תכונות המערכת</span>
-        <h2>כל מה שצריך לניהול העסק שלך</h2>
-        <p>מערכת מתקדמת עם כל הכלים הנדרשים להפקת חשבוניות, ניהול לקוחות ומעקב אחר תשלומים</p>
+        <span class="section-tag">השירותים שלנו</span>
+        <h2>השירותים שלנו</h2>
+        <p>לחץ על שירות לפרטים נוספים</p>
       </div>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-            </svg>
+      <div class="services-grid">
+        <!-- Service 1 -->
+        <div class="service-card" onclick="toggleService(this)">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v4m0 12v4m-7.07-15.07l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path></svg>
           </div>
-          <h3>הפקת חשבוניות</h3>
-          <p>הפקת חשבוניות מס, קבלות וחשבוניות עסקה בקליק. עיצוב מותאם אישית עם הלוגו שלך.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-            </svg>
+          <h3>קידוחי כלונסאות</h3>
+          <p>קידוחים לכל עומק וקוטר - עם בנטונייט ופולימר באיכות גבוהה</p>
+          <div class="service-toggle">לפרטים נוספים <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+          <div class="service-details">
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>קידוחים עד קוטר 120 ס"מ</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>שימוש בבנטונייט איכותי לשמירה על דפנות הקידוח</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>תחנת בנטונייט ניידת - לאספקה רציפה בפרויקטים בהיקף גדול</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>פולימר לקידוחים רגישים (בארות או אזורים בהם נדרש למנוע חדירה למי תהום)</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>קידוחי ניקוז וחלחול כולל אספקת צנרת מלאה להתקנה</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>ציוד חדיש ומאושר לפי תקן</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>צוות מקצועי ומנוסה לעבודות מורכבות</li>
+            </ul>
           </div>
-          <h3>ניהול לקוחות</h3>
-          <p>מאגר לקוחות מרכזי עם היסטוריית עסקאות, פרטי קשר ומעקב אחר יתרות.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="12" y1="1" x2="12" y2="23"></line>
-              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-            </svg>
+        <!-- Service 2 -->
+        <div class="service-card" onclick="toggleService(this)">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="6" width="22" height="12" rx="2"></rect><path d="M1 10h22"></path></svg>
           </div>
-          <h3>מעקב תשלומים</h3>
-          <p>מעקב אחר תשלומים בזמן אמת, התראות על תשלומים באיחור וניהול זרימת מזומנים.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-              <line x1="3" y1="9" x2="21" y2="9"></line>
-              <line x1="9" y1="21" x2="9" y2="9"></line>
-            </svg>
+          <h3>עבודות עפר וחפירות</h3>
+          <p>עבודות עפר מדויקות בכל סדר גודל</p>
+          <div class="service-toggle">לפרטים נוספים <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+          <div class="service-details">
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>חפירת מרתפים, מקלטים ויסודות</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>עבודות עפר כלליות לשטחי בנייה</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>פילוס ויישור קרקע ברמת דיוק גבוהה</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>תמיכות זמניות וקבועות בהתאם לתקן</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>הכנת תשתיות וניקוז לפני בנייה</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>עבודה עם ציוד מתקדם ומפעילים מוסמכים</li>
+            </ul>
           </div>
-          <h3>דוחות ותובנות</h3>
-          <p>דוחות מפורטים על הכנסות, הוצאות ורווחיות. גרפים ותרשימים להבנה מהירה.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-              <line x1="8" y1="21" x2="16" y2="21"></line>
-              <line x1="12" y1="17" x2="12" y2="21"></line>
-            </svg>
+        <!-- Service 3 -->
+        <div class="service-card" onclick="toggleService(this)">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20"></path><path d="M5 20V8l7-5 7 5v12"></path></svg>
           </div>
-          <h3>גישה מכל מכשיר</h3>
-          <p>עבודה מהנייד, מהטאבלט או מהמחשב. המידע מסונכרן ונגיש מכל מקום.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-            </svg>
+          <h3>הריסת מבנים</h3>
+          <p>הריסות מבנים מבוקרות ובטוחות - עם כל האישורים הנדרשים</p>
+          <div class="service-toggle">לפרטים נוספים <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+          <div class="service-details">
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>הריסת מבנים פרטיים ותעשייתיים</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>הריסות מבוקרות עם ציוד ייעודי</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>ביצוע העבודה לפי כל התקנים והנהלים</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>פינוי פסולת מיידי לאתר מורשה</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>תעודת הטמנה רשמית לכל פרויקט</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>ביטוח מלא לכל שלבי העבודה</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>פיקוח הנדסי צמוד ושמירה על המבנים הסמוכים</li>
+            </ul>
           </div>
-          <h3>אבטחה מתקדמת</h3>
-          <p>הצפנת נתונים ברמה הגבוהה ביותר, גיבוי אוטומטי ותאימות לדרישות רשות המסים.</p>
         </div>
+        <!-- Service 4 -->
+        <div class="service-card" onclick="toggleService(this)">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18l-1.5 9h-15z"></path><circle cx="8" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
+          </div>
+          <h3>פינוי פסולת בניין</h3>
+          <p>פינוי מוסדר, מהיר ובעל תיעוד מלא</p>
+          <div class="service-toggle">לפרטים נוספים <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+          <div class="service-details">
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>פינוי פסולת בנייה והריסה לאתר מורשה</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>תעודת הטמנה רשמית לכל משלוח</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>מתן אישור פינוי כחלק מהליך קבלת היתר בנייה</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>פינוי מהיר ובטוח באמצעות ציוד מתאים</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>שירות אמין, מסודר ומבוקר</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>עבודה לפי תקני משרד להגנת הסביבה</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Service 5 -->
+        <div class="service-card" onclick="toggleService(this)">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"></path><path d="M9 8h1"></path><path d="M9 12h1"></path><path d="M9 16h1"></path><path d="M14 8h1"></path><path d="M14 12h1"></path><path d="M14 16h1"></path><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path></svg>
+          </div>
+          <h3>פיתוח תשתיות</h3>
+          <p>פיתוח תשתיות בהיקף מלא לפרויקטים ציבוריים ופרטיים</p>
+          <div class="service-toggle">לפרטים נוספים <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+          <div class="service-details">
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>סלילת דרכים, מדרכות וחניות</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>הנחת תשתיות מים, ביוב, חשמל ותקשורת</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>עבודות ניקוז ושיקום שטחים פתוחים</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>התקנת אבן משתלבת לחניות, מדרכות ושבילים</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>שילוב אלמנטים של גינון ונטיעות בפרויקטים</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>תכנון, ניהול וביצוע מקצועי של כל שלבי הפיתוח</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>שיתוף פעולה עם רשויות, מפקחים ויועצים הנדסיים</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Service 6 -->
+        <div class="service-card" onclick="toggleService(this)">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+          </div>
+          <h3>השכרת ציוד כבד</h3>
+          <p>השכרת ציוד מתקדם עם מפעיל מוסמך ומנוסה</p>
+          <div class="service-toggle">לפרטים נוספים <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+          <div class="service-details">
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>בובקט - לחפירות, פילוס שטח ועבודות עפר</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>מיני מחפרון - לעבודה באזורים צרים ובשטחים בנויים</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>מחפרון - להריסות קטנות ועבודות עפר כלליות</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>מכונת קידוח - לכלונסאות, בורות וניקוזים</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>תחנת בנטונייט ניידת - לאספקה שוטפת בפרויקטים גדולים</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>אפשרות חלופית לאספקת בנטונייט במכלית לעבודות קטנות</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>ציוד תקין, מבוטח ובטיחותי - מוכן לעבודה מיידית</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>כל הציוד מגיע עם מפעילים מוסמכים ובעלי ניסיון</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:48px;">
+        <a href="https://wa.me/972529556123" class="btn btn-whatsapp">צריך ייעוץ? דברו איתנו עכשיו</a>
       </div>
     </div>
   </section>
 
-  <!-- How It Works -->
-  <section class="how-it-works" id="how-it-works">
+  <!-- Why Us -->
+  <section class="why-us" id="why-us">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">איך זה עובד</span>
-        <h2>הפקת חשבונית ב-4 צעדים פשוטים</h2>
-        <p>תהליך פשוט ומהיר שחוסך לך זמן יקר ומאפשר להתרכז בעבודה</p>
+        <span class="section-tag">למה לבחור בנו?</span>
+        <h2>למה לבחור בנו?</h2>
+        <p>לחץ לפרטים נוספים</p>
       </div>
-      <div class="steps-container">
-        <div class="step-card">
-          <div class="step-number">1</div>
-          <h3>הרשמה למערכת</h3>
-          <p>הרשמה מהירה תוך דקות עם פרטי העסק שלך</p>
+      <div class="why-grid">
+        <div class="why-card" onclick="toggleWhy(this)">
+          <div class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+          <h3>צוות מקצועי ומנוסה</h3>
+          <p>צוות עובדים מקצועי ומיומן עם ניסיון רב בתחום, המחויב לספק שירות ברמה הגבוהה ביותר ולהבטיח תוצאות מושלמות בכל פרויקט</p>
         </div>
-        <div class="step-card">
-          <div class="step-number">2</div>
-          <h3>הזנת פרטי לקוח</h3>
-          <p>בחירת לקוח קיים או הוספת לקוח חדש למערכת</p>
+        <div class="why-card" onclick="toggleWhy(this)">
+          <div class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg></div>
+          <h3>ציוד מתקדם ומתוחזק</h3>
+          <p>מכונות חדישות ומתקדמות עם תחזוקה שוטפת, כל האישורים הנדרשים וביטוחים מלאים להבטחת ביצועים אמינים בכל פרויקט</p>
         </div>
-        <div class="step-card">
-          <div class="step-number">3</div>
-          <h3>הוספת פריטים</h3>
-          <p>הוספת המוצרים או השירותים לחשבונית</p>
+        <div class="why-card" onclick="toggleWhy(this)">
+          <div class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
+          <h3>10+ שנות ניסיון מוכח</h3>
+          <p>מעל עשור של ניסיון בביצוע פרויקטים מורכבים, עם מאות לקוחות מרוצים ורקורד מוכח של הצלחה בכל סוגי העבודות</p>
         </div>
-        <div class="step-card">
-          <div class="step-number">4</div>
-          <h3>שליחה ללקוח</h3>
-          <p>שליחת החשבונית במייל או הורדה כ-PDF</p>
+        <div class="why-card" onclick="toggleWhy(this)">
+          <div class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+          <h3>עמידה בזמנים ובלוחות זמנים</h3>
+          <p>מחויבים לעמידה קפדנית בלוחות זמנים, תכנון מדויק של כל שלבי הפרויקט והקפדה על סיום העבודה במועד המוסכם</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Showcase Section 1 -->
-  <section class="showcase">
-    <div class="container">
-      <div class="showcase-content">
-        <div class="showcase-image">
-          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop" alt="ניהול חשבוניות">
-          <div class="showcase-image-badge">פופולרי</div>
+        <div class="why-card" onclick="toggleWhy(this)">
+          <div class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
+          <h3>מחירים הוגנים ושקופים</h3>
+          <p>תמחור הוגן ושקוף ללא עלויות נסתרות, הצעות מחיר מפורטות וברורות, והתחייבות למחיר המוסכם ללא הפתעות</p>
         </div>
-        <div class="showcase-text">
-          <h2>עיצוב חשבוניות מותאם אישית</h2>
-          <p>צור חשבוניות מקצועיות עם העיצוב והמיתוג שלך. הוסף לוגו, בחר צבעים והתאם את הפורמט לצרכי העסק.</p>
-          <ul class="showcase-list">
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              תבניות מעוצבות מראש לבחירה
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              הוספת לוגו והתאמת צבעים
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              תמיכה בעברית ואנגלית
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              ייצוא ל-PDF באיכות גבוהה
-            </li>
-          </ul>
-          <a href="#" class="btn btn-primary">למד עוד</a>
+        <div class="why-card featured" onclick="toggleWhy(this)">
+          <div class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+          <h3>אמינות, בטיחות ואישורים מלאים</h3>
+          <p>קבלן רשום 36281 ומנהל עבודה רשום, רישיון עבודה בגובה, ביטוח קבלנים צד ג', ביטוח מלא על הכלים והציוד. עבודה בטיחותית ומקצועית תוך שמירה על כל תקני הבטיחות</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Showcase Section 2 -->
-  <section class="showcase" style="background: var(--bg-light);">
-    <div class="container">
-      <div class="showcase-content reverse">
-        <div class="showcase-text">
-          <h2>ניהול לקוחות חכם</h2>
-          <p>נהל את כל הלקוחות שלך במקום אחד. עקוב אחר היסטוריית העסקאות, יתרות פתוחות ופרטי קשר.</p>
-          <ul class="showcase-list">
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              מאגר לקוחות מרכזי ומסודר
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              היסטוריית עסקאות מלאה
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              התראות על חובות פתוחים
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              ייבוא לקוחות מאקסל
-            </li>
-          </ul>
-          <a href="#" class="btn btn-primary">למד עוד</a>
-        </div>
-        <div class="showcase-image">
-          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop" alt="ניהול לקוחות">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing Section -->
-  <section class="pricing" id="pricing">
+  <!-- Gallery -->
+  <section class="gallery" id="gallery">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">מחירים</span>
-        <h2>תוכניות מחירים לכל עסק</h2>
-        <p>בחר את התוכנית המתאימה לך. ללא התחייבות, אפשר לשדרג בכל עת.</p>
+        <span class="section-tag">הפרויקטים שלנו</span>
+        <h2>גלריית הפרויקטים שלנו</h2>
+        <p>הצצה לחלק מהפרויקטים שביצענו בהצלחה</p>
       </div>
-      <div class="pricing-grid">
-        <div class="pricing-card">
-          <h3>בסיסי</h3>
-          <p class="pricing-description">לעסקים קטנים ועצמאיים</p>
-          <div class="pricing-price">
-            <span class="currency">₪</span>
-            <span class="amount">49</span>
-            <span class="period">/ לחודש</span>
-          </div>
-          <ul class="pricing-features">
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              עד 50 חשבוניות בחודש
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              ניהול עד 100 לקוחות
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              3 תבניות עיצוב
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              תמיכה במייל
-            </li>
-          </ul>
-          <a href="#" class="btn btn-outline">התחל עכשיו</a>
-        </div>
-        <div class="pricing-card featured">
-          <div class="pricing-badge">הכי פופולרי</div>
-          <h3>עסקי</h3>
-          <p class="pricing-description">לעסקים בינוניים וגדלים</p>
-          <div class="pricing-price">
-            <span class="currency">₪</span>
-            <span class="amount">99</span>
-            <span class="period">/ לחודש</span>
-          </div>
-          <ul class="pricing-features">
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              חשבוניות ללא הגבלה
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              לקוחות ללא הגבלה
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              כל התבניות + התאמה אישית
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              תמיכה בטלפון וצ'אט
-            </li>
-          </ul>
-          <a href="#" class="btn btn-primary">התחל עכשיו</a>
-        </div>
-        <div class="pricing-card">
-          <h3>ארגוני</h3>
-          <p class="pricing-description">לחברות ומשרדי רואי חשבון</p>
-          <div class="pricing-price">
-            <span class="currency">₪</span>
-            <span class="amount">199</span>
-            <span class="period">/ לחודש</span>
-          </div>
-          <ul class="pricing-features">
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              כל התכונות של עסקי
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              ריבוי משתמשים והרשאות
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              API לאינטגרציות
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              מנהל לקוח ייעודי
-            </li>
-          </ul>
-          <a href="#" class="btn btn-outline">צור קשר</a>
-        </div>
+      <div class="gallery-grid">
+        <div class="gallery-placeholder">תמונת פרויקט</div>
+        <div class="gallery-placeholder">תמונת פרויקט</div>
+        <div class="gallery-placeholder">תמונת פרויקט</div>
+        <div class="gallery-placeholder">תמונת פרויקט</div>
+        <div class="gallery-placeholder">תמונת פרויקט</div>
+        <div class="gallery-placeholder">תמונת פרויקט</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas -->
+  <section class="areas" id="areas">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">אזורי שירות</span>
+        <h2>אזורים בהם אנו משרתים</h2>
+        <p>מספקים שירות מקצועי בכל רחבי המרכז והצפון</p>
+      </div>
+      <div class="areas-grid">
+        <div class="area-tag">תל אביב</div>
+        <div class="area-tag">הרצליה</div>
+        <div class="area-tag">רמת השרון</div>
+        <div class="area-tag">נתניה</div>
+        <div class="area-tag">חדרה</div>
+        <div class="area-tag">רעננה</div>
+        <div class="area-tag">כפר סבא</div>
+        <div class="area-tag">פתח תקווה</div>
+        <div class="area-tag">ראשון לציון</div>
+        <div class="area-tag">רחובות</div>
+        <div class="area-tag">נס ציונה</div>
+        <div class="area-tag">קיסריה</div>
+      </div>
+      <div class="areas-note">
+        <p>לא מצאת את העיר שלך?</p>
+        <span>צור איתנו קשר - סביר להניח שאנחנו מגיעים גם אליך!</span>
       </div>
     </div>
   </section>
@@ -1517,7 +540,7 @@
       <div class="section-header">
         <span class="section-tag">לקוחות ממליצים</span>
         <h2>מה הלקוחות שלנו אומרים</h2>
-        <p>אלפי עסקים כבר עברו לעבוד עם חשבונית פלוס</p>
+        <p>תצוגה דינמית של ההמלצות מהמסד נתונים</p>
       </div>
       <div class="testimonials-grid">
         <div class="testimonial-card">
@@ -1528,13 +551,10 @@
             <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
             <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
           </div>
-          <p class="testimonial-text">"המערכת פשוט מדהימה! חסכה לי שעות של עבודה כל שבוע. ממליץ בחום לכל בעל עסק."</p>
+          <p class="testimonial-text">"עבודה מקצועית ומסודרת מתחילת הפרויקט ועד סופו. הצוות היה אדיב ומקצועי, והעבודה הסתיימה בזמן ובאיכות גבוהה."</p>
           <div class="testimonial-author">
             <div class="testimonial-avatar">מכ</div>
-            <div class="testimonial-info">
-              <h4>משה כהן</h4>
-              <span>קבלן שיפוצים</span>
-            </div>
+            <div class="testimonial-info"><h4>משה כהן</h4><span>קבלן בניין</span></div>
           </div>
         </div>
         <div class="testimonial-card">
@@ -1545,13 +565,10 @@
             <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
             <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
           </div>
-          <p class="testimonial-text">"סוף סוף מערכת שמתאימה לעסק ישראלי. תמיכה מעולה ותכונות שמתאימות בדיוק לצרכים שלי."</p>
+          <p class="testimonial-text">"הזמנו קידוחי כלונסאות לפרויקט בנייה - התוצאה הייתה מצוינת. ציוד מתקדם, צוות מקצועי ועמידה מלאה בלוחות הזמנים."</p>
           <div class="testimonial-author">
             <div class="testimonial-avatar">של</div>
-            <div class="testimonial-info">
-              <h4>שרה לוי</h4>
-              <span>מעצבת גרפית</span>
-            </div>
+            <div class="testimonial-info"><h4>שרה לוי</h4><span>יזמית נדל"ן</span></div>
           </div>
         </div>
         <div class="testimonial-card">
@@ -1562,34 +579,116 @@
             <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
             <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
           </div>
-          <p class="testimonial-text">"עברנו מתוכנה אחרת וההבדל משמעותי. הכל אינטואיטיבי, מהיר ופשוט להפליא."</p>
+          <p class="testimonial-text">"שירות אמין ומקצועי. ביצעו עבורנו עבודות עפר והכנת תשתיות בצורה מושלמת. ממליץ בחום!"</p>
           <div class="testimonial-author">
             <div class="testimonial-avatar">דב</div>
-            <div class="testimonial-info">
-              <h4>דוד ברק</h4>
-              <span>יועץ עסקי</span>
-            </div>
+            <div class="testimonial-info"><h4>דוד ברק</h4><span>מהנדס אזרחי</span></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="cta" id="contact">
+  <!-- FAQ -->
+  <section class="faq" id="faq">
     <div class="container">
-      <div class="cta-content">
-        <h2>מוכנים להתחיל?</h2>
-        <p>הצטרפו לאלפי העסקים שכבר מפיקים חשבוניות בקלות עם חשבונית פלוס. התחילו היום - בחינם!</p>
-        <div class="cta-buttons">
-          <a href="#" class="btn btn-primary">
-            התחל תקופת ניסיון חינם
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="19" y1="12" x2="5" y2="12"></line>
-              <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
-          </a>
-          <a href="#" class="btn btn-secondary">דבר עם נציג</a>
+      <div class="section-header">
+        <span class="section-tag">שאלות נפוצות</span>
+        <h2>שאלות נפוצות</h2>
+        <p>תשובות לשאלות שמרבית הלקוחות שואלים</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">כמה זמן לוקח לבצע קידוח כלונסאות?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div><div class="faq-answer"><div class="faq-answer-inner">משך הזמן משתנה בהתאם לקוטר, לעומק ולסוג הקרקע. יש קידוחים שיכולים לקחת כחצי שעה בלבד, ואחרים עשויים להימשך שעה ואף יותר - במיוחד בקרקע קשה או בעומקים גדולים. לכן לא ניתן לקבוע זמן מדויק מראש, אך לאחר בדיקת האתר ניתן להעריך את משך העבודה בצורה מדויקת יותר.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">מה ההבדל בין בנטונייט לפולימר בקידוחים?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div><div class="faq-answer"><div class="faq-answer-inner">בנטונייט הוא חומר טבעי המבוסס על חימר, המשמש לתמיכה בדפנות הקידוח ולמניעת קריסת קרקע. פולימר הוא חומר מתקדם יותר, המשמש בעיקר בקידוחים רגישים - כמו בארות מים או במקומות בהם רוצים למנוע חדירה או ערבוב עם מי התהום. לרשותנו תחנת בנטונייט ניידת לאספקה רציפה בפרויקטים גדולים, וכן ציוד ייעודי לשימוש בפולימר במידת הצורך.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">מה היתרונות בעבודה עם תחנת בנטונייט ניידת?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div><div class="faq-answer"><div class="faq-answer-inner">תחנת בנטונייט ניידת מתאימה במיוחד לפרויקטים שדורשים אספקה רציפה וכמות גדולה של בנטונייט לאורך כל שלבי העבודה. יתרונה המרכזי הוא בכך שהיא מאפשרת אספקה רציפה של חומר, יחד עם מחזור וסינון של הבנטונייט לאחר השימוש, כך שהחומר חוזר למיכל וניתן להשתמש בו שוב - מה שמייעל את העבודה, חוסך זמן ועלויות, ומבטיח איכות אחידה בכל הקידוחים. לעומת זאת, מכלית בנטונייט מיועדת לרוב לעבודות קטנות יותר, כמו קידוחים בווילות או במקומות שבהם אין צורך בכמות גדולה של חומר.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">מה נדרש כדי לבצע הריסת מבנה?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div><div class="faq-answer"><div class="faq-answer-inner">הריסת מבנים היא עבודה מסוכנת הדורשת אישורים מיוחדים ותיאום עם הרשויות. האחריות לקבלת האישורים והיתרי ההריסה נמצאת בדרך כלל בידי היזם או הקבלן הראשי, כחלק מתהליך קבלת היתר הבנייה. לאחר שהאישורים מתקבלים - אנו מבצעים את ההריסה בפועל, באופן מבוקר ובטיחותי, תוך פינוי מלא של הפסולת לאתר מורשה.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">לאן מפנים את פסולת הבניין?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div><div class="faq-answer"><div class="faq-answer-inner">אנחנו מפנים את כל פסולת הבניין אך ורק לאתרי הטמנה מורשים ומאושרים על ידי המשרד להגנת הסביבה. כל פינוי מלווה בתעודת הטמנה רשמית, וניתן גם אישור פינוי כחלק מתהליך קבלת היתר הבנייה. הפינוי מתבצע במהירות, בצורה מבוקרת ובציוד המתאים לסוג העבודה.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">איזה ציוד כבד ניתן להשכיר?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div><div class="faq-answer"><div class="faq-answer-inner">אנחנו מציעים השכרת ציוד מקצועי כולל מפעיל מוסמך ומנוסה: בובקט לעבודות עפר ופילוס שטח, מיני מחפרון לעבודה באזורים צרים, מחפרון להריסות קטנות ועבודות כלליות, מכונת קידוח לכלונסאות ובורות, ותחנת בנטונייט ניידת לפרויקטים רחבי היקף. הציוד מתוחזק באופן שוטף, מבוטח ובטיחותי לעבודה בכל סדר גודל.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">מה כולל שירות קידוחי בורות חלחול וניקוז?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div><div class="faq-answer"><div class="faq-answer-inner">אנחנו מבצעים קידוחי בורות חלחול וניקוז בהתאם לפרט הניקוז או החלחול שנקבע בתכנון. העבודה כוללת קידוח בעומקים הנדרשים, אספקת צנרת מתאימה והתקנה מלאה בשטח. העבודות מתבצעות עם ציוד מתקדם ובפיקוח צמוד, ומותאמות הן לבנייה פרטית והן למסחרית.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">האם אתם מבוטחים ומורשים?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div><div class="faq-answer"><div class="faq-answer-inner">בהחלט. אנחנו קבלן רשום מס' 36281 ומנהל עבודה מוסמך, בעלי כל הביטוחים והאישורים הנדרשים: ביטוח קבלנים צד ג', ביטוח על ציוד וכלי העבודה, רישיון עבודה בגובה ואישורים לעבודה בעבודות מסוכנות. אנו עובדים לפי כל תקני הבטיחות המחמירים בישראל.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">מהו אזור השירות שלכם?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div><div class="faq-answer"><div class="faq-answer-inner">אנחנו מספקים שירות בכל אזור המרכז והצפון - מתל אביב ועד חדרה, נתניה, קיסריה, הרצליה, ראשון לציון, פתח תקווה והסביבה. לפרויקטים גדולים ניתן להגיע גם לאזורים נוספים ברחבי הארץ.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">איך ניתן לקבל הצעת מחיר ראשונית?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div><div class="faq-answer"><div class="faq-answer-inner">אפשר לשלוח לנו תוכניות או סרטוט דרך הוואטסאפ או האימייל, ואנו נחזור עם הערכה מקצועית ומהירה. ניתן גם להתקשר ולתאר את הפרויקט, ונוכל לתת הערכה ראשונית ולתאם ביקור באתר לצורך הצעת מחיר מדויקת.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">האם אתם עובדים גם עם לקוחות פרטיים?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div><div class="faq-answer"><div class="faq-answer-inner">בהחלט! אנו עובדים הן עם לקוחות פרטיים והן עם קבלנים, חברות בניה וארגונים גדולים. אין פרויקט קטן מדי או גדול מדי - אנו מתאימים את עצמנו לכל סוג של עבודה, החל מבור חלחול בווילה פרטית ועד לפרויקטים גדולים של עשרות כלונסאות.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">כמה זמן לוקח לקבל הצעת מחיר?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div><div class="faq-answer"><div class="faq-answer-inner">לרוב אנו חוזרים עם הצעת מחיר תוך 24 שעות מרגע קבלת הפרטים. במקרים דחופים נוכל לתת מענה מהיר יותר, ולעיתים אפילו באותו יום. לפרויקטים מורכבים שדורשים סקר שטח, ניתן לתאם ביקור באתר ולהגיש הצעת מחיר מפורטת תוך מספר ימים.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">מה קורה אם יש שינויים בפרויקט באמצע העבודה?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div><div class="faq-answer"><div class="faq-answer-inner">שינויים הם דבר שבשגרה בעבודות בניה. אנו עובדים בשקיפות מלאה ובתיאום הדוק עם הלקוח או הקבלן. במידה ויש שינוי בהיקף העבודה, נודיע מיד על ההשלכות על המחיר ועל לוח הזמנים, ונפעל לעדכון ההצעה בהתאם. מטרתנו היא לעבוד בצורה גמישה ומקצועית כדי להשלים את הפרויקט בהצלחה.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">האם יש אפשרות לתשלום בשלבים?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div><div class="faq-answer"><div class="faq-answer-inner">כן, ברוב המקרים אנו עובדים עם תשלום בשלבים בהתאם להתקדמות העבודה. אנו מבינים שכל פרויקט שונה ויש לו דרישות תזרימיות שונות, ולכן אנו גמישים ומתאימים את תנאי התשלום לכל לקוח. הפרטים המדויקים מוסדרים בהסכם בין הצדדים לפני תחילת העבודה.</div></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">מה עושים במקרה של תקלה או בעיה במהלך העבודה?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div><div class="faq-answer"><div class="faq-answer-inner">אמינות ושירות הם בראש סדר העדיפויות שלנו. במקרה נדיר של תקלה או בעיה - אנו זמינים לטיפול מיידי ופותרים כל בעיה במהירות המרבית. יש לנו צוות זמין לשירות ותמיכה, ואנו דואגים שהעבודה תושלם לשביעות רצונך המלאה. בנוסף, אנו מבוטחים במלואנו ועובדים תמיד לפי התקן ובבטיחות מלאה.</div></div></div>
+      </div>
+      <!-- FAQ CTA -->
+      <div class="cta-section" style="background: transparent; padding: 60px 0 0;">
+        <div class="cta-content">
+          <h2 style="font-size: 1.8rem;">לא מצאת את התשובה שחיפשת?</h2>
+          <p>נשמח לענות על כל שאלה נוספת ולסייע לך במידע שתצטרך</p>
+          <div class="cta-buttons">
+            <a href="tel:0529556123" class="btn btn-primary">התקשר עכשיו</a>
+            <a href="https://wa.me/972529556123" class="btn btn-whatsapp">שלח הודעה בוואטסאפ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">צור קשר</span>
+        <h2>צרו קשר עוד היום</h2>
+        <p>מוזמנים לפנות אלינו לכל שאלה או בקשה להצעת מחיר</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-item-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></div>
+            <div><h4>טלפון</h4><a href="tel:0529556123">052-9556123</a></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
+            <div><h4>אימייל</h4><a href="mailto:eliav1334@gmail.com">eliav1334@gmail.com</a></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+            <div><h4>שעות פעילות</h4><p>ראשון-חמישי 07:00-19:00</p><p style="font-size:0.85rem;">(לא כולל שישי וחגים)</p></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+            <div><h4>כתובת</h4><p>אליכין ת.ד 262</p></div>
+          </div>
+        </div>
+        <div class="contact-form">
+          <h3>שלחו לנו הודעה</h3>
+          <form>
+            <div class="form-group">
+              <label>שם מלא *</label>
+              <input type="text" placeholder="הכנס שם מלא" required>
+            </div>
+            <div class="form-group">
+              <label>טלפון *</label>
+              <input type="tel" placeholder="הכנס מספר טלפון" required>
+            </div>
+            <div class="form-group">
+              <label>אימייל</label>
+              <input type="email" placeholder="הכנס כתובת אימייל">
+            </div>
+            <div class="form-group">
+              <label>סוג שירות</label>
+              <select>
+                <option value="">בחר סוג שירות</option>
+                <option value="drilling">קידוחי כלונסאות</option>
+                <option value="earthwork">עבודות עפר וחפירות</option>
+                <option value="demolition">הריסת מבנים</option>
+                <option value="waste">פינוי פסולת בניין</option>
+                <option value="infrastructure">פיתוח תשתיות</option>
+                <option value="equipment">השכרת ציוד כבד</option>
+                <option value="other">אחר</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>הודעה</label>
+              <textarea placeholder="ספר לנו על הפרויקט שלך..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">שלח הודעה</button>
+          </form>
         </div>
       </div>
     </div>
@@ -1598,78 +697,44 @@
   <!-- Footer -->
   <footer>
     <div class="container">
-      <div class="footer-grid">
+      <div class="footer-content">
         <div class="footer-brand">
           <div class="logo">
             <div class="logo-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <path d="M2 20h20"></path><path d="M5 20V8l7-5 7 5v12"></path><path d="M9 20v-6h6v6"></path>
               </svg>
             </div>
-            חשבונית פלוס
+            אליאב קידוחים ופיתוח
           </div>
-          <p>מערכת מתקדמת להפקת חשבוניות וניהול עסק. פשוט, מהיר ומקצועי.</p>
-          <div class="footer-social">
-            <a href="#">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-              </svg>
-            </a>
-            <a href="#">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-              </svg>
-            </a>
-            <a href="#">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.757-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
-              </svg>
-            </a>
-            <a href="#">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-            </a>
+          <p>קבלן רשום 36281. מתמחים בקידוחי כלונסאות, עבודות עפר, הריסת מבנים, פינוי פסולת ופיתוח תשתיות. שירות מקצועי בכל רחבי המרכז והצפון.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>שירותים</h4>
+            <ul>
+              <li><a href="#services">קידוחי כלונסאות</a></li>
+              <li><a href="#services">עבודות עפר</a></li>
+              <li><a href="#services">הריסת מבנים</a></li>
+              <li><a href="#services">פינוי פסולת</a></li>
+              <li><a href="#services">פיתוח תשתיות</a></li>
+              <li><a href="#services">השכרת ציוד</a></li>
+            </ul>
           </div>
-        </div>
-        <div class="footer-column">
-          <h4>מוצר</h4>
-          <ul>
-            <li><a href="#">תכונות</a></li>
-            <li><a href="#">מחירים</a></li>
-            <li><a href="#">אינטגרציות</a></li>
-            <li><a href="#">עדכונים</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h4>חברה</h4>
-          <ul>
-            <li><a href="#">אודות</a></li>
-            <li><a href="#">בלוג</a></li>
-            <li><a href="#">קריירה</a></li>
-            <li><a href="#">צור קשר</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h4>תמיכה</h4>
-          <ul>
-            <li><a href="#">מרכז עזרה</a></li>
-            <li><a href="#">שאלות נפוצות</a></li>
-            <li><a href="#">וובינרים</a></li>
-            <li><a href="#">סטטוס מערכת</a></li>
-          </ul>
+          <div class="footer-column">
+            <h4>ניווט מהיר</h4>
+            <ul>
+              <li><a href="#why-us">למה אנחנו</a></li>
+              <li><a href="#gallery">גלריה</a></li>
+              <li><a href="#areas">אזורי שירות</a></li>
+              <li><a href="#faq">שאלות נפוצות</a></li>
+              <li><a href="#contact">צור קשר</a></li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2024 חשבונית פלוס. כל הזכויות שמורות.</p>
-        <div class="footer-bottom-links">
-          <a href="#">תנאי שימוש</a>
-          <a href="#">מדיניות פרטיות</a>
-          <a href="#">נגישות</a>
-        </div>
+        <p>&copy; 2025 אליאב קידוחים ופיתוח. כל הזכויות שמורות. | קבלן רשום 36281</p>
       </div>
     </div>
   </footer>
@@ -1678,33 +743,48 @@
     // Header scroll effect
     window.addEventListener('scroll', () => {
       const header = document.querySelector('header');
-      if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
+      header.classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // Smooth scroll for anchor links
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+      anchor.addEventListener('click', function(e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
 
-    // Intersection Observer for animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
+    // Toggle service details
+    function toggleService(card) {
+      const details = card.querySelector('.service-details');
+      details.classList.toggle('open');
+    }
 
+    // Toggle why card text
+    function toggleWhy(card) {
+      const p = card.querySelector('p');
+      p.classList.toggle('open');
+    }
+
+    // Toggle FAQ
+    function toggleFaq(question) {
+      const item = question.parentElement;
+      const answer = item.querySelector('.faq-answer');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-answer').style.maxHeight = '0';
+      });
+      // Open clicked if was closed
+      if (!isOpen) {
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    }
+
+    // Intersection Observer for animations
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -1712,10 +792,9 @@
           entry.target.style.transform = 'translateY(0)';
         }
       });
-    }, observerOptions);
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-    // Observe all cards and sections
-    document.querySelectorAll('.feature-card, .step-card, .pricing-card, .testimonial-card').forEach(el => {
+    document.querySelectorAll('.service-card, .why-card, .testimonial-card, .area-tag, .faq-item').forEach(el => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(30px)';
       el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
