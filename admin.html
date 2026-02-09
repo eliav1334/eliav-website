@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>פאנל ניהול תמונות - א.א. קידוחים</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+      background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Login Screen */
+    .login-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+    }
+
+    .login-box {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-box h1 {
+      color: #0F172A;
+      margin-bottom: 10px;
+      font-size: 1.75rem;
+    }
+
+    .login-box p {
+      color: #64748b;
+      margin-bottom: 30px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #0F172A;
+      font-weight: 600;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: #FF6B35;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #FF6B35 0%, #FF5722 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .error-message {
+      background: #fee;
+      color: #c33;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    /* Admin Panel */
+    .admin-panel {
+      display: none;
+    }
+
+    .header {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .header h1 {
+      color: #0F172A;
+      font-size: 1.5rem;
+    }
+
+    .header button {
+      background: #e2e8f0;
+      color: #0F172A;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .upload-section {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .upload-btn {
+      background: linear-gradient(135deg, #FF6B35 0%, #FF5722 100%);
+      color: white;
+      padding: 16px 40px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .gallery-section {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .gallery-section h2 {
+      color: #0F172A;
+      margin-bottom: 20px;
+    }
+
+    .images-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .image-card {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .image-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .image-card .delete-btn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255,0,0,0.9);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .image-card:hover .delete-btn {
+      opacity: 1;
+    }
+
+    .image-info {
+      padding: 10px;
+      background: #f8f9fa;
+    }
+
+    .image-info p {
+      font-size: 0.875rem;
+      color: #64748b;
+      margin: 0;
+      word-break: break-all;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #64748b;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+      <div class="login-box">
+        <h1>🔐 כניסה לפאנל ניהול</h1>
+        <p>הזן סיסמה לניהול תמונות האתר</p>
+        <div class="error-message" id="errorMessage">
+          סיסמה שגויה, נסה שוב
+        </div>
+        <form id="loginForm">
+          <div class="input-group">
+            <label>סיסמה</label>
+            <input type="password" id="password" placeholder="הזן סיסמה" required>
+          </div>
+          <button type="submit" class="btn">כניסה לפאנל</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+      <div class="header">
+        <h1>📸 פאנל ניהול תמונות</h1>
+        <button onclick="logout()">יציאה</button>
+      </div>
+
+      <div class="upload-section">
+        <h2 style="color: #0F172A; margin-bottom: 20px;">העלאת תמונות חדשות</h2>
+        <p style="color: #64748b; margin-bottom: 30px;">לחץ על הכפתור להעלאת תמונות לגלריה</p>
+        <button class="upload-btn" onclick="openUploadWidget()">
+          <span>📤</span>
+          העלה תמונות
+        </button>
+      </div>
+
+      <div class="gallery-section">
+        <h2>גלריית התמונות שלך</h2>
+        <div class="loading" id="loading">טוען תמונות...</div>
+        <div class="images-grid" id="imagesGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cloudinary Upload Widget Script -->
+  <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
+
+  <script>
+    // ===== CONFIG =====
+    const ADMIN_PASSWORD = 'eliav2026'; // שנה את הסיסמה כאן!
+    const CLOUDINARY_CLOUD_NAME = 'YOUR_CLOUD_NAME'; // תכניס את ה-Cloud Name שלך
+    const CLOUDINARY_UPLOAD_PRESET = 'YOUR_UPLOAD_PRESET'; // תכניס את ה-Upload Preset שלך
+
+    // ===== LOGIN SYSTEM =====
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const password = document.getElementById('password').value;
+
+      if (password === ADMIN_PASSWORD) {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'block';
+        sessionStorage.setItem('isLoggedIn', 'true');
+        loadImages();
+      } else {
+        document.getElementById('errorMessage').style.display = 'block';
+      }
+    });
+
+    function logout() {
+      sessionStorage.removeItem('isLoggedIn');
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('adminPanel').style.display = 'none';
+      document.getElementById('password').value = '';
+    }
+
+    // Check if already logged in
+    if (sessionStorage.getItem('isLoggedIn') === 'true') {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminPanel').style.display = 'block';
+      loadImages();
+    }
+
+    // ===== CLOUDINARY UPLOAD =====
+    function openUploadWidget() {
+      cloudinary.openUploadWidget({
+        cloudName: CLOUDINARY_CLOUD_NAME,
+        uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+        sources: ['local', 'url', 'camera'],
+        multiple: true,
+        maxFiles: 10,
+        resourceType: 'image',
+        clientAllowedFormats: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
+        maxFileSize: 10000000, // 10MB
+        folder: 'eliav-gallery',
+        language: 'he',
+        text: {
+          he: {
+            or: 'או',
+            back: 'חזור',
+            advanced: 'מתקדם',
+            close: 'סגור',
+            no_results: 'אין תוצאות',
+            search_placeholder: 'חפש קבצים',
+            about_uw: 'אודות ווידג\'ט ההעלאה',
+            menu: {
+              files: 'קבצים שלי',
+              web: 'כתובת אינטרנט',
+              camera: 'מצלמה'
+            }
+          }
+        }
+      }, (error, result) => {
+        if (!error && result && result.event === "success") {
+          console.log('תמונה הועלתה בהצלחה!', result.info);
+          loadImages(); // Reload images after upload
+        }
+      });
+    }
+
+    // ===== LOAD IMAGES FROM CLOUDINARY =====
+    async function loadImages() {
+      const grid = document.getElementById('imagesGrid');
+      const loading = document.getElementById('loading');
+
+      // Note: בגרסה מלאה, תצטרך API endpoint לטעינת התמונות
+      // כרגע נציג דוגמה סטטית
+
+      loading.style.display = 'block';
+      grid.innerHTML = '';
+
+      // דוגמה - תחליף בקריאה אמיתית ל-API
+      setTimeout(() => {
+        loading.style.display = 'none';
+        grid.innerHTML = `
+          <div class="image-card">
+            <button class="delete-btn" onclick="deleteImage('example1')">🗑️ מחק</button>
+            <img src="https://via.placeholder.com/300x200?text=Example+1" alt="Example 1">
+            <div class="image-info">
+              <p>example-image-1.jpg</p>
+            </div>
+          </div>
+          <div style="padding: 40px; text-align: center; grid-column: 1/-1; color: #64748b;">
+            <p>לאחר הגדרת Cloudinary, התמונות שלך יופיעו כאן</p>
+            <p style="margin-top: 10px; font-size: 0.875rem;">עקוב אחר ההוראות למטה להשלמת ההגדרה</p>
+          </div>
+        `;
+      }, 1000);
+    }
+
+    // ===== DELETE IMAGE =====
+    function deleteImage(imageId) {
+      if (confirm('האם אתה בטוח שברצונך למחוק תמונה זו?')) {
+        console.log('מוחק תמונה:', imageId);
+        // כאן תוסיף קוד למחיקה בפועל דרך Cloudinary API
+        loadImages();
+      }
+    }
+  </script>
+
+  <!-- Instructions Comment -->
+  <!--
+  🎯 הוראות להשלמת ההגדרה:
+
+  1. הירשם ל-Cloudinary (חינם):
+     - גש ל: https://cloudinary.com/users/register/free
+     - הירשם עם אימייל
+
+  2. קבל את פרטי החשבון:
+     - היכנס ל-Dashboard
+     - העתק את ה-"Cloud Name"
+
+  3. צור Upload Preset:
+     - Settings → Upload → Upload Presets
+     - לחץ "Add upload preset"
+     - שם: eliav-gallery
+     - Signing Mode: "Unsigned"
+     - Folder: eliav-gallery
+     - שמור
+
+  4. עדכן את הקובץ:
+     - החלף YOUR_CLOUD_NAME ב-Cloud Name שלך
+     - החלף YOUR_UPLOAD_PRESET ב: eliav-gallery
+     - שנה את ADMIN_PASSWORD לסיסמה שלך
+
+  5. פרסם באתר:
+     - העלה את admin.html לשרת
+     - גש לכתובת: https://your-site.com/admin.html
+
+  🔒 אבטחה:
+  - שנה את הסיסמה הדיפולטיבית!
+  - אל תשתף את הקישור לדף Admin
+  -->
+</body>
+</html>

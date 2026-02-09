@@ -3,203 +3,2027 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>אליאב קידוחים ופיתוח | קידוחי כלונסאות, עבודות עפר ופיתוח תשתיות</title>
-  <meta name="description" content="אליאב קידוחים ופיתוח - מעל 10 שנות ניסיון בקידוחי כלונסאות, עבודות עפר, הריסת מבנים, פינוי פסולת ופיתוח תשתיות. קבלן רשום 36281.">
+  <title>א.א. עבודות קידוחים ופיתוח | קידוחי כלונסאות, עבודות עפר ופיתוח תשתיות</title>
+  <meta name="description" content="א.א. עבודות קידוחים ופיתוח - מעל 10 שנות ניסיון בקידוחי כלונסאות, עבודות עפר, הריסת מבנים, פינוי פסולת ופיתוח תשתיות. קבלן רשום 36281.">
+  <meta name="keywords" content="קידוחי כלונסאות, עבודות עפר, הריסת מבנים, פינוי פסולת, פיתוח תשתיות, השכרת ציוד כבד, קבלן רשום">
+  <meta name="author" content="א.א. עבודות קידוחים ופיתוח">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="א.א. עבודות קידוחים ופיתוח | קבלן רשום 36281">
+  <meta property="og:description" content="מעל 10 שנות ניסיון בקידוחי כלונסאות, עבודות עפר, הריסת מבנים ופיתוח תשתיות. שירות מקצועי בכל המרכז והצפון.">
+  <meta property="og:url" content="https://eliav-website.vercel.app">
+  <meta property="og:site_name" content="א.א. עבודות קידוחים ופיתוח">
+  <meta property="og:locale" content="he_IL">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="א.א. עבודות קידוחים ופיתוח">
+  <meta name="twitter:description" content="מעל 10 שנות ניסיון בקידוחי כלונסאות, עבודות עפר והריסת מבנים">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23F97316'/%3E%3Cpath d='M20 70h60M35 70V38l15-13 15 13v32M50 70V50h10v20' stroke='white' stroke-width='4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23F97316'/%3E%3Cpath d='M20 70h60M35 70V38l15-13 15 13v32M50 70V50h10v20' stroke='white' stroke-width='4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Google Analytics - Replace YOUR_GA_ID with your actual Google Analytics ID -->
+  <!--
+  <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'YOUR_GA_ID');
+  </script>
+  -->
+
   <style>
     :root {
-      --primary: #F97316;
-      --primary-dark: #EA580C;
-      --primary-light: #FDBA74;
-      --secondary: #1E293B;
-      --secondary-light: #334155;
-      --text-dark: #0F172A;
-      --text-gray: #64748B;
-      --text-light: #94A3B8;
+      /* ===== DESIGN TOKENS ===== */
+
+      /* Primary - CTA & Actions (Professional Blue) */
+      --primary: #0073a8;
+      --primary-dark: #005075;
+      --primary-light: #3399cc;
+      --primary-alpha-10: rgba(0, 115, 168, 0.1);
+      --primary-alpha-20: rgba(0, 115, 168, 0.2);
+
+      /* Dark - Hero, Footer, Headers */
+      --dark: #0F172A;
+      --dark-secondary: #1E293B;
+      --dark-tertiary: #334155;
+
+      /* Secondary - Cards, Frames, Backgrounds */
+      --secondary-bg: #F1F5F9;
+      --secondary-border: #CBD5E1;
+      --secondary-text: #475569;
+
+      /* Neutral - General BG */
+      --neutral-50: #FAFAFA;
+      --neutral-100: #F5F5F5;
+      --neutral-200: #E5E5E5;
+      --neutral-300: #D4D4D4;
+
+      /* Success - Trust, Security, Approvals */
+      --success: #059669;
+      --success-light: #10B981;
+      --success-bg: #ECFDF5;
+
+      /* Text Hierarchy */
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-tertiary: #64748B;
+      --text-muted: #94A3B8;
+
+      /* Backgrounds */
+      --bg-white: #FFFFFF;
       --bg-light: #F8FAFC;
-      --bg-cream: #FFF7ED;
-      --white: #FFFFFF;
-      --border: #E2E8F0;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
-      --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
-      --radius-sm: 6px;
+      --bg-cream: #F0F8FF;
+
+      /* Borders */
+      --border-light: #F1F5F9;
+      --border-default: #E2E8F0;
+      --border-strong: #CBD5E1;
+
+      /* Shadows - Enhanced Depth */
+      --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.04);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.06);
+      --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.12), 0 8px 10px -6px rgba(0,0,0,0.08);
+      --shadow-2xl: 0 25px 50px -12px rgba(0,0,0,0.25);
+      --shadow-primary: 0 8px 16px rgba(0, 115, 168, 0.25);
+      --shadow-primary-lg: 0 12px 24px rgba(0, 115, 168, 0.35);
+
+      /* Border Radius */
+      --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
-      --radius-xl: 24px;
+      --radius-xl: 20px;
+      --radius-2xl: 24px;
+
+      /* Spacing */
+      --space-xs: 8px;
+      --space-sm: 12px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
     }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Heebo', sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--white); overflow-x: hidden; }
-    h1, h2, h3, h4, h5, h6 { font-family: 'Rubik', sans-serif; font-weight: 700; line-height: 1.2; }
-    h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
-    h2 { font-size: clamp(2rem, 4vw, 2.75rem); }
-    h3 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
-    p { color: var(--text-gray); font-size: 1.05rem; }
-    a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 32px; font-family: 'Heebo', sans-serif; font-size: 1rem; font-weight: 600; border-radius: var(--radius-md); border: none; cursor: pointer; transition: all 0.3s ease; }
-    .btn-primary { background: var(--primary); color: var(--white); box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4); }
-    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.5); }
-    .btn-secondary { background: var(--white); color: var(--text-dark); border: 2px solid var(--border); }
-    .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
-    .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
-    .btn-outline:hover { background: var(--primary); color: var(--white); }
-    .btn-whatsapp { background: #25D366; color: var(--white); }
-    .btn-whatsapp:hover { background: #1ea952; transform: translateY(-2px); }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-    /* HEADER */
-    header { position: fixed; top: 0; right: 0; left: 0; z-index: 1000; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); transition: all 0.3s ease; }
-    header.scrolled { box-shadow: var(--shadow-md); }
-    .header-inner { display: flex; align-items: center; justify-content: space-between; height: 80px; }
-    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 1.5rem; color: var(--primary); }
-    .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; }
-    nav { display: flex; align-items: center; gap: 32px; }
-    nav a { font-weight: 500; color: var(--text-gray); position: relative; padding: 8px 0; }
-    nav a::after { content: ''; position: absolute; bottom: 0; right: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s ease; }
-    nav a:hover { color: var(--text-dark); }
-    nav a:hover::after { width: 100%; }
-    .header-cta { display: flex; align-items: center; gap: 12px; }
-    .mobile-menu { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 10px; }
-    .mobile-menu span { width: 25px; height: 3px; background: var(--text-dark); border-radius: 2px; transition: all 0.3s ease; }
+    body {
+      font-family: 'Heebo', sans-serif;
+      color: var(--text-primary);
+      line-height: 1.7;
+      background: var(--bg-white);
+      overflow-x: hidden;
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-    /* HERO */
-    .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 80px; background: linear-gradient(135deg, var(--secondary) 0%, #0F172A 100%); position: relative; overflow: hidden; }
-    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.5; }
-    .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
-    .hero-text { color: var(--white); }
-    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(249,115,22,0.2); color: var(--primary-light); padding: 8px 16px; border-radius: 50px; font-size: 0.9rem; font-weight: 500; margin-bottom: 24px; border: 1px solid rgba(249,115,22,0.3); }
-    .hero h1 { margin-bottom: 24px; background: linear-gradient(135deg, var(--white) 0%, var(--text-light) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .hero p { color: var(--text-light); font-size: 1.2rem; margin-bottom: 32px; max-width: 500px; }
-    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
-    .hero-trust { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 24px; }
-    .hero-trust span { color: var(--text-light); font-size: 0.9rem; display: flex; align-items: center; gap: 6px; }
-    .hero-trust svg { color: var(--primary); width: 18px; height: 18px; }
-    .hero-stats { display: flex; gap: 40px; margin-top: 32px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.1); }
-    .stat { text-align: center; }
-    .stat-number { font-family: 'Rubik', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--primary); }
-    .stat-label { color: var(--text-light); font-size: 0.9rem; }
-    .hero-image { position: relative; }
-    .hero-image-wrapper { position: relative; border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-xl); }
-    .hero-image img { width: 100%; height: auto; display: block; }
-    .hero-image-overlay { position: absolute; bottom: -20px; right: -20px; background: var(--white); padding: 20px 24px; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 16px; }
-    .overlay-icon { width: 50px; height: 50px; background: var(--bg-cream); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.5rem; }
-    .overlay-text h4 { font-size: 1rem; color: var(--text-dark); margin-bottom: 4px; }
-    .overlay-text span { color: var(--text-gray); font-size: 0.85rem; }
+    /* Typography Hierarchy - Enhanced */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Rubik', sans-serif;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
 
-    /* SECTION COMMON */
-    .section-header { text-align: center; max-width: 700px; margin: 0 auto 60px; }
-    .section-tag { display: inline-block; background: var(--bg-cream); color: var(--primary); padding: 8px 16px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; margin-bottom: 16px; }
-    .section-header h2 { margin-bottom: 16px; color: var(--text-dark); }
+    h1 {
+      font-size: clamp(3.25rem, 7vw, 5rem);
+      font-weight: 800;
+      line-height: 1.1;
+    }
 
-    /* SERVICES */
-    .services { padding: 100px 0; background: var(--white); }
-    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-    .service-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; transition: all 0.3s ease; position: relative; overflow: hidden; cursor: pointer; }
-    .service-card::before { content: ''; position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: var(--bg-cream); border-radius: 0 0 0 100%; opacity: 0; transition: opacity 0.3s ease; }
-    .service-card:hover { border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
-    .service-card:hover::before { opacity: 1; }
-    .service-icon { width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.5rem; margin-bottom: 20px; position: relative; z-index: 1; }
-    .service-card h3 { margin-bottom: 12px; color: var(--text-dark); }
-    .service-card > p { font-size: 0.95rem; line-height: 1.7; }
-    .service-details { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
-    .service-details.open { max-height: 600px; }
-    .service-details ul { list-style: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
-    .service-details li { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; color: var(--text-gray); font-size: 0.93rem; }
-    .service-details li svg { width: 20px; height: 20px; color: var(--primary); flex-shrink: 0; margin-top: 2px; }
-    .service-toggle { display: inline-flex; align-items: center; gap: 6px; color: var(--primary); font-weight: 600; font-size: 0.9rem; margin-top: 12px; cursor: pointer; }
+    h2 {
+      font-size: clamp(2.5rem, 5vw, 3.75rem);
+      font-weight: 700;
+      margin-bottom: var(--space-md);
+    }
 
-    /* WHY US */
-    .why-us { padding: 100px 0; background: var(--bg-light); }
-    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-    .why-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; transition: all 0.3s ease; cursor: pointer; }
-    .why-card:hover { border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
-    .why-card.featured { border: 2px solid var(--primary); background: var(--bg-cream); }
-    .why-icon { width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.5rem; margin-bottom: 20px; }
-    .why-card h3 { margin-bottom: 12px; }
-    .why-card p { font-size: 0.95rem; line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
-    .why-card p.open { max-height: 200px; }
+    h3 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
 
-    /* GALLERY */
-    .gallery { padding: 100px 0; background: var(--white); }
-    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .gallery-placeholder { background: var(--bg-light); border: 2px dashed var(--border); border-radius: var(--radius-lg); height: 250px; display: flex; align-items: center; justify-content: center; color: var(--text-light); font-size: 1.1rem; }
+    h4 {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
 
-    /* SERVICE AREAS */
-    .areas { padding: 100px 0; background: var(--bg-light); }
-    .areas-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 800px; margin: 0 auto 40px; }
-    .area-tag { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px 20px; text-align: center; font-weight: 500; transition: all 0.3s ease; }
-    .area-tag:hover { border-color: var(--primary); color: var(--primary); box-shadow: var(--shadow-sm); }
-    .areas-note { text-align: center; background: var(--bg-cream); padding: 20px; border-radius: var(--radius-md); max-width: 600px; margin: 0 auto; }
-    .areas-note p { color: var(--text-dark); font-weight: 500; }
-    .areas-note span { color: var(--text-gray); font-size: 0.95rem; }
+    p {
+      color: var(--text-secondary);
+      font-size: 1.0625rem;
+      line-height: 1.75;
+      font-weight: 400;
+    }
 
-    /* TESTIMONIALS */
-    .testimonials { padding: 100px 0; background: var(--white); }
-    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-    .testimonial-card { background: var(--white); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
-    .testimonial-rating { display: flex; gap: 4px; margin-bottom: 16px; }
-    .testimonial-rating svg { width: 20px; height: 20px; color: #FBBF24; fill: #FBBF24; }
-    .testimonial-text { font-size: 1rem; line-height: 1.8; margin-bottom: 24px; color: var(--text-dark); }
-    .testimonial-author { display: flex; align-items: center; gap: 16px; }
-    .testimonial-avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 700; font-size: 1.2rem; }
-    .testimonial-info h4 { font-size: 1rem; margin-bottom: 4px; }
-    .testimonial-info span { color: var(--text-gray); font-size: 0.85rem; }
+    strong { font-weight: 600; color: var(--text-primary); }
+    a { text-decoration: none; color: inherit; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
 
-    /* FAQ */
-    .faq { padding: 100px 0; background: var(--bg-light); }
-    .faq-list { max-width: 800px; margin: 0 auto; }
-    .faq-item { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); margin-bottom: 12px; overflow: hidden; }
-    .faq-question { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; cursor: pointer; font-weight: 600; font-size: 1.05rem; color: var(--text-dark); transition: color 0.2s; }
-    .faq-question:hover { color: var(--primary); }
-    .faq-question svg { width: 20px; height: 20px; transition: transform 0.3s ease; flex-shrink: 0; margin-right: 12px; }
-    .faq-item.open .faq-question svg { transform: rotate(180deg); }
-    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-    .faq-answer-inner { padding: 0 24px 20px; color: var(--text-gray); line-height: 1.8; font-size: 0.98rem; }
+    /* ===== BUTTONS - CTA SYSTEM ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 36px;
+      font-family: 'Heebo', sans-serif;
+      font-size: 1.0625rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+    }
 
-    /* CTA */
-    .cta-section { padding: 80px 0; background: var(--bg-cream); position: relative; overflow: hidden; }
-    .cta-section::before { content: ''; position: absolute; top: -50%; left: -20%; width: 500px; height: 500px; background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%); opacity: 0.3; }
-    .cta-content { text-align: center; max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
-    .cta-content h2 { margin-bottom: 16px; }
-    .cta-content > p { font-size: 1.1rem; margin-bottom: 28px; }
-    .cta-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    /* Primary CTA - Main Action (Bold Orange) */
+    .btn-primary {
+      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+      color: var(--bg-white);
+      box-shadow: 0 8px 16px rgba(255, 107, 53, 0.3);
+      border: 2px solid #FF6B35;
+      font-weight: 700;
+    }
 
-    /* CONTACT */
-    .contact { padding: 100px 0; background: linear-gradient(135deg, var(--secondary) 0%, #0F172A 100%); }
-    .contact .section-header h2, .contact .section-header p { color: var(--white); }
-    .contact .section-tag { background: rgba(249,115,22,0.2); color: var(--primary-light); }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
-    .contact-info { color: var(--white); }
-    .contact-item { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 28px; }
-    .contact-item-icon { width: 50px; height: 50px; background: rgba(249,115,22,0.15); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--primary); flex-shrink: 0; }
-    .contact-item h4 { color: var(--white); font-size: 1rem; margin-bottom: 4px; }
-    .contact-item p, .contact-item a { color: var(--text-light); font-size: 0.95rem; }
-    .contact-item a:hover { color: var(--primary); }
-    .contact-form { background: var(--white); border-radius: var(--radius-xl); padding: 40px; }
-    .contact-form h3 { margin-bottom: 24px; text-align: center; }
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; font-weight: 500; margin-bottom: 6px; font-size: 0.95rem; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-family: 'Heebo', sans-serif; font-size: 1rem; transition: border-color 0.2s; }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); }
-    .form-group textarea { resize: vertical; min-height: 100px; }
-    .contact-form .btn { width: 100%; margin-top: 8px; }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #E55A2B 0%, #E08018 100%);
+      box-shadow: 0 12px 24px rgba(255, 107, 53, 0.4);
+      transform: translateY(-3px);
+      border-color: #E55A2B;
+    }
 
-    /* FOOTER */
-    footer { background: var(--secondary); color: var(--white); padding: 60px 0 30px; }
-    .footer-content { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 40px; margin-bottom: 40px; }
-    .footer-brand .logo { margin-bottom: 16px; }
-    .footer-brand p { color: var(--text-light); font-size: 0.95rem; max-width: 300px; }
-    .footer-links { display: flex; gap: 60px; }
-    .footer-column h4 { font-size: 1.1rem; margin-bottom: 16px; color: var(--white); }
-    .footer-column ul { list-style: none; }
-    .footer-column ul li { margin-bottom: 10px; }
-    .footer-column ul li a { color: var(--text-light); font-size: 0.95rem; }
-    .footer-column ul li a:hover { color: var(--primary); }
-    .footer-bottom { padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
-    .footer-bottom p { color: var(--text-light); font-size: 0.9rem; }
+    .btn-primary:active {
+      transform: translateY(-1px);
+    }
+
+    /* Secondary CTA - Neutral */
+    .btn-secondary {
+      background: var(--bg-white);
+      color: var(--text-primary);
+      border: 2px solid var(--border-strong);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    /* Outline CTA - Tertiary */
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      box-shadow: none;
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: var(--bg-white);
+      box-shadow: var(--shadow-primary);
+      transform: translateY(-2px);
+    }
+
+    /* WhatsApp CTA */
+    .btn-whatsapp {
+      background: #25D366;
+      color: var(--bg-white);
+      border: 2px solid #25D366;
+      box-shadow: 0 6px 16px rgba(37, 211, 102, 0.3);
+    }
+
+    .btn-whatsapp:hover {
+      background: #1ea952;
+      border-color: #1ea952;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+      transform: translateY(-3px);
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+    /* ===== HEADER - ENHANCED ===== */
+    header {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--border-light);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    header.scrolled {
+      box-shadow: var(--shadow-lg);
+      border-bottom-color: var(--border-default);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Rubik', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--bg-white);
+      font-size: 1.2rem;
+      box-shadow: var(--shadow-primary);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    nav a {
+      font-weight: 600;
+      color: var(--text-secondary);
+      position: relative;
+      padding: 8px 0;
+      font-size: 1rem;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    nav a:hover {
+      color: var(--primary);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .header-cta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Phone Number - Right Side */
+    .header-phone-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .phone-number-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.375rem;
+      font-weight: 700;
+      color: var(--primary);
+      padding: 12px 27px;
+      border: 2px solid var(--primary);
+      border-radius: var(--radius-md);
+      background: var(--primary-alpha-10);
+      transition: all 0.3s ease;
+    }
+
+    .phone-number-main:hover {
+      background: var(--primary);
+      color: var(--bg-white);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-primary);
+    }
+
+    .phone-number-main svg {
+      color: currentColor;
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 1001;
+      position: relative;
+    }
+
+    .mobile-menu span {
+      width: 25px;
+      height: 3px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .mobile-menu.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    .mobile-nav {
+      position: fixed;
+      top: 80px;
+      right: -100%;
+      width: 280px;
+      height: calc(100vh - 80px);
+      background: var(--bg-white);
+      box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+      transition: right 0.3s ease;
+      z-index: 999;
+      padding: 30px 20px;
+      overflow-y: auto;
+    }
+
+    .mobile-nav.active {
+      right: 0;
+    }
+
+    .mobile-nav a {
+      display: block;
+      padding: 15px 20px;
+      color: var(--text-primary);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-light);
+      transition: all 0.3s ease;
+    }
+
+    .mobile-nav a:hover {
+      background: var(--secondary-bg);
+      color: var(--primary);
+      padding-right: 30px;
+    }
+
+    .mobile-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 998;
+    }
+
+    .mobile-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* ===== HERO - STRENGTHENED ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      background: linear-gradient(135deg, var(--dark-secondary) 0%, var(--dark) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.6;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-text {
+      color: var(--bg-white);
+    }
+
+    /* Hero Badge - Enhanced */
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 107, 53, 0.25);
+      color: var(--bg-white);
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 1.0625rem;
+      font-weight: 700;
+      border: 2px solid rgba(255, 107, 53, 0.4);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 6px 16px rgba(255, 107, 53, 0.3);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .hero-badge svg {
+      color: #FFB74D;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    .hero-badge-payment {
+      background: var(--success-bg);
+      color: var(--success);
+      border-color: var(--success);
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+      animation: pulse-payment 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-payment {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+      }
+      50% {
+        transform: scale(1.02);
+        box-shadow: 0 6px 16px rgba(5, 150, 105, 0.3);
+      }
+    }
+
+    .hero-badge svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .hero-badge-payment svg {
+      color: var(--success);
+    }
+
+    /* H1 - Maximum Impact */
+    .hero h1 {
+      margin-bottom: 28px;
+      color: var(--bg-white);
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.1875rem;
+      margin-bottom: 36px;
+      max-width: 580px;
+      line-height: 1.75;
+      font-weight: 400;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-buttons .btn {
+      width: 280px;
+      justify-content: center;
+    }
+
+    /* Trust Indicators */
+    .hero-trust {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 28px;
+    }
+
+    .hero-trust span {
+      color: rgba(255,255,255,0.95);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .hero-trust svg {
+      color: var(--success-light);
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Stats - Emphasized */
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 40px;
+      padding-top: 40px;
+      border-top: 2px solid rgba(255,255,255,0.12);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Rubik', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 8px;
+      text-shadow: 0 0 30px rgba(0, 115, 168, 0.5);
+    }
+
+    .stat-label {
+      color: rgba(255,255,255,0.75);
+      font-size: 0.9375rem;
+      font-weight: 500;
+    }
+
+    /* Hero Image */
+    .hero-image {
+      position: relative;
+    }
+
+    /* Hero Image Grid - Modern Asymmetric Collage */
+    .hero-image-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 16px;
+      height: 600px;
+    }
+
+    .hero-grid-main {
+      grid-column: 1;
+      grid-row: 1 / 3;
+    }
+
+    .hero-grid-small:nth-child(2) {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .hero-grid-small:nth-child(3) {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    .hero-grid-item {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
+    }
+
+    .hero-grid-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      z-index: 2;
+    }
+
+    .hero-grid-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .hero-grid-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* ===== SECTION COMMON - ENHANCED ===== */
+    .section-header {
+      text-align: center;
+      margin: 0 auto 64px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      background: var(--primary-alpha-10);
+      color: var(--primary);
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      border: 2px solid var(--primary-alpha-20);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      font-size: 0.8125rem;
+    }
+
+    .section-header h2 {
+      margin-bottom: 20px;
+      color: var(--text-primary);
+    }
+
+    .section-header p {
+      color: var(--text-secondary);
+      font-size: 1.0625rem;
+    }
+
+    /* ===== SERVICES CARDS - ENHANCED ===== */
+    .services {
+      padding: 100px 0;
+      background: var(--secondary-bg);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .service-card {
+      background: var(--bg-white);
+      border: 2px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      min-height: 280px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 120px;
+      height: 120px;
+      background: var(--primary-alpha-10);
+      border-radius: 0 var(--radius-xl) 0 100%;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-6px);
+      background: var(--bg-white);
+    }
+
+    .service-card:hover::before {
+      opacity: 1;
+    }
+
+    /* Icon Container - Primary Orange with Depth */
+    .service-icon {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--bg-white);
+      font-size: 1.75rem;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover .service-icon {
+      transform: scale(1.08);
+      box-shadow: 0 8px 24px rgba(25, 118, 210, 0.4);
+    }
+
+    .service-card h3 {
+      margin-bottom: 14px;
+      color: var(--text-primary);
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .service-card > p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .service-details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .service-details.open {
+      max-height: 700px;
+    }
+
+    .service-details ul {
+      list-style: none;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 2px solid var(--border-light);
+    }
+
+    .service-details li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+      color: var(--text-secondary);
+      font-size: 0.9375rem;
+    }
+
+    .service-details li svg {
+      width: 20px;
+      height: 20px;
+      color: var(--success);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    /* Interactive Toggle Link */
+    .service-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      margin-top: 16px;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      transition: all 0.25s ease;
+      background: var(--primary-alpha-10);
+    }
+
+    .service-toggle:hover {
+      background: var(--primary-alpha-20);
+      gap: 12px;
+    }
+
+    .service-toggle svg {
+      transition: transform 0.3s ease;
+    }
+
+    .service-details.open + .service-toggle svg {
+      transform: rotate(180deg);
+    }
+
+    /* ===== ABOUT US SECTION ===== */
+    .about-us {
+      padding: 100px 0;
+      background: var(--bg-light);
+    }
+
+    .about-header {
+      max-width: 800px;
+      margin: 0 auto 60px;
+      text-align: center;
+    }
+
+    .about-header h2 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+
+    .about-header .intro-text {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* About Content Grid - Text + Image */
+    .about-content-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 50px;
+    }
+
+    .about-text {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* About Feature - 3 Key Points with Icons */
+    .about-feature {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .about-feature-icon {
+      width: 56px;
+      height: 56px;
+      min-width: 56px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
+    }
+
+    .about-feature-content h3 {
+      font-size: 1.375rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .about-feature-content p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* About Image */
+    .about-image {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      min-height: 500px;
+    }
+
+    .about-services-list {
+      list-style: none;
+      margin: 32px 0;
+      padding: 0;
+    }
+
+    .about-services-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 1.0625rem;
+      color: var(--text-secondary);
+    }
+
+    .about-services-list li::before {
+      content: "•";
+      color: var(--primary);
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .about-values {
+      background: var(--bg-white);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      margin-top: 40px;
+      box-shadow: var(--shadow-md);
+      border-right: 4px solid var(--primary);
+    }
+
+    .about-values p {
+      font-size: 1.375rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* ===== WHY US - ENHANCED ===== */
+    /* ===== WHY US - NEW DESIGN (IDAN STYLE) ===== */
+    .why-us {
+      padding: 80px 0;
+      background: var(--bg-white);
+    }
+
+    .why-title-banner {
+      background: linear-gradient(135deg, #FFB74D 0%, #FFA726 100%);
+      color: #1E293B;
+      font-size: 1.75rem;
+      font-weight: 700;
+      text-align: center;
+      padding: 16px 30px;
+      border-radius: var(--radius-lg);
+      margin-bottom: 60px;
+      box-shadow: 0 4px 20px rgba(255, 167, 38, 0.25);
+      border: none;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 50px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .why-card {
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .why-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .why-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFA726;
+      transition: all 0.3s ease;
+    }
+
+    .why-card:hover .why-icon {
+      transform: scale(1.1);
+      filter: drop-shadow(0 4px 10px rgba(255, 167, 38, 0.3));
+    }
+
+    .why-icon svg {
+      stroke: #FFA726;
+      stroke-width: 1.5;
+    }
+
+    .why-card p {
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      color: #0F172A;
+      font-weight: 700;
+    }
+
+    /* ===== GALLERY - ENHANCED ===== */
+    .gallery {
+      padding: 100px 0;
+      background: var(--bg-white);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .gallery-placeholder {
+      background: var(--secondary-bg);
+      border: 2px dashed var(--secondary-border);
+      border-radius: var(--radius-xl);
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-tertiary);
+      font-size: 1.0625rem;
+      font-weight: 500;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .gallery-placeholder:hover {
+      border-color: var(--primary);
+      background: var(--bg-white);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+      color: var(--primary);
+    }
+
+    /* ===== TIKTOK VIDEOS SECTION ===== */
+    .tiktok-videos {
+      padding: 100px 0;
+      background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    }
+
+    .tiktok-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .tiktok-embed-wrapper {
+      background: white;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .tiktok-embed-wrapper:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(255, 107, 53, 0.15);
+    }
+
+    .tiktok-embed-wrapper blockquote {
+      margin: 0 !important;
+      border-radius: var(--radius-xl);
+    }
+
+    .tiktok-cta {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .tiktok-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 36px;
+      background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+      color: white;
+      border-radius: var(--radius-lg);
+      font-size: 1.125rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .tiktok-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+      background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+    }
+
+    .tiktok-btn svg {
+      flex-shrink: 0;
+    }
+
+    /* ===== LIGHTBOX - GALLERY IMAGE VIEWER ===== */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 90vh;
+      animation: lightbox-zoom 0.3s ease;
+    }
+
+    @keyframes lightbox-zoom {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .lightbox img {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      background: var(--bg-white);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      transition: all 0.3s ease;
+    }
+
+    .lightbox-close:hover {
+      background: var(--primary);
+      color: var(--bg-white);
+      transform: rotate(90deg);
+    }
+
+    .lightbox-prev,
+    .lightbox-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--bg-white);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .lightbox-prev {
+      right: -70px;
+    }
+
+    .lightbox-next {
+      left: -70px;
+    }
+
+    .lightbox-prev:hover,
+    .lightbox-next:hover {
+      background: var(--primary);
+      color: var(--bg-white);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+      .lightbox-prev {
+        right: 10px;
+      }
+      .lightbox-next {
+        left: 10px;
+      }
+      .lightbox-close {
+        top: 10px;
+        right: 10px;
+      }
+    }
+
+    /* ===== SERVICE AREAS - ENHANCED ===== */
+    .areas {
+      padding: 100px 0;
+      background: var(--secondary-bg);
+    }
+
+    .areas-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 800px;
+      margin: 0 auto 40px;
+    }
+
+    .area-tag {
+      background: var(--bg-white);
+      border: 2px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 16px 22px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-primary);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .area-tag:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+      background: var(--primary-alpha-10);
+    }
+
+    .areas-note {
+      text-align: center;
+      background: var(--bg-cream);
+      padding: 24px;
+      border-radius: var(--radius-lg);
+      max-width: 600px;
+      margin: 0 auto;
+      border: 2px solid var(--primary-alpha-20);
+    }
+
+    .areas-note p {
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 1.0625rem;
+    }
+
+    .areas-note span {
+      color: var(--text-secondary);
+      font-size: 0.9375rem;
+    }
+
+    /* ===== TESTIMONIALS - ENHANCED ===== */
+    .testimonials {
+      padding: 100px 0;
+      background: var(--bg-white);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .testimonial-card {
+      background: var(--bg-white);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      box-shadow: var(--shadow-md);
+      border: 2px solid var(--border-light);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      font-size: 4rem;
+      color: var(--primary-alpha-20);
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .testimonial-card:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-6px);
+    }
+
+    .testimonial-rating {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-rating svg {
+      width: 22px;
+      height: 22px;
+      color: #FBBF24;
+      fill: #FBBF24;
+    }
+
+    .testimonial-text {
+      font-size: 1.0625rem;
+      line-height: 1.8;
+      margin-bottom: 28px;
+      color: var(--text-secondary);
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-top: 20px;
+      border-top: 2px solid var(--border-light);
+    }
+
+    .testimonial-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--bg-white);
+      font-weight: 700;
+      font-size: 1.3rem;
+      box-shadow: var(--shadow-primary);
+    }
+
+    .testimonial-info h4 {
+      font-size: 1.0625rem;
+      margin-bottom: 4px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .testimonial-info span {
+      color: var(--text-secondary);
+      font-size: 0.9375rem;
+    }
+
+    /* ===== FAQ - ENHANCED ===== */
+    .faq {
+      padding: 100px 0;
+      background: var(--secondary-bg);
+    }
+
+    .faq-list {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--bg-white);
+      border: 2px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      margin-bottom: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-xs);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .faq-item:hover {
+      border-color: var(--secondary-border);
+      box-shadow: var(--shadow-md);
+    }
+
+    .faq-item.open {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 28px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: var(--text-primary);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      background: var(--bg-white);
+    }
+
+    .faq-question:hover {
+      color: var(--primary);
+      background: var(--primary-alpha-10);
+    }
+
+    .faq-item.open .faq-question {
+      background: var(--primary-alpha-10);
+      color: var(--primary);
+    }
+
+    .faq-question svg {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+      margin-right: 12px;
+      color: var(--primary);
+    }
+
+    .faq-item.open .faq-question svg {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .faq-answer-inner {
+      padding: 0 28px 24px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      font-size: 1.0625rem;
+    }
+
+    /* ===== CTA SECTION - ENHANCED ===== */
+    .cta-section {
+      padding: 100px 0;
+      background: var(--bg-cream);
+      position: relative;
+      overflow: hidden;
+      border-top: 2px solid var(--primary-alpha-20);
+      border-bottom: 2px solid var(--primary-alpha-20);
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+      opacity: 0.25;
+    }
+
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      bottom: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+      opacity: 0.15;
+    }
+
+    .cta-content {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-content h2 {
+      margin-bottom: 20px;
+      color: var(--text-primary);
+    }
+
+    .cta-content > p {
+      font-size: 1.1875rem;
+      margin-bottom: 36px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* ===== CONTACT - ENHANCED ===== */
+    .contact {
+      padding: 100px 0;
+      background: linear-gradient(135deg, var(--dark-secondary) 0%, var(--dark) 100%);
+      position: relative;
+    }
+
+    .contact::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.6;
+    }
+
+    .contact .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact .section-header h2,
+    .contact .section-header p {
+      color: var(--bg-white);
+    }
+
+    .contact .section-tag {
+      background: rgba(0,115,168,0.2);
+      color: var(--primary-light);
+      border: 2px solid var(--primary-alpha-20);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    .contact-info {
+      color: var(--bg-white);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .contact-item-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(0,115,168,0.15);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      flex-shrink: 0;
+      border: 2px solid rgba(0,115,168,0.3);
+      box-shadow: 0 4px 12px rgba(0, 115, 168, 0.2);
+    }
+
+    .contact-item-icon svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .contact-item h4 {
+      color: var(--bg-white);
+      font-size: 1.125rem;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .contact-item p,
+    .contact-item a {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .contact-item a:hover {
+      color: var(--primary-light);
+    }
+
+    .contact-form {
+      background: var(--bg-white);
+      border-radius: var(--radius-2xl);
+      padding: 44px;
+      box-shadow: var(--shadow-2xl);
+      border: 2px solid rgba(0,115,168,0.1);
+    }
+
+    .contact-form h3 {
+      margin-bottom: 28px;
+      text-align: center;
+      color: var(--text-primary);
+      font-size: 1.875rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 1rem;
+      color: var(--text-primary);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-md);
+      font-family: 'Heebo', sans-serif;
+      font-size: 1rem;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      background: var(--bg-white);
+      color: var(--text-primary);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px var(--primary-alpha-10);
+      background: var(--bg-white);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+      line-height: 1.6;
+    }
+
+    .contact-form .btn {
+      width: 100%;
+      margin-top: 12px;
+      padding: 18px 36px;
+      font-size: 1.125rem;
+    }
+
+    /* Simple Contact Form - IDAN Style */
+    .contact-simple-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .contact-simple-header h2 {
+      color: var(--bg-white);
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .contact-simple-header span {
+      color: #FFB74D;
+    }
+
+    .contact-form-simple {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .form-simple-fields {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .form-simple-fields input {
+      flex: 1;
+      min-width: 200px;
+      max-width: 240px;
+      padding: 16px 24px;
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.1);
+      color: var(--bg-white);
+      font-size: 1.0625rem;
+      font-family: 'Heebo', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .form-simple-fields input::placeholder {
+      color: rgba(255,255,255,0.6);
+    }
+
+    .form-simple-fields input:focus {
+      outline: none;
+      border-color: #FFB74D;
+      background: rgba(255,255,255,0.15);
+    }
+
+    @media (max-width: 768px) {
+      .form-simple-fields {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .form-simple-fields input,
+      .form-simple-fields .btn-yellow {
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+
+    .btn-yellow {
+      padding: 16px 50px;
+      background: linear-gradient(135deg, #FFB74D 0%, #FFA726 100%);
+      color: var(--text-primary);
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 1.25rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 183, 77, 0.4);
+      font-family: 'Heebo', sans-serif;
+    }
+
+    .btn-yellow:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 183, 77, 0.6);
+    }
+
+    .btn-yellow-full {
+      width: 100%;
+      margin-top: 24px;
+      padding: 18px 50px;
+      font-size: 1.375rem;
+    }
+
+    /* Form Grid Layout - Organized & Clean */
+    .form-grid-layout {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .form-input-styled {
+      padding: 16px 24px;
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.1);
+      color: var(--bg-white);
+      font-size: 1.0625rem;
+      font-family: 'Heebo', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .form-input-styled::placeholder {
+      color: rgba(255,255,255,0.6);
+    }
+
+    .form-input-styled:focus {
+      outline: none;
+      border-color: #FFB74D;
+      background: rgba(255,255,255,0.15);
+      box-shadow: 0 0 0 4px rgba(255, 183, 77, 0.1);
+    }
+
+    .form-message-area {
+      margin-bottom: 20px;
+    }
+
+    .form-textarea-styled {
+      width: 100%;
+      padding: 16px 24px;
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.1);
+      color: var(--bg-white);
+      font-size: 1.0625rem;
+      font-family: 'Heebo', sans-serif;
+      min-height: 100px;
+      resize: vertical;
+      transition: all 0.3s ease;
+    }
+
+    .form-textarea-styled::placeholder {
+      color: rgba(255,255,255,0.6);
+    }
+
+    .form-textarea-styled:focus {
+      outline: none;
+      border-color: #FFB74D;
+      background: rgba(255,255,255,0.15);
+      box-shadow: 0 0 0 4px rgba(255, 183, 77, 0.1);
+    }
+
+    .form-consent {
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .form-consent-label {
+      color: rgba(255,255,255,0.9);
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .form-checkbox {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: #FFB74D;
+    }
+
+    .form-note {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.875rem;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 968px) {
+      .form-grid-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== FOOTER - ENHANCED ===== */
+    footer {
+      background: linear-gradient(135deg, var(--dark) 0%, var(--dark-secondary) 100%);
+      color: var(--bg-white);
+      padding: 80px 0 40px;
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--primary) 50%, transparent 100%);
+    }
+
+    .footer-silhouette {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 200px;
+      opacity: 0.1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .footer-silhouette svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 60px;
+      margin-bottom: 50px;
+    }
+
+    .footer-brand .logo {
+      margin-bottom: 20px;
+      color: var(--bg-white);
+    }
+
+    .footer-brand .logo-icon {
+      box-shadow: var(--shadow-primary);
+    }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 320px;
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 80px;
+    }
+
+    .footer-column h4 {
+      font-size: 1.1875rem;
+      margin-bottom: 20px;
+      color: var(--bg-white);
+      font-weight: 700;
+      position: relative;
+      padding-bottom: 12px;
+    }
+
+    .footer-column h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-column ul li a {
+      color: var(--text-muted);
+      font-size: 1rem;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
+    }
+
+    .footer-column ul li a:hover {
+      color: var(--primary-light);
+      transform: translateX(-4px);
+    }
+
+    .footer-bottom {
+      padding-top: 40px;
+      border-top: 2px solid rgba(255,255,255,0.1);
+      text-align: center;
+    }
+
+    .footer-bottom p {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+    }
 
     /* ANIMATIONS */
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
@@ -212,23 +2036,323 @@
       .hero p { margin: 0 auto 32px; }
       .hero-buttons, .hero-trust { justify-content: center; }
       .hero-stats { justify-content: center; }
-      .hero-image { max-width: 500px; margin: 0 auto; }
+      .hero-image { max-width: 600px; margin: 0 auto; }
       .services-grid, .why-grid { grid-template-columns: repeat(2, 1fr); }
       .testimonials-grid { grid-template-columns: 1fr; }
       .contact-grid { grid-template-columns: 1fr; }
       .areas-grid { grid-template-columns: repeat(3, 1fr); }
       .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .tiktok-grid { grid-template-columns: repeat(2, 1fr); }
+
+      /* Hero Image Grid - Tablet: Smaller Height */
+      .hero-image-grid {
+        height: 450px;
+      }
+
+      /* About Section - Tablet: Single Column */
+      .about-content-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .about-image img {
+        min-height: 400px;
+      }
     }
     @media (max-width: 768px) {
       nav { display: none; }
       .mobile-menu { display: flex; }
       .header-cta .btn-secondary { display: none; }
       .services-grid, .why-grid, .gallery-grid { grid-template-columns: 1fr; }
+      .tiktok-grid { grid-template-columns: 1fr; }
       .hero-stats { flex-direction: column; gap: 24px; }
       .areas-grid { grid-template-columns: repeat(2, 1fr); }
       .footer-links { flex-direction: column; gap: 24px; }
       .footer-content { flex-direction: column; align-items: center; text-align: center; }
       .footer-brand p { margin: 0 auto; }
+      .hero p { font-size: 1.125rem; line-height: 1.7; }
+
+      /* Hero Image Grid - Mobile: Single Column */
+      .hero-image-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: 350px 180px 180px;
+        height: auto;
+        gap: 12px;
+      }
+
+      .hero-grid-main {
+        grid-column: 1;
+        grid-row: 1;
+      }
+
+      .hero-grid-small:nth-child(2) {
+        grid-column: 1;
+        grid-row: 2;
+      }
+
+      .hero-grid-small:nth-child(3) {
+        grid-column: 1;
+        grid-row: 3;
+      }
+      .container { padding: 0 20px; }
+
+      /* About Section - Mobile: Adjust Spacing */
+      .about-feature {
+        gap: 16px;
+      }
+
+      .about-feature-icon {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+      }
+
+      .about-feature-icon svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .about-feature-content h3 {
+        font-size: 1.25rem;
+      }
+
+      .about-image img {
+        min-height: 300px;
+      }
+    }
+
+    /* ===== FLOATING BUTTONS - ENHANCED ===== */
+    .floating-buttons {
+      position: fixed;
+      right: 30px;
+      bottom: 30px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      pointer-events: none;
+    }
+
+    .floating-btn {
+      pointer-events: all;
+    }
+
+    .floating-btn {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: none;
+    }
+
+    .floating-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+    }
+
+    .floating-btn svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    .floating-whatsapp {
+      background: #25D366;
+      color: var(--bg-white);
+      position: relative;
+      animation: whatsapp-pulse 2s infinite;
+    }
+
+    .floating-whatsapp:hover {
+      background: #1ea952;
+      animation: none;
+    }
+
+    .floating-whatsapp::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: #25D366;
+      opacity: 0.4;
+      animation: whatsapp-ring 2s infinite;
+    }
+
+    @keyframes whatsapp-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes whatsapp-ring {
+      0% { transform: scale(1); opacity: 0.4; }
+      50% { transform: scale(1.2); opacity: 0; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+
+    .floating-scroll-top {
+      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+      color: var(--bg-white);
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0);
+      box-shadow: 0 8px 16px rgba(255, 107, 53, 0.4);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .floating-scroll-top:hover {
+      background: linear-gradient(135deg, #E55A2B 0%, #E08018 100%);
+      box-shadow: 0 12px 24px rgba(255, 107, 53, 0.5);
+    }
+
+    .floating-scroll-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+
+    .floating-scroll-top.show:hover {
+      transform: scale(1.1);
+    }
+    @media (max-width: 768px) {
+      .floating-buttons { right: 20px; bottom: 20px; gap: 15px; }
+      .floating-btn { width: 60px; height: 60px; }
+      .floating-btn svg { width: 30px; height: 30px; }
+    }
+
+    /* ===== SCROLL ANIMATIONS - DRAMATIC & NOTICEABLE ===== */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(100px) scale(0.92);
+      }
+      65% {
+        opacity: 1;
+        transform: translateY(-8px) scale(1.03);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.85);
+      }
+      60% {
+        transform: scale(1.05);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes slideInRight {
+      0% {
+        opacity: 0;
+        transform: translateX(-80px) scale(0.92);
+      }
+      70% {
+        transform: translateX(8px) scale(1.03);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+    }
+
+    @keyframes slideInLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(80px) scale(0.92);
+      }
+      70% {
+        transform: translateX(-8px) scale(1.03);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+    }
+
+    @keyframes scaleIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.6) rotate(-3deg);
+      }
+      65% {
+        opacity: 1;
+        transform: scale(1.1) rotate(2deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+      }
+    }
+
+    /* Scroll Animation Classes */
+    .scroll-animate {
+      opacity: 0;
+      transform: translateY(100px) scale(0.92);
+      transition: none;
+    }
+
+    .scroll-animate.animate {
+      animation: fadeInUp 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .scroll-animate-fade {
+      opacity: 0;
+      transform: scale(0.85);
+      transition: none;
+    }
+
+    .scroll-animate-fade.animate {
+      animation: fadeIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .scroll-animate-scale {
+      opacity: 0;
+      transform: scale(0.6) rotate(-3deg);
+      transition: none;
+    }
+
+    .scroll-animate-scale.animate {
+      animation: scaleIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    /* Stagger animation delays - MORE VISIBLE */
+    .scroll-animate:nth-child(1).animate { animation-delay: 0s; }
+    .scroll-animate:nth-child(2).animate { animation-delay: 0.18s; }
+    .scroll-animate:nth-child(3).animate { animation-delay: 0.36s; }
+    .scroll-animate:nth-child(4).animate { animation-delay: 0.54s; }
+    .scroll-animate:nth-child(5).animate { animation-delay: 0.72s; }
+    .scroll-animate:nth-child(6).animate { animation-delay: 0.9s; }
+
+    /* Counter Animation - DRAMATIC */
+    @keyframes countUp {
+      0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.8);
+      }
+      60% {
+        opacity: 1;
+        transform: translateY(-5px) scale(1.15);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .stat-number.counting {
+      animation: countUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
   </style>
 </head>
@@ -240,26 +2364,47 @@
         <div class="logo">
           <div class="logo-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M2 20h20"></path><path d="M5 20V8l7-5 7 5v12"></path><path d="M9 20v-6h6v6"></path>
+              <circle cx="12" cy="5" r="2"></circle>
+              <line x1="12" y1="7" x2="12" y2="19"></line>
+              <path d="M8 11l4-4 4 4"></path>
+              <path d="M10 16h4"></path>
+              <path d="M8 19h8"></path>
+              <path d="M6 23l6-4 6 4"></path>
             </svg>
           </div>
-          אליאב קידוחים ופיתוח
+          א.א. עבודות קידוחים ופיתוח
         </div>
         <nav>
+          <a href="#about">קצת עלינו</a>
           <a href="#services">שירותים</a>
           <a href="#why-us">למה אנחנו</a>
           <a href="#gallery">גלריה</a>
           <a href="#faq">שאלות נפוצות</a>
           <a href="#contact">צור קשר</a>
         </nav>
-        <div class="header-cta">
-          <a href="tel:0529556123" class="btn btn-secondary">052-9556123</a>
-          <a href="#contact" class="btn btn-primary">הצעת מחיר</a>
+        <div class="header-phone-right">
+          <a href="tel:0529556123" class="phone-number-main">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            052-9556123
+          </a>
         </div>
-        <div class="mobile-menu"><span></span><span></span><span></span></div>
+        <div class="mobile-menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></div>
       </div>
     </div>
   </header>
+
+  <!-- Mobile Navigation -->
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="#services" onclick="closeMobileMenu()">שירותים</a>
+    <a href="#why-us" onclick="closeMobileMenu()">למה אנחנו</a>
+    <a href="#gallery" onclick="closeMobileMenu()">גלריה</a>
+    <a href="#faq" onclick="closeMobileMenu()">שאלות נפוצות</a>
+    <a href="#contact" onclick="closeMobileMenu()">צור קשר</a>
+    <a href="tel:0529556123" onclick="closeMobileMenu()">📞 התקשר: 052-9556123</a>
+  </nav>
+  <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
 
   <!-- Hero Section -->
   <section class="hero">
@@ -270,40 +2415,118 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
             מעל 10 שנות ניסיון | קבלן רשום: 36281
           </div>
-          <h1>קידוחי כלונסאות ופיתוח לכל סוגי הפרויקטים</h1>
-          <p>מתמחים בקידוחים מורכבים, בנטונייט, בורות חלחול, עבודות עפר ופיתוח תשתיות. פתרונות מקצועיים ללקוחות פרטיים ועסקיים.</p>
+          <h1>א.א. קידוחי כלונסאות בנטונייט ותשתיות</h1>
+          <p>ביצוע מקצועי ומדויק של קידוחים מורכבים עם דגש על איכות עבודה ללא פשרות</p>
           <div class="hero-buttons">
             <a href="#contact" class="btn btn-primary">
-              קבל הצעת מחיר חינם
+              ייעוץ חינם ללא התחייבות
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
             </a>
             <a href="tel:0529556123" class="btn btn-outline" style="border-color: rgba(255,255,255,0.3); color: white;">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-              התקשר עכשיו
+              052-9556123
             </a>
           </div>
           <div class="hero-trust">
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> קבלן רשום ומנהל עבודה רשום</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> ציוד מתקדם</span>
-            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> ביטוח מלא לעבודה</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> מומחים בקידוחי בנטונייט ופולימר</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> קבלן רשום ומנוסה (36281)</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> זמינות לביצוע פרויקטים בכל חלקי הארץ</span>
           </div>
           <div class="hero-stats">
-            <div class="stat"><div class="stat-number">10+</div><div class="stat-label">שנות ניסיון</div></div>
-            <div class="stat"><div class="stat-number">500+</div><div class="stat-label">פרויקטים הושלמו</div></div>
-            <div class="stat"><div class="stat-number">100%</div><div class="stat-label">שביעות רצון לקוחות</div></div>
+            <div class="stat"><div class="stat-number">10+</div><div class="stat-label">שנות ניסיון בתחום הקידוחים והפיתוח המקצועי</div></div>
+            <div class="stat"><div class="stat-number">100+</div><div class="stat-label">פרויקטים שהושלמו בהצלחה ברחבי הארץ</div></div>
+            <div class="stat"><div class="stat-number">98%</div><div class="stat-label">שביעות רצון לקוחות ממוצעת בכל הפרויקטים</div></div>
           </div>
         </div>
         <div class="hero-image">
-          <div class="hero-image-wrapper">
-            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=700&fit=crop" alt="קידוחי כלונסאות מקצועיים">
-          </div>
-          <div class="hero-image-overlay animate-float">
-            <div class="overlay-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          <div class="hero-image-grid">
+            <div class="hero-grid-item hero-grid-main">
+              <img src="images/קסמג כביש 5/1.jpg" alt="מכונת קידוח בפעולה - פרויקט קסמג כביש 5" loading="lazy">
             </div>
-            <div class="overlay-text"><h4>מקצועיות ללא פשרות</h4><span>קבלן רשום 36281</span></div>
+            <div class="hero-grid-item hero-grid-small">
+              <img src="images/קסמג כביש 5/20240501_172507.jpg" alt="ציוד קידוח מקצועי" loading="lazy">
+            </div>
+            <div class="hero-grid-item hero-grid-small">
+              <img src="images/קידוח ברכבת SPIS/20200405_092643.jpg" alt="פרויקט קידוח - רכבת SPIS" loading="lazy">
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us Section -->
+  <section class="about-us" id="about">
+    <div class="container">
+      <div class="about-header">
+        <h2>קצת עלינו</h2>
+        <p class="intro-text">
+          א.א. עבודות קידוחים ופיתוח מתמחים בקידוחי כלונסאות, עבודות בנטונייט,
+          בורות חלחול ועבודות עפר לפרויקטים פרטיים וקבלניים.
+        </p>
+      </div>
+
+      <div class="about-content-grid">
+        <!-- Text Content with 3 Key Points -->
+        <div class="about-text">
+          <div class="about-feature">
+            <div class="about-feature-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <div class="about-feature-content">
+              <h3>10+ שנות ניסיון מוכח</h3>
+              <p>
+                מעל עשור של עבודה בשטח, אנחנו מביאים ידע מעשי וצוות מקצועי לכל פרויקט.
+                עובדים בהצלחה מול קבלנים, יזמים ולקוחות פרטיים — מאתרים עירוניים צפופים ועד שטחים פתוחים.
+              </p>
+            </div>
+          </div>
+
+          <div class="about-feature">
+            <div class="about-feature-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+              </svg>
+            </div>
+            <div class="about-feature-content">
+              <h3>אמינות ובטיחות מלאה</h3>
+              <p>
+                קבלן רשום 36281, מנהל עבודה רשום וביטוח מלא לכל עבודה. אנחנו מקפידים על
+                עבודה מדויקת, עמידה בזמנים ושיתוף פעולה מלא עם הלקוח לאורך כל הדרך.
+              </p>
+            </div>
+          </div>
+
+          <div class="about-feature">
+            <div class="about-feature-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M2 20h20"></path>
+                <path d="M8 16V4l8 8"></path>
+                <path d="M16 4v12"></path>
+              </svg>
+            </div>
+            <div class="about-feature-content">
+              <h3>ציוד מתקדם ומקצועיות</h3>
+              <p>
+                פתרונות מקצה לקצה: קידוחים, עבודות עפר, פיתוח תשתיות והריסות מבוקרות.
+                ציוד חדיש מאושר לפי תקן, תחנת בנטונייט ניידת ויכולת ביצוע גם בתנאים מאתגרים.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image -->
+        <div class="about-image">
+          <img src="images/קסמג כביש 5/20240502_144413.jpg" alt="צוות א.א. עבודות קידוחים ופיתוח בפעולה" loading="lazy">
+        </div>
+      </div>
+
+      <div class="about-values">
+        <p>המחויבות שלנו פשוטה: עבודה מקצועית, זמינות גבוהה ויחס אישי — בלי קיצורי דרך.</p>
       </div>
     </div>
   </section>
@@ -312,18 +2535,26 @@
   <section class="services" id="services">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">השירותים שלנו</span>
         <h2>השירותים שלנו</h2>
-        <p>לחץ על שירות לפרטים נוספים</p>
+        <p>לחץ על כל שירות לקבלת מידע מפורט ופרטים נוספים</p>
       </div>
       <div class="services-grid">
         <!-- Service 1 -->
         <div class="service-card" onclick="toggleService(this)">
           <div class="service-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v4m0 12v4m-7.07-15.07l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Drill pointing down -->
+              <path d="M14 4h-4v2h4V4z"></path>
+              <rect x="11" y="6" width="2" height="14"></rect>
+              <circle cx="12" cy="21" r="2"></circle>
+              <line x1="10" y1="10" x2="14" y2="10"></line>
+              <line x1="10" y1="13" x2="14" y2="13"></line>
+              <line x1="10" y1="16" x2="14" y2="16"></line>
+              <polyline points="12 2 12 4"></polyline>
+            </svg>
           </div>
-          <h3>קידוחי כלונסאות</h3>
-          <p>קידוחים לכל עומק וקוטר - עם בנטונייט ופולימר באיכות גבוהה</p>
+          <h3>קידוחי בנטונייט וכלונסאות</h3>
+          <p>ביצוע קידוחים לכל עומק וקוטר בשיטות מתקדמות להבטחת יציבות מקסימלית בתנאי קרקע מורכבים</p>
           <div class="service-toggle">לפרטים נוספים <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
           <div class="service-details">
             <ul>
@@ -340,7 +2571,14 @@
         <!-- Service 2 -->
         <div class="service-card" onclick="toggleService(this)">
           <div class="service-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="6" width="22" height="12" rx="2"></rect><path d="M1 10h22"></path></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Excavator/Shovel -->
+              <path d="M2 22l1-1 3-3 3 3-3 3-1 1-3-3z"></path>
+              <path d="M7 17L5 15l9-9 2 2-9 9z"></path>
+              <path d="M14 8l2-2 4 4-2 2-4-4z"></path>
+              <circle cx="18" cy="6" r="2"></circle>
+              <path d="M5 15v-3"></path>
+            </svg>
           </div>
           <h3>עבודות עפר וחפירות</h3>
           <p>עבודות עפר מדויקות בכל סדר גודל</p>
@@ -359,7 +2597,13 @@
         <!-- Service 3 -->
         <div class="service-card" onclick="toggleService(this)">
           <div class="service-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20"></path><path d="M5 20V8l7-5 7 5v12"></path></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Heavy Demolition Hammer -->
+              <path d="M14 6l-8.5 8.5a2 2 0 0 0 0 2.8l1.2 1.2a2 2 0 0 0 2.8 0L18 10"></path>
+              <path d="M14 6l2-2 4 4-2 2-4-4z"></path>
+              <rect x="16" y="2" width="4" height="4" rx="1"></rect>
+              <path d="M3 21l3-3"></path>
+            </svg>
           </div>
           <h3>הריסת מבנים</h3>
           <p>הריסות מבנים מבוקרות ובטוחות - עם כל האישורים הנדרשים</p>
@@ -379,7 +2623,15 @@
         <!-- Service 4 -->
         <div class="service-card" onclick="toggleService(this)">
           <div class="service-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18l-1.5 9h-15z"></path><circle cx="8" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Dump Truck -->
+              <path d="M3 17h15v3H3v-3z"></path>
+              <path d="M18 14h3l2 3v3h-5v-6z"></path>
+              <circle cx="6" cy="20" r="2"></circle>
+              <circle cx="18" cy="20" r="2"></circle>
+              <path d="M3 17V5h12v12"></path>
+              <line x1="7" y1="9" x2="11" y2="9"></line>
+            </svg>
           </div>
           <h3>פינוי פסולת בניין</h3>
           <p>פינוי מוסדר, מהיר ובעל תיעוד מלא</p>
@@ -398,7 +2650,12 @@
         <!-- Service 5 -->
         <div class="service-card" onclick="toggleService(this)">
           <div class="service-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"></path><path d="M9 8h1"></path><path d="M9 12h1"></path><path d="M9 16h1"></path><path d="M14 8h1"></path><path d="M14 12h1"></path><path d="M14 16h1"></path><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Road/Infrastructure -->
+              <path d="M2 12h6M16 12h6M12 2v6M12 16v6"></path>
+              <path d="M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M4.93 19.07l4.24-4.24M14.83 9.17l4.24-4.24"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
           </div>
           <h3>פיתוח תשתיות</h3>
           <p>פיתוח תשתיות בהיקף מלא לפרויקטים ציבוריים ופרטיים</p>
@@ -418,7 +2675,15 @@
         <!-- Service 6 -->
         <div class="service-card" onclick="toggleService(this)">
           <div class="service-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Construction Crane -->
+              <path d="M6 21V3h2v18H6z"></path>
+              <path d="M8 3h12l-1 4H9L8 3z"></path>
+              <line x1="19" y1="7" x2="16" y2="16"></line>
+              <circle cx="16" cy="17" r="2"></circle>
+              <path d="M4 21h8"></path>
+              <line x1="8" y1="9" x2="16" y2="9"></line>
+            </svg>
           </div>
           <h3>השכרת ציוד כבד</h3>
           <p>השכרת ציוד מתקדם עם מפעיל מוסמך ומנוסה</p>
@@ -438,7 +2703,7 @@
         </div>
       </div>
       <div style="text-align:center; margin-top:48px;">
-        <a href="https://wa.me/972529556123" class="btn btn-whatsapp">צריך ייעוץ? דברו איתנו עכשיו</a>
+        <a href="#contact" class="btn btn-primary">צריך ייעוץ? צרו קשר עכשיו</a>
       </div>
     </div>
   </section>
@@ -446,41 +2711,93 @@
   <!-- Why Us -->
   <section class="why-us" id="why-us">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">למה לבחור בנו?</span>
-        <h2>למה לבחור בנו?</h2>
-        <p>לחץ לפרטים נוספים</p>
+      <div class="why-title-banner">
+        למה הלקוחות שלנו בוחרים בנו?
       </div>
       <div class="why-grid">
-        <div class="why-card" onclick="toggleWhy(this)">
-          <div class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
-          <h3>צוות מקצועי ומנוסה</h3>
-          <p>צוות עובדים מקצועי ומיומן עם ניסיון רב בתחום, המחויב לספק שירות ברמה הגבוהה ביותר ולהבטיח תוצאות מושלמות בכל פרויקט</p>
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <!-- Award/Badge icon -->
+              <circle cx="12" cy="8" r="6"></circle>
+              <path d="M8 14l-2 8 6-3 6 3-2-8"></path>
+            </svg>
+          </div>
+          <p>הערכים המובילים אותנו הם:<br/>אמינות, מקצועיות ושירותיות</p>
         </div>
-        <div class="why-card" onclick="toggleWhy(this)">
-          <div class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg></div>
-          <h3>ציוד מתקדם ומתוחזק</h3>
-          <p>מכונות חדישות ומתקדמות עם תחזוקה שוטפת, כל האישורים הנדרשים וביטוחים מלאים להבטחת ביצועים אמינים בכל פרויקט</p>
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <!-- Thumbs up icon -->
+              <path d="M7 22V11M2 13v6c0 1.1.9 2 2 2h2.4"></path>
+              <path d="M14 2a2 2 0 0 1 2 2v5l-2 6v7H8l-4.4-.9A2 2 0 0 1 2 19.1V13a2 2 0 0 1 2-2h1.4l4.3-6.4A2 2 0 0 1 12 4v0a2 2 0 0 0 2-2z"></path>
+            </svg>
+          </div>
+          <p>מתחייבים לתוצאה<br/>הטובה ביותר</p>
         </div>
-        <div class="why-card" onclick="toggleWhy(this)">
-          <div class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
-          <h3>10+ שנות ניסיון מוכח</h3>
-          <p>מעל עשור של ניסיון בביצוע פרויקטים מורכבים, עם מאות לקוחות מרוצים ורקורד מוכח של הצלחה בכל סוגי העבודות</p>
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <!-- Drill icon -->
+              <path d="M14 4h-4v2h4V4z"></path>
+              <rect x="11" y="6" width="2" height="12"></rect>
+              <circle cx="12" cy="19" r="2"></circle>
+              <line x1="10" y1="10" x2="14" y2="10"></line>
+              <line x1="10" y1="13" x2="14" y2="13"></line>
+            </svg>
+          </div>
+          <p>הכלים המתקדמים<br/>ביותר בשוק</p>
         </div>
-        <div class="why-card" onclick="toggleWhy(this)">
-          <div class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
-          <h3>עמידה בזמנים ובלוחות זמנים</h3>
-          <p>מחויבים לעמידה קפדנית בלוחות זמנים, תכנון מדויק של כל שלבי הפרויקט והקפדה על סיום העבודה במועד המוסכם</p>
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </div>
+          <p>ניסיון של מעל 15<br/>שנה בתחום</p>
         </div>
-        <div class="why-card" onclick="toggleWhy(this)">
-          <div class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
-          <h3>מחירים הוגנים ושקופים</h3>
-          <p>תמחור הוגן ושקוף ללא עלויות נסתרות, הצעות מחיר מפורטות וברורות, והתחייבות למחיר המוסכם ללא הפתעות</p>
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <!-- Construction Crane icon -->
+              <path d="M6 21V3h2v18H6z"></path>
+              <path d="M8 3h12l-1 4H9L8 3z"></path>
+              <line x1="19" y1="7" x2="16" y2="16"></line>
+              <circle cx="16" cy="17" r="2"></circle>
+              <path d="M4 21h8"></path>
+            </svg>
+          </div>
+          <p>קידוחים במקומות<br/>קשים לגישה</p>
         </div>
-        <div class="why-card featured" onclick="toggleWhy(this)">
-          <div class="why-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
-          <h3>אמינות, בטיחות ואישורים מלאים</h3>
-          <p>קבלן רשום 36281 ומנהל עבודה רשום, רישיון עבודה בגובה, ביטוח קבלנים צד ג', ביטוח מלא על הכלים והציוד. עבודה בטיחותית ומקצועית תוך שמירה על כל תקני הבטיחות</p>
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <!-- Team/People icon -->
+              <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 00-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 010 7.75"></path>
+            </svg>
+          </div>
+          <p>מומחים בקידוחי בנטונייט<br/>בשטח מורכב</p>
+        </div>
+      </div>
+
+      <!-- Strong CTA -->
+      <div style="text-align: center; margin-top: 60px; padding: 50px 30px; background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border-radius: var(--radius-xl); box-shadow: var(--shadow-xl);">
+        <h2 style="color: white; font-size: 2rem; margin-bottom: 16px;">מוכנים להתחיל את הפרויקט שלכם? צרו קשר לייעוץ מקצועי</h2>
+        <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">צרו קשר עוד היום לקבלת ייעוץ מקצועי והצעת מחיר ללא התחייבות</p>
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+          <a href="#contact" class="btn btn-secondary" style="background: white; color: var(--primary); border: none;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            צור קשר
+          </a>
+          <a href="https://wa.me/972529556123?text=שלום, אשמח לקבל פרטים נוספים" class="btn btn-whatsapp" style="box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            שלחו הודעה בוואטסאפ
+          </a>
         </div>
       </div>
     </div>
@@ -490,7 +2807,6 @@
   <section class="gallery" id="gallery">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">הפרויקטים שלנו</span>
         <h2>גלריית הפרויקטים שלנו</h2>
         <p>הצצה לחלק מהפרויקטים שביצענו בהצלחה</p>
       </div>
@@ -505,27 +2821,74 @@
     </div>
   </section>
 
+  <!-- TikTok Videos Section -->
+  <section class="tiktok-videos" id="videos">
+    <div class="container">
+      <div class="section-header">
+        <h2>פרויקטים בתנועה</h2>
+        <p>צפו בפרויקטים שלנו בפעולה - מהשטח ישירות אליכם</p>
+      </div>
+      <div class="tiktok-grid">
+        <!-- TikTok Video 1 -->
+        <div class="tiktok-embed-wrapper">
+          <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@eliav.aharon/video/7584001116719893778" data-video-id="7584001116719893778" style="max-width: 605px;min-width: 325px;" >
+            <section>
+              <a target="_blank" title="@eliav.aharon" href="https://www.tiktok.com/@eliav.aharon?refer=embed">@eliav.aharon</a>
+            </section>
+          </blockquote>
+        </div>
+
+        <!-- TikTok Video 2 -->
+        <div class="tiktok-embed-wrapper">
+          <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@eliav.aharon/video/7532815151016217863" data-video-id="7532815151016217863" style="max-width: 605px;min-width: 325px;" >
+            <section>
+              <a target="_blank" title="@eliav.aharon" href="https://www.tiktok.com/@eliav.aharon?refer=embed">@eliav.aharon</a>
+            </section>
+          </blockquote>
+        </div>
+
+        <!-- TikTok Video 3 -->
+        <div class="tiktok-embed-wrapper">
+          <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@eliav.aharon/video/7474858008799923463" data-video-id="7474858008799923463" style="max-width: 605px;min-width: 325px;" >
+            <section>
+              <a target="_blank" title="@eliav.aharon" href="https://www.tiktok.com/@eliav.aharon?refer=embed">@eliav.aharon</a>
+            </section>
+          </blockquote>
+        </div>
+      </div>
+
+      <!-- TikTok Profile Button -->
+      <div class="tiktok-cta">
+        <a href="https://www.tiktok.com/@eliav.aharon" target="_blank" rel="noopener noreferrer" class="tiktok-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+          </svg>
+          לעוד עבודות בטיקטוק שלנו
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- Service Areas -->
   <section class="areas" id="areas">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">אזורי שירות</span>
-        <h2>אזורים בהם אנו משרתים</h2>
-        <p>מספקים שירות מקצועי בכל רחבי המרכז והצפון</p>
+        <h2>אנחנו בדרך אליכם – מגיעים לכל אתר ופרויקט</h2>
+        <p>ניידות מלאה וזמינות גבוהה לביצוע עבודות בכל רחבי הארץ</p>
       </div>
       <div class="areas-grid">
-        <div class="area-tag">תל אביב</div>
-        <div class="area-tag">הרצליה</div>
-        <div class="area-tag">רמת השרון</div>
-        <div class="area-tag">נתניה</div>
-        <div class="area-tag">חדרה</div>
-        <div class="area-tag">רעננה</div>
-        <div class="area-tag">כפר סבא</div>
-        <div class="area-tag">פתח תקווה</div>
-        <div class="area-tag">ראשון לציון</div>
-        <div class="area-tag">רחובות</div>
-        <div class="area-tag">נס ציונה</div>
-        <div class="area-tag">קיסריה</div>
+        <div class="area-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 6px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>תל אביב</div>
+        <div class="area-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 6px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>הרצליה</div>
+        <div class="area-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 6px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>רמת השרון</div>
+        <div class="area-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 6px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>נתניה</div>
+        <div class="area-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 6px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>חדרה</div>
+        <div class="area-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 6px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>רעננה</div>
+        <div class="area-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 6px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>כפר סבא</div>
+        <div class="area-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 6px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>פתח תקווה</div>
+        <div class="area-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 6px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>ראשון לציון</div>
+        <div class="area-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 6px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>רחובות</div>
+        <div class="area-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 6px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>נס ציונה</div>
+        <div class="area-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 6px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>קיסריה</div>
       </div>
       <div class="areas-note">
         <p>לא מצאת את העיר שלך?</p>
@@ -538,9 +2901,8 @@
   <section class="testimonials" id="testimonials">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">לקוחות ממליצים</span>
         <h2>מה הלקוחות שלנו אומרים</h2>
-        <p>תצוגה דינמית של ההמלצות מהמסד נתונים</p>
+        <p>המלצות אמיתיות מלקוחות מרוצים</p>
       </div>
       <div class="testimonials-grid">
         <div class="testimonial-card">
@@ -585,6 +2947,48 @@
             <div class="testimonial-info"><h4>דוד ברק</h4><span>מהנדס אזרחי</span></div>
           </div>
         </div>
+        <div class="testimonial-card">
+          <div class="testimonial-rating">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </div>
+          <p class="testimonial-text">"ביצעו לנו הריסת מבנה ישן ופינוי פסולת. העבודה בוצעה בצורה מהירה ובטיחותית, תוך שמירה על הסביבה. שירות מעולה!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">רמ</div>
+            <div class="testimonial-info"><h4>רונן מזרחי</h4><span>בעל נכס</span></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-rating">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </div>
+          <p class="testimonial-text">"עבדנו עם אליאב בכמה פרויקטים. תמיד מקצועיים, אמינים ועומדים בזמנים. הציוד החדיש והצוות המנוסה עושים את ההבדל."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">אג</div>
+            <div class="testimonial-info"><h4>אבי גולן</h4><span>קבלן עבודות פיתוח</span></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-rating">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </div>
+          <p class="testimonial-text">"פיתוח תשתיות למגרש חדש - העבודה בוצעה מעל ומעבר לציפיות. תכנון מוקפד, ביצוע מדויק ומחיר הוגן. ממליץ בחום!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">יח</div>
+            <div class="testimonial-info"><h4>יוסי חיים</h4><span>בעלים פרטי</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -593,7 +2997,6 @@
   <section class="faq" id="faq">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">שאלות נפוצות</span>
         <h2>שאלות נפוצות</h2>
         <p>תשובות לשאלות שמרבית הלקוחות שואלים</p>
       </div>
@@ -621,7 +3024,7 @@
           <p>נשמח לענות על כל שאלה נוספת ולסייע לך במידע שתצטרך</p>
           <div class="cta-buttons">
             <a href="tel:0529556123" class="btn btn-primary">התקשר עכשיו</a>
-            <a href="https://wa.me/972529556123" class="btn btn-whatsapp">שלח הודעה בוואטסאפ</a>
+            <a href="#contact" class="btn btn-secondary">צור קשר</a>
           </div>
         </div>
       </div>
@@ -631,10 +3034,8 @@
   <!-- Contact -->
   <section class="contact" id="contact">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">צור קשר</span>
-        <h2>צרו קשר עוד היום</h2>
-        <p>מוזמנים לפנות אלינו לכל שאלה או בקשה להצעת מחיר</p>
+      <div class="contact-simple-header">
+        <h2>לשירות ייעוץ <span>ללא תשלום</span> השאירו פרטים</h2>
       </div>
       <div class="contact-grid">
         <div class="contact-info">
@@ -655,39 +3056,33 @@
             <div><h4>כתובת</h4><p>אליכין ת.ד 262</p></div>
           </div>
         </div>
-        <div class="contact-form">
-          <h3>שלחו לנו הודעה</h3>
-          <form>
-            <div class="form-group">
-              <label>שם מלא *</label>
-              <input type="text" placeholder="הכנס שם מלא" required>
+        <div class="contact-form contact-form-simple">
+          <form action="https://formsubmit.co/eliav1334@gmail.com" method="POST" id="contactForm">
+            <input type="hidden" name="_subject" value="פנייה חדשה מאתר א.א. עבודות קידוחים ופיתוח">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="https://eliav-website.vercel.app/#contact">
+
+            <div class="form-grid-layout">
+              <input type="text" name="name" class="form-input-styled" placeholder="שם מלא *" required>
+              <input type="tel" name="phone" class="form-input-styled" placeholder="טלפון *" required pattern="[0-9\-\s]{9,15}">
+              <input type="email" name="email" class="form-input-styled" placeholder="אימייל *" required>
             </div>
-            <div class="form-group">
-              <label>טלפון *</label>
-              <input type="tel" placeholder="הכנס מספר טלפון" required>
+
+            <div class="form-message-area">
+              <textarea name="message" class="form-textarea-styled" placeholder="תאר את הפרויקט או השאלה שלך (אופציונלי)"></textarea>
             </div>
-            <div class="form-group">
-              <label>אימייל</label>
-              <input type="email" placeholder="הכנס כתובת אימייל">
+
+            <div class="form-consent">
+              <label class="form-consent-label">
+                <input type="checkbox" name="consent" value="yes" required class="form-checkbox">
+                <span>אני מסכים/ה לקבל פנייה חזרה לגבי בקשתי *</span>
+              </label>
             </div>
-            <div class="form-group">
-              <label>סוג שירות</label>
-              <select>
-                <option value="">בחר סוג שירות</option>
-                <option value="drilling">קידוחי כלונסאות</option>
-                <option value="earthwork">עבודות עפר וחפירות</option>
-                <option value="demolition">הריסת מבנים</option>
-                <option value="waste">פינוי פסולת בניין</option>
-                <option value="infrastructure">פיתוח תשתיות</option>
-                <option value="equipment">השכרת ציוד כבד</option>
-                <option value="other">אחר</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>הודעה</label>
-              <textarea placeholder="ספר לנו על הפרויקט שלך..."></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">שלח הודעה</button>
+
+            <button type="submit" class="btn-yellow btn-yellow-full">שלח בקשה</button>
+
+            <p class="form-note">* שדות חובה</p>
           </form>
         </div>
       </div>
@@ -696,6 +3091,47 @@
 
   <!-- Footer -->
   <footer>
+    <!-- Silhouette Background -->
+    <div class="footer-silhouette">
+      <svg viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Mountain layers (background) -->
+        <path d="M0,200 L0,100 L150,60 L300,90 L450,50 L600,80 L750,40 L900,70 L1050,50 L1200,80 L1200,200 Z" fill="#64748b" opacity="0.3"/>
+        <path d="M0,200 L0,120 L200,80 L400,110 L600,70 L800,100 L1000,60 L1200,90 L1200,200 Z" fill="#475569" opacity="0.4"/>
+        <path d="M0,200 L0,140 L250,100 L500,130 L750,90 L1000,120 L1200,100 L1200,200 Z" fill="#334155" opacity="0.5"/>
+
+        <!-- Construction equipment silhouettes -->
+        <!-- Excavator (left side) -->
+        <g transform="translate(100, 140)">
+          <rect x="0" y="35" width="40" height="15" fill="#0F172A"/>
+          <circle cx="10" cy="52" r="5" fill="#1E293B"/>
+          <circle cx="30" cy="52" r="5" fill="#1E293B"/>
+          <rect x="15" y="20" width="15" height="15" fill="#0F172A"/>
+          <path d="M30,25 L45,15 L50,20 L42,28 Z" fill="#0F172A"/>
+          <path d="M50,20 L55,18 L58,23 L52,25 Z" fill="#1E293B"/>
+        </g>
+
+        <!-- Drill rig (center-right) -->
+        <g transform="translate(900, 80)">
+          <rect x="0" y="80" width="50" height="10" fill="#0F172A"/>
+          <rect x="20" y="20" width="8" height="60" fill="#0F172A"/>
+          <polygon points="22,20 26,20 30,0 18,0" fill="#1E293B"/>
+          <rect x="15" y="40" width="18" height="5" fill="#1E293B"/>
+          <circle cx="10" cy="88" r="4" fill="#1E293B"/>
+          <circle cx="40" cy="88" r="4" fill="#1E293B"/>
+          <line x1="24" y1="0" x2="24" y2="20" stroke="#334155" stroke-width="1"/>
+        </g>
+
+        <!-- Truck (right side) -->
+        <g transform="translate(1050, 155)">
+          <rect x="0" y="20" width="45" height="20" fill="#0F172A"/>
+          <rect x="35" y="10" width="20" height="10" fill="#1E293B"/>
+          <circle cx="12" cy="42" r="5" fill="#1E293B"/>
+          <circle cx="43" cy="42" r="5" fill="#1E293B"/>
+          <rect x="5" y="15" width="25" height="5" fill="#334155"/>
+        </g>
+      </svg>
+    </div>
+
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
@@ -705,7 +3141,7 @@
                 <path d="M2 20h20"></path><path d="M5 20V8l7-5 7 5v12"></path><path d="M9 20v-6h6v6"></path>
               </svg>
             </div>
-            אליאב קידוחים ופיתוח
+            א.א. עבודות קידוחים ופיתוח
           </div>
           <p>קבלן רשום 36281. מתמחים בקידוחי כלונסאות, עבודות עפר, הריסת מבנים, פינוי פסולת ופיתוח תשתיות. שירות מקצועי בכל רחבי המרכז והצפון.</p>
         </div>
@@ -734,10 +3170,100 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 אליאב קידוחים ופיתוח. כל הזכויות שמורות. | קבלן רשום 36281</p>
+        <p>&copy; 2025 א.א. עבודות קידוחים ופיתוח. כל הזכויות שמורות. | קבלן רשום 36281</p>
       </div>
     </div>
   </footer>
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "א.א. עבודות קידוחים ופיתוח",
+    "image": "https://eliav-website.vercel.app/logo.png",
+    "@id": "https://eliav-website.vercel.app",
+    "url": "https://eliav-website.vercel.app",
+    "telephone": "+972-52-955-6123",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "אליכין",
+      "addressLocality": "אליכין",
+      "postalCode": "262",
+      "addressCountry": "IL"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 32.2,
+      "longitude": 34.9
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday"
+      ],
+      "opens": "07:00",
+      "closes": "19:00"
+    },
+    "sameAs": [
+      "https://wa.me/972529556123"
+    ],
+    "description": "א.א. עבודות קידוחים ופיתוח - מעל 10 שנות ניסיון בקידוחי כלונסאות, עבודות עפר, הריסת מבנים, פינוי פסולת ופיתוח תשתיות. קבלן רשום 36281.",
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "תל אביב"
+      },
+      {
+        "@type": "City",
+        "name": "חדרה"
+      },
+      {
+        "@type": "City",
+        "name": "נתניה"
+      },
+      {
+        "@type": "City",
+        "name": "הרצליה"
+      },
+      {
+        "@type": "City",
+        "name": "ראשון לציון"
+      }
+    ],
+    "makesOffer": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "קידוחי כלונסאות",
+          "description": "קידוחי כלונסאות מקצועיים לכל סוגי הפרויקטים"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "עבודות עפר וחפירות",
+          "description": "עבודות עפר, חפירות ופילוס שטח"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "הריסת מבנים",
+          "description": "הריסת מבנים בטוחה ומבוקרת"
+        }
+      }
+    ]
+  }
+  </script>
 
   <script>
     // Header scroll effect
@@ -784,22 +3310,247 @@
       }
     }
 
-    // Intersection Observer for animations
-    const observer = new IntersectionObserver((entries) => {
+    // ===== SCROLL ANIMATIONS WITH INTERSECTION OBSERVER =====
+    const scrollObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
+          entry.target.classList.add('animate');
+          // Unobserve after animation to prevent re-triggering
+          scrollObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    }, {
+      threshold: 0.05,  // Lower threshold - start animation earlier (when 5% visible)
+      rootMargin: '0px 0px -50px 0px'  // Start animation 50px before element enters
+    });
 
-    document.querySelectorAll('.service-card, .why-card, .testimonial-card, .area-tag, .faq-item').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(30px)';
-      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-      observer.observe(el);
+    // Add scroll animation classes to elements
+    document.querySelectorAll('.service-card, .why-card, .testimonial-card, .faq-item').forEach(el => {
+      el.classList.add('scroll-animate');
+      scrollObserver.observe(el);
+    });
+
+    document.querySelectorAll('.section-header').forEach(el => {
+      el.classList.add('scroll-animate-fade');
+      scrollObserver.observe(el);
+    });
+
+    document.querySelectorAll('.area-tag').forEach(el => {
+      el.classList.add('scroll-animate-scale');
+      scrollObserver.observe(el);
+    });
+
+    // ===== COUNTER ANIMATION FOR STATISTICS =====
+    let statsAnimated = false;
+
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !statsAnimated) {
+          statsAnimated = true;
+          animateCounters();
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    function animateCounters() {
+      const stats = document.querySelectorAll('.stat-number');
+
+      stats.forEach((stat, index) => {
+        const text = stat.textContent;
+        const hasPlus = text.includes('+');
+        const hasPercent = text.includes('%');
+        const targetValue = parseInt(text.replace(/[^0-9]/g, ''));
+
+        // Delay each counter slightly for stagger effect
+        setTimeout(() => {
+          let currentValue = 0;
+          const increment = targetValue / 50; // 50 frames for smoother animation
+          const duration = 2000; // 2 seconds - longer for better visibility
+          const stepTime = duration / (targetValue / increment);
+
+          stat.classList.add('counting');
+
+          const counter = setInterval(() => {
+            currentValue += increment;
+            if (currentValue >= targetValue) {
+              currentValue = targetValue;
+              clearInterval(counter);
+            }
+
+            let displayValue = Math.floor(currentValue);
+            if (hasPlus) displayValue += '+';
+            if (hasPercent) displayValue += '%';
+
+            stat.textContent = displayValue;
+          }, stepTime);
+        }, index * 200); // Stagger by 200ms
+      });
+    }
+
+    // Observe stats section
+    const heroStats = document.querySelector('.hero-stats');
+    if (heroStats) {
+      statsObserver.observe(heroStats);
+    }
+
+    // Floating scroll to top button
+    const scrollTopBtn = document.querySelector('.floating-scroll-top');
+    if (scrollTopBtn) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          scrollTopBtn.classList.add('show');
+        } else {
+          scrollTopBtn.classList.remove('show');
+        }
+      });
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const mobileNav = document.getElementById('mobileNav');
+      const mobileOverlay = document.getElementById('mobileOverlay');
+      const mobileMenuBtn = document.querySelector('.mobile-menu');
+
+      mobileNav.classList.toggle('active');
+      mobileOverlay.classList.toggle('active');
+      mobileMenuBtn.classList.toggle('active');
+      document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+    }
+
+    function closeMobileMenu() {
+      const mobileNav = document.getElementById('mobileNav');
+      const mobileOverlay = document.getElementById('mobileOverlay');
+      const mobileMenuBtn = document.querySelector('.mobile-menu');
+
+      mobileNav.classList.remove('active');
+      mobileOverlay.classList.remove('active');
+      mobileMenuBtn.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  </script>
+
+  <!-- Floating Buttons -->
+  <div class="floating-buttons">
+    <a href="https://wa.me/972529556123?text=שלום, אשמח לקבל פרטים נוספים" class="floating-btn floating-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="פנה אלינו בוואטסאפ">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </a>
+    <button class="floating-btn floating-scroll-top" onclick="scrollToTop()" aria-label="חזרה למעלה">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox(event)" aria-label="סגור">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <button class="lightbox-prev" onclick="navigateLightbox(-1, event)" aria-label="תמונה קודמת">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <img id="lightbox-img" src="" alt="תמונה מוגדלת">
+      <button class="lightbox-next" onclick="navigateLightbox(1, event)" aria-label="תמונה הבאה">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Lightbox functionality
+    let currentLightboxIndex = 0;
+    const galleryImages = [];
+
+    function openLightbox(index) {
+      currentLightboxIndex = index;
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+
+      if (galleryImages[index]) {
+        lightboxImg.src = galleryImages[index];
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeLightbox(event) {
+      if (event) {
+        event.stopPropagation();
+      }
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function navigateLightbox(direction, event) {
+      if (event) {
+        event.stopPropagation();
+      }
+      currentLightboxIndex += direction;
+
+      if (currentLightboxIndex < 0) {
+        currentLightboxIndex = galleryImages.length - 1;
+      } else if (currentLightboxIndex >= galleryImages.length) {
+        currentLightboxIndex = 0;
+      }
+
+      document.getElementById('lightbox-img').src = galleryImages[currentLightboxIndex];
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      const lightbox = document.getElementById('lightbox');
+      if (lightbox.classList.contains('active')) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') navigateLightbox(1);
+        if (e.key === 'ArrowRight') navigateLightbox(-1);
+      }
+    });
+
+    // LazyLoading for images - Intersection Observer
+    document.addEventListener('DOMContentLoaded', () => {
+      const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+
+      if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              if (img.dataset.src) {
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+              }
+              img.classList.add('loaded');
+              observer.unobserve(img);
+            }
+          });
+        }, {
+          rootMargin: '50px 0px',
+          threshold: 0.01
+        });
+
+        lazyImages.forEach(img => imageObserver.observe(img));
+      }
     });
   </script>
+
+  <!-- TikTok Embed Script -->
+  <script async src="https://www.tiktok.com/embed.js"></script>
+
 </body>
 </html>
