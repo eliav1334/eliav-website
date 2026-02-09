@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>צור קשר | א.א. עבודות קידוחים ופיתוח</title>
+  <meta name="description" content="צור קשר עם א.א. עבודות קידוחים ופיתוח - קבלו הצעת מחיר לקידוחי בנטונייט, עבודות עפר, הריסת מבנים ופיתוח תשתיות. טלפון: 052-9556123.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23F97316'/%3E%3Cpath d='M20 70h60M35 70V38l15-13 15 13v32M50 70V50h10v20' stroke='white' stroke-width='4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="5" r="2"></circle>
+              <line x1="12" y1="7" x2="12" y2="19"></line>
+              <path d="M8 11l4-4 4 4"></path>
+              <path d="M10 16h4"></path>
+              <path d="M8 19h8"></path>
+              <path d="M6 23l6-4 6 4"></path>
+            </svg>
+          </div>
+          א.א. עבודות קידוחים ופיתוח
+        </a>
+        <nav>
+          <a href="index.html">דף בית</a>
+          <div class="nav-item">
+            <a href="#">שירותים <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
+            <div class="nav-dropdown">
+              <a href="bentonite-drilling.html">קידוחי בנטונייט וכלונסאות</a>
+              <a href="earthworks.html">עבודות עפר ותשתיות</a>
+              <a href="demolition.html">הריסת מבנים</a>
+            </div>
+          </div>
+          <a href="index.html#gallery">גלריה</a>
+          <a href="contact.html" class="active">צור קשר</a>
+        </nav>
+        <div class="header-cta">
+          <a href="tel:0529556123" class="phone-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            052-9556123
+          </a>
+        </div>
+        <button class="mobile-menu" onclick="toggleMobileMenu()" aria-label="תפריט">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile nav overlay and nav -->
+    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="index.html" onclick="closeMobileMenu()">דף בית</a>
+      <div class="mobile-dropdown-toggle" onclick="toggleMobileDropdown(this)">שירותים <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+      <div class="mobile-dropdown-content">
+        <a href="bentonite-drilling.html">קידוחי בנטונייט וכלונסאות</a>
+        <a href="earthworks.html">עבודות עפר ותשתיות</a>
+        <a href="demolition.html">הריסת מבנים</a>
+      </div>
+      <a href="index.html#gallery" onclick="closeMobileMenu()">גלריה</a>
+      <a href="contact.html" onclick="closeMobileMenu()">צור קשר</a>
+      <a href="tel:0529556123" class="mobile-phone">📞 052-9556123</a>
+    </div>
+  </header>
+
+  <!-- Contact Hero -->
+  <section class="service-page-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">דף בית</a> / <span>צור קשר</span>
+      </div>
+      <h1>צור קשר – נשמח לשמוע מכם</h1>
+      <p>השאירו פרטים ונחזור אליכם בהקדם, או פנו אלינו ישירות בטלפון או בוואטסאפ.</p>
+    </div>
+  </section>
+
+  <!-- Contact Content -->
+  <section class="contact-page">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Contact Form -->
+        <div class="contact-form-section">
+          <h2>השאירו פרטים</h2>
+          <p>מלאו את הטופס ונחזור אליכם תוך מספר שעות עם הצעת מחיר מותאמת</p>
+          <form class="contact-form" action="https://formsubmit.co/eliav1334@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="פנייה חדשה מדף צור קשר">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="https://eliav-website.vercel.app/thanks.html">
+            <div class="form-group">
+              <label for="name">שם מלא *</label>
+              <input type="text" id="name" name="name" placeholder="הכניסו שם מלא" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">טלפון *</label>
+              <input type="tel" id="phone" name="phone" placeholder="050-0000000" required>
+            </div>
+            <div class="form-group">
+              <label for="email">אימייל</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+              <label for="service">סוג שירות</label>
+              <select id="service" name="service">
+                <option value="">בחרו שירות</option>
+                <option value="קידוחי בנטונייט וכלונסאות">קידוחי בנטונייט וכלונסאות</option>
+                <option value="עבודות עפר וחפירות">עבודות עפר וחפירות</option>
+                <option value="פיתוח תשתיות">פיתוח תשתיות</option>
+                <option value="הריסת מבנים">הריסת מבנים</option>
+                <option value="פינוי פסולת בניין">פינוי פסולת בניין</option>
+                <option value="השכרת ציוד">השכרת ציוד</option>
+                <option value="אחר">אחר</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">פרטים על הפרויקט</label>
+              <textarea id="message" name="message" rows="5" placeholder="ספרו לנו על הפרויקט שלכם - מיקום, היקף, לוח זמנים..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">שלחו פנייה</button>
+          </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info-section">
+          <div class="contact-info-card">
+            <h3>פרטי התקשרות</h3>
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+              </div>
+              <div>
+                <strong>טלפון</strong>
+                <a href="tel:0529556123">052-9556123</a>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+              </div>
+              <div>
+                <strong>וואטסאפ</strong>
+                <a href="https://wa.me/972529556123?text=שלום, אשמח לקבל הצעת מחיר" target="_blank" rel="noopener noreferrer">שלחו הודעה בוואטסאפ</a>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </div>
+              <div>
+                <strong>אימייל</strong>
+                <a href="mailto:eliav1334@gmail.com">eliav1334@gmail.com</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-info-card">
+            <h3>שעות פעילות</h3>
+            <div class="hours-list">
+              <div class="hours-item">
+                <span>ראשון - חמישי</span>
+                <span>07:00 - 18:00</span>
+              </div>
+              <div class="hours-item">
+                <span>שישי</span>
+                <span>07:00 - 13:00</span>
+              </div>
+              <div class="hours-item">
+                <span>שבת</span>
+                <span>סגור</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-info-card">
+            <h3>אזורי שירות</h3>
+            <p>אנו מספקים שירות בכל רחבי המרכז והצפון: תל אביב, ירושלים, חיפה, באר שבע, נתניה, ראשון לציון, פתח תקווה, חולון, אשדוד, רמת גן, הרצליה, כפר סבא ועוד.</p>
+          </div>
+
+          <div class="contact-info-card">
+            <h3>קבלן רשום</h3>
+            <p>א.א. עבודות קידוחים ופיתוח – קבלן רשום מספר 36281. מנהל עבודה מוסמך, בעלי כל הביטוחים והאישורים הנדרשים.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <!-- Silhouette Background -->
+    <div class="footer-silhouette">
+      <svg viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,200 L0,100 L150,60 L300,90 L450,50 L600,80 L750,40 L900,70 L1050,50 L1200,80 L1200,200 Z" fill="#64748b" opacity="0.3"/>
+        <path d="M0,200 L0,120 L200,80 L400,110 L600,70 L800,100 L1000,60 L1200,90 L1200,200 Z" fill="#475569" opacity="0.4"/>
+        <path d="M0,200 L0,140 L250,100 L500,130 L750,90 L1000,120 L1200,100 L1200,200 Z" fill="#334155" opacity="0.5"/>
+        <g transform="translate(100, 140)">
+          <rect x="0" y="35" width="40" height="15" fill="#0F172A"/>
+          <circle cx="10" cy="52" r="5" fill="#1E293B"/>
+          <circle cx="30" cy="52" r="5" fill="#1E293B"/>
+          <rect x="15" y="20" width="15" height="15" fill="#0F172A"/>
+          <path d="M30,25 L45,15 L50,20 L42,28 Z" fill="#0F172A"/>
+          <path d="M50,20 L55,18 L58,23 L52,25 Z" fill="#1E293B"/>
+        </g>
+        <g transform="translate(900, 80)">
+          <rect x="0" y="80" width="50" height="10" fill="#0F172A"/>
+          <rect x="20" y="20" width="8" height="60" fill="#0F172A"/>
+          <polygon points="22,20 26,20 30,0 18,0" fill="#1E293B"/>
+          <rect x="15" y="40" width="18" height="5" fill="#1E293B"/>
+          <circle cx="10" cy="88" r="4" fill="#1E293B"/>
+          <circle cx="40" cy="88" r="4" fill="#1E293B"/>
+          <line x1="24" y1="0" x2="24" y2="20" stroke="#334155" stroke-width="1"/>
+        </g>
+        <g transform="translate(1050, 155)">
+          <rect x="0" y="20" width="45" height="20" fill="#0F172A"/>
+          <rect x="35" y="10" width="20" height="10" fill="#1E293B"/>
+          <circle cx="12" cy="42" r="5" fill="#1E293B"/>
+          <circle cx="43" cy="42" r="5" fill="#1E293B"/>
+          <rect x="5" y="15" width="25" height="5" fill="#334155"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="logo">
+            <div class="logo-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 20h20"></path><path d="M5 20V8l7-5 7 5v12"></path><path d="M9 20v-6h6v6"></path>
+              </svg>
+            </div>
+            א.א. עבודות קידוחים ופיתוח
+          </div>
+          <p>קבלן רשום 36281. מתמחים בקידוחי כלונסאות, עבודות עפר, הריסת מבנים, פינוי פסולת ופיתוח תשתיות. שירות מקצועי בכל רחבי המרכז והצפון.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>שירותים</h4>
+            <ul>
+              <li><a href="bentonite-drilling.html">קידוחי בנטונייט וכלונסאות</a></li>
+              <li><a href="earthworks.html">עבודות עפר ותשתיות</a></li>
+              <li><a href="demolition.html">הריסת מבנים</a></li>
+              <li><a href="index.html#services">פינוי פסולת</a></li>
+              <li><a href="index.html#services">פיתוח תשתיות</a></li>
+              <li><a href="index.html#services">השכרת ציוד</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>ניווט מהיר</h4>
+            <ul>
+              <li><a href="index.html">דף בית</a></li>
+              <li><a href="index.html#gallery">גלריה</a></li>
+              <li><a href="index.html#areas">אזורי שירות</a></li>
+              <li><a href="index.html#faq">שאלות נפוצות</a></li>
+              <li><a href="contact.html">צור קשר</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 א.א. עבודות קידוחים ופיתוח. כל הזכויות שמורות. | קבלן רשום 36281</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Buttons -->
+  <div class="floating-buttons">
+    <a href="https://wa.me/972529556123?text=שלום, אשמח לקבל הצעת מחיר" class="floating-btn floating-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="פנה אלינו בוואטסאפ">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </a>
+    <button class="floating-btn floating-scroll-top" onclick="scrollToTop()" aria-label="חזרה למעלה">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Sticky Mobile Bar -->
+  <div class="sticky-mobile-bar">
+    <div class="sticky-buttons">
+      <a href="https://wa.me/972529556123?text=שלום, אשמח לקבל הצעת מחיר" class="sticky-btn sticky-btn-whatsapp">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        וואטסאפ
+      </a>
+      <a href="tel:0529556123" class="sticky-btn sticky-btn-call">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        חיוג ישיר
+      </a>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+</body>
+</html>

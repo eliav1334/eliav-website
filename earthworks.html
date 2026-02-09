@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>עבודות עפר ותשתיות | א.א. עבודות קידוחים ופיתוח</title>
+  <meta name="description" content="עבודות עפר ותשתיות מקצועיות - חפירות, פיתוח תשתיות, סלילת כבישים, הנחת קווי ביוב ומים, בורות חלחול וניקוז. קבלן רשום 36281 עם ציוד כבד מתקדם.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23F97316'/%3E%3Cpath d='M20 70h60M35 70V38l15-13 15 13v32M50 70V50h10v20' stroke='white' stroke-width='4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="5" r="2"></circle>
+              <line x1="12" y1="7" x2="12" y2="19"></line>
+              <path d="M8 11l4-4 4 4"></path>
+              <path d="M10 16h4"></path>
+              <path d="M8 19h8"></path>
+              <path d="M6 23l6-4 6 4"></path>
+            </svg>
+          </div>
+          א.א. עבודות קידוחים ופיתוח
+        </a>
+        <nav>
+          <a href="index.html">דף בית</a>
+          <div class="nav-item">
+            <a href="#" class="active">שירותים <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
+            <div class="nav-dropdown">
+              <a href="bentonite-drilling.html">קידוחי בנטונייט וכלונסאות</a>
+              <a href="earthworks.html" class="active">עבודות עפר ותשתיות</a>
+              <a href="demolition.html">הריסת מבנים</a>
+            </div>
+          </div>
+          <a href="index.html#gallery">גלריה</a>
+          <a href="contact.html">צור קשר</a>
+        </nav>
+        <div class="header-cta">
+          <a href="tel:0529556123" class="phone-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            052-9556123
+          </a>
+        </div>
+        <button class="mobile-menu" onclick="toggleMobileMenu()" aria-label="תפריט">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile nav overlay and nav -->
+    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="index.html" onclick="closeMobileMenu()">דף בית</a>
+      <div class="mobile-dropdown-toggle" onclick="toggleMobileDropdown(this)">שירותים <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+      <div class="mobile-dropdown-content">
+        <a href="bentonite-drilling.html">קידוחי בנטונייט וכלונסאות</a>
+        <a href="earthworks.html">עבודות עפר ותשתיות</a>
+        <a href="demolition.html">הריסת מבנים</a>
+      </div>
+      <a href="index.html#gallery" onclick="closeMobileMenu()">גלריה</a>
+      <a href="contact.html" onclick="closeMobileMenu()">צור קשר</a>
+      <a href="tel:0529556123" class="mobile-phone">📞 052-9556123</a>
+    </div>
+  </header>
+
+  <!-- Service Page Hero -->
+  <section class="service-page-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">דף בית</a> / <span>עבודות עפר ותשתיות</span>
+      </div>
+      <h1>ניהול ופיתוח תשתיות – עבודות עפר מקצועיות</h1>
+      <p>ביצוע עבודות עפר וחפירות מכל סוג, פיתוח תשתיות, סלילת כבישים, הנחת קווי ביוב ומים, בורות חלחול וניקוז. ציוד כבד מתקדם וצוות מנוסה.</p>
+      <a href="contact.html" class="btn btn-primary">קבל הצעת מחיר</a>
+    </div>
+  </section>
+
+  <!-- Service Content -->
+  <section class="service-content">
+    <div class="container">
+      <div class="service-content-grid">
+        <!-- Left Column - Detail Cards -->
+        <div class="service-details-column">
+          <!-- Card 1: Earthworks -->
+          <div class="service-detail-card">
+            <h2>עבודות עפר וחפירות</h2>
+            <ul class="service-features">
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                חפירות ליסודות מבנים ובניינים
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                עבודות חפירה ומילוי בהיקפים גדולים
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                פילוס ויישור שטחים לפני בנייה
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                בורות חלחול וניקוז - חפירה והתקנה מלאה
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                חפירת תעלות לקווי תשתית (ביוב, מים, חשמל)
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                פינוי עודפי עפר וחומרי חפירה
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 2: Infrastructure Development -->
+          <div class="service-detail-card">
+            <h2>פיתוח תשתיות</h2>
+            <ul class="service-features">
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                הנחת קווי ביוב ומים
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                סלילת כבישים ודרכי גישה
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                פיתוח שטח למגורים, מסחר ותעשייה
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                הכנת תשתיות לפרויקטי בנייה
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                עבודות ניקוז ותיעול מתקדמות
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                ריצוף ועבודות גמר חיצוניות
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                ליווי מלא מתכנון ועד ביצוע
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Right Column - TikTok Video -->
+        <div class="service-media-column">
+          <div class="tiktok-embed-wrapper" style="max-width: 400px;">
+            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@eliav.aharon/video/7474858008799923463" data-video-id="7474858008799923463" style="max-width: 605px;min-width: 325px;">
+              <section><a target="_blank" title="@eliav.aharon" href="https://www.tiktok.com/@eliav.aharon?refer=embed">@eliav.aharon</a></section>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Gallery -->
+  <section class="service-gallery">
+    <div class="container">
+      <div class="section-header">
+        <h2>גלריית עבודות עפר ותשתיות</h2>
+      </div>
+      <div class="service-gallery-grid">
+        <div class="gallery-item">
+          <img src="images/קסמג כביש 5/1.jpg" alt="עבודות עפר - פרויקט כביש 5" loading="lazy" onclick="openLightbox(0)">
+        </div>
+        <div class="gallery-item">
+          <img src="images/קסמג כביש 5/20240501_172507.jpg" alt="פיתוח תשתיות - סלילת כביש" loading="lazy" onclick="openLightbox(1)">
+        </div>
+        <div class="gallery-item">
+          <img src="images/קסמג כביש 5/20240502_144413.jpg" alt="ציוד כבד בעבודות עפר" loading="lazy" onclick="openLightbox(2)">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <h2>שאלות נפוצות על עבודות עפר ותשתיות</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>מהם בורות חלחול וניקוז ומתי צריך אותם?</h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="faq-answer">
+            <p>בורות חלחול הם מתקנים תת-קרקעיים המיועדים לניקוז מי גשמים ומי נגר עילי מהשטח. הם מאפשרים למים לחלחל בחזרה לקרקע בצורה מבוקרת, ובכך מונעים הצפות, נזקי מים ליסודות מבנים ושחיקת קרקע. בורות חלחול נדרשים על פי חוק בפרויקטים חדשים רבים, במיוחד באזורים עירוניים שבהם שטחים גדולים מרוצפים או מבונים ואין מספיק שטח ירוק לספיגה טבעית. אנו מבצעים חפירה, התקנה ובדיקת בורות חלחול לפי כל הדרישות התכנוניות.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>האם אתם מבוטחים ומורשים לעבודות עפר?</h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="faq-answer">
+            <p>בהחלט. אנחנו קבלן רשום מס' 36281 ומנהל עבודה מוסמך, בעלי כל הביטוחים והאישורים הנדרשים לביצוע עבודות עפר ותשתיות: ביטוח קבלנים צד ג', ביטוח על ציוד וכלי העבודה, ורישיונות לעבודה עם כלים מכניים כבדים. אנו עובדים לפי כל תקני הבטיחות המחמירים בישראל ומקפידים על נהלי עבודה בטוחים באתר.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>איזה ציוד יש לכם לעבודות עפר?</h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="faq-answer">
+            <p>לרשותנו מגוון רחב של ציוד כבד מתקדם הכולל: בובקט לעבודות פילוס ועפר, מיני מחפרון לעבודה באזורים צרים ובשטחים בנויים, מחפרון לחפירות ועבודות עפר בהיקפים גדולים, מכונת קידוח לבורות ניקוז וחלחול. כל הציוד תקין, מבוטח ובטיחותי, ומגיע עם מפעילים מוסמכים ובעלי ניסיון רב. אנו גם מציעים שירות השכרת ציוד עם מפעיל לפרויקטים מיוחדים.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO Article -->
+  <section class="seo-article">
+    <div class="container">
+      <h2>עבודות עפר ופיתוח תשתיות – מדריך מקצועי</h2>
+
+      <h3>מהן עבודות עפר?</h3>
+      <p>עבודות עפר הן המרכיב הבסיסי והחשוב ביותר בכל פרויקט בנייה ותשתיות. הן כוללות את כל הפעולות הקשורות לחפירה, מילוי, פילוס והזזת אדמה באתר הבנייה – מהכנת הקרקע ליסודות מבנה ועד סלילת כבישים ודרכי גישה. עבודות עפר מקצועיות הן הבסיס שעליו נשענים כל שלבי הבנייה הבאים, ולכן חשוב במיוחד שיבוצעו על ידי צוות מנוסה עם ציוד מתאים. טעות בשלב זה עלולה להשפיע על כל המבנה או התשתית בעתיד.</p>
+
+      <h3>סוגי עבודות עפר שאנו מבצעים</h3>
+      <p>אנו בא.א. עבודות קידוחים ופיתוח מבצעים מגוון רחב של עבודות עפר: <strong>חפירות ליסודות</strong> – חפירה מדויקת לפי תוכניות המהנדס ליסודות מבנים, בניינים ומבני ציבור. <strong>פילוס שטחים</strong> – יישור ופילוס קרקע לפני בנייה, סלילה או הקמת תשתיות. <strong>חפירות תעלות</strong> – חפירה לקווי ביוב, מים, חשמל ותקשורת. <strong>בורות חלחול וניקוז</strong> – חפירה, התקנה ובדיקת בורות ניקוז לפי דרישות תכנוניות. <strong>הובלת עפר ומילוי</strong> – פינוי עודפי חפירה ואספקת חומרי מילוי ומצע. <strong>עבודות חפירה ומילוי בהיקפים גדולים</strong> – ביצוע פרויקטים בקנה מידה נרחב עבור חברות בנייה וקבלני תשתיות.</p>
+
+      <h3>פיתוח תשתיות מקצועי</h3>
+      <p>פיתוח תשתיות הוא תהליך מורכב הכולל את כל העבודות הנדרשות להפיכת שטח גולמי לאזור מפותח ומוכן לשימוש. התהליך כולל מספר שלבים מרכזיים: תכנון ומדידות ראשוניות, פילוס ויישור שטח, הנחת תשתיות תת-קרקעיות (ביוב, מים, חשמל, תקשורת), הכנת מצע ותשתיות לכבישים ומדרכות, סלילה וריצוף, וגמרים חיצוניים. אנו מלווים את הפרויקט מתחילתו ועד סופו, תוך תיאום מלא עם כל הגורמים הרלוונטיים – מהנדסים, אדריכלים, רשויות מקומיות וספקי שירות.</p>
+
+      <h3>ניקוז ותיעול</h3>
+      <p>ניקוז נכון הוא מרכיב קריטי בכל פרויקט פיתוח. ללא מערכת ניקוז מתאימה, מי גשמים ונגר עילי עלולים לגרום לנזקים משמעותיים למבנים ולתשתיות. אנו מתמחים בתכנון וביצוע פתרונות ניקוז מגוונים: בורות חלחול לניהול מי נגר, מערכות תיעול וצנרת ניקוז, שוחות ביקורת ומפלים, מערכות ניקוז נקודתיות וקווים ראשיים. כל פתרון ניקוז מתוכנן ומבוצע לפי הדרישות התכנוניות הספציפיות של הפרויקט ובהתאם לתנאי הקרקע והאקלים באזור.</p>
+
+      <h3>למה לבחור בא.א. עבודות קידוחים לעבודות עפר?</h3>
+      <p>א.א. עבודות קידוחים ופיתוח מביאה ניסיון של מעל 10 שנה בתחום עבודות העפר ופיתוח התשתיות. אנחנו קבלן רשום מספר 36281 עם כל האישורים והביטוחים הנדרשים. הציוד שלנו כולל מגוון רחב של כלים מכניים כבדים – בובקטים, מחפרונים, מכונות קידוח ועוד – כולם תקינים, מבוטחים ומופעלים על ידי מפעילים מוסמכים. אנו מתחייבים לאיכות עבודה ללא פשרות, עמידה בלוחות זמנים, בטיחות מלאה ומחירים הוגנים ותחרותיים. בין לקוחותינו ניתן למצוא חברות בנייה מובילות, קבלני תשתיות, רשויות מקומיות ולקוחות פרטיים. אם אתם מחפשים קבלן מקצועי ואמין לעבודות עפר ופיתוח תשתיות – צרו קשר עוד היום.</p>
+    </div>
+  </section>
+
+  <!-- Mini Contact Form -->
+  <section class="mini-contact">
+    <div class="container">
+      <h2>רוצים הצעת מחיר לעבודות עפר?</h2>
+      <p>השאירו פרטים ונחזור אליכם בהקדם עם הצעה מותאמת</p>
+      <form class="mini-contact-form" action="https://formsubmit.co/eliav1334@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="פנייה חדשה - עבודות עפר ותשתיות">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://eliav-website.vercel.app/thanks.html">
+        <input type="text" name="name" placeholder="שם מלא" required>
+        <input type="tel" name="phone" placeholder="טלפון" required>
+        <textarea name="message" placeholder="ספרו לנו על הפרויקט שלכם"></textarea>
+        <button type="submit" class="btn btn-primary">שלח בקשה</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <!-- Silhouette Background -->
+    <div class="footer-silhouette">
+      <svg viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,200 L0,100 L150,60 L300,90 L450,50 L600,80 L750,40 L900,70 L1050,50 L1200,80 L1200,200 Z" fill="#64748b" opacity="0.3"/>
+        <path d="M0,200 L0,120 L200,80 L400,110 L600,70 L800,100 L1000,60 L1200,90 L1200,200 Z" fill="#475569" opacity="0.4"/>
+        <path d="M0,200 L0,140 L250,100 L500,130 L750,90 L1000,120 L1200,100 L1200,200 Z" fill="#334155" opacity="0.5"/>
+        <g transform="translate(100, 140)">
+          <rect x="0" y="35" width="40" height="15" fill="#0F172A"/>
+          <circle cx="10" cy="52" r="5" fill="#1E293B"/>
+          <circle cx="30" cy="52" r="5" fill="#1E293B"/>
+          <rect x="15" y="20" width="15" height="15" fill="#0F172A"/>
+          <path d="M30,25 L45,15 L50,20 L42,28 Z" fill="#0F172A"/>
+          <path d="M50,20 L55,18 L58,23 L52,25 Z" fill="#1E293B"/>
+        </g>
+        <g transform="translate(900, 80)">
+          <rect x="0" y="80" width="50" height="10" fill="#0F172A"/>
+          <rect x="20" y="20" width="8" height="60" fill="#0F172A"/>
+          <polygon points="22,20 26,20 30,0 18,0" fill="#1E293B"/>
+          <rect x="15" y="40" width="18" height="5" fill="#1E293B"/>
+          <circle cx="10" cy="88" r="4" fill="#1E293B"/>
+          <circle cx="40" cy="88" r="4" fill="#1E293B"/>
+          <line x1="24" y1="0" x2="24" y2="20" stroke="#334155" stroke-width="1"/>
+        </g>
+        <g transform="translate(1050, 155)">
+          <rect x="0" y="20" width="45" height="20" fill="#0F172A"/>
+          <rect x="35" y="10" width="20" height="10" fill="#1E293B"/>
+          <circle cx="12" cy="42" r="5" fill="#1E293B"/>
+          <circle cx="43" cy="42" r="5" fill="#1E293B"/>
+          <rect x="5" y="15" width="25" height="5" fill="#334155"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="logo">
+            <div class="logo-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 20h20"></path><path d="M5 20V8l7-5 7 5v12"></path><path d="M9 20v-6h6v6"></path>
+              </svg>
+            </div>
+            א.א. עבודות קידוחים ופיתוח
+          </div>
+          <p>קבלן רשום 36281. מתמחים בקידוחי כלונסאות, עבודות עפר, הריסת מבנים, פינוי פסולת ופיתוח תשתיות. שירות מקצועי בכל רחבי המרכז והצפון.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>שירותים</h4>
+            <ul>
+              <li><a href="bentonite-drilling.html">קידוחי בנטונייט וכלונסאות</a></li>
+              <li><a href="earthworks.html">עבודות עפר ותשתיות</a></li>
+              <li><a href="demolition.html">הריסת מבנים</a></li>
+              <li><a href="index.html#services">פינוי פסולת</a></li>
+              <li><a href="index.html#services">פיתוח תשתיות</a></li>
+              <li><a href="index.html#services">השכרת ציוד</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>ניווט מהיר</h4>
+            <ul>
+              <li><a href="index.html">דף בית</a></li>
+              <li><a href="index.html#gallery">גלריה</a></li>
+              <li><a href="index.html#areas">אזורי שירות</a></li>
+              <li><a href="#faq">שאלות נפוצות</a></li>
+              <li><a href="contact.html">צור קשר</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 א.א. עבודות קידוחים ופיתוח. כל הזכויות שמורות. | קבלן רשום 36281</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Buttons -->
+  <div class="floating-buttons">
+    <a href="https://wa.me/972529556123?text=שלום, אשמח לקבל פרטים נוספים על עבודות עפר ותשתיות" class="floating-btn floating-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="פנה אלינו בוואטסאפ">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </a>
+    <button class="floating-btn floating-scroll-top" onclick="scrollToTop()" aria-label="חזרה למעלה">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Sticky Mobile Bar -->
+  <div class="sticky-mobile-bar">
+    <div class="sticky-buttons">
+      <a href="https://wa.me/972529556123?text=שלום, אשמח לקבל פרטים נוספים על עבודות עפר ותשתיות" class="sticky-btn sticky-btn-whatsapp">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        וואטסאפ
+      </a>
+      <a href="tel:0529556123" class="sticky-btn sticky-btn-call">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        חיוג ישיר
+      </a>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox(event)" aria-label="סגור">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <button class="lightbox-prev" onclick="navigateLightbox(-1, event)" aria-label="תמונה קודמת">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <img id="lightbox-img" src="" alt="תמונה מוגדלת">
+      <button class="lightbox-next" onclick="navigateLightbox(1, event)" aria-label="תמונה הבאה">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script async src="https://www.tiktok.com/embed.js"></script>
+</body>
+</html>
