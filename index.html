@@ -18,6 +18,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Swiper.js CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -150,13 +152,13 @@
         <div class="hero-images">
           <div class="hero-image-grid">
             <div class="hero-image hero-image-large">
-              <img src="images/קסמג כביש 5/1.jpg" alt="קידוח כלונסאות - פרויקט כביש 5" loading="eager">
+              <img src="images/gallery/hero-drilling-1.webp" alt="קידוחי כלונסאות ובנטונייט - פרויקט גשר כביש 5" loading="eager">
             </div>
             <div class="hero-image hero-image-small">
-              <img src="images/קסמג כביש 5/20240501_172507.jpg" alt="עבודות קידוח בשטח" loading="eager">
+              <img src="images/gallery/hero-villa-1.webp" alt="קידוחי ביסוס לוילות - עבודות קידוח מקצועיות" loading="eager">
             </div>
             <div class="hero-image hero-image-small">
-              <img src="images/קידוח ברכבת SPIS/20200405_092643.jpg" alt="קידוח ברכבת ישראל" loading="eager">
+              <img src="images/gallery/hero-general-1.webp" alt="עבודות עפר ופיתוח תשתיות באתר בנייה" loading="eager">
             </div>
           </div>
         </div>
@@ -323,8 +325,47 @@
     </div>
   </section>
 
+  <!-- Gallery -->
+  <section class="service-gallery" id="gallery">
+    <div class="container">
+      <div class="section-header">
+        <h2>גלריית פרויקטים</h2>
+        <p>מבחר עבודות מפרויקטים שביצענו ברחבי הארץ</p>
+      </div>
+      <div class="service-gallery-grid">
+        <div class="gallery-item">
+          <img src="images/gallery/hero-drilling-1.webp" alt="קידוחי ביסוס לגשר כביש 5" loading="lazy" onclick="openLightbox(0)">
+        </div>
+        <div class="gallery-item">
+          <img src="images/gallery/earthworks-electra-1.webp" alt="עבודות פיתוח - חברת אלקטרה" loading="lazy" onclick="openLightbox(1)">
+        </div>
+        <div class="gallery-item">
+          <img src="images/gallery/bentonite-rishon-1.webp" alt="קידוחי בנטונייט ברכבת ראשון לציון" loading="lazy" onclick="openLightbox(2)">
+        </div>
+        <div class="gallery-item">
+          <img src="images/gallery/earthworks-netanya-1.webp" alt="חפירה לתשתיות חשמל נתניה" loading="lazy" onclick="openLightbox(3)">
+        </div>
+        <div class="gallery-item">
+          <img src="images/gallery/bentonite-villa-2.webp" alt="ביסוס מנוף הרצליה" loading="lazy" onclick="openLightbox(4)">
+        </div>
+        <div class="gallery-item">
+          <img src="images/gallery/earthworks-borehole-1.webp" alt="בורות חלחול וניקוז" loading="lazy" onclick="openLightbox(5)">
+        </div>
+        <div class="gallery-item">
+          <img src="images/gallery/demolition-rocks-1.webp" alt="הורדת סלעים מצוק נתניה" loading="lazy" onclick="openLightbox(6)">
+        </div>
+        <div class="gallery-item">
+          <img src="images/gallery/bentonite-ashdod-1.webp" alt="קידוחי ביסוס רכבת ישראל אשדוד" loading="lazy" onclick="openLightbox(7)">
+        </div>
+        <div class="gallery-item">
+          <img src="images/gallery/earthworks-raanana-1.webp" alt="ריצוף משתלבות רעננה" loading="lazy" onclick="openLightbox(8)">
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- TikTok Video -->
-  <section class="tiktok-videos" id="gallery">
+  <section class="tiktok-videos">
     <div class="container">
       <div class="section-header">
         <h2>הציוד שלנו בפעולה</h2>
@@ -357,91 +398,108 @@
         <h2>מה הלקוחות שלנו אומרים</h2>
         <p>המלצות אמיתיות מלקוחות מרוצים</p>
       </div>
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <div class="testimonial-rating">
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+      <div class="swiper testimonials-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-rating">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+              <p class="testimonial-text">"קבלן הקידוחים הקודם שלי נעלם לי באמצע פרויקט. הגעתי לאליאב בלחץ עם לו&quot;ז צפוף, והוא אמר לי בכנות מה אפשר ומה לא בזמן שיש. בסוף סיימו יומיים לפני הדדליין. מאז הוא קבלן הקידוחים הקבוע שלי."</p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">מכ</div>
+                <div class="testimonial-info"><h4>משה כהן</h4><span>קבלן בניין</span></div>
+              </div>
+            </div>
           </div>
-          <p class="testimonial-text">"קבלן הקידוחים הקודם שלי נעלם לי באמצע פרויקט. הגעתי לאליאב בלחץ עם לו&quot;ז צפוף, והוא אמר לי בכנות מה אפשר ומה לא בזמן שיש. בסוף סיימו יומיים לפני הדדליין. מאז הוא קבלן הקידוחים הקבוע שלי."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">מכ</div>
-            <div class="testimonial-info"><h4>משה כהן</h4><span>קבלן בניין</span></div>
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-rating">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+              <p class="testimonial-text">"היה לנו פרויקט עם קרקע בעייתית שדרשה כלונסאות. שני קבלנים סירבו אחרי שראו את התנאים בשטח. אליאב הגיע, בדק, ואמר שזה אתגר אבל ישים. הוא הביא תחנת בנטונייט ניידת והעבודה זרמה. הוא לא הבטיח שום דבר שהוא לא יכול לעמוד בו, וזה בדיוק מה שהייתי צריכה."</p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">של</div>
+                <div class="testimonial-info"><h4>שרה לוי</h4><span>יזמית נדל"ן</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-rating">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+              <p class="testimonial-text">"קיבלתי שלוש הצעות מחיר וכמובן הלכתי על הכי זולה. אחרי שבועיים של עיכובים ותירוצים מהקבלן ההוא, ביטלתי והתקשרתי לאליאב. הוא לא אמר מילה רעה על אף אחד, פשוט הגיע, העריך את המצב, ותוך שלושה ימים הקידוח היה גמור. כן, שילמתי יותר, אבל לפחות העבודה נעשתה."</p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">דב</div>
+                <div class="testimonial-info"><h4>דוד ברק</h4><span>מהנדס אזרחי</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-rating">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+              <p class="testimonial-text">"היה לנו מבנה ישן שצריך לרדת, אבל הבעיה שמשני הצדדים יש שכנים צמודים. פחדתי מנזקים, מתביעות, מבלאגן. אליאב הגיע עם תוכנית מסודרת - הסביר בדיוק איך יעשו את זה בלי לפגוע בשכנים. ההריסה לקחה יומיים, הפינוי עוד יום, ואף שכן לא התלונן. זה היה שווה כל שקל."</p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">רמ</div>
+                <div class="testimonial-info"><h4>רונן מזרחי</h4><span>בעל נכס</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-rating">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+              <p class="testimonial-text">"בתחום שלנו כולם מבטיחים הכל ואחרי זה נעלמים. עם אליאב עבדתי כבר בארבעה פרויקטים, ופעם אחת הייתה תקלה בשטח - צינור שלא ידענו עליו. במקום להתחמק, הוא טיפל בזה באותו יום על חשבונו. מאז אני לא מחפש אף אחד אחר."</p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">אג</div>
+                <div class="testimonial-info"><h4>אבי גולן</h4><span>קבלן עבודות פיתוח</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-rating">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+              <p class="testimonial-text">"אני לא מהתחום, קניתי מגרש ולא ידעתי מאיפה להתחיל. הקבלן הראשון שהתקשרתי אליו ניסה למכור לי עבודות שאני לא צריך. אליאב הגיע, הסתכל על השטח, ואמר לי &quot;תשמע, אתה לא צריך חצי מהדברים שאמרו לך&quot;. חסך לי אלפי שקלים וגמר את הפיתוח תוך שבוע. בן אדם ישר."</p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">יח</div>
+                <div class="testimonial-info"><h4>יוסי חיים</h4><span>בעלים פרטי</span></div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="testimonial-card">
-          <div class="testimonial-rating">
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          </div>
-          <p class="testimonial-text">"היה לנו פרויקט עם קרקע בעייתית שדרשה כלונסאות. שני קבלנים סירבו אחרי שראו את התנאים בשטח. אליאב הגיע, בדק, ואמר שזה אתגר אבל ישים. הוא הביא תחנת בנטונייט ניידת והעבודה זרמה. הוא לא הבטיח שום דבר שהוא לא יכול לעמוד בו, וזה בדיוק מה שהייתי צריכה."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">של</div>
-            <div class="testimonial-info"><h4>שרה לוי</h4><span>יזמית נדל"ן</span></div>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-rating">
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          </div>
-          <p class="testimonial-text">"קיבלתי שלוש הצעות מחיר וכמובן הלכתי על הכי זולה. אחרי שבועיים של עיכובים ותירוצים מהקבלן ההוא, ביטלתי והתקשרתי לאליאב. הוא לא אמר מילה רעה על אף אחד, פשוט הגיע, העריך את המצב, ותוך שלושה ימים הקידוח היה גמור. כן, שילמתי יותר, אבל לפחות העבודה נעשתה."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">דב</div>
-            <div class="testimonial-info"><h4>דוד ברק</h4><span>מהנדס אזרחי</span></div>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-rating">
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          </div>
-          <p class="testimonial-text">"היה לנו מבנה ישן שצריך לרדת, אבל הבעיה שמשני הצדדים יש שכנים צמודים. פחדתי מנזקים, מתביעות, מבלאגן. אליאב הגיע עם תוכנית מסודרת - הסביר בדיוק איך יעשו את זה בלי לפגוע בשכנים. ההריסה לקחה יומיים, הפינוי עוד יום, ואף שכן לא התלונן. זה היה שווה כל שקל."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">רמ</div>
-            <div class="testimonial-info"><h4>רונן מזרחי</h4><span>בעל נכס</span></div>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-rating">
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          </div>
-          <p class="testimonial-text">"בתחום שלנו כולם מבטיחים הכל ואחרי זה נעלמים. עם אליאב עבדתי כבר בארבעה פרויקטים, ופעם אחת הייתה תקלה בשטח - צינור שלא ידענו עליו. במקום להתחמק, הוא טיפל בזה באותו יום על חשבונו. מאז אני לא מחפש אף אחד אחר."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">אג</div>
-            <div class="testimonial-info"><h4>אבי גולן</h4><span>קבלן עבודות פיתוח</span></div>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-rating">
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          </div>
-          <p class="testimonial-text">"אני לא מהתחום, קניתי מגרש ולא ידעתי מאיפה להתחיל. הקבלן הראשון שהתקשרתי אליו ניסה למכור לי עבודות שאני לא צריך. אליאב הגיע, הסתכל על השטח, ואמר לי &quot;תשמע, אתה לא צריך חצי מהדברים שאמרו לך&quot;. חסך לי אלפי שקלים וגמר את הפיתוח תוך שבוע. בן אדם ישר."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">יח</div>
-            <div class="testimonial-info"><h4>יוסי חיים</h4><span>בעלים פרטי</span></div>
-          </div>
-        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
       </div>
     </div>
   </section>
@@ -547,7 +605,7 @@
         </div>
       </div>
       <!-- FAQ CTA -->
-      <div class="cta-section" style="background: transparent; padding: 60px 0 0;">
+      <div class="cta-section" style="background: transparent; padding: 60px 0 40px;">
         <div class="cta-content">
           <h2 style="font-size: 1.8rem;">לא מצאת את התשובה שחיפשת?</h2>
           <p>נשמח לענות על כל שאלה נוספת ולסייע לך במידע שתצטרך</p>
@@ -568,7 +626,8 @@
         <input type="hidden" name="_subject" value="פנייה חדשה מאתר א.א. עבודות קידוחים ופיתוח">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_next" value="https://eliav-website.vercel.app/thanks.html">
+        <input type="hidden" name="_next" value="https://eliav-website-three.vercel.app/thanks">
+        <input type="hidden" name="_autoresponse" value="תודה על פנייתך! קיבלנו את הפרטים שלך ונחזור אליך בהקדם. בברכה, א.א. עבודות קידוחים ופיתוח">
         <div class="mini-contact-fields">
           <input type="text" name="name" placeholder="שם מלא *" required>
           <input type="tel" name="phone" placeholder="טלפון *" required pattern="[0-9\-\s]{9,15}">
@@ -812,6 +871,33 @@
   </script>
 
   <script src="js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const testimonialsSwiper = new Swiper('.testimonials-swiper', {
+      slidesPerView: 1,
+      spaceBetween: 24,
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        769: {
+          slidesPerView: 3,
+          spaceBetween: 32,
+        }
+      }
+    });
+  </script>
   <script async src="https://www.tiktok.com/embed.js"></script>
 </body>
 </html>

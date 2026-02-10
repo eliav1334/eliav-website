@@ -61,7 +61,7 @@ const scrollObserver = new IntersectionObserver((entries) => {
   rootMargin: '0px 0px -50px 0px'
 });
 
-document.querySelectorAll('.service-card, .why-card, .testimonial-card, .faq-item, .service-summary-card, .service-detail-card').forEach(el => {
+document.querySelectorAll('.service-card, .why-card, .faq-item, .service-summary-card, .service-detail-card').forEach(el => {
   el.classList.add('scroll-animate');
   scrollObserver.observe(el);
 });
@@ -213,6 +213,38 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft') navigateLightbox(1);
     if (e.key === 'ArrowRight') navigateLightbox(-1);
   }
+});
+
+// Fix select dropdown on dark backgrounds
+// Browsers ignore CSS color on <option> elements, so we toggle via JS
+document.querySelectorAll('.mini-contact-fields select').forEach(select => {
+  function updateColor() {
+    select.style.color = select.value ? 'white' : 'rgba(255,255,255,0.5)';
+  }
+  updateColor();
+  select.addEventListener('mousedown', () => { select.style.color = '#333333'; });
+  select.addEventListener('blur', updateColor);
+  select.addEventListener('change', updateColor);
+});
+
+// AJAX form submission - bypass FormSubmit redirect
+document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = 'שולח...';
+    btn.disabled = true;
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(() => {
+      window.location.href = '/thanks';
+    }).catch(() => {
+      window.location.href = '/thanks';
+    });
+  });
 });
 
 // LazyLoading for images

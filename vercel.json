@@ -1,19 +1,17 @@
 {
   "version": 2,
-  "name": "eliav-website",
   "builds": [
     {
       "src": "**/*",
       "use": "@vercel/static"
     }
   ],
-  "routes": [
-    { "src": "/bentonite-drilling", "dest": "/bentonite-drilling.html" },
-    { "src": "/earthworks", "dest": "/earthworks.html" },
-    { "src": "/demolition", "dest": "/demolition.html" },
-    { "src": "/contact", "dest": "/contact.html" },
-    { "src": "/thanks", "dest": "/thanks.html" },
-    { "src": "/(.*)", "dest": "/$1" }
+  "rewrites": [
+    { "source": "/bentonite-drilling", "destination": "/bentonite-drilling.html" },
+    { "source": "/earthworks", "destination": "/earthworks.html" },
+    { "source": "/demolition", "destination": "/demolition.html" },
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/thanks", "destination": "/thanks.html" }
   ],
   "headers": [
     {

@@ -16,7 +16,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 80px 0;
+      padding: 120px 0 80px;
       background: var(--bg-light);
     }
     .thanks-card {
@@ -32,7 +32,7 @@
     .thanks-icon {
       width: 80px;
       height: 80px;
-      background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -51,6 +51,7 @@
     }
     .thanks-card h1 {
       font-size: 2rem;
+      font-family: 'Heebo', sans-serif;
       color: var(--text-primary);
       margin-bottom: 16px;
     }
@@ -66,13 +67,37 @@
     }
     .thanks-actions {
       display: flex;
-      gap: 16px;
+      gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
       margin-top: 32px;
     }
     .thanks-actions .btn {
-      min-width: 180px;
+      min-width: 160px;
+      font-size: 0.95rem;
+      padding: 12px 24px;
+      border-radius: 8px;
+      box-shadow: none;
+    }
+    .thanks-actions .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+    .thanks-actions .btn-whatsapp {
+      background: #25D366;
+      border-color: #25D366;
+      box-shadow: none;
+    }
+    .thanks-back {
+      display: inline-block;
+      margin-top: 24px;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .thanks-back:hover {
+      color: var(--primary);
     }
     @media (max-width: 600px) {
       .thanks-card {
@@ -93,58 +118,75 @@
   <!-- Header -->
   <header>
     <div class="container">
-      <div class="header-inner">
+      <nav class="nav-container">
         <a href="index.html" class="logo">
           <div class="logo-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="5" r="2"></circle>
-              <line x1="12" y1="7" x2="12" y2="19"></line>
-              <path d="M8 11l4-4 4 4"></path>
-              <path d="M10 16h4"></path>
-              <path d="M8 19h8"></path>
-              <path d="M6 23l6-4 6 4"></path>
+              <path d="M14 4h-4v2h4V4z"></path>
+              <rect x="11" y="6" width="2" height="12"></rect>
+              <circle cx="12" cy="19" r="2"></circle>
+              <line x1="10" y1="10" x2="14" y2="10"></line>
+              <line x1="10" y1="13" x2="14" y2="13"></line>
             </svg>
           </div>
           א.א. עבודות קידוחים ופיתוח
         </a>
-        <nav>
-          <a href="index.html">דף בית</a>
-          <div class="nav-item">
-            <a href="#">שירותים <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
-            <div class="nav-dropdown">
-              <a href="bentonite-drilling.html">קידוחי בנטונייט וכלונסאות</a>
-              <a href="earthworks.html">עבודות עפר ותשתיות</a>
-              <a href="demolition.html">הריסת מבנים</a>
+
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">דף בית</a>
+          <div class="nav-dropdown">
+            <button class="nav-link dropdown-toggle">שירותים <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+            <div class="dropdown-menu">
+              <a href="bentonite-drilling.html" class="dropdown-item">קידוחי בנטונייט וכלונסאות</a>
+              <a href="earthworks.html" class="dropdown-item">עבודות עפר ותשתיות</a>
+              <a href="demolition.html" class="dropdown-item">הריסת מבנים</a>
             </div>
           </div>
-          <a href="index.html#gallery">גלריה</a>
-          <a href="contact.html">צור קשר</a>
-        </nav>
-        <div class="header-cta">
-          <a href="tel:0529556123" class="phone-link">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
-            </svg>
-            052-9556123
-          </a>
+          <a href="index.html#gallery" class="nav-link">גלריה</a>
+          <a href="contact.html" class="nav-link">צור קשר</a>
         </div>
+
+        <a href="tel:0529556123" class="header-phone">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          052-9556123
+        </a>
+
+        <!-- Mobile hamburger -->
         <button class="mobile-menu" onclick="toggleMobileMenu()" aria-label="תפריט">
-          <span></span><span></span><span></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
-      </div>
+      </nav>
     </div>
+
+    <!-- Mobile Navigation -->
     <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
     <div class="mobile-nav" id="mobileNav">
-      <a href="index.html" onclick="closeMobileMenu()">דף בית</a>
-      <div class="mobile-dropdown-toggle" onclick="toggleMobileDropdown(this)">שירותים <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
-      <div class="mobile-dropdown-content">
-        <a href="bentonite-drilling.html">קידוחי בנטונייט וכלונסאות</a>
-        <a href="earthworks.html">עבודות עפר ותשתיות</a>
-        <a href="demolition.html">הריסת מבנים</a>
+      <div class="mobile-nav-header">
+        <span class="logo">א.א. עבודות קידוחים ופיתוח</span>
+        <button class="mobile-close" onclick="closeMobileMenu()" aria-label="סגור תפריט">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
       </div>
-      <a href="index.html#gallery" onclick="closeMobileMenu()">גלריה</a>
-      <a href="contact.html" onclick="closeMobileMenu()">צור קשר</a>
-      <a href="tel:0529556123" class="mobile-phone">052-9556123</a>
+      <div class="mobile-nav-links">
+        <a href="index.html" class="mobile-nav-link" onclick="closeMobileMenu()">דף בית</a>
+        <a href="bentonite-drilling.html" class="mobile-nav-link" onclick="closeMobileMenu()">קידוחי בנטונייט וכלונסאות</a>
+        <a href="earthworks.html" class="mobile-nav-link" onclick="closeMobileMenu()">עבודות עפר ותשתיות</a>
+        <a href="demolition.html" class="mobile-nav-link" onclick="closeMobileMenu()">הריסת מבנים</a>
+        <a href="index.html#gallery" class="mobile-nav-link" onclick="closeMobileMenu()">גלריה</a>
+        <a href="contact.html" class="mobile-nav-link" onclick="closeMobileMenu()">צור קשר</a>
+      </div>
+      <div class="mobile-nav-footer">
+        <a href="tel:0529556123" class="btn btn-primary" style="width:100%; text-align:center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          052-9556123
+        </a>
+        <a href="https://wa.me/972529556123?text=שלום, אשמח לקבל פרטים נוספים" class="btn btn-whatsapp" style="width:100%; text-align:center;" target="_blank" rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          וואטסאפ
+        </a>
+      </div>
     </div>
   </header>
 
@@ -170,18 +212,45 @@
           שלחו וואטסאפ
         </a>
       </div>
+      <a href="index.html" class="thanks-back">&larr; חזרה לאתר</a>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
+    <!-- Silhouette Background -->
     <div class="footer-silhouette">
       <svg viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0,200 L0,100 L150,60 L300,90 L450,50 L600,80 L750,40 L900,70 L1050,50 L1200,80 L1200,200 Z" fill="#64748b" opacity="0.3"/>
         <path d="M0,200 L0,120 L200,80 L400,110 L600,70 L800,100 L1000,60 L1200,90 L1200,200 Z" fill="#475569" opacity="0.4"/>
         <path d="M0,200 L0,140 L250,100 L500,130 L750,90 L1000,120 L1200,100 L1200,200 Z" fill="#334155" opacity="0.5"/>
+        <g transform="translate(100, 140)">
+          <rect x="0" y="35" width="40" height="15" fill="#0F172A"/>
+          <circle cx="10" cy="52" r="5" fill="#1E293B"/>
+          <circle cx="30" cy="52" r="5" fill="#1E293B"/>
+          <rect x="15" y="20" width="15" height="15" fill="#0F172A"/>
+          <path d="M30,25 L45,15 L50,20 L42,28 Z" fill="#0F172A"/>
+          <path d="M50,20 L55,18 L58,23 L52,25 Z" fill="#1E293B"/>
+        </g>
+        <g transform="translate(900, 80)">
+          <rect x="0" y="80" width="50" height="10" fill="#0F172A"/>
+          <rect x="20" y="20" width="8" height="60" fill="#0F172A"/>
+          <polygon points="22,20 26,20 30,0 18,0" fill="#1E293B"/>
+          <rect x="15" y="40" width="18" height="5" fill="#1E293B"/>
+          <circle cx="10" cy="88" r="4" fill="#1E293B"/>
+          <circle cx="40" cy="88" r="4" fill="#1E293B"/>
+          <line x1="24" y1="0" x2="24" y2="20" stroke="#334155" stroke-width="1"/>
+        </g>
+        <g transform="translate(1050, 155)">
+          <rect x="0" y="20" width="45" height="20" fill="#0F172A"/>
+          <rect x="35" y="10" width="20" height="10" fill="#1E293B"/>
+          <circle cx="12" cy="42" r="5" fill="#1E293B"/>
+          <circle cx="43" cy="42" r="5" fill="#1E293B"/>
+          <rect x="5" y="15" width="25" height="5" fill="#334155"/>
+        </g>
       </svg>
     </div>
+
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
@@ -193,22 +262,26 @@
             </div>
             א.א. עבודות קידוחים ופיתוח
           </div>
-          <p>קבלן רשום 36281. מתמחים בקידוחי בנטונייט וכלונסאות, עבודות עפר, הריסת מבנים ופיתוח תשתיות.</p>
+          <p>קבלן רשום 36281. מתמחים בקידוחי בנטונייט וכלונסאות, עבודות עפר, הריסת מבנים ופיתוח תשתיות. שירות מקצועי בכל רחבי המרכז והצפון.</p>
         </div>
         <div class="footer-links">
           <div class="footer-column">
             <h4>שירותים</h4>
             <ul>
-              <li><a href="bentonite-drilling.html">קידוחי בנטונייט וכלונסאות</a></li>
-              <li><a href="earthworks.html">עבודות עפר ותשתיות</a></li>
+              <li><a href="bentonite-drilling.html">קידוחי כלונסאות</a></li>
+              <li><a href="earthworks.html">עבודות עפר</a></li>
               <li><a href="demolition.html">הריסת מבנים</a></li>
+              <li><a href="demolition.html">פינוי פסולת</a></li>
+              <li><a href="earthworks.html">פיתוח תשתיות</a></li>
+              <li><a href="bentonite-drilling.html">השכרת ציוד</a></li>
             </ul>
           </div>
           <div class="footer-column">
             <h4>ניווט מהיר</h4>
             <ul>
-              <li><a href="index.html">דף בית</a></li>
               <li><a href="index.html#gallery">גלריה</a></li>
+              <li><a href="index.html#areas">אזורי שירות</a></li>
+              <li><a href="index.html#faq">שאלות נפוצות</a></li>
               <li><a href="contact.html">צור קשר</a></li>
             </ul>
           </div>
