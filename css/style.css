@@ -3598,3 +3598,133 @@
     @media (max-width: 1024px) {
       .contact-grid { grid-template-columns: 1fr; gap: 40px; }
     }
+
+    /* ===== INLINE CONTACT FORM (all pages) ===== */
+    .inline-contact-form {
+      background: var(--dark);
+      padding: 48px 0;
+    }
+
+    .inline-contact-form .section-header h2 {
+      color: #fff;
+    }
+    .inline-contact-form .section-header p {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .inline-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 12px;
+      align-items: end;
+    }
+
+    .inline-form-grid input,
+    .inline-form-grid textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    .inline-form-grid input::placeholder,
+    .inline-form-grid textarea::placeholder {
+      color: rgba(255,255,255,0.5);
+    }
+
+    .inline-form-grid input:focus,
+    .inline-form-grid textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .inline-form-grid .btn-submit {
+      padding: 14px 32px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.3s;
+    }
+
+    .inline-form-grid .btn-submit:hover {
+      background: var(--accent-dark);
+    }
+
+    @media (max-width: 768px) {
+      .inline-form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== MOBILE OPTIMIZATION ===== */
+    @media (max-width: 768px) {
+      /* Shorter hero on mobile */
+      .hero {
+        min-height: 65vh !important;
+        padding-top: 80px !important;
+      }
+
+      .hero h1 {
+        font-size: 1.6rem !important;
+      }
+
+      .hero p {
+        font-size: 0.95rem !important;
+      }
+
+      /* Hide long SEO articles on mobile - show summary only */
+      .seo-article .article-section:nth-child(n+3) {
+        display: none;
+      }
+
+      .seo-article .comparison-table-wrapper {
+        display: none;
+      }
+
+      /* Compact service cards on mobile */
+      .service-detail-card {
+        padding: 20px !important;
+      }
+
+      /* Smaller gallery grid on mobile */
+      .service-gallery-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+      }
+
+      /* Tighter section spacing on mobile */
+      section {
+        padding-top: 40px !important;
+        padding-bottom: 40px !important;
+      }
+
+      .section-header {
+        margin-bottom: 24px !important;
+      }
+
+      .section-header h2 {
+        font-size: 1.4rem !important;
+      }
+
+      /* Hide video on mobile (saves bandwidth) - show poster image */
+      .service-media-column video {
+        max-height: 250px;
+      }
+
+      /* Compact FAQ on mobile */
+      .faq-question {
+        padding: 14px 16px !important;
+        font-size: 0.95rem !important;
+      }
+    }
