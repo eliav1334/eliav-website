@@ -1332,11 +1332,13 @@
     }
 
     .testimonials-swiper .swiper-button-next {
-      right: 0;
+      right: 0 !important;
+      left: auto !important;
     }
 
     .testimonials-swiper .swiper-button-prev {
-      left: 0;
+      left: 0 !important;
+      right: auto !important;
     }
 
     .testimonials-swiper .swiper-button-next:hover,
@@ -1350,6 +1352,14 @@
     .testimonials-swiper .swiper-button-prev::after {
       font-size: 18px;
       font-weight: 700;
+    }
+
+    .testimonials-swiper .swiper-button-next::after {
+      content: 'prev';
+    }
+
+    .testimonials-swiper .swiper-button-prev::after {
+      content: 'next';
     }
 
     .testimonials-swiper .swiper-pagination-bullet {
