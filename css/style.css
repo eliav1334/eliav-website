@@ -3930,45 +3930,10 @@
       background: #1da851 !important;
     }
 
-    /* ===== MOBILE QUICK NAV ===== */
+    /* ===== MOBILE QUICK NAV - HIDDEN (page is short enough) ===== */
     .mobile-quick-nav {
       display: none;
     }
-
-    @media (max-width: 768px) {
-      .mobile-quick-nav {
-        display: flex;
-        gap: 8px;
-        padding: 12px 16px;
-        background: var(--dark);
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-      }
-
-      .mobile-quick-nav::-webkit-scrollbar {
-        display: none;
-      }
-
-      .quick-nav-item {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        padding: 10px 16px;
-        background: rgba(255,255,255,0.1);
-        color: #fff;
-        border-radius: var(--radius-md);
-        font-size: 0.85rem;
-        font-weight: 500;
-        white-space: nowrap;
-        text-decoration: none;
-        transition: background 0.2s;
-        border: 1px solid rgba(255,255,255,0.15);
-      }
-
-      .quick-nav-item:hover {
-        background: rgba(255,255,255,0.2);
-      }
 
       .quick-nav-item svg {
         flex-shrink: 0;
