@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://eliav-website.vercel.app/sitemap.xml
+Sitemap: https://eliav-website-three.vercel.app/sitemap.xml
