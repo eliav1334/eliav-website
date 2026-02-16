@@ -2925,6 +2925,10 @@
 
     .service-summary-card h3 {
       margin-bottom: 12px;
+      min-height: 2.8em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .service-summary-card p {
@@ -2939,7 +2943,7 @@
     }
 
     @media (max-width: 768px) {
-      .service-summary-grid { grid-template-columns: 1fr; }
+      .service-summary-grid { grid-template-columns: repeat(3, 1fr); }
     }
 
     @media (max-width: 1024px) {
@@ -3868,28 +3872,36 @@
         line-height: 1.4 !important;
       }
 
-      /* Service cards: hide description text on mobile, show only title + button */
+      /* Service cards: 3 in a row, compact, no description */
+      .service-summary-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 6px !important;
+      }
+
       .service-summary-card p {
         display: none !important;
       }
 
       .service-summary-card {
-        padding: 14px !important;
+        padding: 10px 6px !important;
         text-align: center;
       }
 
       .service-summary-icon svg {
-        width: 28px !important;
-        height: 28px !important;
+        width: 24px !important;
+        height: 24px !important;
       }
 
       .service-summary-card h3 {
-        font-size: 0.95rem !important;
-        margin-bottom: 8px !important;
+        font-size: 0.75rem !important;
+        margin-bottom: 6px !important;
+        min-height: auto !important;
+        line-height: 1.2 !important;
       }
 
-      .service-summary-grid {
-        gap: 8px !important;
+      .service-summary-card .btn-outline {
+        padding: 6px 8px !important;
+        font-size: 0.7rem !important;
       }
 
       /* FAQ compact */
