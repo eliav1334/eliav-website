@@ -32,7 +32,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Swiper.js CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-  <link rel="stylesheet" href="css/style.css?v=1771447372">
+  <link rel="stylesheet" href="css/style.css?v=1771448362">
 </head>
 <body>
 
@@ -169,13 +169,13 @@
         <div class="hero-images">
           <div class="hero-image-grid">
             <div class="hero-image hero-image-large">
-              <img src="images/gallery/hero-new-1.webp" alt="קידוחי כלונסאות ובנטונייט - מכונות קידוח באתר בנייה" loading="eager">
+              <img src="images/gallery/hero-new-1.webp" alt="קידוחי כלונסאות ובנטונייט - מכונות קידוח באתר בנייה" width="1920" height="900" loading="eager">
             </div>
             <div class="hero-image hero-image-small">
-              <img src="images/gallery/hero-new-2.webp" alt="ציוד קידוח מקצועי - CAT ו-JCB באתר עבודה" loading="eager">
+              <img src="images/gallery/hero-new-2.webp" alt="ציוד קידוח מקצועי - CAT ו-JCB באתר עבודה" width="1920" height="900" loading="eager">
             </div>
             <div class="hero-image hero-image-small">
-              <img src="images/gallery/hero-new-3.webp" alt="תחנת בנטונייט BS 150 על משאית - ציוד כבד" loading="eager">
+              <img src="images/gallery/hero-new-3.webp" alt="תחנת בנטונייט BS 150 על משאית - ציוד כבד" width="1920" height="900" loading="eager">
             </div>
           </div>
         </div>
@@ -374,19 +374,19 @@
       </div>
       <div class="service-gallery-grid">
         <div class="gallery-item">
-          <img src="images/gallery/homepage-project-1.webp" alt="קידוח כלונסאות באזור עירוני - ציוד מקצועי" loading="lazy" onclick="openLightbox(0)">
+          <img src="images/gallery/homepage-project-1.webp" alt="קידוח כלונסאות באזור עירוני - ציוד מקצועי" width="1200" height="900" loading="lazy" onclick="openLightbox(0)">
         </div>
         <div class="gallery-item">
-          <img src="images/gallery/homepage-project-2.webp" alt="אתר בנייה עם מנוף וביסוס כלונסאות" loading="lazy" onclick="openLightbox(1)">
+          <img src="images/gallery/homepage-project-2.webp" alt="אתר בנייה עם מנוף וביסוס כלונסאות" width="1200" height="900" loading="lazy" onclick="openLightbox(1)">
         </div>
         <div class="gallery-item">
-          <img src="images/gallery/homepage-project-3.webp" alt="עבודות קידוח וביסוס באתר תשתיות" loading="lazy" onclick="openLightbox(2)">
+          <img src="images/gallery/homepage-project-3.webp" alt="עבודות קידוח וביסוס באתר תשתיות" width="1200" height="900" loading="lazy" onclick="openLightbox(2)">
         </div>
         <div class="gallery-item">
-          <img src="images/gallery/homepage-project-4.webp" alt="ביסוס מנוף הרצליה - חברת פרושקובסקי" loading="lazy" onclick="openLightbox(3)">
+          <img src="images/gallery/homepage-project-4.webp" alt="ביסוס מנוף הרצליה - חברת פרושקובסקי" width="1200" height="900" loading="lazy" onclick="openLightbox(3)">
         </div>
         <div class="gallery-item">
-          <img src="images/gallery/homepage-project-5.webp" alt="קיר דיפון אודים - עבודות תשתית" loading="lazy" onclick="openLightbox(4)">
+          <img src="images/gallery/homepage-project-5.webp" alt="קיר דיפון אודים - עבודות תשתית" width="1200" height="900" loading="lazy" onclick="openLightbox(4)">
         </div>
       </div>
     </div>
@@ -654,10 +654,10 @@
         <input type="hidden" name="_next" value="https://eliavafar.co.il/thanks">
         <input type="hidden" name="_autoresponse" value="תודה על פנייתך! קיבלנו את הפרטים שלך ונחזור אליך בהקדם. בברכה, א.א. עבודות קידוחים ופיתוח">
         <div class="mini-contact-fields">
-          <input type="text" name="name" placeholder="שם מלא *" required>
-          <input type="tel" name="phone" placeholder="טלפון *" required pattern="[0-9\-\s]{9,15}">
-          <input type="email" name="email" placeholder="אימייל (אופציונלי)">
-          <select name="service">
+          <input type="text" name="name" placeholder="שם מלא *" required aria-label="שם מלא">
+          <input type="tel" name="phone" placeholder="טלפון *" required pattern="[0-9\-\s]{9,15}" aria-label="טלפון">
+          <input type="email" name="email" placeholder="אימייל (אופציונלי)" aria-label="אימייל">
+          <select name="service" aria-label="סוג שירות">
             <option value="">בחרו שירות (אופציונלי)</option>
             <option value="קידוחי בנטונייט וכלונסאות">קידוחי בנטונייט וכלונסאות</option>
             <option value="עבודות עפר וחפירות">עבודות עפר וחפירות</option>
@@ -666,7 +666,7 @@
             <option value="השכרת ציוד">השכרת ציוד</option>
             <option value="אחר">אחר</option>
           </select>
-          <textarea name="message" placeholder="ספרו לנו על הפרויקט שלכם (אופציונלי)" rows="3"></textarea>
+          <textarea name="message" placeholder="ספרו לנו על הפרויקט שלכם (אופציונלי)" rows="3" aria-label="הודעה"></textarea>
         </div>
         <button type="submit" class="btn btn-primary btn-lg">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
@@ -687,9 +687,9 @@
         <input type="hidden" name="_subject" value="פנייה מדף הבית">
         <input type="hidden" name="_next" value="https://eliavafar.co.il/thanks.html">
         <input type="hidden" name="_captcha" value="false">
-        <input type="text" name="name" placeholder="שם מלא" required>
-        <input type="tel" name="phone" placeholder="טלפון" required>
-        <input type="text" name="message" placeholder="תיאור קצר של הפרויקט">
+        <input type="text" name="name" placeholder="שם מלא" required aria-label="שם מלא">
+        <input type="tel" name="phone" placeholder="טלפון" required aria-label="טלפון">
+        <input type="text" name="message" placeholder="תיאור קצר של הפרויקט" aria-label="הודעה">
         <button type="submit" class="btn-submit">שלח פנייה</button>
       </form>
     </div>
