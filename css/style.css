@@ -340,9 +340,9 @@
     }
 
     .mobile-menu span {
-      width: 25px;
+      width: 28px;
       height: 3px;
-      background: #FFFFFF;
+      background: var(--primary);
       border-radius: 2px;
       transition: all 0.3s ease;
     }
@@ -361,16 +361,18 @@
 
     .mobile-nav {
       position: fixed;
-      top: 80px;
+      top: 0;
       right: -100%;
-      width: 280px;
-      height: calc(100vh - 80px);
-      background: var(--bg-white);
-      box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+      width: 300px;
+      height: 100vh;
+      background: linear-gradient(180deg, #e8f4f8 0%, #f0f7fa 100%);
+      box-shadow: -4px 0 20px rgba(0,0,0,0.15);
       transition: right 0.3s ease;
-      z-index: 999;
-      padding: 30px 20px;
+      z-index: 1002;
+      padding: 0;
       overflow-y: auto;
+      display: flex;
+      flex-direction: column;
     }
 
     .mobile-nav.active {
@@ -2131,7 +2133,7 @@
       }
     }
     @media (max-width: 768px) {
-      nav { display: none; }
+      .nav-links { display: none; }
       .mobile-menu { display: flex; }
       .header-cta .btn-secondary { display: none; }
       .services-grid, .why-grid, .gallery-grid { grid-template-columns: 1fr; }
@@ -3021,7 +3023,7 @@
     }
 
     @media (max-width: 768px) {
-      .service-summary-grid { grid-template-columns: repeat(3, 1fr); }
+      .service-summary-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 1024px) {
@@ -3196,19 +3198,33 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 24px;
-      border-bottom: 1px solid var(--border-light);
+      padding: 18px 20px;
+      border-bottom: 2px solid rgba(0, 115, 168, 0.15);
+      background: rgba(0, 40, 65, 0.95);
+    }
+
+    .mobile-nav-header .logo {
+      color: #FFFFFF !important;
+      font-size: 1.1rem;
     }
 
     .mobile-close {
-      background: none;
+      background: rgba(255,255,255,0.15);
       border: none;
-      color: var(--text-secondary);
+      color: #FFFFFF;
       cursor: pointer;
       padding: 8px;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
     }
 
     .mobile-close:hover {
+      background: rgba(255,255,255,0.25);
       color: var(--primary);
     }
 
@@ -3220,9 +3236,9 @@
       display: block;
       padding: 14px 0;
       font-weight: 600;
-      color: var(--text-secondary);
+      color: #1a3a4a;
       font-size: 1.1rem;
-      border-bottom: 1px solid var(--border-light);
+      border-bottom: 1px solid rgba(0, 115, 168, 0.12);
       text-decoration: none;
     }
 
@@ -3235,12 +3251,7 @@
     }
 
     .mobile-nav-footer {
-      padding: 16px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      border-top: 1px solid var(--border-light);
-      margin-top: auto;
+      display: none;
     }
 
     /* ===== HOMEPAGE: HERO GRID (overrides old .hero-content grid) ===== */
@@ -3384,6 +3395,12 @@
     @media (max-width: 768px) {
       .nav-links, .header-phone { display: none; }
       .header-cta { display: none; }
+      nav {
+        margin-right: auto;
+      }
+      .header-inner {
+        gap: 0;
+      }
       .hero-grid .hero-badge { font-size: 0.8rem; padding: 8px 16px; }
       .hero-image-large { height: 200px; }
       .hero-image-small { height: 140px; }
@@ -3795,21 +3812,70 @@
 
     /* ===== MOBILE OPTIMIZATION ===== */
     @media (max-width: 768px) {
-      /* Shorter hero on mobile */
+      /* Hero - readable and impactful */
       .hero {
-        min-height: 65vh !important;
-        padding-top: 80px !important;
+        min-height: auto !important;
+        padding-top: 90px !important;
+        padding-bottom: 32px !important;
       }
 
       .hero h1 {
-        font-size: 1.6rem !important;
+        font-size: 2rem !important;
+        line-height: 1.3 !important;
       }
 
       .hero p {
-        font-size: 0.95rem !important;
+        font-size: 1.05rem !important;
+        line-height: 1.6 !important;
       }
 
-      /* Hide long SEO articles on mobile - show summary only */
+      .hero-badge {
+        font-size: 0.85rem !important;
+        margin-bottom: 14px !important;
+      }
+
+      .hero-subtitle {
+        margin-bottom: 18px !important;
+        font-size: 1rem !important;
+      }
+
+      .hero-trust {
+        margin-bottom: 18px !important;
+        gap: 8px !important;
+      }
+
+      /* Hero buttons: 2 columns, readable */
+      .hero-buttons {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+      }
+
+      .hero-buttons .btn {
+        font-size: 0.95rem !important;
+        padding: 12px 14px !important;
+      }
+
+      /* Hide "services" button on mobile */
+      .hero-services-btn {
+        display: none !important;
+      }
+
+      /* Hide hero images on mobile */
+      .hero-images {
+        display: none !important;
+      }
+
+      /* Hide stats on mobile */
+      .hero-stats {
+        display: none !important;
+      }
+
+      .hero-trust .trust-item:nth-child(3) {
+        display: none;
+      }
+
+      /* Hide long SEO articles on mobile */
       .seo-article .article-section:nth-child(n+3) {
         display: none;
       }
@@ -3818,18 +3884,7 @@
         display: none;
       }
 
-      /* Compact service cards on mobile */
-      .service-detail-card {
-        padding: 20px !important;
-      }
-
-      /* Smaller gallery grid on mobile */
-      .service-gallery-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 8px !important;
-      }
-
-      /* Tighter section spacing on mobile */
+      /* Section spacing - comfortable */
       section {
         padding-top: 40px !important;
         padding-bottom: 40px !important;
@@ -3840,143 +3895,38 @@
       }
 
       .section-header h2 {
-        font-size: 1.4rem !important;
-      }
-
-      /* Hide video on mobile (saves bandwidth) - show poster image */
-      .service-media-column video {
-        max-height: 250px;
-      }
-
-      /* Compact FAQ on mobile */
-      .faq-question {
-        padding: 14px 16px !important;
-        font-size: 0.95rem !important;
-      }
-
-      /* Hide stats and 3rd trust item on mobile - save space */
-      .hero-stats {
-        display: none !important;
-      }
-
-      .hero-trust .trust-item:nth-child(3) {
-        display: none;
-      }
-
-      /* Hide hero images on mobile - text + CTA is enough */
-      .hero-images {
-        display: none !important;
-      }
-
-      /* Compact hero */
-      .hero {
-        min-height: auto !important;
-        padding-top: 80px !important;
-        padding-bottom: 24px !important;
-      }
-
-      .hero-badge {
-        font-size: 0.75rem !important;
-        margin-bottom: 12px !important;
-      }
-
-      .hero-subtitle {
-        margin-bottom: 16px !important;
-        font-size: 0.9rem !important;
-      }
-
-      .hero-trust {
-        margin-bottom: 16px !important;
-        gap: 6px !important;
-      }
-
-      /* Hide "services" button on mobile - quick nav replaces it */
-      .hero-services-btn {
-        display: none !important;
-      }
-
-      /* Hero buttons: 2 columns */
-      .hero-buttons {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 8px !important;
-      }
-
-      .hero-buttons .btn {
-        font-size: 0.85rem !important;
-        padding: 10px 12px !important;
-      }
-
-      /* ===== WHY US: HIDE on mobile (hero trust items are enough) ===== */
-      .why-us {
-        display: none !important;
-      }
-
-      /* ===== GALLERY: HIDE on homepage mobile ===== */
-      .service-gallery {
-        display: none !important;
-      }
-
-      /* ===== HIDE VIDEO SECTION on mobile ===== */
-      .tiktok-videos {
-        display: none !important;
-      }
-
-      /* ===== TESTIMONIALS: HIDE on mobile ===== */
-      .testimonials {
-        display: none !important;
-      }
-
-      /* ===== SERVICE AREAS: HIDE on mobile ===== */
-      .areas {
-        display: none !important;
-      }
-
-      /* ===== FAQ: Show only 2 first questions on mobile ===== */
-      .faq-list .faq-item:nth-child(n+3) {
-        display: none;
-      }
-
-      /* Hide FAQ CTA section */
-      .faq .cta-section {
-        display: none !important;
-      }
-
-      /* ===== HIDE MINI CONTACT on mobile ===== */
-      .mini-contact {
-        display: none !important;
-      }
-
-      /* ===== TIGHTER SPACING ===== */
-      section {
-        padding-top: 24px !important;
-        padding-bottom: 24px !important;
-      }
-
-      .section-header {
-        margin-bottom: 16px !important;
-      }
-
-      .section-header h2 {
-        font-size: 1.2rem !important;
+        font-size: 1.6rem !important;
       }
 
       .section-header p {
-        font-size: 0.85rem !important;
-      }
-
-      /* Service summary cards compact */
-      .service-summary-card {
-        padding: 16px !important;
-      }
-
-      .service-summary-card h3 {
         font-size: 1rem !important;
+        line-height: 1.5 !important;
       }
 
-      .service-summary-card p {
-        font-size: 0.8rem !important;
-        line-height: 1.4 !important;
+      /* Service summary cards - horizontal layout */
+      .service-summary-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+      }
+
+      .service-summary-card {
+        display: grid !important;
+        grid-template-columns: 60px 1fr !important;
+        grid-template-rows: auto auto auto !important;
+        text-align: right !important;
+        padding: 18px 20px !important;
+        gap: 4px 16px !important;
+        align-items: start !important;
+      }
+
+      .service-summary-card .service-summary-icon {
+        grid-row: 1 / -1 !important;
+        grid-column: 1 !important;
+        width: 60px !important;
+        height: 60px !important;
+        min-width: 60px !important;
+        margin: 0 !important;
+        align-self: center !important;
       }
 
       .service-summary-icon svg {
@@ -3984,71 +3934,145 @@
         height: 32px !important;
       }
 
-      /* Testimonials compact */
-      .testimonial-card {
-        padding: 16px !important;
-      }
-
-      .testimonial-text {
-        font-size: 0.85rem !important;
-        line-height: 1.4 !important;
-      }
-
-      /* Service cards: 3 in a row, compact, no description */
-      .service-summary-grid {
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 6px !important;
+      .service-summary-card h3 {
+        grid-column: 2 !important;
+        font-size: 1.1rem !important;
+        margin-bottom: 0 !important;
+        min-height: auto !important;
+        line-height: 1.3 !important;
+        justify-content: flex-start !important;
       }
 
       .service-summary-card p {
-        display: none !important;
-      }
-
-      .service-summary-card {
-        padding: 10px 6px !important;
-        text-align: center;
-      }
-
-      .service-summary-icon svg {
-        width: 24px !important;
-        height: 24px !important;
-      }
-
-      .service-summary-card h3 {
-        font-size: 0.75rem !important;
-        margin-bottom: 6px !important;
-        min-height: auto !important;
-        line-height: 1.2 !important;
+        grid-column: 2 !important;
+        font-size: 0.9rem !important;
+        line-height: 1.4 !important;
+        margin-bottom: 4px !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
       }
 
       .service-summary-card .btn-outline {
-        padding: 6px 8px !important;
-        font-size: 0.7rem !important;
+        grid-column: 2 !important;
+        padding: 8px 16px !important;
+        font-size: 0.85rem !important;
+        justify-self: start !important;
+        margin-top: 4px !important;
       }
 
-      /* FAQ compact */
+      /* Why Us - compact horizontal cards */
+      .why-title-banner {
+        font-size: 1.2rem !important;
+        padding: 12px 20px !important;
+        margin-bottom: 20px !important;
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 12px !important;
+      }
+
+      .why-card {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        text-align: right !important;
+        background: var(--bg-white) !important;
+        padding: 12px 14px !important;
+        border-radius: var(--radius-md) !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+      }
+
+      .why-icon {
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px !important;
+        margin: 0 !important;
+      }
+
+      .why-icon svg {
+        width: 28px !important;
+        height: 28px !important;
+      }
+
+      .why-card p {
+        font-size: 0.85rem !important;
+        line-height: 1.3 !important;
+        margin: 0 !important;
+      }
+
+      .why-card p br {
+        display: none !important;
+      }
+
+      /* Service detail cards */
+      .service-detail-card {
+        padding: 24px !important;
+      }
+
+      /* Gallery grid on mobile */
+      .service-gallery-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+      }
+
+      /* Video on mobile */
+      .service-media-column video {
+        max-height: 250px;
+      }
+
+      /* ===== SHOW sections on mobile (don't hide content) ===== */
+
+      /* Testimonials - show on mobile */
+      .testimonial-card {
+        padding: 24px 20px !important;
+      }
+
+      .testimonial-text {
+        font-size: 1rem !important;
+        line-height: 1.6 !important;
+      }
+
+      /* FAQ - show all questions */
       .faq-item {
-        margin-bottom: 4px !important;
+        margin-bottom: 8px !important;
       }
 
       .faq-question {
-        padding: 12px 14px !important;
-        font-size: 0.9rem !important;
+        padding: 16px 18px !important;
+        font-size: 1rem !important;
       }
 
-      /* Inline contact form compact */
+      /* Hide FAQ CTA section */
+      .faq .cta-section {
+        display: none !important;
+      }
+
+      /* HIDE VIDEO SECTION on mobile */
+      .tiktok-videos {
+        display: none !important;
+      }
+
+      /* HIDE MINI CONTACT on mobile (sticky bar replaces it) */
+      .mini-contact {
+        display: none !important;
+      }
+
+      /* Inline contact form */
       .inline-contact-form {
-        padding: 20px 0 !important;
+        padding: 24px 0 !important;
       }
 
       .inline-contact-form h2 {
-        font-size: 1rem !important;
-        margin-bottom: 12px !important;
+        font-size: 1.2rem !important;
+        margin-bottom: 16px !important;
       }
 
-      /* Footer compact */
+      /* Footer */
       footer {
-        padding-top: 24px !important;
+        padding-top: 32px !important;
         padding-bottom: 80px !important;
       }
     }
