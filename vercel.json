@@ -14,6 +14,7 @@
     { "source": "/bentonite-drilling", "destination": "/bentonite-drilling.html" },
     { "source": "/earthworks", "destination": "/earthworks.html" },
     { "source": "/equipment-rental", "destination": "/equipment-rental.html" },
+    { "source": "/drainage-pits", "destination": "/drainage-pits.html" },
     { "source": "/contact", "destination": "/contact.html" },
     { "source": "/thanks", "destination": "/thanks.html" }
   ],
