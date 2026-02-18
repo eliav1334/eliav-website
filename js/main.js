@@ -61,7 +61,7 @@ const scrollObserver = new IntersectionObserver((entries) => {
   rootMargin: '0px 0px -50px 0px'
 });
 
-document.querySelectorAll('.service-card, .why-card, .faq-item, .service-summary-card, .service-detail-card').forEach(el => {
+document.querySelectorAll('.service-card, .why-card, .faq-item, .service-summary-card, .service-detail-card, .testimonial-card, .gallery-item').forEach(el => {
   el.classList.add('scroll-animate');
   scrollObserver.observe(el);
 });
@@ -75,6 +75,20 @@ document.querySelectorAll('.area-tag').forEach(el => {
   el.classList.add('scroll-animate-scale');
   scrollObserver.observe(el);
 });
+
+// Stat items - slide in from right (RTL)
+document.querySelectorAll('.stat-item, .stat-card').forEach((el, i) => {
+  el.classList.add('scroll-animate-slide');
+  el.style.animationDelay = (i * 0.15) + 's';
+  scrollObserver.observe(el);
+});
+
+// Hero section elements - subtle fade
+document.querySelectorAll('.hero-text, .hero-visual').forEach(el => {
+  el.classList.add('scroll-animate-hero');
+  scrollObserver.observe(el);
+});
+
 
 // ===== COUNTER ANIMATION FOR STATISTICS =====
 let statsAnimated = false;
