@@ -249,6 +249,14 @@ document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
     const originalText = btn.innerHTML;
     btn.innerHTML = 'שולח...';
     btn.disabled = true;
+    // GA4: track form submission
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'generate_lead', {
+        event_category: 'contact',
+        event_label: 'form_submit',
+        page_path: window.location.pathname
+      });
+    }
     fetch(form.action, {
       method: 'POST',
       body: new FormData(form),
@@ -259,6 +267,37 @@ document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
       window.location.href = '/thanks';
     });
   });
+});
+
+// ===== GA4 CLICK TRACKING =====
+document.addEventListener('DOMContentLoaded', () => {
+
+  // Track phone clicks (tel: links)
+  document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+    link.addEventListener('click', () => {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'phone_call', {
+          event_category: 'contact',
+          event_label: 'tel_click',
+          page_path: window.location.pathname
+        });
+      }
+    });
+  });
+
+  // Track WhatsApp clicks
+  document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+    link.addEventListener('click', () => {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'whatsapp_click', {
+          event_category: 'contact',
+          event_label: 'whatsapp_click',
+          page_path: window.location.pathname
+        });
+      }
+    });
+  });
+
 });
 
 // LazyLoading for images

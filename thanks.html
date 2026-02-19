@@ -8,6 +8,15 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-EN4K9ELZC5');
+    // Conversion: form submission confirmed
+    gtag('event', 'conversion', {
+      event_category: 'contact',
+      event_label: 'form_submission_complete'
+    });
+    gtag('event', 'generate_lead', {
+      event_category: 'contact',
+      event_label: 'thanks_page'
+    });
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
