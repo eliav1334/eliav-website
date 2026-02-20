@@ -72,19 +72,42 @@ jobs:
           API="https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
           URL="https://eliavafar.co.il"
 
+          # פונקציה עם retry למקרה של rate limit
+          fetch_pagespeed() {
+            local strategy=$1
+            local result=""
+            for attempt in 1 2 3; do
+              result=$(curl -s -w "\n%{http_code}" --max-time 120 "${API}?url=${URL}&category=performance&strategy=${strategy}")
+              local http_code=$(echo "$result" | tail -1)
+              local body=$(echo "$result" | sed '$d')
+              if [ "$http_code" = "200" ]; then
+                echo "$body"
+                return 0
+              fi
+              echo "Attempt ${attempt} failed (HTTP ${http_code}), waiting 30s..." >&2
+              sleep 30
+            done
+            echo "{}"
+            return 1
+          }
+
           echo "Checking mobile speed..."
-          MOBILE=$(curl -s --max-time 120 "${API}?url=${URL}&category=performance&strategy=mobile")
+          MOBILE=$(fetch_pagespeed "mobile")
           MOBILE_SCORE=$(echo "$MOBILE" | jq -r '.lighthouseResult.categories.performance.score // empty' 2>/dev/null)
-          if [ -n "$MOBILE_SCORE" ]; then
+          if [ -n "$MOBILE_SCORE" ] && [ "$MOBILE_SCORE" != "null" ]; then
             MOBILE_SCORE=$(echo "$MOBILE_SCORE" | awk '{printf "%d", $1 * 100}')
           else
             MOBILE_SCORE="N/A"
           fi
 
+          # המתנה בין הבקשות למניעת rate limit
+          echo "Waiting 10s between requests..."
+          sleep 10
+
           echo "Checking desktop speed..."
-          DESKTOP=$(curl -s --max-time 120 "${API}?url=${URL}&category=performance&strategy=desktop")
+          DESKTOP=$(fetch_pagespeed "desktop")
           DESKTOP_SCORE=$(echo "$DESKTOP" | jq -r '.lighthouseResult.categories.performance.score // empty' 2>/dev/null)
-          if [ -n "$DESKTOP_SCORE" ]; then
+          if [ -n "$DESKTOP_SCORE" ] && [ "$DESKTOP_SCORE" != "null" ]; then
             DESKTOP_SCORE=$(echo "$DESKTOP_SCORE" | awk '{printf "%d", $1 * 100}')
           else
             DESKTOP_SCORE="N/A"
