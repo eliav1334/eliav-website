@@ -72,16 +72,41 @@ jobs:
           API="https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
           URL="https://eliavafar.co.il"
 
-          # בדיקת מובייל
-          MOBILE=$(curl -s "${API}?url=${URL}&category=performance&strategy=mobile" 2>/dev/null)
-          MOBILE_SCORE=$(echo "$MOBILE" | python3 -c "import sys,json; d=json.load(sys.stdin); print(int(d['lighthouseResult']['categories']['performance']['score']*100))" 2>/dev/null || echo "N/A")
+          # בדיקת מובייל (timeout 60 שניות - PageSpeed לוקח זמן)
+          echo "Checking mobile speed..."
+          MOBILE=$(curl -s --max-time 120 "${API}?url=${URL}&category=performance&strategy=mobile" 2>/dev/null)
+          MOBILE_SCORE=$(echo "$MOBILE" | python3 -c "
+          import sys, json
+          try:
+              d = json.load(sys.stdin)
+              print(int(d['lighthouseResult']['categories']['performance']['score']*100))
+          except:
+              print('N/A')
+          " 2>/dev/null)
 
           # בדיקת דסקטופ
-          DESKTOP=$(curl -s "${API}?url=${URL}&category=performance&strategy=desktop" 2>/dev/null)
-          DESKTOP_SCORE=$(echo "$DESKTOP" | python3 -c "import sys,json; d=json.load(sys.stdin); print(int(d['lighthouseResult']['categories']['performance']['score']*100))" 2>/dev/null || echo "N/A")
+          echo "Checking desktop speed..."
+          DESKTOP=$(curl -s --max-time 120 "${API}?url=${URL}&category=performance&strategy=desktop" 2>/dev/null)
+          DESKTOP_SCORE=$(echo "$DESKTOP" | python3 -c "
+          import sys, json
+          try:
+              d = json.load(sys.stdin)
+              print(int(d['lighthouseResult']['categories']['performance']['score']*100))
+          except:
+              print('N/A')
+          " 2>/dev/null)
 
           # LCP מובייל
-          MOBILE_LCP=$(echo "$MOBILE" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['lighthouseResult']['audits']['largest-contentful-paint']['displayValue'])" 2>/dev/null || echo "N/A")
+          MOBILE_LCP=$(echo "$MOBILE" | python3 -c "
+          import sys, json
+          try:
+              d = json.load(sys.stdin)
+              print(d['lighthouseResult']['audits']['largest-contentful-paint']['displayValue'])
+          except:
+              print('N/A')
+          " 2>/dev/null)
+
+          echo "Mobile: ${MOBILE_SCORE}, Desktop: ${DESKTOP_SCORE}, LCP: ${MOBILE_LCP}"
 
           echo "mobile=${MOBILE_SCORE}" >> $GITHUB_OUTPUT
           echo "desktop=${DESKTOP_SCORE}" >> $GITHUB_OUTPUT
