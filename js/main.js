@@ -1,8 +1,16 @@
+function throttle(fn, delay) {
+  let last = 0;
+  return function(...args) {
+    const now = Date.now();
+    if (now - last >= delay) { last = now; fn.apply(this, args); }
+  };
+}
+
 // Header scroll effect
-window.addEventListener('scroll', () => {
+window.addEventListener('scroll', throttle(function() {
   const header = document.querySelector('header');
   if (header) header.classList.toggle('scrolled', window.scrollY > 50);
-});
+}, 100));
 
 // Smooth scroll for hash links only
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -34,6 +42,7 @@ function toggleWhy(card) {
 function toggleFaq(question) {
   const item = question.parentElement;
   const answer = item.querySelector('.faq-answer');
+  if (!answer) return;
   const isOpen = item.classList.contains('open');
   // Close all
   document.querySelectorAll('.faq-item').forEach(i => {
@@ -139,9 +148,9 @@ if (heroStats) {
 // Floating scroll to top button
 const scrollTopBtn = document.querySelector('.floating-scroll-top');
 if (scrollTopBtn) {
-  window.addEventListener('scroll', () => {
+  window.addEventListener('scroll', throttle(function() {
     scrollTopBtn.classList.toggle('show', window.scrollY > 300);
-  });
+  }, 100));
 }
 
 function scrollToTop() {
@@ -155,8 +164,8 @@ function toggleMobileMenu() {
   const mobileMenuBtn = document.querySelector('.mobile-menu');
   if (!mobileNav) return;
   mobileNav.classList.toggle('active');
-  mobileOverlay.classList.toggle('active');
-  mobileMenuBtn.classList.toggle('active');
+  if (mobileOverlay) mobileOverlay.classList.toggle('active');
+  if (mobileMenuBtn) mobileMenuBtn.classList.toggle('active');
   document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
 }
 

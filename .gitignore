@@ -4,3 +4,9 @@ package-lock.json
 images/תמונות אלון/
 images/gallery2/
 images/קידוח ברכבת SPIS/
+images/חלוקת תמונות באתר/
+.env*
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
