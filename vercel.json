@@ -14,7 +14,11 @@
     { "source": "/blog", "destination": "/blog.html" },
     { "source": "/blog/bentonite-guide", "destination": "/blog/bentonite-guide.html" },
     { "source": "/blog/drainage-pits-guide", "destination": "/blog/drainage-pits-guide.html" },
-    { "source": "/blog/drilling-netanya", "destination": "/blog/drilling-netanya.html" }
+    { "source": "/blog/drilling-netanya", "destination": "/blog/drilling-netanya.html" },
+    { "source": "/blog/earthworks-tips", "destination": "/blog/earthworks-tips.html" },
+    { "source": "/blog/choose-drilling-contractor", "destination": "/blog/choose-drilling-contractor.html" },
+    { "source": "/blog/bentonite-vs-polymer", "destination": "/blog/bentonite-vs-polymer.html" },
+    { "source": "/blog/drilling-hod-hasharon", "destination": "/blog/drilling-hod-hasharon.html" }
   ],
   "headers": [
     {
