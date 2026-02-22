@@ -26,7 +26,11 @@ module.exports = async function handler(req, res) {
   // Build contact attributes
   const attributes = {};
   if (name) attributes.FIRSTNAME = name;
-  if (phone) attributes.SMS = phone.replace(/^0/, '+972');
+  if (phone) {
+    // Store phone as text attribute (SMS requires paid plan)
+    const cleanPhone = phone.replace(/[\s\-()]/g, '');
+    attributes.PHONE = cleanPhone.replace(/^0/, '+972');
+  }
   if (source) attributes.SOURCE = source;
 
   const body = {
