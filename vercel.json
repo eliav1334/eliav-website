@@ -10,7 +10,11 @@
     { "source": "/equipment-rental", "destination": "/equipment-rental.html" },
     { "source": "/drainage-pits", "destination": "/drainage-pits.html" },
     { "source": "/contact", "destination": "/contact.html" },
-    { "source": "/thanks", "destination": "/thanks.html" }
+    { "source": "/thanks", "destination": "/thanks.html" },
+    { "source": "/blog", "destination": "/blog.html" },
+    { "source": "/blog/bentonite-guide", "destination": "/blog/bentonite-guide.html" },
+    { "source": "/blog/drainage-pits-guide", "destination": "/blog/drainage-pits-guide.html" },
+    { "source": "/blog/drilling-netanya", "destination": "/blog/drilling-netanya.html" }
   ],
   "headers": [
     {
@@ -40,7 +44,7 @@
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
         { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.clarity.ms https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://formsubmit.co https://www.google-analytics.com https://www.clarity.ms; frame-src 'none'" }
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.clarity.ms https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://formsubmit.co https://www.google-analytics.com https://www.clarity.ms https://api.brevo.com; frame-src 'none'" }
       ]
     }
   ]
