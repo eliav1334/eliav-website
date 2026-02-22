@@ -12,7 +12,7 @@ Contractor license: 36281. 10+ years experience.
 - Deployed on Vercel
 
 ## Dev Server
-Run: `npx serve D:/eliav-website` → http://localhost:3000
+Run: `npx serve "D:/אפליקציות/אתר eliavafar/eliav-website"` → http://localhost:3000
 
 ## Pages
 - index.html - landing page with hero, services, stats, testimonials
