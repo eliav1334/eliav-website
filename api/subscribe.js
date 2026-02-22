@@ -58,7 +58,7 @@ module.exports = async function handler(req, res) {
     const data = await response.json();
 
     if (response.ok || response.status === 204) {
-      return res.status(200).json({ success: true });
+      return res.status(200).json({ success: true, debug: { sent: brevoBody, received: data } });
     }
 
     // Contact already exists - that's fine
