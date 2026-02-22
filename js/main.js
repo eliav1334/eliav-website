@@ -250,6 +250,19 @@ document.querySelectorAll('.mini-contact-fields select').forEach(select => {
   select.addEventListener('change', updateColor);
 });
 
+// ===== BREVO INTEGRATION =====
+function sendToBrevo(name, email, phone, source) {
+  const data = { source };
+  if (name) data.name = name;
+  if (email) data.email = email;
+  if (phone) data.phone = phone;
+  return fetch('/api/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  }).catch(() => {}); // Silent fail - don't block main form
+}
+
 // AJAX form submission - bypass FormSubmit redirect
 document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
   form.addEventListener('submit', function(e) {
@@ -266,6 +279,10 @@ document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
         page_path: window.location.pathname
       });
     }
+    // Send to Brevo (parallel, non-blocking)
+    const fd = new FormData(form);
+    sendToBrevo(fd.get('name'), fd.get('email'), fd.get('phone'), window.location.pathname);
+    // Send to FormSubmit
     fetch(form.action, {
       method: 'POST',
       body: new FormData(form),
@@ -277,6 +294,74 @@ document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
     });
   });
 });
+
+// ===== LEAD CAPTURE POPUP =====
+(function() {
+  var POPUP_KEY = 'aa_popup_shown';
+  var POPUP_DELAY = 45000; // 45 seconds
+
+  // Don't show on thanks page or contact page
+  if (location.pathname === '/thanks' || location.pathname === '/contact') return;
+  // Don't show if already shown in last 7 days
+  var lastShown = localStorage.getItem(POPUP_KEY);
+  if (lastShown && Date.now() - parseInt(lastShown) < 7 * 24 * 60 * 60 * 1000) return;
+
+  setTimeout(function() {
+    var overlay = document.createElement('div');
+    overlay.id = 'lead-popup-overlay';
+    overlay.innerHTML = '\
+      <div id="lead-popup">\
+        <button id="lead-popup-close" aria-label="סגור">&times;</button>\
+        <h3>רוצים הצעת מחיר?</h3>\
+        <p>השאירו פרטים ונחזור אליכם תוך שעות</p>\
+        <form id="lead-popup-form">\
+          <input type="text" name="name" placeholder="שם מלא" required>\
+          <input type="tel" name="phone" placeholder="טלפון *" required>\
+          <input type="email" name="email" placeholder="אימייל (לא חובה)">\
+          <button type="submit">שלחו לי הצעה</button>\
+        </form>\
+        <div id="lead-popup-success" style="display:none">\
+          <p>תודה! נחזור אליכם בהקדם</p>\
+        </div>\
+      </div>';
+
+    document.body.appendChild(overlay);
+    localStorage.setItem(POPUP_KEY, Date.now().toString());
+
+    // Close popup
+    document.getElementById('lead-popup-close').onclick = function() {
+      overlay.remove();
+    };
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) overlay.remove();
+    });
+
+    // Submit popup form
+    document.getElementById('lead-popup-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var f = e.target;
+      var btn = f.querySelector('button');
+      btn.textContent = 'שולח...';
+      btn.disabled = true;
+
+      sendToBrevo(f.name.value, f.email.value, f.phone.value, 'popup-' + location.pathname)
+        .then(function() {
+          f.style.display = 'none';
+          document.getElementById('lead-popup-success').style.display = 'block';
+          setTimeout(function() { overlay.remove(); }, 3000);
+        });
+
+      // GA4 tracking
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'generate_lead', {
+          event_category: 'popup',
+          event_label: 'lead_capture',
+          page_path: location.pathname
+        });
+      }
+    });
+  }, POPUP_DELAY);
+})();
 
 // ===== GA4 CLICK TRACKING =====
 document.addEventListener('DOMContentLoaded', () => {
