@@ -1,27 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "!(api)/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "robots.txt",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "sitemap.xml",
-      "use": "@vercel/static"
-    }
-  ],
   "redirects": [
     { "source": "/demolition", "destination": "/earthworks.html", "statusCode": 301 },
     { "source": "/demolition.html", "destination": "/earthworks.html", "statusCode": 301 }
