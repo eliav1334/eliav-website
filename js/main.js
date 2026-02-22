@@ -6,6 +6,20 @@ function throttle(fn, delay) {
   };
 }
 
+// Desktop: convert tel: links to WhatsApp (except mobile-only elements)
+(function() {
+  var isMobile = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+  if (!isMobile) {
+    var waUrl = 'https://wa.me/972529556123?text=' + encodeURIComponent('היי, אשמח לקבל הצעת מחיר');
+    document.querySelectorAll('a[href^="tel:"]').forEach(function(link) {
+      if (link.closest('.mobile-cta-bar') || link.closest('.mobile-nav')) return;
+      link.href = waUrl;
+      link.setAttribute('target', '_blank');
+      link.setAttribute('rel', 'noopener');
+    });
+  }
+})();
+
 // Header scroll effect
 window.addEventListener('scroll', throttle(function() {
   const header = document.querySelector('header');
@@ -464,6 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
           '<input type="hidden" name="_next" value="https://eliavafar.co.il/thanks.html">' +
           '<input type="text" name="name" placeholder="\u05E9\u05DD" required>' +
           '<input type="tel" name="phone" placeholder="\u05D8\u05DC\u05E4\u05D5\u05DF" required>' +
+          '<input type="email" name="email" placeholder="\u05DE\u05D9\u05D9\u05DC (\u05D0\u05D5\u05E4\u05E6\u05D9\u05D5\u05E0\u05DC\u05D9)">' +
           '<button type="submit">\u05E7\u05D1\u05DC\u05D5 \u05D4\u05E6\u05E2\u05EA \u05DE\u05D7\u05D9\u05E8</button>' +
         '</form>' +
         '<p class="scroll-popup-privacy">\u05DC\u05D0 \u05E0\u05E9\u05DC\u05D7 \u05E1\u05E4\u05DD. \u05D4\u05E4\u05E8\u05D8\u05D9\u05DD \u05E9\u05DC\u05DA \u05DE\u05D5\u05D2\u05E0\u05D9\u05DD.</p>' +
@@ -518,7 +533,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Send to Brevo (parallel, non-blocking)
       if (typeof sendToBrevo === 'function') {
-        sendToBrevo(form.name.value, null, form.phone.value, 'scroll-popup-' + location.pathname);
+        sendToBrevo(form.name.value, form.email.value || null, form.phone.value, 'scroll-popup-' + location.pathname);
       }
 
       // Send to FormSubmit via AJAX
