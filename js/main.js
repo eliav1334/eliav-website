@@ -418,3 +418,126 @@ document.addEventListener('DOMContentLoaded', () => {
     lazyImages.forEach(img => imageObserver.observe(img));
   }
 });
+
+// ===== SCROLL-TRIGGERED QUOTE POPUP =====
+(function() {
+  var SCROLL_POPUP_KEY = 'aa_scroll_popup_shown';
+
+  // Don't show on thanks or contact pages
+  if (location.pathname === '/thanks' || location.pathname === '/contact' ||
+      location.pathname === '/thanks.html' || location.pathname === '/contact.html') return;
+
+  // Don't show if already shown this session
+  if (sessionStorage.getItem(SCROLL_POPUP_KEY)) return;
+
+  var scrollPopupTriggered = false;
+
+  function getScrollPercent() {
+    var docHeight = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight
+    );
+    var winHeight = window.innerHeight;
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    if (docHeight <= winHeight) return 100;
+    return (scrollTop / (docHeight - winHeight)) * 100;
+  }
+
+  function createScrollPopup() {
+    if (scrollPopupTriggered) return;
+    scrollPopupTriggered = true;
+    sessionStorage.setItem(SCROLL_POPUP_KEY, '1');
+
+    var overlay = document.createElement('div');
+    overlay.id = 'scroll-popup-overlay';
+    overlay.innerHTML =
+      '<div id="scroll-popup">' +
+        '<button id="scroll-popup-close" aria-label="סגור">&times;</button>' +
+        '<span class="scroll-popup-icon">&#128221;</span>' +
+        '<h3>\u05E8\u05D5\u05E6\u05D9\u05DD \u05D4\u05E6\u05E2\u05EA \u05DE\u05D7\u05D9\u05E8 \u05D7\u05D9\u05E0\u05DD?</h3>' +
+        '<p class="scroll-popup-subtitle">\u05D4\u05E9\u05D0\u05D9\u05E8\u05D5 \u05E4\u05E8\u05D8\u05D9\u05DD \u05D5\u05E0\u05D7\u05D6\u05D5\u05E8 \u05D0\u05DC\u05D9\u05DB\u05DD \u05EA\u05D5\u05DA \u05E9\u05E2\u05D5\u05EA \u05E1\u05E4\u05D5\u05E8\u05D5\u05EA</p>' +
+        '<form id="scroll-popup-form" action="https://formsubmit.co/eliav1334@gmail.com" method="POST">' +
+          '<input type="hidden" name="_subject" value="\u05E4\u05E0\u05D9\u05D9\u05D4 \u05D7\u05D3\u05E9\u05D4 \u05DE\u05E4\u05D5\u05E4\u05D0\u05E4 - \u05D4\u05E6\u05E2\u05EA \u05DE\u05D7\u05D9\u05E8">' +
+          '<input type="hidden" name="_captcha" value="false">' +
+          '<input type="text" name="_honey" style="display:none">' +
+          '<input type="hidden" name="_template" value="table">' +
+          '<input type="hidden" name="_next" value="https://eliavafar.co.il/thanks.html">' +
+          '<input type="text" name="name" placeholder="\u05E9\u05DD" required>' +
+          '<input type="tel" name="phone" placeholder="\u05D8\u05DC\u05E4\u05D5\u05DF" required>' +
+          '<button type="submit">\u05E7\u05D1\u05DC\u05D5 \u05D4\u05E6\u05E2\u05EA \u05DE\u05D7\u05D9\u05E8</button>' +
+        '</form>' +
+        '<p class="scroll-popup-privacy">\u05DC\u05D0 \u05E0\u05E9\u05DC\u05D7 \u05E1\u05E4\u05DD. \u05D4\u05E4\u05E8\u05D8\u05D9\u05DD \u05E9\u05DC\u05DA \u05DE\u05D5\u05D2\u05E0\u05D9\u05DD.</p>' +
+      '</div>';
+
+    document.body.appendChild(overlay);
+
+    // Trigger animation on next frame
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        overlay.classList.add('active');
+      });
+    });
+
+    // Close handlers
+    function closeScrollPopup() {
+      overlay.classList.remove('active');
+      setTimeout(function() { overlay.remove(); }, 400);
+    }
+
+    document.getElementById('scroll-popup-close').addEventListener('click', closeScrollPopup);
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closeScrollPopup();
+    });
+
+    // Close on Escape key
+    function handleEsc(e) {
+      if (e.key === 'Escape') {
+        closeScrollPopup();
+        document.removeEventListener('keydown', handleEsc);
+      }
+    }
+    document.addEventListener('keydown', handleEsc);
+
+    // Form submission via AJAX (reuse existing pattern)
+    document.getElementById('scroll-popup-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var form = e.target;
+      var btn = form.querySelector('button[type="submit"]');
+      var originalText = btn.textContent;
+      btn.textContent = '\u05E9\u05D5\u05DC\u05D7...';
+      btn.disabled = true;
+
+      // GA4 tracking
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'generate_lead', {
+          event_category: 'scroll_popup',
+          event_label: 'scroll_quote_popup',
+          page_path: location.pathname
+        });
+      }
+
+      // Send to Brevo (parallel, non-blocking)
+      if (typeof sendToBrevo === 'function') {
+        sendToBrevo(form.name.value, null, form.phone.value, 'scroll-popup-' + location.pathname);
+      }
+
+      // Send to FormSubmit via AJAX
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function() {
+        window.location.href = '/thanks';
+      }).catch(function() {
+        window.location.href = '/thanks';
+      });
+    });
+  }
+
+  // Listen for scroll to trigger popup at 40%
+  window.addEventListener('scroll', throttle(function() {
+    if (!scrollPopupTriggered && getScrollPercent() >= 40) {
+      createScrollPopup();
+    }
+  }, 200));
+})();
