@@ -36,6 +36,19 @@ Run: `npx serve "D:/אפליקציות/אתר eliavafar/eliav-website"` → http
 - Use `/compact` proactively when the conversation gets long
 - Keep responses concise - avoid repeating code that wasn't changed
 
+## Issues Log
+- **`docs/ISSUES-LOG.md`** - מערכת מעקב בעיות ותיקונים
+- כל בעיה חדשה חייבת להתועד שם עם: תיאור, סיבת שורש, פתרון, ומניעה לעתיד
+- לפני push של שינויי Schema.org - לעבור על הצ'קליסט בתחתית הקובץ
+
+## Schema.org Business Data (Single Source of Truth)
+- **שם**: א.א. עבודות קידוחים ופיתוח
+- **טלפון**: +972-52-9556123
+- **אימייל**: eliav1334@gmail.com
+- **אתר**: https://eliavafar.co.il
+- **כתובת**: אליכין, מיקוד 262, IL
+- **קואורדינטות**: 32.2, 34.9
+
 ## Notes
 - All text in Hebrew (RTL)
 - Images stored in `images/` with Hebrew folder names
