@@ -12,9 +12,13 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { email, name, phone, source } = req.body;
+  const body = req.body || {};
+  const contactEmail = body.email;
+  const contactName = body.name;
+  const contactPhone = body.phone;
+  const contactSource = body.source;
 
-  if (!email && !phone) {
+  if (!contactEmail && !contactPhone) {
     return res.status(400).json({ error: 'Email or phone required' });
   }
 
@@ -25,21 +29,20 @@ module.exports = async function handler(req, res) {
 
   // Build contact attributes
   const attributes = {};
-  if (name) attributes.FIRSTNAME = name;
-  if (phone) {
-    // Store phone as text attribute (SMS requires paid plan)
-    const cleanPhone = phone.replace(/[\s\-()]/g, '');
+  if (contactName) attributes.FIRSTNAME = contactName;
+  if (contactPhone) {
+    const cleanPhone = contactPhone.replace(/[\s\-()]/g, '');
     attributes.PHONE = cleanPhone.replace(/^0/, '+972');
   }
-  if (source) attributes.SOURCE = source;
+  if (contactSource) attributes.SOURCE = contactSource;
 
-  const body = {
-    updateEnabled: true, // Update if contact already exists
+  const brevoBody = {
+    updateEnabled: true,
     listIds: [3], // "לקוחות מהאתר" list
     attributes
   };
 
-  if (email) body.email = email;
+  if (contactEmail) brevoBody.email = contactEmail;
 
   try {
     const response = await fetch('https://api.brevo.com/v3/contacts', {
@@ -49,7 +52,7 @@ module.exports = async function handler(req, res) {
         'content-type': 'application/json',
         'api-key': apiKey
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(brevoBody)
     });
 
     const data = await response.json();
