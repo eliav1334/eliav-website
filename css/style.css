@@ -1526,6 +1526,10 @@
       background: var(--secondary-bg);
     }
 
+    .faq .section-header {
+      margin-bottom: 32px;
+    }
+
     .faq-list {
       max-width: 900px;
       margin: 0 auto;
