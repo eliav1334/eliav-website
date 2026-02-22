@@ -2,7 +2,19 @@
   "version": 2,
   "redirects": [
     { "source": "/demolition", "destination": "/earthworks.html", "statusCode": 301 },
-    { "source": "/demolition.html", "destination": "/earthworks.html", "statusCode": 301 }
+    { "source": "/demolition.html", "destination": "/earthworks.html", "statusCode": 301 },
+    { "source": "/צור-קשר", "destination": "/contact.html", "statusCode": 301 },
+    { "source": "/צור-קשר/", "destination": "/contact.html", "statusCode": 301 },
+    { "source": "/מאמרים", "destination": "/blog.html", "statusCode": 301 },
+    { "source": "/מאמרים/", "destination": "/blog.html", "statusCode": 301 },
+    { "source": "/קידוחים", "destination": "/bentonite-drilling.html", "statusCode": 301 },
+    { "source": "/קידוחים/", "destination": "/bentonite-drilling.html", "statusCode": 301 },
+    { "source": "/פיתוח-תשתיות", "destination": "/earthworks.html", "statusCode": 301 },
+    { "source": "/פיתוח-תשתיות/", "destination": "/earthworks.html", "statusCode": 301 },
+    { "source": "/השכרת-כלים", "destination": "/equipment-rental.html", "statusCode": 301 },
+    { "source": "/השכרת-כלים/", "destination": "/equipment-rental.html", "statusCode": 301 },
+    { "source": "/דרושים", "destination": "/", "statusCode": 301 },
+    { "source": "/דרושים/", "destination": "/", "statusCode": 301 }
   ],
   "rewrites": [
     { "source": "/bentonite-drilling", "destination": "/bentonite-drilling.html" },
