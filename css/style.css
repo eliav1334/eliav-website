@@ -4439,7 +4439,7 @@
 }
 
 .blog-article .comparison-table th {
-  background: rgba(249, 115, 22, 0.2);
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
   color: white;
   padding: 14px 16px;
   text-align: right;
