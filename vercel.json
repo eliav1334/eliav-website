@@ -30,7 +30,10 @@
     { "source": "/blog/earthworks-tips", "destination": "/blog/earthworks-tips.html" },
     { "source": "/blog/choose-drilling-contractor", "destination": "/blog/choose-drilling-contractor.html" },
     { "source": "/blog/bentonite-vs-polymer", "destination": "/blog/bentonite-vs-polymer.html" },
-    { "source": "/blog/drilling-hod-hasharon", "destination": "/blog/drilling-hod-hasharon.html" }
+    { "source": "/blog/drilling-hod-hasharon", "destination": "/blog/drilling-hod-hasharon.html" },
+    { "source": "/blog/equipment-rental-guide", "destination": "/blog/equipment-rental-guide.html" },
+    { "source": "/blog/contractor-license-guide", "destination": "/blog/contractor-license-guide.html" },
+    { "source": "/blog/site-development-guide", "destination": "/blog/site-development-guide.html" }
   ],
   "headers": [
     {
