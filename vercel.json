@@ -33,7 +33,10 @@
     { "source": "/blog/drilling-hod-hasharon", "destination": "/blog/drilling-hod-hasharon.html" },
     { "source": "/blog/equipment-rental-guide", "destination": "/blog/equipment-rental-guide.html" },
     { "source": "/blog/contractor-license-guide", "destination": "/blog/contractor-license-guide.html" },
-    { "source": "/blog/site-development-guide", "destination": "/blog/site-development-guide.html" }
+    { "source": "/blog/site-development-guide", "destination": "/blog/site-development-guide.html" },
+    { "source": "/blog/drainage-pits-pricing", "destination": "/blog/drainage-pits-pricing.html" },
+    { "source": "/blog/waste-removal-guide", "destination": "/blog/waste-removal-guide.html" },
+    { "source": "/blog/foundation-piles-guide", "destination": "/blog/foundation-piles-guide.html" }
   ],
   "headers": [
     {
