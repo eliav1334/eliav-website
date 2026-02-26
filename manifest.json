@@ -1,0 +1,43 @@
+{
+  "name": "א.א. עבודות קידוחים ופיתוח",
+  "short_name": "א.א. קידוחים",
+  "description": "מומחים בקידוחי בנטונייט, עבודות עפר, בורות חלחול והשכרת ציוד כבד. קבלן רשום 36281.",
+  "start_url": "/",
+  "display": "standalone",
+  "dir": "rtl",
+  "lang": "he",
+  "background_color": "#0a0a0a",
+  "theme_color": "#F97316",
+  "orientation": "portrait-primary",
+  "categories": ["business", "construction"],
+  "icons": [
+    {
+      "src": "/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "צור קשר",
+      "short_name": "קשר",
+      "description": "צור קשר לקבלת הצעת מחיר",
+      "url": "/contact",
+      "icons": []
+    },
+    {
+      "name": "שירותי קידוח",
+      "short_name": "קידוחים",
+      "description": "קידוחי בנטונייט ופולימר",
+      "url": "/bentonite-drilling",
+      "icons": []
+    }
+  ]
+}

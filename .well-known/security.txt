@@ -1,0 +1,7 @@
+# Security Policy for eliavafar.co.il
+# א.א. עבודות קידוחים ופיתוח
+
+Contact: mailto:eliav1334@gmail.com
+Expires: 2027-02-26T00:00:00.000Z
+Preferred-Languages: he, en
+Canonical: https://eliavafar.co.il/.well-known/security.txt
