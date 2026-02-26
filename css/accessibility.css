@@ -1,0 +1,700 @@
+/* =============================================
+   Accessibility Widget Styles
+   א.א. עבודות קידוחים ופיתוח
+   WCAG 2.0 AA Compliance
+   ============================================= */
+
+/* ----- Toggle Button ----- */
+.acc-toggle-btn {
+  position: fixed;
+  left: 20px;
+  bottom: 180px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #F97316;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.acc-toggle-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.6);
+}
+
+.acc-toggle-btn:focus {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+.acc-toggle-btn svg {
+  width: 28px;
+  height: 28px;
+  fill: currentColor;
+}
+
+/* ----- Panel Overlay ----- */
+.acc-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99998;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.acc-overlay.acc-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ----- Panel ----- */
+.acc-panel {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 320px;
+  max-width: 100vw;
+  background: #1a1a2e;
+  color: #e0e0e0;
+  z-index: 100000;
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+  direction: rtl;
+  font-family: 'Heebo', 'Arial', sans-serif;
+}
+
+.acc-panel.acc-open {
+  transform: translateX(0);
+}
+
+/* ----- Panel Header ----- */
+.acc-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  background: #16213e;
+  border-bottom: 2px solid #F97316;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.acc-panel-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.acc-panel-title svg {
+  width: 22px;
+  height: 22px;
+  fill: #F97316;
+}
+
+.acc-close-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, background 0.2s;
+  width: 32px;
+  height: 32px;
+}
+
+.acc-close-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.acc-close-btn:focus {
+  outline: 2px solid #F97316;
+  outline-offset: 2px;
+}
+
+.acc-close-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* ----- Panel Body ----- */
+.acc-panel-body {
+  padding: 16px 20px 20px;
+}
+
+/* ----- Option Buttons ----- */
+.acc-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  background: #16213e;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  color: #e0e0e0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  font-size: 14px;
+  text-align: right;
+}
+
+.acc-option:hover {
+  background: #1f2b4d;
+  border-color: rgba(249, 115, 22, 0.3);
+}
+
+.acc-option:focus {
+  outline: 2px solid #F97316;
+  outline-offset: 2px;
+}
+
+.acc-option.acc-active {
+  background: rgba(249, 115, 22, 0.15);
+  border-color: #F97316;
+  color: #F97316;
+}
+
+.acc-option-icon {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 8px;
+  background: rgba(249, 115, 22, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: background 0.2s;
+}
+
+.acc-option.acc-active .acc-option-icon {
+  background: rgba(249, 115, 22, 0.25);
+}
+
+.acc-option-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.acc-option-text {
+  flex: 1;
+}
+
+.acc-option-label {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.acc-option-desc {
+  display: block;
+  font-size: 11px;
+  color: #888;
+  margin-top: 2px;
+  line-height: 1.3;
+}
+
+.acc-option.acc-active .acc-option-desc {
+  color: rgba(249, 115, 22, 0.7);
+}
+
+/* Font Size Controls */
+.acc-font-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  background: #16213e;
+  border: 2px solid transparent;
+  border-radius: 10px;
+}
+
+.acc-font-controls .acc-option-icon {
+  margin-left: 4px;
+}
+
+.acc-font-controls .acc-option-text {
+  flex: 1;
+}
+
+.acc-font-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.acc-font-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  background: rgba(249, 115, 22, 0.1);
+  color: #F97316;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.acc-font-btn:hover {
+  background: rgba(249, 115, 22, 0.25);
+}
+
+.acc-font-btn:focus {
+  outline: 2px solid #F97316;
+  outline-offset: 1px;
+}
+
+.acc-font-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.acc-font-level {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #F97316;
+}
+
+/* ----- Separator ----- */
+.acc-separator {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 16px 0;
+}
+
+/* ----- Reset Button ----- */
+.acc-reset-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 2px solid rgba(239, 68, 68, 0.3);
+  border-radius: 10px;
+  color: #ef4444;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.acc-reset-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+}
+
+.acc-reset-btn:focus {
+  outline: 2px solid #ef4444;
+  outline-offset: 2px;
+}
+
+.acc-reset-btn svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* ----- Statement Link ----- */
+.acc-statement-link {
+  display: block;
+  text-align: center;
+  margin-top: 16px;
+  padding: 10px;
+  color: #888;
+  font-size: 12px;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.acc-statement-link:hover {
+  color: #F97316;
+}
+
+/* =============================================
+   Accessibility Mode Styles
+   ============================================= */
+
+/* ----- Font Size Levels ----- */
+body.acc-font-1 {
+  font-size: 105% !important;
+}
+
+body.acc-font-1 * {
+  font-size: inherit;
+}
+
+body.acc-font-2 {
+  font-size: 112% !important;
+}
+
+body.acc-font-3 {
+  font-size: 120% !important;
+}
+
+body.acc-font-4 {
+  font-size: 130% !important;
+}
+
+body.acc-font-5 {
+  font-size: 140% !important;
+}
+
+/* ----- High Contrast Mode ----- */
+body.acc-high-contrast {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+body.acc-high-contrast * {
+  background-color: #000 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+body.acc-high-contrast a {
+  color: #ffff00 !important;
+}
+
+body.acc-high-contrast img {
+  background-color: transparent !important;
+}
+
+body.acc-high-contrast svg {
+  background-color: transparent !important;
+}
+
+body.acc-high-contrast button,
+body.acc-high-contrast .btn,
+body.acc-high-contrast input,
+body.acc-high-contrast textarea,
+body.acc-high-contrast select {
+  border: 2px solid #fff !important;
+}
+
+body.acc-high-contrast .btn-primary,
+body.acc-high-contrast button[type="submit"] {
+  background: #ffff00 !important;
+  color: #000 !important;
+}
+
+body.acc-high-contrast header {
+  border-bottom: 2px solid #fff !important;
+}
+
+body.acc-high-contrast .acc-panel,
+body.acc-high-contrast .acc-panel * {
+  background-color: #1a1a2e !important;
+  color: #e0e0e0 !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+body.acc-high-contrast .acc-panel .acc-option.acc-active {
+  color: #F97316 !important;
+  border-color: #F97316 !important;
+}
+
+body.acc-high-contrast .acc-toggle-btn {
+  background: #F97316 !important;
+  color: #fff !important;
+}
+
+/* ----- Grayscale Mode ----- */
+body.acc-grayscale {
+  filter: grayscale(100%) !important;
+}
+
+body.acc-grayscale .acc-panel {
+  filter: grayscale(0%) !important;
+}
+
+body.acc-grayscale .acc-toggle-btn {
+  filter: grayscale(0%) !important;
+}
+
+/* ----- Highlight Links ----- */
+body.acc-highlight-links a {
+  outline: 2px solid #F97316 !important;
+  outline-offset: 2px !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+}
+
+body.acc-highlight-links a:hover {
+  outline-color: #fb923c !important;
+}
+
+/* Exclude widget internal links */
+body.acc-highlight-links .acc-panel a {
+  outline: none !important;
+}
+
+/* ----- Readable Font ----- */
+body.acc-readable-font,
+body.acc-readable-font * {
+  font-family: Arial, Helvetica, 'Segoe UI', sans-serif !important;
+  letter-spacing: 0.03em !important;
+  word-spacing: 0.1em !important;
+}
+
+body.acc-readable-font p,
+body.acc-readable-font li,
+body.acc-readable-font td,
+body.acc-readable-font th,
+body.acc-readable-font span,
+body.acc-readable-font div {
+  line-height: 1.8 !important;
+}
+
+/* ----- Stop Animations ----- */
+body.acc-stop-animations,
+body.acc-stop-animations *,
+body.acc-stop-animations *::before,
+body.acc-stop-animations *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+  scroll-behavior: auto !important;
+}
+
+/* Keep widget panel animation working */
+body.acc-stop-animations .acc-panel {
+  transition-duration: 0.35s !important;
+}
+
+body.acc-stop-animations .acc-overlay {
+  transition-duration: 0.3s !important;
+}
+
+/* ----- Large Cursor ----- */
+body.acc-large-cursor,
+body.acc-large-cursor * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M8 4l28 20H20l-4 16z' fill='%23000' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E") 4 4, auto !important;
+}
+
+body.acc-large-cursor a,
+body.acc-large-cursor button,
+body.acc-large-cursor [role="button"],
+body.acc-large-cursor input[type="submit"],
+body.acc-large-cursor input[type="button"],
+body.acc-large-cursor select,
+body.acc-large-cursor .btn {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M20 4v24l6-6h12' fill='%23000' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E") 20 4, pointer !important;
+}
+
+/* ----- Keyboard Navigation ----- */
+body.acc-keyboard-nav *:focus {
+  outline: 3px solid #F97316 !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 6px rgba(249, 115, 22, 0.3) !important;
+}
+
+body.acc-keyboard-nav a:focus,
+body.acc-keyboard-nav button:focus,
+body.acc-keyboard-nav input:focus,
+body.acc-keyboard-nav textarea:focus,
+body.acc-keyboard-nav select:focus,
+body.acc-keyboard-nav [tabindex]:focus {
+  outline: 3px solid #F97316 !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 6px rgba(249, 115, 22, 0.3) !important;
+}
+
+/* Skip to content link (keyboard nav) */
+.acc-skip-link {
+  position: fixed;
+  top: -100px;
+  right: 50%;
+  transform: translateX(50%);
+  background: #F97316;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 0 0 8px 8px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  z-index: 100001;
+  transition: top 0.3s;
+  font-family: 'Heebo', Arial, sans-serif;
+}
+
+.acc-skip-link:focus {
+  top: 0;
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+/* =============================================
+   Mobile Responsive
+   ============================================= */
+@media (max-width: 480px) {
+  .acc-toggle-btn {
+    width: 44px;
+    height: 44px;
+    left: 15px;
+    bottom: 160px;
+  }
+
+  .acc-toggle-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .acc-panel {
+    width: 100%;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-height: 85vh;
+    border-radius: 20px 20px 0 0;
+    transform: translateY(100%);
+  }
+
+  .acc-panel.acc-open {
+    transform: translateY(0);
+  }
+
+  .acc-panel-header {
+    border-radius: 20px 20px 0 0;
+    padding: 14px 16px;
+  }
+
+  .acc-panel-header::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    margin: 0 auto 10px;
+  }
+
+  .acc-panel-body {
+    padding: 12px 16px 100px;
+  }
+
+  .acc-option {
+    padding: 10px 12px;
+    margin-bottom: 6px;
+  }
+}
+
+/* =============================================
+   Accessibility Statement Page Styles
+   ============================================= */
+.accessibility-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.accessibility-content h2 {
+  color: #F97316;
+  font-size: 1.6rem;
+  margin: 32px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid rgba(249, 115, 22, 0.2);
+}
+
+.accessibility-content h2:first-of-type {
+  margin-top: 0;
+}
+
+.accessibility-content p {
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+
+.accessibility-content ul {
+  padding-right: 24px;
+  margin-bottom: 16px;
+}
+
+.accessibility-content li {
+  line-height: 1.8;
+  margin-bottom: 6px;
+}
+
+.accessibility-content .contact-details {
+  background: rgba(249, 115, 22, 0.05);
+  border: 1px solid rgba(249, 115, 22, 0.2);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 20px 0;
+}
+
+.accessibility-content .contact-details p {
+  margin-bottom: 8px;
+}
+
+.accessibility-content .update-date {
+  color: #888;
+  font-size: 0.9rem;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Footer accessibility link */
+.footer-accessibility-link {
+  color: #94a3b8 !important;
+  text-decoration: none;
+  margin-right: 8px;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.footer-accessibility-link:hover {
+  color: #F97316 !important;
+  text-decoration: underline;
+}
