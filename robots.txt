@@ -9,6 +9,7 @@ Disallow: /thanks.html
 
 # Sitemaps
 Sitemap: https://eliavafar.co.il/sitemap.xml
+Sitemap: https://eliavafar.co.il/sitemap-images.xml
 
 # AI Crawlers — LLM information available
 # See https://eliavafar.co.il/llms.txt for structured business info

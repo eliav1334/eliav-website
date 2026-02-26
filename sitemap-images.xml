@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- דף הבית -->
+  <url>
+    <loc>https://eliavafar.co.il/</loc>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/hero-new-1.webp</image:loc>
+      <image:title>א.א. עבודות קידוחים ופיתוח - תמונת גיבור ראשית</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/hero-new-2.webp</image:loc>
+      <image:title>א.א. עבודות קידוחים ופיתוח - פרויקט קידוח</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/hero-new-3.webp</image:loc>
+      <image:title>א.א. עבודות קידוחים ופיתוח - עבודות שטח</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/hero-general-1.webp</image:loc>
+      <image:title>עבודות קידוח ופיתוח - מבט כללי 1</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/hero-general-2.webp</image:loc>
+      <image:title>עבודות קידוח ופיתוח - מבט כללי 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/hero-general-3.webp</image:loc>
+      <image:title>עבודות קידוח ופיתוח - מבט כללי 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/hero-drilling-1.webp</image:loc>
+      <image:title>מכונת קידוח בפעולה באתר בנייה</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/hero-villa-1.webp</image:loc>
+      <image:title>עבודות קידוח בפרויקט וילה פרטית</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/index-gallery-1.webp</image:loc>
+      <image:title>גלריית פרויקטים - דף הבית 1</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/index-gallery-2.webp</image:loc>
+      <image:title>גלריית פרויקטים - דף הבית 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/index-gallery-3.webp</image:loc>
+      <image:title>גלריית פרויקטים - דף הבית 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/homepage-project-1.webp</image:loc>
+      <image:title>פרויקט קידוח ופיתוח - תצוגת דף הבית 1</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/homepage-project-2.webp</image:loc>
+      <image:title>פרויקט קידוח ופיתוח - תצוגת דף הבית 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/homepage-project-3.webp</image:loc>
+      <image:title>פרויקט קידוח ופיתוח - תצוגת דף הבית 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/homepage-project-4.webp</image:loc>
+      <image:title>פרויקט קידוח ופיתוח - תצוגת דף הבית 4</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/homepage-project-5.webp</image:loc>
+      <image:title>פרויקט קידוח ופיתוח - תצוגת דף הבית 5</image:title>
+    </image:image>
+  </url>
+
+  <!-- קידוחי בנטונייט -->
+  <url>
+    <loc>https://eliavafar.co.il/bentonite-drilling</loc>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-rishon-1.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט ראשון לציון 1</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-rishon-2.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט ראשון לציון 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-rishon-3.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט ראשון לציון 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-kvish5-1.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט כביש 5 תמונה 1</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-kvish5-2.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט כביש 5 תמונה 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-kvish5-3.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט כביש 5 תמונה 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-savyon-1.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט סביון 1</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-savyon-2.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט סביון 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-villa-1.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט וילה 1</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-villa-2.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט וילה 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-villa-3.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט וילה 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-ashdod-1.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט אשדוד 1</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-ashdod-2.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט אשדוד 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-ashdod-3.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט אשדוד 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-project-1.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט 1</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-project-2.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-project-3.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-project-4.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט 4</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-project-5.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט 5</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-project-6.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט 6</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-project-7.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט 7</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-station-1.webp</image:loc>
+      <image:title>קידוח בנטונייט - תחנת קידוח</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-urban-1.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט עירוני</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-rail-1.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט מסילת רכבת 1</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-rail-2.webp</image:loc>
+      <image:title>קידוח בנטונייט - פרויקט מסילת רכבת 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-field-1.webp</image:loc>
+      <image:title>קידוח בנטונייט - עבודת שטח</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/bentonite-pipes-1.webp</image:loc>
+      <image:title>קידוח בנטונייט - התקנת צינורות</image:title>
+    </image:image>
+  </url>
+
+  <!-- עבודות עפר -->
+  <url>
+    <loc>https://eliavafar.co.il/earthworks</loc>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/hero-earthworks-1.webp</image:loc>
+      <image:title>עבודות עפר וחפירות - תמונת גיבור</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-electra-1.webp</image:loc>
+      <image:title>עבודות עפר - פרויקט אלקטרה 1</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-electra-2.webp</image:loc>
+      <image:title>עבודות עפר - פרויקט אלקטרה 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-electra-3.webp</image:loc>
+      <image:title>עבודות עפר - פרויקט אלקטרה 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-electra-4.webp</image:loc>
+      <image:title>עבודות עפר - פרויקט אלקטרה 4</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-electra-5.webp</image:loc>
+      <image:title>עבודות עפר - פרויקט אלקטרה 5</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-electra-new-1.webp</image:loc>
+      <image:title>עבודות עפר - פרויקט אלקטרה חדש 1</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-electra-new-2.webp</image:loc>
+      <image:title>עבודות עפר - פרויקט אלקטרה חדש 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-electra-new-3.webp</image:loc>
+      <image:title>עבודות עפר - פרויקט אלקטרה חדש 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-netanya-1.webp</image:loc>
+      <image:title>עבודות עפר - פרויקט נתניה 1</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-netanya-cliff-1.webp</image:loc>
+      <image:title>עבודות עפר - מצוק נתניה</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-netanya-elec-1.webp</image:loc>
+      <image:title>עבודות עפר - פרויקט חשמל נתניה</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-hadera-1.webp</image:loc>
+      <image:title>עבודות עפר - פרויקט חדרה</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-hadera-pave-1.webp</image:loc>
+      <image:title>עבודות עפר - סלילה חדרה</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-pool-1.webp</image:loc>
+      <image:title>עבודות עפר - חפירת בריכה</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-pool-pardes-1.webp</image:loc>
+      <image:title>עבודות עפר - בריכה פרדס חנה</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-raanana-1.webp</image:loc>
+      <image:title>עבודות עפר - פרויקט רעננה</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-raanana-pave-1.webp</image:loc>
+      <image:title>עבודות עפר - סלילה רעננה</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-villa-1.webp</image:loc>
+      <image:title>עבודות עפר - פרויקט וילה</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-villa-dev-1.webp</image:loc>
+      <image:title>עבודות עפר - פיתוח מגרש וילה</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-project-1.webp</image:loc>
+      <image:title>עבודות עפר - פרויקט כללי</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-project-new-1.webp</image:loc>
+      <image:title>עבודות עפר - פרויקט חדש</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-borehole-1.webp</image:loc>
+      <image:title>עבודות עפר - קידוח בורהול 1</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-borehole-2.webp</image:loc>
+      <image:title>עבודות עפר - קידוח בורהול 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/earthworks-borehole-3.webp</image:loc>
+      <image:title>עבודות עפר - קידוח בורהול 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/demolition-rocks-1.webp</image:loc>
+      <image:title>עבודות הריסה - פירוק סלעים</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/demolition-project-1.webp</image:loc>
+      <image:title>עבודות הריסה - פרויקט 1</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/demolition-project-2.webp</image:loc>
+      <image:title>עבודות הריסה - פרויקט 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/demolition-project-3.webp</image:loc>
+      <image:title>עבודות הריסה - פרויקט 3</image:title>
+    </image:image>
+  </url>
+
+  <!-- בורות ניקוז -->
+  <url>
+    <loc>https://eliavafar.co.il/drainage-pits</loc>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/drainage-pit-1.webp</image:loc>
+      <image:title>בורות ניקוז וחלחול - פרויקט 1</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/drainage-pit-2.webp</image:loc>
+      <image:title>בורות ניקוז וחלחול - פרויקט 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/drainage-pit-3.webp</image:loc>
+      <image:title>בורות ניקוז וחלחול - פרויקט 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/drainage-pit-4.webp</image:loc>
+      <image:title>בורות ניקוז וחלחול - פרויקט 4</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/drainage-pit-5.webp</image:loc>
+      <image:title>בורות ניקוז וחלחול - פרויקט 5</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/drainage-pit-6.webp</image:loc>
+      <image:title>בורות ניקוז וחלחול - פרויקט 6</image:title>
+    </image:image>
+  </url>
+
+  <!-- השכרת ציוד -->
+  <url>
+    <loc>https://eliavafar.co.il/equipment-rental</loc>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/equipment-rental-1.webp</image:loc>
+      <image:title>השכרת ציוד כולל מפעיל - מחפרון 1</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/equipment-rental-2.webp</image:loc>
+      <image:title>השכרת ציוד כולל מפעיל - מחפרון 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/equipment-rental-3.webp</image:loc>
+      <image:title>השכרת ציוד כולל מפעיל - ציוד מכני 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/equipment-rental-4.webp</image:loc>
+      <image:title>השכרת ציוד כולל מפעיל - ציוד מכני 4</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/equipment-rental-5.webp</image:loc>
+      <image:title>השכרת ציוד כולל מפעיל - ציוד כבד 5</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://eliavafar.co.il/images/gallery/equipment-rental-6.webp</image:loc>
+      <image:title>השכרת ציוד כולל מפעיל - ציוד כבד 6</image:title>
+    </image:image>
+  </url>
+
+</urlset>
