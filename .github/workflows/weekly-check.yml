@@ -406,79 +406,81 @@ jobs:
               linksStatus.includes('❌');
             const urgencyTag = hasProblems ? '🚨 ' : '';
 
-            const body = `## 📊 דוח שבועי - eliavafar.co.il
-**תאריך:** ${today}
-
----
-
-### 🌐 סטטוס דפים ראשיים
-${pagesStatus}
-
-| דף | נתיב | סטטוס |
-|----|------|-------|
-${{ steps.pages.outputs.main_results }}
-
-### 📝 סטטוס מאמרי בלוג (13)
-
-| מאמר | נתיב | סטטוס |
-|------|------|-------|
-${{ steps.pages.outputs.blog_results }}
-
-### 🔄 Redirects (דפים ישנים)
-${redirectsStatus}
-
-| דף | נתיב | סטטוס |
-|----|------|-------|
-${{ steps.redirects.outputs.results }}
-
-### 🗺️ תשתית
-
-| קובץ | סטטוס |
-|------|-------|
-${{ steps.infra.outputs.results }}
-
-### 🔒 אבטחה
-**SSL:** ${sslStatus}
-
-**Security Headers:**
-${securityStatus}
-
-| Header | סטטוס |
-|--------|-------|
-${{ steps.security.outputs.results }}
-
-### ⚡ ביצועים (Lighthouse)
-
-| קטגוריה | מובייל | דסקטופ |
-|----------|--------|--------|
-| Performance | ${mPerfIcon} ${mPerf}/100 | ${dPerfIcon} ${dPerf}/100 |
-| Accessibility | ${mA11yIcon} ${mA11y}/100 | - |
-| SEO | ${mSeoIcon} ${mSeo}/100 | - |
-| Best Practices | ${mBpIcon} ${mBp}/100 | - |
-
-**Core Web Vitals (מובייל):**
-| מדד | ערך |
-|-----|-----|
-| FCP (First Contentful Paint) | ${mFcp} |
-| LCP (Largest Contentful Paint) | ${mLcp} |
-| TBT (Total Blocking Time) | ${mTbt} |
-| CLS (Cumulative Layout Shift) | ${mCls} |
-
-### 🔗 לינקים חיצוניים
-${linksStatus}
-${linksDetails ? '\n| שירות | סטטוס |\n|-------|-------|\n' + linksDetails : ''}
-
----
-
-### 📋 תזכורת - לבדוק ידנית השבוע:
-
-- [ ] **GA4** (analytics.google.com) - כמות מבקרים, המרות, דפים פופולריים
-- [ ] **Clarity** (clarity.microsoft.com) - הקלטות משתמשים, מפות חום
-- [ ] **Google Business** (business.google.com) - ביקורות חדשות, סטטוס ביקורות
-- [ ] **Search Console** (search.google.com/search-console) - שגיאות, מילות חיפוש, דפים מאונדקסים
-
----
-*דוח אוטומטי — GitHub Actions | eliavafar.co.il*`;
+            const body = [
+              '## 📊 דוח שבועי - eliavafar.co.il',
+              `**תאריך:** ${today}`,
+              '',
+              '---',
+              '',
+              '### 🌐 סטטוס דפים ראשיים',
+              pagesStatus,
+              '',
+              '| דף | נתיב | סטטוס |',
+              '|----|------|-------|',
+              `${{ steps.pages.outputs.main_results }}`,
+              '',
+              '### 📝 סטטוס מאמרי בלוג (13)',
+              '',
+              '| מאמר | נתיב | סטטוס |',
+              '|------|------|-------|',
+              `${{ steps.pages.outputs.blog_results }}`,
+              '',
+              '### 🔄 Redirects (דפים ישנים)',
+              redirectsStatus,
+              '',
+              '| דף | נתיב | סטטוס |',
+              '|----|------|-------|',
+              `${{ steps.redirects.outputs.results }}`,
+              '',
+              '### 🗺️ תשתית',
+              '',
+              '| קובץ | סטטוס |',
+              '|------|-------|',
+              `${{ steps.infra.outputs.results }}`,
+              '',
+              '### 🔒 אבטחה',
+              `**SSL:** ${sslStatus}`,
+              '',
+              '**Security Headers:**',
+              securityStatus,
+              '',
+              '| Header | סטטוס |',
+              '|--------|-------|',
+              `${{ steps.security.outputs.results }}`,
+              '',
+              '### ⚡ ביצועים (Lighthouse)',
+              '',
+              '| קטגוריה | מובייל | דסקטופ |',
+              '|----------|--------|--------|',
+              `| Performance | ${mPerfIcon} ${mPerf}/100 | ${dPerfIcon} ${dPerf}/100 |`,
+              `| Accessibility | ${mA11yIcon} ${mA11y}/100 | - |`,
+              `| SEO | ${mSeoIcon} ${mSeo}/100 | - |`,
+              `| Best Practices | ${mBpIcon} ${mBp}/100 | - |`,
+              '',
+              '**Core Web Vitals (מובייל):**',
+              '| מדד | ערך |',
+              '|-----|-----|',
+              `| FCP (First Contentful Paint) | ${mFcp} |`,
+              `| LCP (Largest Contentful Paint) | ${mLcp} |`,
+              `| TBT (Total Blocking Time) | ${mTbt} |`,
+              `| CLS (Cumulative Layout Shift) | ${mCls} |`,
+              '',
+              '### 🔗 לינקים חיצוניים',
+              linksStatus,
+              linksDetails ? '| שירות | סטטוס |\n|-------|-------|\n' + linksDetails : '',
+              '',
+              '---',
+              '',
+              '### 📋 תזכורת - לבדוק ידנית השבוע:',
+              '',
+              '- [ ] **GA4** (analytics.google.com) - כמות מבקרים, המרות, דפים פופולריים',
+              '- [ ] **Clarity** (clarity.microsoft.com) - הקלטות משתמשים, מפות חום',
+              '- [ ] **Google Business** (business.google.com) - ביקורות חדשות, סטטוס ביקורות',
+              '- [ ] **Search Console** (search.google.com/search-console) - שגיאות, מילות חיפוש, דפים מאונדקסים',
+              '',
+              '---',
+              '*דוח אוטומטי — GitHub Actions | eliavafar.co.il*'
+            ].join('\n');
 
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
