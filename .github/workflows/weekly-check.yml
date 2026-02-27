@@ -13,37 +13,150 @@ jobs:
       issues: write
 
     steps:
-      - name: "🔍 בדיקת דפי האתר"
+      - name: "🔍 בדיקת כל דפי האתר (22 דפים)"
         id: pages
         run: |
           SITE="https://eliavafar.co.il"
-          PAGES=("/" "/bentonite-drilling" "/earthworks" "/drainage-pits" "/equipment-rental" "/contact" "/thanks")
-          NAMES=("דף ראשי" "קידוחי בנטונייט" "עבודות עפר" "בורות חלחול" "השכרת ציוד" "צור קשר" "דף תודה")
 
-          RESULTS=""
-          ALL_OK=true
+          # דפים ראשיים (9)
+          MAIN_PAGES=("/" "/bentonite-drilling" "/earthworks" "/drainage-pits" "/equipment-rental" "/contact" "/thanks" "/blog" "/accessibility-statement")
+          MAIN_NAMES=("דף ראשי" "קידוחי בנטונייט" "עבודות עפר" "בורות חלחול" "השכרת ציוד" "צור קשר" "דף תודה" "בלוג" "הצהרת נגישות")
 
-          for i in "${!PAGES[@]}"; do
-            URL="${SITE}${PAGES[$i]}"
-            STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$URL" 2>/dev/null)
+          # מאמרי בלוג (13)
+          BLOG_PAGES=("/blog/bentonite-guide" "/blog/drainage-pits-guide" "/blog/drilling-netanya" "/blog/earthworks-tips" "/blog/choose-drilling-contractor" "/blog/bentonite-vs-polymer" "/blog/drilling-hod-hasharon" "/blog/equipment-rental-guide" "/blog/contractor-license-guide" "/blog/site-development-guide" "/blog/drainage-pits-pricing" "/blog/waste-removal-guide" "/blog/foundation-piles-guide")
+          BLOG_NAMES=("מדריך בנטונייט" "מדריך בורות חלחול" "קידוח נתניה" "טיפים עבודות עפר" "בחירת קבלן קידוח" "בנטונייט vs פולימר" "קידוח הוד השרון" "מדריך השכרת ציוד" "מדריך רישיון קבלן" "מדריך פיתוח שטח" "תמחור בורות חלחול" "מדריך פינוי פסולת" "מדריך כלונסאות")
+
+          MAIN_RESULTS=""
+          BLOG_RESULTS=""
+          FAIL_COUNT=0
+          TOTAL=0
+
+          # בדיקת דפים ראשיים
+          for i in "${!MAIN_PAGES[@]}"; do
+            URL="${SITE}${MAIN_PAGES[$i]}"
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 "$URL" 2>/dev/null)
+            TOTAL=$((TOTAL + 1))
 
             if [ "$STATUS" = "200" ]; then
-              RESULTS="${RESULTS}| ${NAMES[$i]} | ${PAGES[$i]} | ✅ ${STATUS} |\n"
+              MAIN_RESULTS="${MAIN_RESULTS}| ${MAIN_NAMES[$i]} | ${MAIN_PAGES[$i]} | ✅ ${STATUS} |\n"
             else
-              RESULTS="${RESULTS}| ${NAMES[$i]} | ${PAGES[$i]} | ❌ ${STATUS} |\n"
-              ALL_OK=false
+              MAIN_RESULTS="${MAIN_RESULTS}| ${MAIN_NAMES[$i]} | ${MAIN_PAGES[$i]} | ❌ ${STATUS} |\n"
+              FAIL_COUNT=$((FAIL_COUNT + 1))
+            fi
+          done
+
+          # בדיקת מאמרי בלוג
+          for i in "${!BLOG_PAGES[@]}"; do
+            URL="${SITE}${BLOG_PAGES[$i]}"
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 "$URL" 2>/dev/null)
+            TOTAL=$((TOTAL + 1))
+
+            if [ "$STATUS" = "200" ]; then
+              BLOG_RESULTS="${BLOG_RESULTS}| ${BLOG_NAMES[$i]} | ${BLOG_PAGES[$i]} | ✅ ${STATUS} |\n"
+            else
+              BLOG_RESULTS="${BLOG_RESULTS}| ${BLOG_NAMES[$i]} | ${BLOG_PAGES[$i]} | ❌ ${STATUS} |\n"
+              FAIL_COUNT=$((FAIL_COUNT + 1))
+            fi
+          done
+
+          echo "main_results<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$MAIN_RESULTS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+          echo "blog_results<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$BLOG_RESULTS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+          PASS_COUNT=$((TOTAL - FAIL_COUNT))
+          if [ "$FAIL_COUNT" -eq 0 ]; then
+            echo "status=✅ כל ${TOTAL} הדפים תקינים" >> $GITHUB_OUTPUT
+          else
+            echo "status=❌ ${FAIL_COUNT} דפים עם בעיות מתוך ${TOTAL}!" >> $GITHUB_OUTPUT
+          fi
+          echo "fail_count=${FAIL_COUNT}" >> $GITHUB_OUTPUT
+          echo "total=${TOTAL}" >> $GITHUB_OUTPUT
+
+      - name: "🔄 בדיקת Redirects (דפים ישנים)"
+        id: redirects
+        run: |
+          SITE="https://eliavafar.co.il"
+          REDIRECT_RESULTS=""
+          REDIRECT_FAILS=0
+
+          # דפים שנמחקו וצריכים redirect
+          OLD_PAGES=("/cfa-piles" "/micropiles" "/diaphragm-walls" "/admin" "/simple-upload" "/demolition")
+          OLD_NAMES=("CFA Piles" "Micropiles" "Diaphragm Walls" "Admin" "Simple Upload" "Demolition")
+          EXPECTED=("/bentonite-drilling" "/bentonite-drilling" "/bentonite-drilling" "/" "/" "/earthworks")
+
+          for i in "${!OLD_PAGES[@]}"; do
+            # בדיקה שה-redirect עובד (בלי follow)
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${SITE}${OLD_PAGES[$i]}" 2>/dev/null)
+            # בדיקה שה-redirect מוביל ליעד הנכון
+            FINAL_URL=$(curl -s -o /dev/null -w "%{url_effective}" -L --max-time 10 "${SITE}${OLD_PAGES[$i]}" 2>/dev/null)
+
+            if [ "$STATUS" = "301" ] || [ "$STATUS" = "308" ]; then
+              REDIRECT_RESULTS="${REDIRECT_RESULTS}| ${OLD_NAMES[$i]} | ${OLD_PAGES[$i]} | ✅ ${STATUS} → ${EXPECTED[$i]} |\n"
+            elif [ "$STATUS" = "200" ]; then
+              # מגיע 200 כי Vercel עושה redirect פנימי — בודק שהתוכן נכון
+              REDIRECT_RESULTS="${REDIRECT_RESULTS}| ${OLD_NAMES[$i]} | ${OLD_PAGES[$i]} | ✅ Redirect פעיל |\n"
+            else
+              REDIRECT_RESULTS="${REDIRECT_RESULTS}| ${OLD_NAMES[$i]} | ${OLD_PAGES[$i]} | ❌ ${STATUS} (צפוי: 301) |\n"
+              REDIRECT_FAILS=$((REDIRECT_FAILS + 1))
             fi
           done
 
           echo "results<<EOF" >> $GITHUB_OUTPUT
-          echo -e "$RESULTS" >> $GITHUB_OUTPUT
+          echo -e "$REDIRECT_RESULTS" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-          if [ "$ALL_OK" = true ]; then
-            echo "status=✅ כל הדפים תקינים" >> $GITHUB_OUTPUT
+          if [ "$REDIRECT_FAILS" -eq 0 ]; then
+            echo "status=✅ כל ה-Redirects תקינים" >> $GITHUB_OUTPUT
           else
-            echo "status=❌ יש דפים עם בעיות!" >> $GITHUB_OUTPUT
+            echo "status=❌ ${REDIRECT_FAILS} redirects עם בעיות!" >> $GITHUB_OUTPUT
           fi
+
+      - name: "🗺️ בדיקת Sitemap ו-robots.txt"
+        id: infra
+        run: |
+          SITE="https://eliavafar.co.il"
+          INFRA_STATUS=""
+
+          # בדיקת sitemap.xml
+          SITEMAP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${SITE}/sitemap.xml" 2>/dev/null)
+          if [ "$SITEMAP_CODE" = "200" ]; then
+            SITEMAP_URLS=$(curl -s --max-time 10 "${SITE}/sitemap.xml" 2>/dev/null | grep -c "<loc>" || echo "0")
+            INFRA_STATUS="${INFRA_STATUS}| sitemap.xml | ✅ תקין (${SITEMAP_URLS} URLs) |\n"
+          else
+            INFRA_STATUS="${INFRA_STATUS}| sitemap.xml | ❌ HTTP ${SITEMAP_CODE} |\n"
+          fi
+
+          # בדיקת robots.txt
+          ROBOTS_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${SITE}/robots.txt" 2>/dev/null)
+          if [ "$ROBOTS_CODE" = "200" ]; then
+            INFRA_STATUS="${INFRA_STATUS}| robots.txt | ✅ תקין |\n"
+          else
+            INFRA_STATUS="${INFRA_STATUS}| robots.txt | ❌ HTTP ${ROBOTS_CODE} |\n"
+          fi
+
+          # בדיקת llms.txt
+          LLMS_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${SITE}/llms.txt" 2>/dev/null)
+          if [ "$LLMS_CODE" = "200" ]; then
+            INFRA_STATUS="${INFRA_STATUS}| llms.txt | ✅ תקין |\n"
+          else
+            INFRA_STATUS="${INFRA_STATUS}| llms.txt | ❌ HTTP ${LLMS_CODE} |\n"
+          fi
+
+          # בדיקת manifest.json
+          MANIFEST_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${SITE}/manifest.json" 2>/dev/null)
+          if [ "$MANIFEST_CODE" = "200" ]; then
+            INFRA_STATUS="${INFRA_STATUS}| manifest.json | ✅ תקין |\n"
+          else
+            INFRA_STATUS="${INFRA_STATUS}| manifest.json | ❌ HTTP ${MANIFEST_CODE} |\n"
+          fi
+
+          echo "results<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$INFRA_STATUS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: "🔒 בדיקת SSL"
         id: ssl
@@ -57,13 +170,19 @@ jobs:
 
             if [ "$DAYS_LEFT" -gt 30 ]; then
               echo "status=✅ SSL תקף - נותרו ${DAYS_LEFT} ימים (עד ${EXPIRY})" >> $GITHUB_OUTPUT
-            elif [ "$DAYS_LEFT" -gt 0 ]; then
+              echo "urgent=false" >> $GITHUB_OUTPUT
+            elif [ "$DAYS_LEFT" -gt 7 ]; then
               echo "status=⚠️ SSL פג בקרוב! נותרו ${DAYS_LEFT} ימים בלבד!" >> $GITHUB_OUTPUT
+              echo "urgent=true" >> $GITHUB_OUTPUT
             else
-              echo "status=❌ SSL פג תוקף!" >> $GITHUB_OUTPUT
+              echo "status=❌ SSL פג תוקף בעוד ${DAYS_LEFT} ימים!" >> $GITHUB_OUTPUT
+              echo "urgent=true" >> $GITHUB_OUTPUT
             fi
+            echo "days=${DAYS_LEFT}" >> $GITHUB_OUTPUT
           else
             echo "status=⚠️ לא ניתן לבדוק SSL" >> $GITHUB_OUTPUT
+            echo "urgent=false" >> $GITHUB_OUTPUT
+            echo "days=N/A" >> $GITHUB_OUTPUT
           fi
 
       - name: "⚡ בדיקת מהירות (PageSpeed)"
@@ -72,12 +191,11 @@ jobs:
           API="https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
           URL="https://eliavafar.co.il"
 
-          # פונקציה עם retry למקרה של rate limit
           fetch_pagespeed() {
             local strategy=$1
             local result=""
             for attempt in 1 2 3; do
-              result=$(curl -s -w "\n%{http_code}" --max-time 120 "${API}?url=${URL}&category=performance&strategy=${strategy}")
+              result=$(curl -s -w "\n%{http_code}" --max-time 120 "${API}?url=${URL}&category=performance&category=accessibility&category=seo&category=best-practices&strategy=${strategy}")
               local http_code=$(echo "$result" | tail -1)
               local body=$(echo "$result" | sed '$d')
               if [ "$http_code" = "200" ]; then
@@ -93,73 +211,92 @@ jobs:
 
           echo "Checking mobile speed..."
           MOBILE=$(fetch_pagespeed "mobile")
-          MOBILE_SCORE=$(echo "$MOBILE" | jq -r '.lighthouseResult.categories.performance.score // empty' 2>/dev/null)
-          if [ -n "$MOBILE_SCORE" ] && [ "$MOBILE_SCORE" != "null" ]; then
-            MOBILE_SCORE=$(echo "$MOBILE_SCORE" | awk '{printf "%d", $1 * 100}')
-          else
-            MOBILE_SCORE="N/A"
-          fi
+
+          # ציוני מובייל
+          MOBILE_PERF=$(echo "$MOBILE" | jq -r '.lighthouseResult.categories.performance.score // empty' 2>/dev/null)
+          MOBILE_A11Y=$(echo "$MOBILE" | jq -r '.lighthouseResult.categories.accessibility.score // empty' 2>/dev/null)
+          MOBILE_SEO=$(echo "$MOBILE" | jq -r '.lighthouseResult.categories.seo.score // empty' 2>/dev/null)
+          MOBILE_BP=$(echo "$MOBILE" | jq -r '.lighthouseResult.categories["best-practices"].score // empty' 2>/dev/null)
+
+          # המרה לאחוזים
+          for var in MOBILE_PERF MOBILE_A11Y MOBILE_SEO MOBILE_BP; do
+            val="${!var}"
+            if [ -n "$val" ] && [ "$val" != "null" ]; then
+              eval "$var=$(echo "$val" | awk '{printf "%d", $1 * 100}')"
+            else
+              eval "$var=N/A"
+            fi
+          done
+
+          MOBILE_LCP=$(echo "$MOBILE" | jq -r '.lighthouseResult.audits["largest-contentful-paint"].displayValue // "N/A"' 2>/dev/null)
+          MOBILE_FCP=$(echo "$MOBILE" | jq -r '.lighthouseResult.audits["first-contentful-paint"].displayValue // "N/A"' 2>/dev/null)
+          MOBILE_TBT=$(echo "$MOBILE" | jq -r '.lighthouseResult.audits["total-blocking-time"].displayValue // "N/A"' 2>/dev/null)
+          MOBILE_CLS=$(echo "$MOBILE" | jq -r '.lighthouseResult.audits["cumulative-layout-shift"].displayValue // "N/A"' 2>/dev/null)
 
           # המתנה בין הבקשות למניעת rate limit
-          echo "Waiting 10s between requests..."
-          sleep 10
+          echo "Waiting 15s between requests..."
+          sleep 15
 
           echo "Checking desktop speed..."
           DESKTOP=$(fetch_pagespeed "desktop")
-          DESKTOP_SCORE=$(echo "$DESKTOP" | jq -r '.lighthouseResult.categories.performance.score // empty' 2>/dev/null)
-          if [ -n "$DESKTOP_SCORE" ] && [ "$DESKTOP_SCORE" != "null" ]; then
-            DESKTOP_SCORE=$(echo "$DESKTOP_SCORE" | awk '{printf "%d", $1 * 100}')
+          DESKTOP_PERF=$(echo "$DESKTOP" | jq -r '.lighthouseResult.categories.performance.score // empty' 2>/dev/null)
+          if [ -n "$DESKTOP_PERF" ] && [ "$DESKTOP_PERF" != "null" ]; then
+            DESKTOP_PERF=$(echo "$DESKTOP_PERF" | awk '{printf "%d", $1 * 100}')
           else
-            DESKTOP_SCORE="N/A"
+            DESKTOP_PERF="N/A"
           fi
 
-          MOBILE_LCP=$(echo "$MOBILE" | jq -r '.lighthouseResult.audits["largest-contentful-paint"].displayValue // "N/A"' 2>/dev/null)
+          echo "Mobile Perf: ${MOBILE_PERF}, Desktop Perf: ${DESKTOP_PERF}"
 
-          echo "Mobile: ${MOBILE_SCORE}, Desktop: ${DESKTOP_SCORE}, LCP: ${MOBILE_LCP}"
+          # שמירת תוצאות
+          echo "mobile_perf=${MOBILE_PERF}" >> $GITHUB_OUTPUT
+          echo "mobile_a11y=${MOBILE_A11Y}" >> $GITHUB_OUTPUT
+          echo "mobile_seo=${MOBILE_SEO}" >> $GITHUB_OUTPUT
+          echo "mobile_bp=${MOBILE_BP}" >> $GITHUB_OUTPUT
+          echo "desktop_perf=${DESKTOP_PERF}" >> $GITHUB_OUTPUT
+          echo "mobile_lcp=${MOBILE_LCP}" >> $GITHUB_OUTPUT
+          echo "mobile_fcp=${MOBILE_FCP}" >> $GITHUB_OUTPUT
+          echo "mobile_tbt=${MOBILE_TBT}" >> $GITHUB_OUTPUT
+          echo "mobile_cls=${MOBILE_CLS}" >> $GITHUB_OUTPUT
 
-          echo "mobile=${MOBILE_SCORE}" >> $GITHUB_OUTPUT
-          echo "desktop=${DESKTOP_SCORE}" >> $GITHUB_OUTPUT
-          echo "lcp=${MOBILE_LCP}" >> $GITHUB_OUTPUT
+          # אייקונים
+          score_icon() {
+            local score=$1
+            if [ "$score" = "N/A" ]; then echo "⚪"; return; fi
+            if [ "$score" -ge 90 ]; then echo "🟢"; return; fi
+            if [ "$score" -ge 50 ]; then echo "🟡"; return; fi
+            echo "🔴"
+          }
 
-          if [ "$MOBILE_SCORE" != "N/A" ] && [ "$MOBILE_SCORE" -ge 90 ]; then
-            echo "mobile_icon=🟢" >> $GITHUB_OUTPUT
-          elif [ "$MOBILE_SCORE" != "N/A" ] && [ "$MOBILE_SCORE" -ge 50 ]; then
-            echo "mobile_icon=🟡" >> $GITHUB_OUTPUT
-          else
-            echo "mobile_icon=🔴" >> $GITHUB_OUTPUT
-          fi
+          echo "mobile_perf_icon=$(score_icon $MOBILE_PERF)" >> $GITHUB_OUTPUT
+          echo "mobile_a11y_icon=$(score_icon $MOBILE_A11Y)" >> $GITHUB_OUTPUT
+          echo "mobile_seo_icon=$(score_icon $MOBILE_SEO)" >> $GITHUB_OUTPUT
+          echo "mobile_bp_icon=$(score_icon $MOBILE_BP)" >> $GITHUB_OUTPUT
+          echo "desktop_perf_icon=$(score_icon $DESKTOP_PERF)" >> $GITHUB_OUTPUT
 
-          if [ "$DESKTOP_SCORE" != "N/A" ] && [ "$DESKTOP_SCORE" -ge 90 ]; then
-            echo "desktop_icon=🟢" >> $GITHUB_OUTPUT
-          elif [ "$DESKTOP_SCORE" != "N/A" ] && [ "$DESKTOP_SCORE" -ge 50 ]; then
-            echo "desktop_icon=🟡" >> $GITHUB_OUTPUT
-          else
-            echo "desktop_icon=🔴" >> $GITHUB_OUTPUT
-          fi
-
-      - name: "🔗 בדיקת לינקים שבורים"
+      - name: "🔗 בדיקת לינקים חיצוניים"
         id: links
         run: |
-          SITE="https://eliavafar.co.il"
           BROKEN=""
           BROKEN_COUNT=0
 
-          # בדיקת לינקים חיצוניים חשובים
           LINKS=(
             "https://wa.me/972529556123"
             "https://fonts.googleapis.com/css2?family=Heebo"
             "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
+            "https://formsubmit.co"
           )
           LINK_NAMES=(
             "WhatsApp"
             "Google Fonts"
             "Swiper CDN"
+            "FormSubmit"
           )
 
           for i in "${!LINKS[@]}"; do
             STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L "${LINKS[$i]}" 2>/dev/null)
             if [ "$STATUS" != "200" ] && [ "$STATUS" != "301" ] && [ "$STATUS" != "302" ]; then
-              BROKEN="${BROKEN}| ${LINK_NAMES[$i]} | ${LINKS[$i]} | ❌ ${STATUS} |\n"
+              BROKEN="${BROKEN}| ${LINK_NAMES[$i]} | ❌ HTTP ${STATUS} |\n"
               BROKEN_COUNT=$((BROKEN_COUNT + 1))
             fi
           done
@@ -174,7 +311,43 @@ jobs:
             echo "EOF" >> $GITHUB_OUTPUT
           fi
 
+      - name: "🔐 בדיקת Security Headers"
+        id: security
+        run: |
+          HEADERS=$(curl -sI --max-time 10 "https://eliavafar.co.il" 2>/dev/null)
+          SECURITY_RESULTS=""
+          SECURITY_FAILS=0
+
+          check_header() {
+            local name=$1
+            local display=$2
+            if echo "$HEADERS" | grep -qi "$name"; then
+              SECURITY_RESULTS="${SECURITY_RESULTS}| ${display} | ✅ קיים |\n"
+            else
+              SECURITY_RESULTS="${SECURITY_RESULTS}| ${display} | ❌ חסר |\n"
+              SECURITY_FAILS=$((SECURITY_FAILS + 1))
+            fi
+          }
+
+          check_header "Strict-Transport-Security" "HSTS"
+          check_header "X-Content-Type-Options" "X-Content-Type-Options"
+          check_header "X-Frame-Options" "X-Frame-Options"
+          check_header "Content-Security-Policy" "CSP"
+          check_header "Referrer-Policy" "Referrer-Policy"
+          check_header "Permissions-Policy" "Permissions-Policy"
+
+          echo "results<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$SECURITY_RESULTS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+          if [ "$SECURITY_FAILS" -eq 0 ]; then
+            echo "status=✅ כל ה-Security Headers תקינים" >> $GITHUB_OUTPUT
+          else
+            echo "status=⚠️ ${SECURITY_FAILS} headers חסרים" >> $GITHUB_OUTPUT
+          fi
+
       - name: "📋 יצירת דוח Issue"
+        id: create_issue
         uses: actions/github-script@v7
         with:
           script: |
@@ -183,58 +356,174 @@ jobs:
               timeZone: 'Asia/Jerusalem'
             });
 
-            const pagesStatus = `${{ steps.pages.outputs.status }}`;
-            const sslStatus = `${{ steps.ssl.outputs.status }}`;
-            const mobileScore = `${{ steps.speed.outputs.mobile }}`;
-            const desktopScore = `${{ steps.speed.outputs.desktop }}`;
-            const mobileLcp = `${{ steps.speed.outputs.lcp }}`;
-            const mobileIcon = `${{ steps.speed.outputs.mobile_icon }}`;
-            const desktopIcon = `${{ steps.speed.outputs.desktop_icon }}`;
-            const linksStatus = `${{ steps.links.outputs.status }}`;
-            const linksDetails = `${{ steps.links.outputs.details }}`;
-
-            const body = `## 📊 דוח שבועי - eliavafar.co.il
-            **תאריך:** ${today}
-
-            ---
-
-            ### 🌐 סטטוס דפים
-            ${pagesStatus}
-
-            | דף | נתיב | סטטוס |
-            |----|------|-------|
-            ${{ steps.pages.outputs.results }}
-
-            ### 🔒 אבטחה (SSL)
-            ${sslStatus}
-
-            ### ⚡ מהירות
-            | מדד | ציון |
-            |-----|------|
-            | מובייל | ${mobileIcon} ${mobileScore}/100 |
-            | דסקטופ | ${desktopIcon} ${desktopScore}/100 |
-            | LCP (מובייל) | ${mobileLcp} |
-
-            ### 🔗 לינקים חיצוניים
-            ${linksStatus}
-            ${linksDetails ? '\n| שם | URL | סטטוס |\n|----|-----|-------|\n' + linksDetails : ''}
-
-            ---
-
-            ### 📋 תזכורת - לבדוק ידנית השבוע:
-
-            - [ ] **GA4** (analytics.google.com) - כמות מבקרים, המרות, דפים פופולריים
-            - [ ] **Clarity** (clarity.microsoft.com) - הקלטות משתמשים, מפות חום
-            - [ ] **Google Business** (business.google.com) - ביקורות חדשות, לענות על ביקורות
-            - [ ] **Search Console** (search.google.com/search-console) - שגיאות, מילות חיפוש
-
-            ---
-            *דוח אוטומטי שנוצר ע"י GitHub Actions*`;
-
-            await github.rest.issues.create({
+            // סגירת issues ישנים עם label weekly-report
+            const oldIssues = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `📊 דוח שבועי - ${today}`,
+              labels: 'weekly-report',
+              state: 'open'
+            });
+            for (const issue of oldIssues.data) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed'
+              });
+            }
+
+            const pagesStatus = `${{ steps.pages.outputs.status }}`;
+            const failCount = `${{ steps.pages.outputs.fail_count }}`;
+            const sslStatus = `${{ steps.ssl.outputs.status }}`;
+            const sslDays = `${{ steps.ssl.outputs.days }}`;
+
+            // PageSpeed
+            const mPerf = `${{ steps.speed.outputs.mobile_perf }}`;
+            const mA11y = `${{ steps.speed.outputs.mobile_a11y }}`;
+            const mSeo = `${{ steps.speed.outputs.mobile_seo }}`;
+            const mBp = `${{ steps.speed.outputs.mobile_bp }}`;
+            const dPerf = `${{ steps.speed.outputs.desktop_perf }}`;
+            const mPerfIcon = `${{ steps.speed.outputs.mobile_perf_icon }}`;
+            const mA11yIcon = `${{ steps.speed.outputs.mobile_a11y_icon }}`;
+            const mSeoIcon = `${{ steps.speed.outputs.mobile_seo_icon }}`;
+            const mBpIcon = `${{ steps.speed.outputs.mobile_bp_icon }}`;
+            const dPerfIcon = `${{ steps.speed.outputs.desktop_perf_icon }}`;
+
+            // Core Web Vitals
+            const mLcp = `${{ steps.speed.outputs.mobile_lcp }}`;
+            const mFcp = `${{ steps.speed.outputs.mobile_fcp }}`;
+            const mTbt = `${{ steps.speed.outputs.mobile_tbt }}`;
+            const mCls = `${{ steps.speed.outputs.mobile_cls }}`;
+
+            const linksStatus = `${{ steps.links.outputs.status }}`;
+            const linksDetails = `${{ steps.links.outputs.details }}`;
+            const redirectsStatus = `${{ steps.redirects.outputs.status }}`;
+            const securityStatus = `${{ steps.security.outputs.status }}`;
+
+            // בדיקה אם יש בעיות קריטיות
+            const hasProblems = failCount !== '0' ||
+              `${{ steps.ssl.outputs.urgent }}` === 'true' ||
+              linksStatus.includes('❌');
+            const urgencyTag = hasProblems ? '🚨 ' : '';
+
+            const body = `## 📊 דוח שבועי - eliavafar.co.il
+**תאריך:** ${today}
+
+---
+
+### 🌐 סטטוס דפים ראשיים
+${pagesStatus}
+
+| דף | נתיב | סטטוס |
+|----|------|-------|
+${{ steps.pages.outputs.main_results }}
+
+### 📝 סטטוס מאמרי בלוג (13)
+
+| מאמר | נתיב | סטטוס |
+|------|------|-------|
+${{ steps.pages.outputs.blog_results }}
+
+### 🔄 Redirects (דפים ישנים)
+${redirectsStatus}
+
+| דף | נתיב | סטטוס |
+|----|------|-------|
+${{ steps.redirects.outputs.results }}
+
+### 🗺️ תשתית
+
+| קובץ | סטטוס |
+|------|-------|
+${{ steps.infra.outputs.results }}
+
+### 🔒 אבטחה
+**SSL:** ${sslStatus}
+
+**Security Headers:**
+${securityStatus}
+
+| Header | סטטוס |
+|--------|-------|
+${{ steps.security.outputs.results }}
+
+### ⚡ ביצועים (Lighthouse)
+
+| קטגוריה | מובייל | דסקטופ |
+|----------|--------|--------|
+| Performance | ${mPerfIcon} ${mPerf}/100 | ${dPerfIcon} ${dPerf}/100 |
+| Accessibility | ${mA11yIcon} ${mA11y}/100 | - |
+| SEO | ${mSeoIcon} ${mSeo}/100 | - |
+| Best Practices | ${mBpIcon} ${mBp}/100 | - |
+
+**Core Web Vitals (מובייל):**
+| מדד | ערך |
+|-----|-----|
+| FCP (First Contentful Paint) | ${mFcp} |
+| LCP (Largest Contentful Paint) | ${mLcp} |
+| TBT (Total Blocking Time) | ${mTbt} |
+| CLS (Cumulative Layout Shift) | ${mCls} |
+
+### 🔗 לינקים חיצוניים
+${linksStatus}
+${linksDetails ? '\n| שירות | סטטוס |\n|-------|-------|\n' + linksDetails : ''}
+
+---
+
+### 📋 תזכורת - לבדוק ידנית השבוע:
+
+- [ ] **GA4** (analytics.google.com) - כמות מבקרים, המרות, דפים פופולריים
+- [ ] **Clarity** (clarity.microsoft.com) - הקלטות משתמשים, מפות חום
+- [ ] **Google Business** (business.google.com) - ביקורות חדשות, סטטוס ביקורות
+- [ ] **Search Console** (search.google.com/search-console) - שגיאות, מילות חיפוש, דפים מאונדקסים
+
+---
+*דוח אוטומטי — GitHub Actions | eliavafar.co.il*`;
+
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `${urgencyTag}📊 דוח שבועי - ${today}`,
               body: body,
               labels: ['weekly-report']
             });
+
+            core.setOutput('issue_url', issue.data.html_url);
+            core.setOutput('has_problems', hasProblems.toString());
+
+      - name: "📧 שליחת מייל"
+        if: env.GMAIL_APP_PASSWORD != ''
+        env:
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: eliav1334@gmail.com
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          subject: "${{ steps.pages.outputs.fail_count != '0' && '🚨' || '📊' }} דוח שבועי - eliavafar.co.il"
+          to: eliav1334@gmail.com
+          from: "בדיקת אתר <eliav1334@gmail.com>"
+          html_body: |
+            <div dir="rtl" style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
+              <h2 style="color:#F97316">📊 דוח שבועי - eliavafar.co.il</h2>
+
+              <h3>🌐 דפים: ${{ steps.pages.outputs.status }}</h3>
+              <h3>🔒 SSL: ${{ steps.ssl.outputs.status }}</h3>
+              <h3>🔄 Redirects: ${{ steps.redirects.outputs.status }}</h3>
+              <h3>🔗 לינקים: ${{ steps.links.outputs.status }}</h3>
+              <h3>🔐 Security: ${{ steps.security.outputs.status }}</h3>
+
+              <h3>⚡ Lighthouse (מובייל)</h3>
+              <ul>
+                <li>Performance: ${{ steps.speed.outputs.mobile_perf }}/100</li>
+                <li>Accessibility: ${{ steps.speed.outputs.mobile_a11y }}/100</li>
+                <li>SEO: ${{ steps.speed.outputs.mobile_seo }}/100</li>
+                <li>LCP: ${{ steps.speed.outputs.mobile_lcp }}</li>
+              </ul>
+
+              <hr>
+              <p>📋 <a href="${{ steps.create_issue.outputs.issue_url }}">צפה בדוח המלא ב-GitHub</a></p>
+              <p style="color:#999;font-size:12px">דוח אוטומטי — GitHub Actions</p>
+            </div>

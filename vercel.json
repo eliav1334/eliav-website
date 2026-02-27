@@ -14,7 +14,18 @@
     { "source": "/%D7%94%D7%A9%D7%9B%D7%A8%D7%AA-%D7%9B%D7%9C%D7%99%D7%9D", "destination": "/equipment-rental.html", "statusCode": 301 },
     { "source": "/%D7%94%D7%A9%D7%9B%D7%A8%D7%AA-%D7%9B%D7%9C%D7%99%D7%9D/", "destination": "/equipment-rental.html", "statusCode": 301 },
     { "source": "/%D7%93%D7%A8%D7%95%D7%A9%D7%99%D7%9D", "destination": "/", "statusCode": 301 },
-    { "source": "/%D7%93%D7%A8%D7%95%D7%A9%D7%99%D7%9D/", "destination": "/", "statusCode": 301 }
+    { "source": "/%D7%93%D7%A8%D7%95%D7%A9%D7%99%D7%9D/", "destination": "/", "statusCode": 301 },
+    { "source": "/cfa-piles", "destination": "/bentonite-drilling.html", "statusCode": 301 },
+    { "source": "/cfa-piles.html", "destination": "/bentonite-drilling.html", "statusCode": 301 },
+    { "source": "/micropiles", "destination": "/bentonite-drilling.html", "statusCode": 301 },
+    { "source": "/micropiles.html", "destination": "/bentonite-drilling.html", "statusCode": 301 },
+    { "source": "/diaphragm-walls", "destination": "/bentonite-drilling.html", "statusCode": 301 },
+    { "source": "/diaphragm-walls.html", "destination": "/bentonite-drilling.html", "statusCode": 301 },
+    { "source": "/admin", "destination": "/", "statusCode": 301 },
+    { "source": "/admin.html", "destination": "/", "statusCode": 301 },
+    { "source": "/simple-upload", "destination": "/", "statusCode": 301 },
+    { "source": "/simple-upload.html", "destination": "/", "statusCode": 301 },
+    { "source": "/blog/index.html", "destination": "/blog.html", "statusCode": 301 }
   ],
   "rewrites": [
     { "source": "/bentonite-drilling", "destination": "/bentonite-drilling.html" },
