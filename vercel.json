@@ -48,6 +48,7 @@
     { "source": "/blog/drainage-pits-pricing", "destination": "/blog/drainage-pits-pricing.html" },
     { "source": "/blog/waste-removal-guide", "destination": "/blog/waste-removal-guide.html" },
     { "source": "/blog/foundation-piles-guide", "destination": "/blog/foundation-piles-guide.html" },
+    { "source": "/about", "destination": "/about.html" },
     { "source": "/accessibility-statement", "destination": "/accessibility-statement.html" }
   ],
   "headers": [

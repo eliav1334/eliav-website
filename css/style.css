@@ -4758,7 +4758,8 @@
 }
 
 #scroll-popup-form input[type="text"],
-#scroll-popup-form input[type="tel"] {
+#scroll-popup-form input[type="tel"],
+#scroll-popup-form input[type="email"] {
   width: 100%;
   padding: 14px 16px;
   background: #0f172a;
@@ -4834,7 +4835,8 @@
     margin-bottom: 18px;
   }
   #scroll-popup-form input[type="text"],
-  #scroll-popup-form input[type="tel"] {
+  #scroll-popup-form input[type="tel"],
+  #scroll-popup-form input[type="email"] {
     padding: 12px 14px;
     font-size: 0.95rem;
   }
