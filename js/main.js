@@ -208,7 +208,9 @@ const galleryImages = [];
 function initGallery() {
   const images = document.querySelectorAll('.service-gallery-grid img, .gallery-grid img');
   images.forEach((img, index) => {
-    galleryImages.push(img.src);
+    const srcset = img.getAttribute('srcset');
+    const fullSrc = srcset ? srcset.split(',').pop().trim().split(' ')[0] : img.src;
+    galleryImages.push(fullSrc);
     img.addEventListener('click', () => openLightbox(index));
   });
 }
