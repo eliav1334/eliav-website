@@ -2632,6 +2632,19 @@
       color: white;
     }
 
+    /* ===== FEATURED SNIPPET ANSWER BOX ===== */
+    .snippet-answer {
+      max-width: 900px;
+      margin: 0 auto 40px;
+      padding: 24px 32px;
+      background: linear-gradient(135deg, rgba(0, 115, 168, 0.06), rgba(249, 115, 22, 0.06));
+      border-right: 4px solid var(--primary);
+      border-radius: var(--radius-lg);
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--text-dark);
+    }
+
     /* ===== MULTI-PAGE: SERVICE CONTENT ===== */
     .service-content {
       padding: 80px 0;
