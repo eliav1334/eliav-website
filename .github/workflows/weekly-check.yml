@@ -284,14 +284,13 @@ jobs:
             "https://wa.me/972529556123"
             "https://fonts.googleapis.com/css2?family=Heebo"
             "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
-            "https://formsubmit.co"
           )
           LINK_NAMES=(
             "WhatsApp"
             "Google Fonts"
             "Swiper CDN"
-            "FormSubmit"
           )
+          # FormSubmit הוסר - תמיד מחזיר 403 לבקשות אוטומטיות (עובד תקין לגולשים)
 
           for i in "${!LINKS[@]}"; do
             STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L "${LINKS[$i]}" 2>/dev/null)
