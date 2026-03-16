@@ -314,9 +314,9 @@
 
         <!-- Right Column - Images -->
         <div class="service-media-column">
-          <img src="images/gallery/equipment-rental-4.webp" alt="השכרת ציוד מכני – מחפרון בעבודה" width="1200" height="900" loading="lazy">
-          <img src="images/gallery/equipment-rental-5.webp" alt="השכרת ציוד הנדסי – ציוד מקצועי" width="1200" height="900" loading="lazy">
-          <img src="images/gallery/equipment-rental-6.webp" alt="השכרת ציוד כבד – פרויקט בשטח" width="1200" height="900" loading="lazy">
+          <img src="images/gallery/equipment-rental-4.webp" alt="השכרת ציוד מכני – מחפרון בעבודה" width="1200" height="900" loading="lazy" style="cursor:pointer" onclick="openMediaLightbox(this)">
+          <img src="images/gallery/equipment-rental-5.webp" alt="השכרת ציוד הנדסי – ציוד מקצועי" width="1200" height="900" loading="lazy" style="cursor:pointer" onclick="openMediaLightbox(this)">
+          <img src="images/gallery/equipment-rental-6.webp?v=3" alt="בובקט CAT בעבודת עפר – השכרת ציוד כבד" width="1200" height="2469" loading="lazy" style="cursor:pointer; height:400px; object-fit:cover; object-position:center 55%" onclick="openMediaLightbox(this)">
         </div>
       </div>
     </div>
@@ -526,8 +526,31 @@
     </div>
   </div>
 
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox(event)" aria-label="סגור">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <button class="lightbox-prev" onclick="navigateLightbox(-1, event)" aria-label="תמונה קודמת">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <img id="lightbox-img" src="" alt="תמונה מוגדלת">
+      <button class="lightbox-next" onclick="navigateLightbox(1, event)" aria-label="תמונה הבאה">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+
   <!-- Scripts -->
-  <script src="js/main.min.js?v=1772308892"></script>
+  <script src="js/main.min.js?v=1773646593"></script>
   <script src="js/accessibility.js"></script>
   <!-- Mobile Floating CTA Bar -->
   <div class="mobile-cta-bar">

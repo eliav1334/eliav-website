@@ -226,6 +226,16 @@ function openLightbox(index) {
   }
 }
 
+function openMediaLightbox(imgEl) {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  if (lightbox && imgEl) {
+    lightboxImg.src = imgEl.src;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
 function closeLightbox(event) {
   if (event) event.stopPropagation();
   const lightbox = document.getElementById('lightbox');
