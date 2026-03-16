@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>כרטיס ביקור – א.א. עבודות קידוחים ופיתוח</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8e4df;
+    font-family: 'Heebo', sans-serif;
+    direction: rtl;
+  }
+
+  .card {
+    width: 700px;
+    height: 400px;
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    position: relative;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  }
+
+  /* ── Right panel: brand with photo ── */
+  .brand-panel {
+    width: 260px;
+    min-width: 260px;
+    background: url('images/gallery/bentonite-project-1.webp') center/cover no-repeat;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 28px 24px 24px;
+    overflow: hidden;
+  }
+
+  .brand-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(170deg, rgba(249,115,22,0.85) 0%, rgba(194,65,12,0.92) 100%);
+    pointer-events: none;
+  }
+
+  .brand-top { position: relative; z-index: 1; }
+
+  .logo-mark {
+    width: 44px;
+    height: 44px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    border: 1px solid rgba(255,255,255,0.25);
+  }
+
+  .logo-mark svg { width: 26px; height: 26px; }
+
+  .brand-name {
+    font-size: 22px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.3;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  }
+
+  .brand-tagline {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.8);
+    margin-top: 4px;
+  }
+
+  .brand-bottom { position: relative; z-index: 1; }
+
+  .license-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 8px;
+    padding: 7px 12px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .license-badge svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* ── Left panel: info with photo bg ── */
+  .info-panel {
+    flex: 1;
+    padding: 28px 30px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    background: url('images/gallery/earthworks-project-1.webp') center/cover no-repeat;
+  }
+
+  .info-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.88);
+    pointer-events: none;
+  }
+
+  .info-top { position: relative; z-index: 1; }
+
+  .owner-name {
+    font-size: 30px;
+    font-weight: 900;
+    color: #1a1a1a;
+    line-height: 1.1;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+
+  .owner-role {
+    font-size: 14px;
+    font-weight: 700;
+    color: #F97316;
+    margin-top: 2px;
+  }
+
+  /* ── Services ── */
+  .info-middle {
+    position: relative;
+    z-index: 1;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 16px;
+  }
+
+  .service-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+  }
+
+  .service-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .service-dot.orange { background: #F97316; }
+  .service-dot.amber { background: #F59E0B; }
+  .service-dot.stone { background: #78716C; }
+  .service-dot.warm { background: #DC2626; }
+
+  .service-item span {
+    font-size: 13px;
+    font-weight: 700;
+    color: #292524;
+  }
+
+  /* ── Contact - vertical stack ── */
+  .info-bottom { position: relative; z-index: 1; }
+
+  .separator {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to left, #F97316, #D6D3D1 50%);
+    opacity: 0.5;
+    margin-bottom: 12px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 20px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #44403C;
+    transition: color 0.2s;
+  }
+
+  .contact-item:hover { color: #F97316; }
+
+  .contact-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-icon.phone-icon { background: #FFF7ED; border: 1px solid #FDBA74; }
+  .contact-icon.wa-icon { background: #F0FDF4; border: 1px solid #86EFAC; }
+  .contact-icon.web-icon { background: #F5F5F4; border: 1px solid #D6D3D1; }
+  .contact-icon.email-icon { background: #EEF2FF; border: 1px solid #A5B4FC; }
+
+  .contact-icon svg { width: 16px; height: 16px; }
+
+  .contact-value {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1C1917;
+    direction: ltr;
+    text-align: right;
+    font-family: 'Rubik', sans-serif;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    body { padding: 12px; }
+    .card { width: 100%; height: auto; flex-direction: column; }
+    .brand-panel { width: 100%; min-width: unset; padding: 24px 20px; }
+    .brand-name { font-size: 20px; }
+    .info-panel { padding: 20px; }
+    .owner-name { font-size: 24px; }
+    .services-grid { grid-template-columns: 1fr; gap: 4px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- Right panel: Brand -->
+  <div class="brand-panel">
+    <div class="brand-top">
+      <div class="logo-mark">
+        <svg viewBox="0 0 36 36" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="18" cy="6" r="2.5"/>
+          <line x1="18" y1="8.5" x2="18" y2="28"/>
+          <path d="M14 14l4-4 4 4"/>
+          <path d="M15 22h6"/>
+          <path d="M13 28h10"/>
+          <path d="M10 34l8-6 8 6"/>
+        </svg>
+      </div>
+      <div class="brand-name">א.א. עבודות<br>קידוחים ופיתוח</div>
+      <div class="brand-tagline">AA Drilling & Development</div>
+    </div>
+    <div class="brand-bottom">
+      <div class="license-badge">
+        <svg viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round">
+          <path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/>
+        </svg>
+        קבלן רשום 36281
+      </div>
+    </div>
+  </div>
+
+  <!-- Left panel: Info -->
+  <div class="info-panel">
+    <div class="info-top">
+      <div class="owner-name">אליאב אהרון</div>
+      <div class="owner-role">מנהל ובעלים</div>
+    </div>
+
+    <div class="info-middle">
+      <div class="services-grid">
+        <div class="service-item">
+          <div class="service-dot orange"></div>
+          <span>קידוחי בנטונייט וכלונסאות</span>
+        </div>
+        <div class="service-item">
+          <div class="service-dot amber"></div>
+          <span>בורות חלחול והחדרה</span>
+        </div>
+        <div class="service-item">
+          <div class="service-dot stone"></div>
+          <span>עבודות עפר ופיתוח</span>
+        </div>
+        <div class="service-item">
+          <div class="service-dot warm"></div>
+          <span>השכרת ציוד עם מפעיל</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-bottom">
+      <div class="separator"></div>
+      <div class="contact-grid">
+        <a class="contact-item" href="tel:0529556123">
+          <div class="contact-icon phone-icon">
+            <svg viewBox="0 0 20 20" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 14.1v2.4a1.6 1.6 0 01-1.7 1.6 15.8 15.8 0 01-6.9-2.5 15.6 15.6 0 01-4.8-4.8A15.8 15.8 0 011.6 3.9 1.6 1.6 0 013.2 2.2h2.4a1.6 1.6 0 011.6 1.4c.1.8.3 1.5.6 2.2a1.6 1.6 0 01-.4 1.7L6.4 8.5a12.8 12.8 0 004.8 4.8l1-1a1.6 1.6 0 011.7-.4c.7.3 1.4.5 2.2.6a1.6 1.6 0 011.4 1.6z"/>
+            </svg>
+          </div>
+          <div class="contact-value">052-9556123</div>
+        </a>
+        <a class="contact-item" href="https://wa.me/972529556123?text=שלום, אשמח לקבל פרטים נוספים" target="_blank" rel="noopener">
+          <div class="contact-icon wa-icon">
+            <svg viewBox="0 0 20 20" fill="#22C55E">
+              <path d="M14.1 11.6c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7.9-.3.2-.5.1a6.4 6.4 0 01-1.9-1.2 7.1 7.1 0 01-1.3-1.6c-.1-.2 0-.4.1-.5l.4-.4c.1-.1.2-.2.2-.4s0-.3 0-.4-.5-1.3-.7-1.8-.4-.4-.5-.4h-.5a.8.8 0 00-.6.3 2.6 2.6 0 00-.8 2c0 1.2.9 2.3 1 2.5s1.7 2.6 4.1 3.6l1.4.5c.6.2 1.1.2 1.5.1s1.4-.6 1.6-1.1.2-1 .1-1.1-.3-.2-.5-.3M10 18.3a8.2 8.2 0 01-4.2-1.1l-.3-.2-3 .8.8-3-.2-.3A8.2 8.2 0 1110 18.3M10 1.5A8.5 8.5 0 003 14l-1.3 4.8 4.9-1.3A8.5 8.5 0 1010 1.5"/>
+            </svg>
+          </div>
+          <div class="contact-value">וואטסאפ</div>
+        </a>
+        <a class="contact-item" href="https://eliavafar.co.il" target="_blank" rel="noopener">
+          <div class="contact-icon web-icon">
+            <svg viewBox="0 0 20 20" fill="none" stroke="#78716C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="10" cy="10" r="8"/>
+              <path d="M2 10h16"/>
+              <path d="M10 2a12.3 12.3 0 013 8 12.3 12.3 0 01-3 8 12.3 12.3 0 01-3-8 12.3 12.3 0 013-8z"/>
+            </svg>
+          </div>
+          <div class="contact-value">eliavafar.co.il</div>
+        </a>
+        <a class="contact-item" href="mailto:eliav1334@gmail.com">
+          <div class="contact-icon email-icon">
+            <svg viewBox="0 0 20 20" fill="none" stroke="#6366F1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="16" height="12" rx="2"/>
+              <path d="M2 4l8 6 8-6"/>
+            </svg>
+          </div>
+          <div class="contact-value">eliav1334@gmail.com</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

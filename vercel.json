@@ -49,7 +49,8 @@
     { "source": "/blog/waste-removal-guide", "destination": "/blog/waste-removal-guide.html" },
     { "source": "/blog/foundation-piles-guide", "destination": "/blog/foundation-piles-guide.html" },
     { "source": "/about", "destination": "/about.html" },
-    { "source": "/accessibility-statement", "destination": "/accessibility-statement.html" }
+    { "source": "/accessibility-statement", "destination": "/accessibility-statement.html" },
+    { "source": "/card", "destination": "/business-card.html" }
   ],
   "headers": [
     {
