@@ -48,6 +48,10 @@
     { "source": "/blog/drainage-pits-pricing", "destination": "/blog/drainage-pits-pricing.html" },
     { "source": "/blog/waste-removal-guide", "destination": "/blog/waste-removal-guide.html" },
     { "source": "/blog/foundation-piles-guide", "destination": "/blog/foundation-piles-guide.html" },
+    { "source": "/projects", "destination": "/projects.html" },
+    { "source": "/blog/bentonite-drilling-cost", "destination": "/blog/bentonite-drilling-cost.html" },
+    { "source": "/blog/earthworks-cost", "destination": "/blog/earthworks-cost.html" },
+    { "source": "/blog/equipment-rental-cost", "destination": "/blog/equipment-rental-cost.html" },
     { "source": "/about", "destination": "/about.html" },
     { "source": "/accessibility-statement", "destination": "/accessibility-statement.html" },
     { "source": "/card", "destination": "/business-card.html" }
