@@ -13,18 +13,18 @@ jobs:
       issues: write
 
     steps:
-      - name: "🔍 בדיקת כל דפי האתר (22 דפים)"
+      - name: "🔍 בדיקת כל דפי האתר (28 דפים)"
         id: pages
         run: |
           SITE="https://eliavafar.co.il"
 
-          # דפים ראשיים (9)
-          MAIN_PAGES=("/" "/bentonite-drilling" "/earthworks" "/drainage-pits" "/equipment-rental" "/contact" "/thanks" "/blog" "/accessibility-statement")
-          MAIN_NAMES=("דף ראשי" "קידוחי בנטונייט" "עבודות עפר" "בורות חלחול" "השכרת ציוד" "צור קשר" "דף תודה" "בלוג" "הצהרת נגישות")
+          # דפים ראשיים (12)
+          MAIN_PAGES=("/" "/bentonite-drilling" "/earthworks" "/drainage-pits" "/equipment-rental" "/contact" "/thanks" "/blog" "/accessibility-statement" "/about" "/projects" "/card")
+          MAIN_NAMES=("דף ראשי" "קידוחי בנטונייט" "עבודות עפר" "בורות חלחול" "השכרת ציוד" "צור קשר" "דף תודה" "בלוג" "הצהרת נגישות" "אודות" "פרויקטים" "כרטיס ביקור")
 
-          # מאמרי בלוג (13)
-          BLOG_PAGES=("/blog/bentonite-guide" "/blog/drainage-pits-guide" "/blog/drilling-netanya" "/blog/earthworks-tips" "/blog/choose-drilling-contractor" "/blog/bentonite-vs-polymer" "/blog/drilling-hod-hasharon" "/blog/equipment-rental-guide" "/blog/contractor-license-guide" "/blog/site-development-guide" "/blog/drainage-pits-pricing" "/blog/waste-removal-guide" "/blog/foundation-piles-guide")
-          BLOG_NAMES=("מדריך בנטונייט" "מדריך בורות חלחול" "קידוח נתניה" "טיפים עבודות עפר" "בחירת קבלן קידוח" "בנטונייט vs פולימר" "קידוח הוד השרון" "מדריך השכרת ציוד" "מדריך רישיון קבלן" "מדריך פיתוח שטח" "תמחור בורות חלחול" "מדריך פינוי פסולת" "מדריך כלונסאות")
+          # מאמרי בלוג (16)
+          BLOG_PAGES=("/blog/bentonite-guide" "/blog/drainage-pits-guide" "/blog/drilling-netanya" "/blog/earthworks-tips" "/blog/choose-drilling-contractor" "/blog/bentonite-vs-polymer" "/blog/drilling-hod-hasharon" "/blog/equipment-rental-guide" "/blog/contractor-license-guide" "/blog/site-development-guide" "/blog/drainage-pits-pricing" "/blog/waste-removal-guide" "/blog/foundation-piles-guide" "/blog/bentonite-drilling-cost" "/blog/earthworks-cost" "/blog/equipment-rental-cost")
+          BLOG_NAMES=("מדריך בנטונייט" "מדריך בורות חלחול" "קידוח נתניה" "טיפים עבודות עפר" "בחירת קבלן קידוח" "בנטונייט vs פולימר" "קידוח הוד השרון" "מדריך השכרת ציוד" "מדריך רישיון קבלן" "מדריך פיתוח שטח" "תמחור בורות חלחול" "מדריך פינוי פסולת" "מדריך כלונסאות" "עלות קידוח בנטונייט" "עלות עבודות עפר" "עלות השכרת ציוד")
 
           MAIN_RESULTS=""
           BLOG_RESULTS=""
@@ -69,7 +69,7 @@ jobs:
 
           PASS_COUNT=$((TOTAL - FAIL_COUNT))
           if [ "$FAIL_COUNT" -eq 0 ]; then
-            echo "status=✅ כל ${TOTAL} הדפים תקינים" >> $GITHUB_OUTPUT
+            echo "status=✅ כל ${TOTAL} הדפים תקינים (${TOTAL})" >> $GITHUB_OUTPUT
           else
             echo "status=❌ ${FAIL_COUNT} דפים עם בעיות מתוך ${TOTAL}!" >> $GITHUB_OUTPUT
           fi
@@ -418,7 +418,7 @@ jobs:
               '|----|------|-------|',
               `${{ steps.pages.outputs.main_results }}`,
               '',
-              '### 📝 סטטוס מאמרי בלוג (13)',
+              '### 📝 סטטוס מאמרי בלוג (16)',
               '',
               '| מאמר | נתיב | סטטוס |',
               '|------|------|-------|',
