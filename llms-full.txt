@@ -181,6 +181,13 @@ Specialized drilling of drainage and infiltration pits using bentonite/polymer m
 | Earthworks Tips & Best Practices | https://eliavafar.co.il/blog/earthworks-tips |
 | Equipment Rental Guide | https://eliavafar.co.il/blog/equipment-rental-guide |
 
+### Pricing Guides (כמה עולה)
+| Article | URL |
+|---------|-----|
+| כמה עולה קידוח בנטונייט | https://eliavafar.co.il/blog/bentonite-drilling-cost |
+| כמה עולות עבודות עפר | https://eliavafar.co.il/blog/earthworks-cost |
+| כמה עולה השכרת ציוד | https://eliavafar.co.il/blog/equipment-rental-cost |
+
 ### Regional & Licensing
 | Article | URL |
 |---------|-----|
@@ -263,9 +270,12 @@ A: Fuel is included in the rental price. The customer is not responsible for fue
 | Drainage Pits | https://eliavafar.co.il/drainage-pits |
 | Contact | https://eliavafar.co.il/contact |
 | Blog | https://eliavafar.co.il/blog |
+| About | https://eliavafar.co.il/about |
+| Projects | https://eliavafar.co.il/projects |
+| Business Card | https://eliavafar.co.il/card |
 | Accessibility Statement | https://eliavafar.co.il/accessibility-statement |
 
 ---
 
-*Last updated: February 2026*
+*Last updated: March 2026*
 *For the concise version: https://eliavafar.co.il/llms.txt*

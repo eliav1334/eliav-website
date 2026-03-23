@@ -290,8 +290,7 @@ All pages use: `style.min.css?v=1772308892` — when updating CSS, change this v
 |---|--------|--------|
 | 1 | **Image optimization** — homepage-project תמונות גדולות (~1.1MB מיותר) | ממתין |
 | 2 | **Contrast ratio fix** — כפתורי מובייל (sticky-bar, mobile-cta) | ⏸️ דורש אישור אליאב (שינוי ויזואלי) |
-| 3 | **Local SEO — דפי ערים** | הפער הכי גדול מהמתחרים (35 vs 2) — דורש אישור אליאב |
-| 4 | **Node.js 24** — GitHub Actions deprecation ב-02/06/2026 | בינונית |
+| 3 | **Node.js 24** — GitHub Actions deprecation ב-02/06/2026 | בינונית |
 
 ### שיווק (דורש פעולה של אליאב)
 | # | משימה | סטטוס |
