@@ -30,7 +30,7 @@ eliav-website/
 ├── .github/workflows/weekly-check.yml   # GitHub Action — דוח שבועי
 ├── .well-known/security.txt             # Security contact
 ├── api/subscribe.js                     # Vercel serverless function
-├── blog/                                # 13 מאמרי בלוג (HTML)
+├── blog/                                # 16 מאמרי בלוג (HTML)
 ├── css/
 │   ├── style.css         (~4875 שורות)
 │   ├── style.min.css     (מוקטן)
@@ -42,9 +42,9 @@ eliav-website/
 │   ├── main.min.js       (מוקטן)
 │   └── accessibility.js
 ├── טלפונים/                              # אנשי קשר (Excel)
-├── [10 HTML pages at root]
+├── [13 HTML pages at root]
 ├── vercel.json           # Rewrites + Redirects + Headers
-├── sitemap.xml           # 21 URLs
+├── sitemap.xml           # 27 URLs
 ├── sitemap-images.xml
 ├── robots.txt
 ├── llms.txt / llms-full.txt
@@ -52,9 +52,9 @@ eliav-website/
 └── CLAUDE.md
 ```
 
-## Pages (23 HTML files total)
+## Pages (28 HTML files total)
 
-### Main Pages (10)
+### Main Pages (12)
 | File | Description |
 |------|-------------|
 | `index.html` | Landing page — hero, services, stats, testimonials |
@@ -63,12 +63,14 @@ eliav-website/
 | `drainage-pits.html` | שירות בורות חלחול וניקוז |
 | `equipment-rental.html` | שירות השכרת ציוד (תמיד כולל מפעיל!) |
 | `contact.html` | טופס צור קשר (FormSubmit.co) |
-| `blog.html` | עמוד בלוג ראשי + 13 כרטיסי מאמרים |
+| `blog.html` | עמוד בלוג ראשי + 16 כרטיסי מאמרים |
 | `accessibility-statement.html` | הצהרת נגישות |
 | `thanks.html` | עמוד תודה אחרי שליחת טופס |
-| `demolition.html` | redirect → earthworks.html |
+| `about.html` | אודות החברה |
+| `projects.html` | פרויקטים — 23 פרויקטים ב-4 קטגוריות |
+| `business-card.html` | כרטיס ביקור דיגיטלי (/card) |
 
-### Blog Articles (13 — in `blog/` folder)
+### Blog Articles (16 — in `blog/` folder)
 | File | נושא |
 |------|------|
 | `bentonite-guide.html` | מדריך קידוחי בנטונייט |
@@ -84,6 +86,9 @@ eliav-website/
 | `drainage-pits-pricing.html` | תמחור בורות חלחול |
 | `waste-removal-guide.html` | מדריך פינוי פסולת |
 | `foundation-piles-guide.html` | מדריך כלונסאות יסוד |
+| `bentonite-drilling-cost.html` | כמה עולה קידוח בנטונייט |
+| `earthworks-cost.html` | כמה עולות עבודות עפר |
+| `equipment-rental-cost.html` | כמה עולה השכרת ציוד |
 
 ---
 
@@ -136,7 +141,7 @@ When adding any new HTML page or blog article, ALL of these are required:
 - `LocalBusiness` — index.html
 - `Service` — service pages
 - `FAQPage` — service + article pages
-- `BlogPosting` — blog.html (13 entries) + each article
+- `BlogPosting` — blog.html (16 entries) + each article
 - `BreadcrumbList` — all inner pages
 - `Article` — blog articles
 
@@ -157,15 +162,15 @@ From `docs/ISSUES-LOG.md` — lessons learned from past bugs:
 
 | Service | Purpose | Config |
 |---------|---------|--------|
-| **Vercel** | Hosting + CDN | vercel.json (21 rewrites, 25 redirects, security headers) |
+| **Vercel** | Hosting + CDN | vercel.json (28 rewrites, 26 redirects, security headers) |
 | **FormSubmit.co** | Contact form → email | eliav1334@gmail.com |
 | **GA4** | Analytics | G-EN4K9ELZC5 |
 | **Microsoft Clarity** | Heatmaps + recordings | vjveyed1u4 |
 | **Google Fonts** | Heebo + Rubik | Preloaded in `<head>` |
 
 ### vercel.json Summary
-- **21 rewrites**: Clean URLs for all pages (e.g., `/blog` → `/blog.html`)
-- **25 redirects (301)**: Old/removed URLs → correct destinations (demolition, Hebrew URLs from uPress, cfa-piles, micropiles, admin, etc.)
+- **28 rewrites**: Clean URLs for all pages (e.g., `/blog` → `/blog.html`)
+- **26 redirects (301)**: Old/removed URLs → correct destinations (demolition, Hebrew URLs from uPress, cfa-piles, micropiles, admin, etc.)
 - **Security headers**: HSTS, CSP, X-Frame-Options DENY, X-Content-Type-Options, Referrer-Policy, Permissions-Policy
 - **Cache headers**: Images 30d immutable, CSS/JS 1h must-revalidate, LLM files 24h
 
@@ -188,7 +193,7 @@ All pages use: `style.min.css?v=1772308892` — when updating CSS, change this v
 - **Manual trigger**: Available via `workflow_dispatch`
 
 ### Checks Performed
-1. All 22 pages HTTP status (9 main + 13 blog)
+1. All 28 pages HTTP status (12 main + 16 blog)
 2. 6 redirect verifications (301 status)
 3. Infrastructure files (sitemap.xml, robots.txt, llms.txt, manifest.json)
 4. SSL certificate + expiry
@@ -219,7 +224,7 @@ All pages use: `style.min.css?v=1772308892` — when updating CSS, change this v
 ---
 
 ## SEO Notes
-- **Sitemap**: 21 URLs submitted to Google Search Console
+- **Sitemap**: 27 URLs submitted to Google Search Console
 - **robots.txt**: Allows all crawlers, blocks AhrefsBot/SemrushBot/DotBot/MJ12bot, includes LLM bot permissions
 - **llms.txt / llms-full.txt**: Structured business info for AI crawlers
 - **sitemap-images.xml**: Image sitemap for Google Images
@@ -244,7 +249,7 @@ All pages use: `style.min.css?v=1772308892` — when updating CSS, change this v
 ### Important
 - **לא לעשות push בלי לבדוק** — כל push הוא deploy חי לאתר
 - **לא לכלול קבצי node_modules/** — כבר ב-.gitignore
-- **CSS**: אחרי שינוי ב-style.css → minify ל-style.min.css → עדכן cache-bust version בכל 23 דפים
+- **CSS**: אחרי שינוי ב-style.css → minify ל-style.min.css → עדכן cache-bust version בכל 28 דפים
 - **JS**: אחרי שינוי ב-main.js → minify ל-main.min.js
 
 ---
@@ -255,8 +260,8 @@ All pages use: `style.min.css?v=1772308892` — when updating CSS, change this v
 
 | סעיף | מה בודק | סף תקינות |
 |-------|---------|-----------|
-| **דפים ראשיים (9)** | HTTP 200 לכל דף | כולם חייבים 200 |
-| **מאמרי בלוג (13)** | HTTP 200 לכל מאמר | כולם חייבים 200 |
+| **דפים ראשיים (12)** | HTTP 200 לכל דף | כולם חייבים 200 |
+| **מאמרי בלוג (16)** | HTTP 200 לכל מאמר | כולם חייבים 200 |
 | **Redirects (6)** | HTTP 301 לדפים ישנים | כולם חייבים 301 |
 | **תשתית** | sitemap.xml, robots.txt, llms.txt, manifest.json | כולם חייבים להחזיר 200 |
 | **SSL** | תעודה בתוקף + ימים לפקיעה | התראה מתחת 30 יום |
@@ -280,43 +285,26 @@ All pages use: `style.min.css?v=1772308892` — when updating CSS, change this v
 
 רשימה מלאה ב: `memory/marketing-tasks.md`
 
-### SEO טכני (עדיפות גבוהה)
+### SEO טכני
 | # | משימה | סטטוס |
 |---|--------|--------|
-| 1 | **Review/Rating Schema** — הוספת AggregateRating מביקורות GMB | ⏸️ חסום — Reviews paused ב-GMB |
-| 2 | **Image optimization** — homepage-project תמונות גדולות (~1.1MB מיותר) | ממתין |
-| 3 | **Contrast ratio fix** — כפתורי מובייל (sticky-bar, mobile-cta) | ממתין לאישור אליאב (שינוי ויזואלי) |
-
-### מוניטורינג — בדיקות חסרות ב-GitHub Action
-| # | בדיקה | תיאור |
-|---|--------|--------|
-| 4 | **Domain expiry** | בדיקת תאריך פקיעת דומיין |
-| 5 | **TTFB** | Time To First Byte — מהירות תגובת שרת |
-| 6 | **Mixed content** | תוכן HTTP בתוך HTTPS |
-| 7 | **Meta tags validation** | title, description, canonical בכל דף |
-| 8 | **Sitemap cross-validation** | כל URL ב-sitemap מחזיר 200 |
-| 9 | **Schema.org validation** | בדיקת JSON-LD תקינות |
-| 10 | **DNS resolution** | בדיקת A/CNAME records |
-
-### SEO אורגני — הפער הגדול מהמתחרים
-| # | משימה | תיאור |
-|---|--------|--------|
-| 11 | **Local SEO — דפי ערים** | עידן קידוחים יש 35 דפי ערים, לנו יש 2. הפער הכי גדול |
-| 12 | **Featured Snippet Optimization** | תשובות קצרות (80-120 תווים) בתחילת מאמרים |
+| 1 | **Image optimization** — homepage-project תמונות גדולות (~1.1MB מיותר) | ממתין |
+| 2 | **Contrast ratio fix** — כפתורי מובייל (sticky-bar, mobile-cta) | ⏸️ דורש אישור אליאב (שינוי ויזואלי) |
+| 3 | **Local SEO — דפי ערים** | הפער הכי גדול מהמתחרים (35 vs 2) — דורש אישור אליאב |
+| 4 | **Node.js 24** — GitHub Actions deprecation ב-02/06/2026 | בינונית |
 
 ### שיווק (דורש פעולה של אליאב)
 | # | משימה | סטטוס |
 |---|--------|--------|
-| 13 | **Google My Business** | ⚠️ Reviews paused — לפתור |
-| 14 | **WhatsApp קמפיין** | תבניות מוכנות, ממתין להתחלה |
-| 15 | **פנייה ל-10-20 קבלנים** | WhatsApp אישי |
-| 16 | **פוסט/מודעה לפייסבוק** | טקסט מוכן, צריך להעלות עם תמונה |
-| 17 | **TikTok** | פרטי פרופיל מוכנים, צריך להגדיר |
+| 5 | **Google Ads** | 🔄 קמפיין מוגדר, חסר: תקציב + תשלום + פרסום |
+| 6 | **WhatsApp קמפיין** | תבניות מוכנות, ממתין להתחלה |
+| 7 | **פנייה ל-10-20 קבלנים** | WhatsApp אישי |
+| 8 | **פוסט/מודעה לפייסבוק** | טקסט מוכן, צריך להעלות עם תמונה |
 
-### MCP Plugins (להתקנה עתידית)
-| Plugin | עדיפות |
-|--------|--------|
-| Google Search Console MCP | גבוהה |
-| Google Analytics 4 MCP | גבוהה |
-| PageSpeed Insights MCP | גבוהה |
-| KeywordsPeopleUse MCP | בינונית |
+### שיפורים עתידיים (דורש אישור)
+| # | משימה | תיאור |
+|---|--------|--------|
+| 9 | **שיפור דפי שירות** | הפיכה למיני דפי נחיתה ממירים |
+| 10 | **עמוד תמחור שקוף** | טווחי מחירים + CTA להצעת מחיר |
+| 11 | **לוגואים של לקוחות/שותפים** | בעמוד הבית |
+| 12 | **שדרוג גלריה** | תמונות פרויקטים עם תיאור (כרגע טקסט בלבד) |
