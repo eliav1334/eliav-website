@@ -53,7 +53,7 @@
   <!-- Swiper.js CSS (deferred - below fold) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"></noscript>
-  <link rel="stylesheet" href="css/style.min.css?v=1772569739">
+  <link rel="stylesheet" href="css/style.min.css?v=1776023700">
   <link rel="stylesheet" href="css/accessibility.css">
 </head>
 <body>
@@ -229,13 +229,13 @@
         <div class="hero-images">
           <div class="hero-image-grid">
             <div class="hero-image hero-image-large">
-              <img src="images/gallery/hero-new-1.webp" alt="קידוחי כלונסאות ובנטונייט - מכונות קידוח באתר בנייה" width="1920" height="900" loading="eager">
+              <img src="images/gallery/hero-new-1.webp" srcset="images/gallery/hero-new-1-800.webp 800w, images/gallery/hero-new-1.webp 1920w" sizes="(max-width: 768px) 100vw, 50vw" alt="קידוחי כלונסאות ובנטונייט - מכונות קידוח באתר בנייה" width="1920" height="900" loading="eager" fetchpriority="high">
             </div>
             <div class="hero-image hero-image-small">
-              <img src="images/gallery/hero-new-2.webp" alt="ציוד קידוח מקצועי - CAT ו-JCB באתר עבודה" width="1920" height="900" loading="eager">
+              <img src="images/gallery/hero-new-2.webp" srcset="images/gallery/hero-new-2-800.webp 800w, images/gallery/hero-new-2.webp 1920w" sizes="(max-width: 768px) 100vw, 50vw" alt="ציוד קידוח מקצועי - CAT ו-JCB באתר עבודה" width="1920" height="900" loading="lazy">
             </div>
             <div class="hero-image hero-image-small">
-              <img src="images/gallery/hero-new-3.webp" alt="תחנת בנטונייט BS 150 על משאית - ציוד כבד" width="1920" height="900" loading="eager">
+              <img src="images/gallery/hero-new-3.webp" srcset="images/gallery/hero-new-3-800.webp 800w, images/gallery/hero-new-3.webp 1920w" sizes="(max-width: 768px) 100vw, 50vw" alt="תחנת בנטונייט BS 150 על משאית - ציוד כבד" width="1920" height="900" loading="lazy">
             </div>
           </div>
         </div>
@@ -449,7 +449,7 @@
         <p>צפו בפרויקטים שלנו בפעולה - מהשטח ישירות אליכם</p>
       </div>
       <div style="display: flex; justify-content: center;">
-        <video controls playsinline preload="metadata" style="max-width: 600px; width: 100%; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);" poster="">
+        <video controls playsinline preload="none" style="max-width: 600px; width: 100%; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);" poster="images/gallery/equipment-video-poster.webp">
           <source src="images/gallery/equipment-video.mp4" type="video/mp4">
         </video>
       </div>
@@ -1055,9 +1055,10 @@
   </script>
 
   <script src="js/main.min.js?v=1773646593"></script>
-  <script src="js/accessibility.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="js/accessibility.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
   <script>
+    window.addEventListener('load', function() {
     const testimonialsSwiper = new Swiper('.testimonials-swiper', {
       slidesPerView: 1,
       spaceBetween: 24,
@@ -1081,6 +1082,7 @@
           spaceBetween: 32,
         }
       }
+    });
     });
   </script>
 
