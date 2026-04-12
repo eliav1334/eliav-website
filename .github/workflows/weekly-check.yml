@@ -1,4 +1,4 @@
-name: "📊 בדיקה שבועית - eliavafar.co.il"
+name: "📊 דוח שבועי מורחב - eliavafar.co.il"
 
 on:
   schedule:
@@ -83,21 +83,13 @@ jobs:
           REDIRECT_RESULTS=""
           REDIRECT_FAILS=0
 
-          # דפים שנמחקו וצריכים redirect
           OLD_PAGES=("/cfa-piles" "/micropiles" "/diaphragm-walls" "/admin" "/simple-upload" "/demolition")
           OLD_NAMES=("CFA Piles" "Micropiles" "Diaphragm Walls" "Admin" "Simple Upload" "Demolition")
           EXPECTED=("/bentonite-drilling" "/bentonite-drilling" "/bentonite-drilling" "/" "/" "/earthworks")
 
           for i in "${!OLD_PAGES[@]}"; do
-            # בדיקה שה-redirect עובד (בלי follow)
             STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${SITE}${OLD_PAGES[$i]}" 2>/dev/null)
-            # בדיקה שה-redirect מוביל ליעד הנכון
-            FINAL_URL=$(curl -s -o /dev/null -w "%{url_effective}" -L --max-time 10 "${SITE}${OLD_PAGES[$i]}" 2>/dev/null)
-
-            if [ "$STATUS" = "301" ] || [ "$STATUS" = "308" ]; then
-              REDIRECT_RESULTS="${REDIRECT_RESULTS}| ${OLD_NAMES[$i]} | ${OLD_PAGES[$i]} | ✅ ${STATUS} → ${EXPECTED[$i]} |\n"
-            elif [ "$STATUS" = "200" ]; then
-              # מגיע 200 כי Vercel עושה redirect פנימי — בודק שהתוכן נכון
+            if [ "$STATUS" = "301" ] || [ "$STATUS" = "308" ] || [ "$STATUS" = "200" ]; then
               REDIRECT_RESULTS="${REDIRECT_RESULTS}| ${OLD_NAMES[$i]} | ${OLD_PAGES[$i]} | ✅ Redirect פעיל |\n"
             else
               REDIRECT_RESULTS="${REDIRECT_RESULTS}| ${OLD_NAMES[$i]} | ${OLD_PAGES[$i]} | ❌ ${STATUS} (צפוי: 301) |\n"
@@ -121,7 +113,6 @@ jobs:
           SITE="https://eliavafar.co.il"
           INFRA_STATUS=""
 
-          # בדיקת sitemap.xml
           SITEMAP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${SITE}/sitemap.xml" 2>/dev/null)
           if [ "$SITEMAP_CODE" = "200" ]; then
             SITEMAP_URLS=$(curl -s --max-time 10 "${SITE}/sitemap.xml" 2>/dev/null | grep -c "<loc>" || echo "0")
@@ -130,7 +121,6 @@ jobs:
             INFRA_STATUS="${INFRA_STATUS}| sitemap.xml | ❌ HTTP ${SITEMAP_CODE} |\n"
           fi
 
-          # בדיקת robots.txt
           ROBOTS_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${SITE}/robots.txt" 2>/dev/null)
           if [ "$ROBOTS_CODE" = "200" ]; then
             INFRA_STATUS="${INFRA_STATUS}| robots.txt | ✅ תקין |\n"
@@ -138,7 +128,6 @@ jobs:
             INFRA_STATUS="${INFRA_STATUS}| robots.txt | ❌ HTTP ${ROBOTS_CODE} |\n"
           fi
 
-          # בדיקת llms.txt
           LLMS_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${SITE}/llms.txt" 2>/dev/null)
           if [ "$LLMS_CODE" = "200" ]; then
             INFRA_STATUS="${INFRA_STATUS}| llms.txt | ✅ תקין |\n"
@@ -146,7 +135,6 @@ jobs:
             INFRA_STATUS="${INFRA_STATUS}| llms.txt | ❌ HTTP ${LLMS_CODE} |\n"
           fi
 
-          # בדיקת manifest.json
           MANIFEST_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${SITE}/manifest.json" 2>/dev/null)
           if [ "$MANIFEST_CODE" = "200" ]; then
             INFRA_STATUS="${INFRA_STATUS}| manifest.json | ✅ תקין |\n"
@@ -185,7 +173,7 @@ jobs:
             echo "days=N/A" >> $GITHUB_OUTPUT
           fi
 
-      - name: "⚡ בדיקת מהירות (PageSpeed)"
+      - name: "⚡ בדיקת מהירות (PageSpeed + TTFB)"
         id: speed
         run: |
           API="https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
@@ -193,9 +181,10 @@ jobs:
 
           fetch_pagespeed() {
             local strategy=$1
+            local target_url=$2
             local result=""
             for attempt in 1 2 3; do
-              result=$(curl -s -w "\n%{http_code}" --max-time 120 "${API}?url=${URL}&category=performance&category=accessibility&category=seo&category=best-practices&strategy=${strategy}")
+              result=$(curl -s -w "\n%{http_code}" --max-time 120 "${API}?url=${target_url}&category=performance&category=accessibility&category=seo&category=best-practices&strategy=${strategy}")
               local http_code=$(echo "$result" | tail -1)
               local body=$(echo "$result" | sed '$d')
               if [ "$http_code" = "200" ]; then
@@ -209,46 +198,65 @@ jobs:
             return 0
           }
 
-          echo "Checking mobile speed..."
-          MOBILE=$(fetch_pagespeed "mobile")
+          score_icon() {
+            local score=$1
+            if [ "$score" = "N/A" ]; then echo "⚪"; return; fi
+            if [ "$score" -ge 90 ]; then echo "🟢"; return; fi
+            if [ "$score" -ge 50 ]; then echo "🟡"; return; fi
+            echo "🔴"
+          }
 
-          # ציוני מובייל
-          MOBILE_PERF=$(echo "$MOBILE" | jq -r '.lighthouseResult.categories.performance.score // empty' 2>/dev/null)
-          MOBILE_A11Y=$(echo "$MOBILE" | jq -r '.lighthouseResult.categories.accessibility.score // empty' 2>/dev/null)
-          MOBILE_SEO=$(echo "$MOBILE" | jq -r '.lighthouseResult.categories.seo.score // empty' 2>/dev/null)
-          MOBILE_BP=$(echo "$MOBILE" | jq -r '.lighthouseResult.categories["best-practices"].score // empty' 2>/dev/null)
-
-          # המרה לאחוזים
-          for var in MOBILE_PERF MOBILE_A11Y MOBILE_SEO MOBILE_BP; do
-            val="${!var}"
-            if [ -n "$val" ] && [ "$val" != "null" ]; then
-              eval "$var=$(echo "$val" | awk '{printf "%d", $1 * 100}')"
+          to_percent() {
+            local val=$1
+            if [ -n "$val" ] && [ "$val" != "null" ] && [ "$val" != "" ]; then
+              echo "$val" | awk '{printf "%d", $1 * 100}'
             else
-              eval "$var=N/A"
+              echo "N/A"
             fi
-          done
+          }
+
+          echo "--- PageSpeed: Mobile ---"
+          MOBILE=$(fetch_pagespeed "mobile" "$URL")
+
+          MOBILE_PERF=$(to_percent "$(echo "$MOBILE" | jq -r '.lighthouseResult.categories.performance.score // empty' 2>/dev/null)")
+          MOBILE_A11Y=$(to_percent "$(echo "$MOBILE" | jq -r '.lighthouseResult.categories.accessibility.score // empty' 2>/dev/null)")
+          MOBILE_SEO=$(to_percent "$(echo "$MOBILE" | jq -r '.lighthouseResult.categories.seo.score // empty' 2>/dev/null)")
+          MOBILE_BP=$(to_percent "$(echo "$MOBILE" | jq -r '.lighthouseResult.categories["best-practices"].score // empty' 2>/dev/null)")
 
           MOBILE_LCP=$(echo "$MOBILE" | jq -r '.lighthouseResult.audits["largest-contentful-paint"].displayValue // "N/A"' 2>/dev/null)
           MOBILE_FCP=$(echo "$MOBILE" | jq -r '.lighthouseResult.audits["first-contentful-paint"].displayValue // "N/A"' 2>/dev/null)
           MOBILE_TBT=$(echo "$MOBILE" | jq -r '.lighthouseResult.audits["total-blocking-time"].displayValue // "N/A"' 2>/dev/null)
           MOBILE_CLS=$(echo "$MOBILE" | jq -r '.lighthouseResult.audits["cumulative-layout-shift"].displayValue // "N/A"' 2>/dev/null)
+          MOBILE_SI=$(echo "$MOBILE" | jq -r '.lighthouseResult.audits["speed-index"].displayValue // "N/A"' 2>/dev/null)
 
-          # המתנה בין הבקשות למניעת rate limit
-          echo "Waiting 15s between requests..."
+          echo "Mobile: Perf=${MOBILE_PERF} A11y=${MOBILE_A11Y} SEO=${MOBILE_SEO} BP=${MOBILE_BP}"
+
           sleep 15
 
-          echo "Checking desktop speed..."
-          DESKTOP=$(fetch_pagespeed "desktop")
-          DESKTOP_PERF=$(echo "$DESKTOP" | jq -r '.lighthouseResult.categories.performance.score // empty' 2>/dev/null)
-          if [ -n "$DESKTOP_PERF" ] && [ "$DESKTOP_PERF" != "null" ]; then
-            DESKTOP_PERF=$(echo "$DESKTOP_PERF" | awk '{printf "%d", $1 * 100}')
-          else
-            DESKTOP_PERF="N/A"
-          fi
+          echo "--- PageSpeed: Desktop ---"
+          DESKTOP=$(fetch_pagespeed "desktop" "$URL")
+          DESKTOP_PERF=$(to_percent "$(echo "$DESKTOP" | jq -r '.lighthouseResult.categories.performance.score // empty' 2>/dev/null)")
 
-          echo "Mobile Perf: ${MOBILE_PERF}, Desktop Perf: ${DESKTOP_PERF}"
+          # --- TTFB לכל דפי השירות ---
+          echo "--- TTFB Check ---"
+          TTFB_RESULTS=""
+          SERVICE_PAGES=("/" "/bentonite-drilling" "/earthworks" "/drainage-pits" "/equipment-rental" "/contact")
+          SERVICE_NAMES=("דף ראשי" "קידוחי בנטונייט" "עבודות עפר" "בורות חלחול" "השכרת ציוד" "צור קשר")
 
-          # שמירת תוצאות
+          for i in "${!SERVICE_PAGES[@]}"; do
+            TTFB=$(curl -s -o /dev/null -w "%{time_starttransfer}" --max-time 15 "${URL}${SERVICE_PAGES[$i]}" 2>/dev/null)
+            TTFB_MS=$(echo "$TTFB" | awk '{printf "%d", $1 * 1000}')
+            if [ "$TTFB_MS" -lt 800 ]; then
+              ICON="🟢"
+            elif [ "$TTFB_MS" -lt 1800 ]; then
+              ICON="🟡"
+            else
+              ICON="🔴"
+            fi
+            TTFB_RESULTS="${TTFB_RESULTS}| ${SERVICE_NAMES[$i]} | ${ICON} ${TTFB_MS}ms |\n"
+          done
+
+          # שמירת כל התוצאות
           echo "mobile_perf=${MOBILE_PERF}" >> $GITHUB_OUTPUT
           echo "mobile_a11y=${MOBILE_A11Y}" >> $GITHUB_OUTPUT
           echo "mobile_seo=${MOBILE_SEO}" >> $GITHUB_OUTPUT
@@ -258,21 +266,86 @@ jobs:
           echo "mobile_fcp=${MOBILE_FCP}" >> $GITHUB_OUTPUT
           echo "mobile_tbt=${MOBILE_TBT}" >> $GITHUB_OUTPUT
           echo "mobile_cls=${MOBILE_CLS}" >> $GITHUB_OUTPUT
-
-          # אייקונים
-          score_icon() {
-            local score=$1
-            if [ "$score" = "N/A" ]; then echo "⚪"; return; fi
-            if [ "$score" -ge 90 ]; then echo "🟢"; return; fi
-            if [ "$score" -ge 50 ]; then echo "🟡"; return; fi
-            echo "🔴"
-          }
+          echo "mobile_si=${MOBILE_SI}" >> $GITHUB_OUTPUT
 
           echo "mobile_perf_icon=$(score_icon $MOBILE_PERF)" >> $GITHUB_OUTPUT
           echo "mobile_a11y_icon=$(score_icon $MOBILE_A11Y)" >> $GITHUB_OUTPUT
           echo "mobile_seo_icon=$(score_icon $MOBILE_SEO)" >> $GITHUB_OUTPUT
           echo "mobile_bp_icon=$(score_icon $MOBILE_BP)" >> $GITHUB_OUTPUT
           echo "desktop_perf_icon=$(score_icon $DESKTOP_PERF)" >> $GITHUB_OUTPUT
+
+          echo "ttfb_results<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$TTFB_RESULTS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: "🏆 בדיקת מתחרים (PageSpeed)"
+        id: competitors
+        run: |
+          API="https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
+          COMP_RESULTS=""
+
+          COMP_URLS=("https://cfa-drilling.co.il" "https://kodchim.co.il" "https://www.s-drilling.co.il" "https://eliavafar.co.il")
+          COMP_NAMES=("דנאל קידוחים (#1)" "אלון יסודות (#2)" "סחראי קידוחים (#4)" "א.א. קידוחים (אנחנו)")
+
+          for i in "${!COMP_URLS[@]}"; do
+            echo "Checking ${COMP_NAMES[$i]}..."
+            RESULT=$(curl -s --max-time 90 "${API}?url=${COMP_URLS[$i]}&category=performance&strategy=mobile" 2>/dev/null)
+            SCORE=$(echo "$RESULT" | jq -r '.lighthouseResult.categories.performance.score // empty' 2>/dev/null)
+
+            if [ -n "$SCORE" ] && [ "$SCORE" != "null" ]; then
+              SCORE_PCT=$(echo "$SCORE" | awk '{printf "%d", $1 * 100}')
+              if [ "$SCORE_PCT" -ge 90 ]; then ICON="🟢";
+              elif [ "$SCORE_PCT" -ge 50 ]; then ICON="🟡";
+              else ICON="🔴"; fi
+              COMP_RESULTS="${COMP_RESULTS}| ${COMP_NAMES[$i]} | ${ICON} ${SCORE_PCT}/100 |\n"
+            else
+              COMP_RESULTS="${COMP_RESULTS}| ${COMP_NAMES[$i]} | ⚪ לא זמין |\n"
+            fi
+
+            sleep 10
+          done
+
+          echo "results<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$COMP_RESULTS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: "🔎 בדיקת דירוג מילות מפתח"
+        id: keywords
+        run: |
+          KW_RESULTS=""
+
+          KEYWORDS=("קידוחי+בנטונייט" "עבודות+עפר+ופיתוח" "בורות+חלחול" "קידוח+כלונסאות" "השכרת+ציוד+כבד")
+          KW_NAMES=("קידוחי בנטונייט" "עבודות עפר ופיתוח" "בורות חלחול" "קידוח כלונסאות" "השכרת ציוד כבד")
+
+          for i in "${!KEYWORDS[@]}"; do
+            # חיפוש בגוגל ובדיקה אם eliavafar מופיע ב-100 תוצאות ראשונות
+            SEARCH_RESULT=$(curl -s -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" --max-time 15 "https://www.google.com/search?q=${KEYWORDS[$i]}&num=100&hl=he&gl=il" 2>/dev/null)
+
+            if echo "$SEARCH_RESULT" | grep -q "eliavafar"; then
+              # מציאת מיקום משוער
+              # סופרים כמה תוצאות מופיעות לפני eliavafar
+              BEFORE=$(echo "$SEARCH_RESULT" | grep -oP 'class="[^"]*"[^>]*><a[^>]*href="/url' | head -100 | grep -c "" 2>/dev/null || echo "?")
+              POSITION=$(echo "$SEARCH_RESULT" | grep -oP '<a[^>]*href="[^"]*"[^>]*>' | grep -n "eliavafar" | head -1 | cut -d: -f1)
+
+              if [ -n "$POSITION" ] && [ "$POSITION" != "" ]; then
+                if [ "$POSITION" -le 3 ]; then ICON="🥇";
+                elif [ "$POSITION" -le 10 ]; then ICON="🟢";
+                elif [ "$POSITION" -le 20 ]; then ICON="🟡";
+                else ICON="🔴"; fi
+                KW_RESULTS="${KW_RESULTS}| ${KW_NAMES[$i]} | ${ICON} ~מקום ${POSITION} |\n"
+              else
+                KW_RESULTS="${KW_RESULTS}| ${KW_NAMES[$i]} | 🟢 נמצא בתוצאות |\n"
+              fi
+            else
+              KW_RESULTS="${KW_RESULTS}| ${KW_NAMES[$i]} | 🔴 לא בעמוד ראשון |\n"
+            fi
+
+            sleep 5
+          done
+
+          echo "results<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$KW_RESULTS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: "🔗 בדיקת לינקים חיצוניים"
         id: links
@@ -290,7 +363,6 @@ jobs:
             "Google Fonts"
             "Swiper CDN"
           )
-          # FormSubmit הוסר - תמיד מחזיר 403 לבקשות אוטומטיות (עובד תקין לגולשים)
 
           for i in "${!LINKS[@]}"; do
             STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L "${LINKS[$i]}" 2>/dev/null)
@@ -374,9 +446,7 @@ jobs:
             const pagesStatus = `${{ steps.pages.outputs.status }}`;
             const failCount = `${{ steps.pages.outputs.fail_count }}`;
             const sslStatus = `${{ steps.ssl.outputs.status }}`;
-            const sslDays = `${{ steps.ssl.outputs.days }}`;
 
-            // PageSpeed
             const mPerf = `${{ steps.speed.outputs.mobile_perf }}`;
             const mA11y = `${{ steps.speed.outputs.mobile_a11y }}`;
             const mSeo = `${{ steps.speed.outputs.mobile_seo }}`;
@@ -388,26 +458,76 @@ jobs:
             const mBpIcon = `${{ steps.speed.outputs.mobile_bp_icon }}`;
             const dPerfIcon = `${{ steps.speed.outputs.desktop_perf_icon }}`;
 
-            // Core Web Vitals
             const mLcp = `${{ steps.speed.outputs.mobile_lcp }}`;
             const mFcp = `${{ steps.speed.outputs.mobile_fcp }}`;
             const mTbt = `${{ steps.speed.outputs.mobile_tbt }}`;
             const mCls = `${{ steps.speed.outputs.mobile_cls }}`;
+            const mSi = `${{ steps.speed.outputs.mobile_si }}`;
 
             const linksStatus = `${{ steps.links.outputs.status }}`;
             const linksDetails = `${{ steps.links.outputs.details }}`;
             const redirectsStatus = `${{ steps.redirects.outputs.status }}`;
             const securityStatus = `${{ steps.security.outputs.status }}`;
 
-            // בדיקה אם יש בעיות קריטיות
             const hasProblems = failCount !== '0' ||
               `${{ steps.ssl.outputs.urgent }}` === 'true' ||
               linksStatus.includes('❌');
             const urgencyTag = hasProblems ? '🚨 ' : '';
 
+            // בסיס להשוואה (ציוני 12 באפריל 2026 — לפני התיקונים)
+            const baseline = { perf: 65, a11y: 93, seo: 100, bp: 92 };
+            const perfDiff = mPerf !== 'N/A' ? parseInt(mPerf) - baseline.perf : 0;
+            const perfTrend = perfDiff > 0 ? `📈 +${perfDiff}` : perfDiff < 0 ? `📉 ${perfDiff}` : '➡️ ללא שינוי';
+
             const body = [
-              '## 📊 דוח שבועי - eliavafar.co.il',
+              '## 📊 דוח שבועי מורחב - eliavafar.co.il',
               `**תאריך:** ${today}`,
+              '',
+              '---',
+              '',
+              '### ⚡ ביצועים (Lighthouse)',
+              '',
+              '| קטגוריה | מובייל | דסקטופ |',
+              '|----------|--------|--------|',
+              `| Performance | ${mPerfIcon} **${mPerf}**/100 | ${dPerfIcon} ${dPerf}/100 |`,
+              `| Accessibility | ${mA11yIcon} ${mA11y}/100 | - |`,
+              `| SEO | ${mSeoIcon} ${mSeo}/100 | - |`,
+              `| Best Practices | ${mBpIcon} ${mBp}/100 | - |`,
+              '',
+              `**מגמה (Performance):** ${perfTrend} (בסיס: ${baseline.perf} מ-12/04/2026)`,
+              '',
+              '**Core Web Vitals (מובייל):**',
+              '| מדד | ערך | יעד |',
+              '|-----|-----|-----|',
+              `| FCP (First Contentful Paint) | ${mFcp} | < 1.8s |`,
+              `| LCP (Largest Contentful Paint) | ${mLcp} | < 2.5s |`,
+              `| TBT (Total Blocking Time) | ${mTbt} | < 200ms |`,
+              `| CLS (Cumulative Layout Shift) | ${mCls} | < 0.1 |`,
+              `| Speed Index | ${mSi} | < 3.4s |`,
+              '',
+              '---',
+              '',
+              '### ⏱️ זמני תגובה (TTFB)',
+              '',
+              '| דף | TTFB |',
+              '|----|------|',
+              `${{ steps.speed.outputs.ttfb_results }}`,
+              '',
+              '---',
+              '',
+              '### 🏆 השוואת מתחרים (Performance מובייל)',
+              '',
+              '| מתחרה | ציון |',
+              '|-------|------|',
+              `${{ steps.competitors.outputs.results }}`,
+              '',
+              '---',
+              '',
+              '### 🔎 דירוג מילות מפתח בגוגל',
+              '',
+              '| מילת מפתח | דירוג |',
+              '|-----------|-------|',
+              `${{ steps.keywords.outputs.results }}`,
               '',
               '---',
               '',
@@ -418,18 +538,21 @@ jobs:
               '|----|------|-------|',
               `${{ steps.pages.outputs.main_results }}`,
               '',
-              '### 📝 סטטוס מאמרי בלוג (16)',
+              '<details><summary>📝 סטטוס מאמרי בלוג (16)</summary>',
               '',
               '| מאמר | נתיב | סטטוס |',
               '|------|------|-------|',
               `${{ steps.pages.outputs.blog_results }}`,
+              '</details>',
               '',
-              '### 🔄 Redirects (דפים ישנים)',
+              '<details><summary>🔄 Redirects (דפים ישנים)</summary>',
+              '',
               redirectsStatus,
               '',
               '| דף | נתיב | סטטוס |',
               '|----|------|-------|',
               `${{ steps.redirects.outputs.results }}`,
+              '</details>',
               '',
               '### 🗺️ תשתית',
               '',
@@ -440,29 +563,11 @@ jobs:
               '### 🔒 אבטחה',
               `**SSL:** ${sslStatus}`,
               '',
-              '**Security Headers:**',
               securityStatus,
               '',
               '| Header | סטטוס |',
               '|--------|-------|',
               `${{ steps.security.outputs.results }}`,
-              '',
-              '### ⚡ ביצועים (Lighthouse)',
-              '',
-              '| קטגוריה | מובייל | דסקטופ |',
-              '|----------|--------|--------|',
-              `| Performance | ${mPerfIcon} ${mPerf}/100 | ${dPerfIcon} ${dPerf}/100 |`,
-              `| Accessibility | ${mA11yIcon} ${mA11y}/100 | - |`,
-              `| SEO | ${mSeoIcon} ${mSeo}/100 | - |`,
-              `| Best Practices | ${mBpIcon} ${mBp}/100 | - |`,
-              '',
-              '**Core Web Vitals (מובייל):**',
-              '| מדד | ערך |',
-              '|-----|-----|',
-              `| FCP (First Contentful Paint) | ${mFcp} |`,
-              `| LCP (Largest Contentful Paint) | ${mLcp} |`,
-              `| TBT (Total Blocking Time) | ${mTbt} |`,
-              `| CLS (Cumulative Layout Shift) | ${mCls} |`,
               '',
               '### 🔗 לינקים חיצוניים',
               linksStatus,
@@ -470,15 +575,15 @@ jobs:
               '',
               '---',
               '',
-              '### 📋 תזכורת - לבדוק ידנית השבוע:',
+              '### 📋 משימות שבועיות:',
               '',
-              '- [ ] **GA4** (analytics.google.com) - כמות מבקרים, המרות, דפים פופולריים',
-              '- [ ] **Clarity** (clarity.microsoft.com) - הקלטות משתמשים, מפות חום',
-              '- [ ] **Google Business** (business.google.com) - ביקורות חדשות, סטטוס ביקורות',
-              '- [ ] **Search Console** (search.google.com/search-console) - שגיאות, מילות חיפוש, דפים מאונדקסים',
+              '- [ ] פרסם פוסט בדף העסקי בגוגל (תמונה + 2 שורות)',
+              '- [ ] בקש ביקורת מלקוח מרוצה',
+              '- [ ] בדוק Search Console — מילות חיפוש חדשות',
+              '- [ ] בדוק Clarity — מפות חום והקלטות',
               '',
               '---',
-              '*דוח אוטומטי — GitHub Actions | eliavafar.co.il*'
+              '*דוח אוטומטי מורחב — GitHub Actions | eliavafar.co.il*'
             ].join('\n');
 
             const issue = await github.rest.issues.create({
@@ -503,28 +608,75 @@ jobs:
           secure: true
           username: eliav1334@gmail.com
           password: ${{ secrets.GMAIL_APP_PASSWORD }}
-          subject: "${{ steps.pages.outputs.fail_count != '0' && '🚨' || '📊' }} דוח שבועי - eliavafar.co.il"
+          subject: "${{ steps.pages.outputs.fail_count != '0' && '🚨' || '📊' }} דוח שבועי מורחב - eliavafar.co.il"
           to: eliav1334@gmail.com
           from: "בדיקת אתר <eliav1334@gmail.com>"
           html_body: |
-            <div dir="rtl" style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
-              <h2 style="color:#F97316">📊 דוח שבועי - eliavafar.co.il</h2>
+            <div dir="rtl" style="font-family:Arial,sans-serif;max-width:700px;margin:0 auto;background:#1a1a2e;color:#eee;padding:24px;border-radius:12px">
+              <h2 style="color:#F97316;margin-top:0">📊 דוח שבועי מורחב — eliavafar.co.il</h2>
 
-              <h3>🌐 דפים: ${{ steps.pages.outputs.status }}</h3>
-              <h3>🔒 SSL: ${{ steps.ssl.outputs.status }}</h3>
-              <h3>🔄 Redirects: ${{ steps.redirects.outputs.status }}</h3>
-              <h3>🔗 לינקים: ${{ steps.links.outputs.status }}</h3>
-              <h3>🔐 Security: ${{ steps.security.outputs.status }}</h3>
+              <div style="background:#16213e;padding:16px;border-radius:8px;margin-bottom:16px">
+                <h3 style="color:#F97316;margin-top:0">⚡ ביצועים (Lighthouse מובייל)</h3>
+                <table style="width:100%;border-collapse:collapse;color:#eee">
+                  <tr style="border-bottom:1px solid #333">
+                    <td style="padding:8px"><strong>Performance</strong></td>
+                    <td style="padding:8px;text-align:center;font-size:1.2em"><strong>${{ steps.speed.outputs.mobile_perf }}/100</strong></td>
+                  </tr>
+                  <tr style="border-bottom:1px solid #333">
+                    <td style="padding:8px">Accessibility</td>
+                    <td style="padding:8px;text-align:center">${{ steps.speed.outputs.mobile_a11y }}/100</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid #333">
+                    <td style="padding:8px">SEO</td>
+                    <td style="padding:8px;text-align:center">${{ steps.speed.outputs.mobile_seo }}/100</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px">Best Practices</td>
+                    <td style="padding:8px;text-align:center">${{ steps.speed.outputs.mobile_bp }}/100</td>
+                  </tr>
+                </table>
+              </div>
 
-              <h3>⚡ Lighthouse (מובייל)</h3>
-              <ul>
-                <li>Performance: ${{ steps.speed.outputs.mobile_perf }}/100</li>
-                <li>Accessibility: ${{ steps.speed.outputs.mobile_a11y }}/100</li>
-                <li>SEO: ${{ steps.speed.outputs.mobile_seo }}/100</li>
-                <li>LCP: ${{ steps.speed.outputs.mobile_lcp }}</li>
-              </ul>
+              <div style="background:#16213e;padding:16px;border-radius:8px;margin-bottom:16px">
+                <h3 style="color:#F97316;margin-top:0">📈 Core Web Vitals</h3>
+                <table style="width:100%;border-collapse:collapse;color:#eee">
+                  <tr style="border-bottom:1px solid #333">
+                    <td style="padding:6px">LCP</td><td style="padding:6px">${{ steps.speed.outputs.mobile_lcp }}</td><td style="padding:6px;color:#888">< 2.5s</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid #333">
+                    <td style="padding:6px">FCP</td><td style="padding:6px">${{ steps.speed.outputs.mobile_fcp }}</td><td style="padding:6px;color:#888">< 1.8s</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid #333">
+                    <td style="padding:6px">TBT</td><td style="padding:6px">${{ steps.speed.outputs.mobile_tbt }}</td><td style="padding:6px;color:#888">< 200ms</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:6px">CLS</td><td style="padding:6px">${{ steps.speed.outputs.mobile_cls }}</td><td style="padding:6px;color:#888">< 0.1</td>
+                  </tr>
+                </table>
+              </div>
 
-              <hr>
-              <p>📋 <a href="${{ steps.create_issue.outputs.issue_url }}">צפה בדוח המלא ב-GitHub</a></p>
-              <p style="color:#999;font-size:12px">דוח אוטומטי — GitHub Actions</p>
+              <div style="background:#16213e;padding:16px;border-radius:8px;margin-bottom:16px">
+                <h3 style="color:#F97316;margin-top:0">📋 סטטוס</h3>
+                <p>🌐 דפים: ${{ steps.pages.outputs.status }}</p>
+                <p>🔒 SSL: ${{ steps.ssl.outputs.status }}</p>
+                <p>🔄 Redirects: ${{ steps.redirects.outputs.status }}</p>
+                <p>🔗 לינקים: ${{ steps.links.outputs.status }}</p>
+                <p>🔐 Security: ${{ steps.security.outputs.status }}</p>
+              </div>
+
+              <div style="background:#16213e;padding:16px;border-radius:8px;margin-bottom:16px">
+                <h3 style="color:#F97316;margin-top:0">✅ משימות השבוע</h3>
+                <ul>
+                  <li>פרסם פוסט בדף העסקי בגוגל</li>
+                  <li>בקש ביקורת מלקוח מרוצה</li>
+                  <li>בדוק Search Console</li>
+                  <li>בדוק Clarity — מפות חום</li>
+                </ul>
+              </div>
+
+              <p style="text-align:center">
+                <a href="${{ steps.create_issue.outputs.issue_url }}" style="color:#F97316;font-size:1.1em">📋 צפה בדוח המלא ב-GitHub</a>
+              </p>
+              <hr style="border-color:#333">
+              <p style="color:#666;font-size:12px;text-align:center">דוח אוטומטי מורחב — GitHub Actions | eliavafar.co.il</p>
             </div>
