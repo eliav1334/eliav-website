@@ -175,8 +175,12 @@ jobs:
 
       - name: "⚡ בדיקת מהירות (PageSpeed + TTFB)"
         id: speed
+        env:
+          PSI_KEY: ${{ secrets.PAGESPEED_API_KEY }}
         run: |
           API="https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
+          KEY_PARAM=""
+          if [ -n "$PSI_KEY" ]; then KEY_PARAM="&key=${PSI_KEY}"; fi
           URL="https://eliavafar.co.il"
 
           fetch_pagespeed() {
@@ -184,7 +188,7 @@ jobs:
             local target_url=$2
             local result=""
             for attempt in 1 2 3; do
-              result=$(curl -s -w "\n%{http_code}" --max-time 120 "${API}?url=${target_url}&category=performance&category=accessibility&category=seo&category=best-practices&strategy=${strategy}")
+              result=$(curl -s -w "\n%{http_code}" --max-time 120 "${API}?url=${target_url}&category=performance&category=accessibility&category=seo&category=best-practices&strategy=${strategy}${KEY_PARAM}")
               local http_code=$(echo "$result" | tail -1)
               local body=$(echo "$result" | sed '$d')
               if [ "$http_code" = "200" ]; then
@@ -280,8 +284,12 @@ jobs:
 
       - name: "🏆 בדיקת מתחרים (PageSpeed)"
         id: competitors
+        env:
+          PSI_KEY: ${{ secrets.PAGESPEED_API_KEY }}
         run: |
           API="https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
+          KEY_PARAM=""
+          if [ -n "$PSI_KEY" ]; then KEY_PARAM="&key=${PSI_KEY}"; fi
           COMP_RESULTS=""
 
           COMP_URLS=("https://cfa-drilling.co.il" "https://kodchim.co.il" "https://www.s-drilling.co.il" "https://eliavafar.co.il")
@@ -289,7 +297,7 @@ jobs:
 
           for i in "${!COMP_URLS[@]}"; do
             echo "Checking ${COMP_NAMES[$i]}..."
-            RESULT=$(curl -s --max-time 90 "${API}?url=${COMP_URLS[$i]}&category=performance&strategy=mobile" 2>/dev/null)
+            RESULT=$(curl -s --max-time 90 "${API}?url=${COMP_URLS[$i]}&category=performance&strategy=mobile${KEY_PARAM}" 2>/dev/null)
             SCORE=$(echo "$RESULT" | jq -r '.lighthouseResult.categories.performance.score // empty' 2>/dev/null)
 
             if [ -n "$SCORE" ] && [ "$SCORE" != "null" ]; then
