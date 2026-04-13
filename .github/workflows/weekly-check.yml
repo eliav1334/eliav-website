@@ -355,6 +355,71 @@ jobs:
           echo -e "$KW_RESULTS" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
+      - name: "🔗 סמכות דומיין ו-Backlinks"
+        id: authority
+        env:
+          OPR_KEY: ${{ secrets.OPEN_PAGE_RANK_KEY }}
+        run: |
+          AUTHORITY_RESULTS=""
+          OPR_RANK="N/A"
+
+          # --- 1. Open Page Rank (חינמי, דורש מפתח מ-openpagerank.com) ---
+          if [ -n "$OPR_KEY" ]; then
+            OPR_RESULT=$(curl -s --max-time 15 "https://openpagerank.com/api/v1.0/getPageRank?domains[0]=eliavafar.co.il" -H "API-OPR: ${OPR_KEY}" 2>/dev/null)
+            OPR_RANK=$(echo "$OPR_RESULT" | jq -r '.response[0].page_rank_integer // "N/A"' 2>/dev/null)
+            OPR_DOMAIN_RANK=$(echo "$OPR_RESULT" | jq -r '.response[0].rank // "N/A"' 2>/dev/null)
+            if [ "$OPR_RANK" != "N/A" ] && [ "$OPR_RANK" != "null" ] && [ -n "$OPR_RANK" ]; then
+              if [ "$OPR_RANK" -ge 5 ]; then ICON="🟢";
+              elif [ "$OPR_RANK" -ge 3 ]; then ICON="🟡";
+              else ICON="🔴"; fi
+              AUTHORITY_RESULTS="${AUTHORITY_RESULTS}| Page Rank (0-10) | ${ICON} ${OPR_RANK}/10 |\n"
+              AUTHORITY_RESULTS="${AUTHORITY_RESULTS}| דירוג עולמי | 🌐 #${OPR_DOMAIN_RANK} |\n"
+            else
+              AUTHORITY_RESULTS="${AUTHORITY_RESULTS}| Page Rank (OPR) | ⚪ שגיאה בשליפה |\n"
+            fi
+          else
+            AUTHORITY_RESULTS="${AUTHORITY_RESULTS}| Page Rank (OPR) | ⚪ הוסף OPEN_PAGE_RANK_KEY לסודות |\n"
+          fi
+
+          # --- 2. Wayback Machine (מתי האתר נסרק לאחרונה) ---
+          WB_RESULT=$(curl -s --max-time 15 "https://archive.org/wayback/available?url=eliavafar.co.il" 2>/dev/null)
+          WB_TIMESTAMP=$(echo "$WB_RESULT" | jq -r '.archived_snapshots.closest.timestamp // "N/A"' 2>/dev/null)
+          if [ "$WB_TIMESTAMP" != "N/A" ] && [ "$WB_TIMESTAMP" != "null" ] && [ -n "$WB_TIMESTAMP" ]; then
+            WB_DATE="${WB_TIMESTAMP:6:2}/${WB_TIMESTAMP:4:2}/${WB_TIMESTAMP:0:4}"
+            AUTHORITY_RESULTS="${AUTHORITY_RESULTS}| Wayback Machine | ✅ ארכיון: ${WB_DATE} |\n"
+          else
+            AUTHORITY_RESULTS="${AUTHORITY_RESULTS}| Wayback Machine | ⚪ לא נמצא |\n"
+          fi
+
+          # --- 3. Schema.org Markup Check (SEO טכני) ---
+          HOMEPAGE=$(curl -s --max-time 15 "https://eliavafar.co.il" 2>/dev/null)
+          SCHEMA_COUNT=$(echo "$HOMEPAGE" | grep -c '"@type"' 2>/dev/null || echo "0")
+          HAS_LOCAL_BIZ=$(echo "$HOMEPAGE" | grep -c '"LocalBusiness"\|"Contractor"\|"HomeAndConstructionBusiness"' 2>/dev/null || echo "0")
+          if [ "$SCHEMA_COUNT" -gt 0 ]; then
+            LB_STATUS=$([ "$HAS_LOCAL_BIZ" -gt 0 ] && echo "✅" || echo "❌")
+            AUTHORITY_RESULTS="${AUTHORITY_RESULTS}| Schema.org | ✅ ${SCHEMA_COUNT} רשומות | LocalBusiness: ${LB_STATUS} |\n"
+          else
+            AUTHORITY_RESULTS="${AUTHORITY_RESULTS}| Schema.org | ❌ לא נמצא — פוגע ב-SEO |\n"
+          fi
+
+          # --- 4. Bing Indexed Pages (site: search) ---
+          BING_RESULT=$(curl -s -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120" --max-time 15 "https://www.bing.com/search?q=site%3Aeliavafar.co.il" 2>/dev/null)
+          if echo "$BING_RESULT" | grep -qi "eliavafar"; then
+            BING_COUNT=$(echo "$BING_RESULT" | grep -oP '\d[\d,]* result' | head -1 | grep -oP '[\d,]+' | tr -d ',' 2>/dev/null || echo "")
+            if [ -n "$BING_COUNT" ]; then
+              AUTHORITY_RESULTS="${AUTHORITY_RESULTS}| דפים מאונדקסים (Bing) | ✅ ~${BING_COUNT} דפים |\n"
+            else
+              AUTHORITY_RESULTS="${AUTHORITY_RESULTS}| דפים מאונדקסים (Bing) | ✅ נמצאו תוצאות |\n"
+            fi
+          else
+            AUTHORITY_RESULTS="${AUTHORITY_RESULTS}| דפים מאונדקסים (Bing) | ⚠️ לא נמצאו תוצאות |\n"
+          fi
+
+          echo "results<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$AUTHORITY_RESULTS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          echo "opr_rank=${OPR_RANK}" >> $GITHUB_OUTPUT
+
       - name: "🔗 בדיקת לינקים חיצוניים"
         id: links
         run: |
@@ -539,6 +604,14 @@ jobs:
               '',
               '---',
               '',
+              '### 🔗 סמכות דומיין ו-Backlinks',
+              '',
+              '| מדד | ערך |',
+              '|-----|-----|',
+              `${{ steps.authority.outputs.results }}`,
+              '',
+              '---',
+              '',
               '### 🌐 סטטוס דפים ראשיים',
               pagesStatus,
               '',
@@ -661,6 +734,17 @@ jobs:
                     <td style="padding:6px">CLS</td><td style="padding:6px">${{ steps.speed.outputs.mobile_cls }}</td><td style="padding:6px;color:#888">< 0.1</td>
                   </tr>
                 </table>
+              </div>
+
+              <div style="background:#16213e;padding:16px;border-radius:8px;margin-bottom:16px">
+                <h3 style="color:#F97316;margin-top:0">🔗 סמכות דומיין</h3>
+                <table style="width:100%;border-collapse:collapse;color:#eee">
+                  <tr style="border-bottom:1px solid #333">
+                    <td style="padding:6px">Page Rank (OPR)</td>
+                    <td style="padding:6px">${{ steps.authority.outputs.opr_rank }}/10</td>
+                  </tr>
+                </table>
+                <p style="color:#888;font-size:11px;margin-top:8px">לפרטים מלאים: Schema, Wayback, Bing — ראה דוח GitHub</p>
               </div>
 
               <div style="background:#16213e;padding:16px;border-radius:8px;margin-bottom:16px">
