@@ -1,0 +1,70 @@
+name: "🔍 בדיקה יומית - eliavafar.co.il"
+
+on:
+  schedule:
+    # כל יום ב-07:00 שעון ישראל (05:00 UTC) — לפני שעות העבודה
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+jobs:
+  daily-check:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+
+    steps:
+      - name: "📥 Checkout"
+        uses: actions/checkout@v5
+
+      - name: "🚀 הרצת בדיקה עצמאית"
+        id: check
+        run: |
+          set +e
+          OUTPUT=$(node scripts/check-site.mjs 2>&1)
+          EXIT_CODE=$?
+          echo "$OUTPUT"
+          echo "exit_code=$EXIT_CODE" >> $GITHUB_OUTPUT
+          # שמירת הפלט לשימוש מאוחר
+          echo "output<<EOF" >> $GITHUB_OUTPUT
+          echo "$OUTPUT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          exit 0
+
+      - name: "🚨 פתיחת Issue אם יש כשל"
+        if: steps.check.outputs.exit_code != '0'
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const output = `${{ steps.check.outputs.output }}`;
+            const today = new Date().toLocaleDateString('he-IL', {
+              year: 'numeric', month: 'long', day: 'numeric',
+              timeZone: 'Asia/Jerusalem'
+            });
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🚨 בדיקה יומית נכשלה - ${today}`,
+              body: `## בדיקה יומית של האתר זיהתה בעיה\n\n\`\`\`\n${output}\n\`\`\`\n\n— נוצר אוטומטית מ-daily-check workflow`,
+              labels: ['daily-check', 'urgent']
+            });
+
+      - name: "📧 שליחת מייל אם יש כשל"
+        if: steps.check.outputs.exit_code != '0' && env.GMAIL_APP_PASSWORD != ''
+        env:
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        uses: dawidd6/action-send-mail@v17
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: eliav1334@gmail.com
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          subject: "🚨 בדיקה יומית נכשלה - eliavafar.co.il"
+          to: eliav1334@gmail.com
+          from: "בדיקה יומית <eliav1334@gmail.com>"
+          body: |
+            הבדיקה היומית של האתר זיהתה בעיה ב-${{ github.event.repository.updated_at }}.
+
+            ${{ steps.check.outputs.output }}
+
+            ראה Issue: https://github.com/${{ github.repository }}/issues
