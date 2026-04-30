@@ -492,7 +492,7 @@ jobs:
 
       - name: "📋 יצירת דוח Issue"
         id: create_issue
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const today = new Date().toLocaleDateString('he-IL', {
@@ -682,7 +682,7 @@ jobs:
         if: env.GMAIL_APP_PASSWORD != ''
         env:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-        uses: dawidd6/action-send-mail@v3
+        uses: dawidd6/action-send-mail@v17
         with:
           server_address: smtp.gmail.com
           server_port: 465
