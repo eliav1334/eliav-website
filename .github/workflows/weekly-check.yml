@@ -115,7 +115,7 @@ jobs:
 
           SITEMAP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${SITE}/sitemap.xml" 2>/dev/null)
           if [ "$SITEMAP_CODE" = "200" ]; then
-            SITEMAP_URLS=$(curl -s --max-time 10 "${SITE}/sitemap.xml" 2>/dev/null | grep -c "<loc>" || echo "0")
+            SITEMAP_URLS=$(curl -s --max-time 10 "${SITE}/sitemap.xml" 2>/dev/null | grep -c "<loc>" || true)
             INFRA_STATUS="${INFRA_STATUS}| sitemap.xml | ✅ תקין (${SITEMAP_URLS} URLs) |\n"
           else
             INFRA_STATUS="${INFRA_STATUS}| sitemap.xml | ❌ HTTP ${SITEMAP_CODE} |\n"
@@ -393,8 +393,8 @@ jobs:
 
           # --- 3. Schema.org Markup Check (SEO טכני) ---
           HOMEPAGE=$(curl -s --max-time 15 "https://eliavafar.co.il" 2>/dev/null)
-          SCHEMA_COUNT=$(echo "$HOMEPAGE" | grep -c '"@type"' 2>/dev/null || echo "0")
-          HAS_LOCAL_BIZ=$(echo "$HOMEPAGE" | grep -c '"LocalBusiness"\|"Contractor"\|"HomeAndConstructionBusiness"' 2>/dev/null || echo "0")
+          SCHEMA_COUNT=$(echo "$HOMEPAGE" | grep -c '"@type"' || true)
+          HAS_LOCAL_BIZ=$(echo "$HOMEPAGE" | grep -c '"LocalBusiness"\|"Contractor"\|"HomeAndConstructionBusiness"' || true)
           if [ "$SCHEMA_COUNT" -gt 0 ]; then
             LB_STATUS=$([ "$HAS_LOCAL_BIZ" -gt 0 ] && echo "✅" || echo "❌")
             AUTHORITY_RESULTS="${AUTHORITY_RESULTS}| Schema.org | ✅ ${SCHEMA_COUNT} רשומות | LocalBusiness: ${LB_STATUS} |\n"
