@@ -360,7 +360,9 @@ jobs:
         continue-on-error: true
         env:
           OPR_KEY: ${{ secrets.OPEN_PAGE_RANK_KEY }}
+        shell: bash {0}
         run: |
+          set +e
           AUTHORITY_RESULTS=""
           OPR_RANK="N/A"
 
