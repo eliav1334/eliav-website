@@ -18,6 +18,8 @@ jobs:
 
       - name: "🚀 הרצת בדיקה עצמאית"
         id: check
+        env:
+          PAGESPEED_API_KEY: ${{ secrets.PAGESPEED_API_KEY }}
         run: |
           set +e
           OUTPUT=$(node scripts/check-site.mjs 2>&1)

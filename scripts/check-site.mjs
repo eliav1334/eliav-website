@@ -126,6 +126,54 @@ async function checkSSL() {
   return 0;
 }
 
+// Lighthouse regression check via PageSpeed Insights API.
+// Fails (returns 1) only on clearly broken thresholds — small fluctuations are tolerated.
+// Skipped silently if no API key (e.g. local runs without secret).
+async function checkLighthouse() {
+  console.log(`\n=== Lighthouse (mobile) ===`);
+  const key = process.env.PAGESPEED_API_KEY;
+  if (!key) {
+    console.log('⏭️  PAGESPEED_API_KEY not set — skipping');
+    return 0;
+  }
+  const api = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed';
+  const url = `${api}?url=${encodeURIComponent(SITE)}&strategy=mobile&category=performance&key=${key}`;
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.log(`⚠️  PageSpeed API ${res.status} — skipping (treated as transient)`);
+      return 0;
+    }
+    const data = await res.json();
+    const perf = Math.round((data.lighthouseResult?.categories?.performance?.score ?? 0) * 100);
+    const lcpMs = data.lighthouseResult?.audits?.['largest-contentful-paint']?.numericValue ?? 0;
+    const lcpS = (lcpMs / 1000).toFixed(1);
+    const fcpMs = data.lighthouseResult?.audits?.['first-contentful-paint']?.numericValue ?? 0;
+    const fcpS = (fcpMs / 1000).toFixed(1);
+
+    const perfIcon = perf >= 70 ? '✅' : perf >= 50 ? '🟡' : '❌';
+    const lcpIcon = lcpMs <= 4000 ? '✅' : lcpMs <= 5000 ? '🟡' : '❌';
+    console.log(`${perfIcon} Performance: ${perf}/100  (יעד: ≥70)`);
+    console.log(`${lcpIcon} LCP: ${lcpS}s  (יעד: ≤4s, קריטי: >5s)`);
+    console.log(`   FCP: ${fcpS}s`);
+
+    // Alert only on clearly bad — daily LCP fluctuates and we don't want false alarms.
+    let fails = 0;
+    if (perf < 50) {
+      console.log(`❌ ALERT: Performance ${perf} < 50 (קריטי)`);
+      fails++;
+    }
+    if (lcpMs > 5000) {
+      console.log(`❌ ALERT: LCP ${lcpS}s > 5s (קריטי)`);
+      fails++;
+    }
+    return fails;
+  } catch (err) {
+    console.log(`⚠️  PageSpeed error: ${err.message} — skipping`);
+    return 0;
+  }
+}
+
 async function main() {
   console.log(`🔍 בדיקה עצמאית של ${SITE}`);
   console.log(`⏰ ${new Date().toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem' })}`);
@@ -139,6 +187,7 @@ async function main() {
     await checkSchema(),
     await checkPerf(),
     await checkSSL(),
+    await checkLighthouse(),
   ].reduce((a, b) => a + b, 0);
 
   console.log(`\n${'='.repeat(50)}`);
