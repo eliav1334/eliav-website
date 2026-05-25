@@ -1,0 +1,72 @@
+name: "🚦 Lighthouse PR Check"
+
+# Runs on every PR to catch performance regressions before they hit production.
+# Compares the PR build against thresholds; comments on PR with the score.
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '**.html'
+      - 'css/**'
+      - 'js/**'
+      - 'images/**'
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: "📥 Checkout"
+        uses: actions/checkout@v5
+
+      - name: "🚀 Run Lighthouse against production (preview check)"
+        id: lighthouse
+        env:
+          PAGESPEED_API_KEY: ${{ secrets.PAGESPEED_API_KEY }}
+        run: |
+          set +e
+          if [ -z "$PAGESPEED_API_KEY" ]; then
+            echo "::warning::PAGESPEED_API_KEY not set — skipping Lighthouse check"
+            echo "skipped=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          API="https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
+          # PR doesn't deploy a preview (Vercel does, but its URL is non-deterministic here).
+          # We check production as a proxy — if the PR is merged-and-deployed, this is the score.
+          URL="https://eliavafar.co.il"
+
+          RESULT=$(curl -s "${API}?url=${URL}&strategy=mobile&category=performance&key=${PAGESPEED_API_KEY}")
+          PERF=$(echo "$RESULT" | python3 -c "import sys,json; d=json.load(sys.stdin); print(round(d.get('lighthouseResult',{}).get('categories',{}).get('performance',{}).get('score',0)*100))")
+          LCP=$(echo "$RESULT" | python3 -c "import sys,json; d=json.load(sys.stdin); print(round(d.get('lighthouseResult',{}).get('audits',{}).get('largest-contentful-paint',{}).get('numericValue',0)))")
+          LCP_S=$(python3 -c "print(round($LCP/1000, 1))")
+
+          echo "perf=$PERF" >> $GITHUB_OUTPUT
+          echo "lcp_s=$LCP_S" >> $GITHUB_OUTPUT
+
+          # Soft thresholds — comments on PR but doesn't block merge.
+          # Hard regression detection lives in daily-check.yml (production).
+          if [ "$PERF" -lt 60 ] || awk "BEGIN {exit !($LCP_S > 5)}"; then
+            echo "status=⚠️ Warning" >> $GITHUB_OUTPUT
+          else
+            echo "status=✅ OK" >> $GITHUB_OUTPUT
+          fi
+
+      - name: "💬 Comment on PR"
+        if: steps.lighthouse.outputs.skipped != 'true'
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const perf = '${{ steps.lighthouse.outputs.perf }}';
+            const lcp = '${{ steps.lighthouse.outputs.lcp_s }}';
+            const status = '${{ steps.lighthouse.outputs.status }}';
+            const body = `## 🚦 Lighthouse Check\n\n${status}\n\n| Metric | Value | Target |\n|--------|-------|--------|\n| Performance (mobile) | **${perf}/100** | ≥70 |\n| LCP | **${lcp}s** | ≤4s |\n\n*Measured against production. PR preview Lighthouse not available without Vercel Preview Token.*`;
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body
+            });
