@@ -289,15 +289,14 @@ function sendToBrevo(name, email, phone, source) {
   }).catch(() => {}); // Silent fail - don't block main form
 }
 
-// AJAX form submission - bypass FormSubmit redirect
+// AJAX form submission - send via our nicely-formatted /api/notify-lead.
+// Falls back to FormSubmit.co if our endpoint fails, so leads are never lost.
 document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     const btn = form.querySelector('button[type="submit"]');
-    const originalText = btn.innerHTML;
     btn.innerHTML = 'שולח...';
     btn.disabled = true;
-    // GA4: track form submission
     if (typeof gtag !== 'undefined') {
       gtag('event', 'generate_lead', {
         event_category: 'contact',
@@ -305,18 +304,29 @@ document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
         page_path: window.location.pathname
       });
     }
-    // Send to Brevo (parallel, non-blocking)
     const fd = new FormData(form);
-    sendToBrevo(fd.get('name'), fd.get('email'), fd.get('phone'), window.location.pathname);
-    // Send to FormSubmit
-    fetch(form.action, {
+    const payload = {
+      name: fd.get('name') || '',
+      phone: fd.get('phone') || '',
+      email: fd.get('email') || '',
+      service: fd.get('service') || '',
+      message: fd.get('message') || '',
+      page_path: window.location.pathname
+    };
+    // Brevo contact list (parallel, non-blocking)
+    sendToBrevo(payload.name, payload.email, payload.phone, window.location.pathname);
+    // Primary: our own pretty-email endpoint
+    fetch('/api/notify-lead', {
       method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    }).then(() => {
-      window.location.href = '/thanks';
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(r => {
+      if (r.ok) { window.location.href = '/thanks'; return; }
+      throw new Error('notify-lead failed');
     }).catch(() => {
-      window.location.href = '/thanks';
+      // Fallback: FormSubmit so a lead is never lost if our endpoint breaks
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+        .finally(() => { window.location.href = '/thanks'; });
     });
   });
 });

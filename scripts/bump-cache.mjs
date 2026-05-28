@@ -4,11 +4,10 @@
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
-const OLD_VER = '1773646593';
+// Detect any current version and bump to now-timestamp.
+const PATTERN_CURRENT = /js\/main\.min\.js\?v=\d+/g;
 const NEW_VER = String(Math.floor(Date.now() / 1000));
-
-const PATTERN_ROOT = new RegExp(`js/main\\.min\\.js\\?v=${OLD_VER}`, 'g');
-const PATTERN_NEW_ROOT = `js/main.min.js?v=${NEW_VER}`;
+const REPLACEMENT = `js/main.min.js?v=${NEW_VER}`;
 
 function* htmlFiles(dir) {
   for (const entry of readdirSync(dir)) {
@@ -28,8 +27,10 @@ let changed = 0;
 
 for (const file of htmlFiles(root)) {
   const content = readFileSync(file, 'utf8');
-  if (!content.includes(`main.min.js?v=${OLD_VER}`)) continue;
-  const replaced = content.replaceAll(`main.min.js?v=${OLD_VER}`, `main.min.js?v=${NEW_VER}`);
+  if (!PATTERN_CURRENT.test(content)) continue;
+  PATTERN_CURRENT.lastIndex = 0; // reset because of /g flag
+  const replaced = content.replace(PATTERN_CURRENT, REPLACEMENT);
+  if (replaced === content) continue;
   writeFileSync(file, replaced, 'utf8');
   console.log('✓ ' + file.replace(root, '.'));
   changed++;
