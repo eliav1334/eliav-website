@@ -289,33 +289,36 @@ function sendToBrevo(name, email, phone, source) {
   }).catch(() => {}); // Silent fail - don't block main form
 }
 
-// Deliver a lead via BOTH channels for reliability: our branded Brevo email
-// (/api/notify-lead) + FormSubmit. Resolves true if at least one was accepted.
-// The FormSubmit leg is a safety net during the Brevo domain-auth rollout; once
-// the branded email is confirmed arriving, the FormSubmit leg can be removed.
+// Deliver a lead: our branded Brevo email (/api/notify-lead) is primary.
+// FormSubmit fires ONLY if Brevo fails — a safety net so a lead is never lost,
+// without sending duplicate emails in the normal (Brevo works) case.
+// Resolves true if a channel accepted the lead.
 function deliverLead(payload, formEl) {
-  var brevo = fetch('/api/notify-lead', {
+  return fetch('/api/notify-lead', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
-  }).then(function (r) { return r.ok; }).catch(function () { return false; });
-
-  var fsReq;
-  if (formEl && /formsubmit\.co/.test(formEl.action)) {
-    fsReq = fetch(formEl.action, { method: 'POST', body: new FormData(formEl), headers: { Accept: 'application/json' } });
-  } else {
-    fsReq = fetch('https://formsubmit.co/ajax/eliav1334@gmail.com', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({
-        name: payload.name || '', phone: payload.phone || '', email: payload.email || '',
-        service: payload.service || '', message: payload.message || '',
-        _subject: payload._subject || '🔔 ליד חדש מהאתר', _template: 'table'
-      })
-    });
-  }
-  var fs = fsReq.then(function (r) { return r.ok; }).catch(function () { return false; });
-  return Promise.all([brevo, fs]).then(function (res) { return res[0] || res[1]; });
+  }).then(function (r) {
+    if (r.ok) return true;
+    throw new Error('notify-lead failed');
+  }).catch(function () {
+    // Brevo failed → fall back to FormSubmit so the lead still reaches the inbox.
+    var fsReq;
+    if (formEl && /formsubmit\.co/.test(formEl.action)) {
+      fsReq = fetch(formEl.action, { method: 'POST', body: new FormData(formEl), headers: { Accept: 'application/json' } });
+    } else {
+      fsReq = fetch('https://formsubmit.co/ajax/eliav1334@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          name: payload.name || '', phone: payload.phone || '', email: payload.email || '',
+          service: payload.service || '', message: payload.message || '',
+          _subject: payload._subject || '🔔 ליד חדש מהאתר', _template: 'table'
+        })
+      });
+    }
+    return fsReq.then(function (r) { return r.ok; }).catch(function () { return false; });
+  });
 }
 
 // Show a real error with phone/WhatsApp fallback — never fake a "thanks" on total failure.

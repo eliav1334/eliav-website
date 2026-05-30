@@ -73,8 +73,9 @@ module.exports = async function handler(req, res) {
   // Clean, bold, professional RTL Hebrew lead-notification email
   const htmlContent = `<!DOCTYPE html>
 <html lang="he" dir="rtl">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>פנייה חדשה מהאתר</title></head>
-<body style="margin:0;padding:0;background:#eef0f3;font-family:'Heebo','Rubik','Segoe UI',Arial,sans-serif;direction:rtl;">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>פנייה חדשה מהאתר</title>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet"></head>
+<body style="margin:0;padding:0;background:#eef0f3;font-family:'Assistant','Segoe UI','Heebo',Arial,sans-serif;direction:rtl;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#eef0f3;padding:28px 12px;">
     <tr><td align="center">
       <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(17,24,39,0.10);">
@@ -82,21 +83,21 @@ module.exports = async function handler(req, res) {
         <!-- Header -->
         <tr><td style="background:linear-gradient(135deg,#F97316 0%,#EA580C 100%);padding:28px 32px;text-align:right;color:#ffffff;">
           <div style="font-size:14px;font-weight:700;letter-spacing:0.5px;opacity:0.95;">א.א. עבודות קידוחים ופיתוח</div>
-          <div style="font-size:26px;font-weight:800;line-height:1.25;margin-top:8px;">🔔 פנייה חדשה מהאתר</div>
+          <div style="font-size:26px;font-weight:700;line-height:1.25;margin-top:8px;">🔔 פנייה חדשה מהאתר</div>
           <div style="font-size:13px;font-weight:500;opacity:0.92;margin-top:10px;">${escapeHtml(originName)} • ${escapeHtml(dateStr)}</div>
         </td></tr>
 
         <!-- Name -->
         <tr><td style="padding:26px 32px 0 32px;text-align:right;">
           <div style="font-size:13px;color:#6b7280;font-weight:700;letter-spacing:0.5px;">שם הפונה</div>
-          <div style="font-size:26px;color:#111827;font-weight:800;margin-top:4px;">${escapeHtml(name) || '<span style="color:#9ca3af;font-weight:600;">לא צוין</span>'}</div>
+          <div style="font-size:26px;color:#111827;font-weight:700;margin-top:4px;">${escapeHtml(name) || '<span style="color:#9ca3af;font-weight:600;">לא צוין</span>'}</div>
         </td></tr>
 
         ${phone ? `
         <tr><td style="padding:18px 32px 0 32px;text-align:right;">
           <div style="border-top:1px solid #eef0f3;padding-top:18px;">
             <div style="font-size:13px;color:#6b7280;font-weight:700;">📞 טלפון</div>
-            <a href="${telUrl}" dir="ltr" style="display:inline-block;font-size:24px;color:#EA580C;font-weight:800;text-decoration:none;margin-top:4px;letter-spacing:0.5px;">${escapeHtml(phone)}</a>
+            <a href="${telUrl}" dir="ltr" style="display:inline-block;font-size:24px;color:#EA580C;font-weight:700;text-decoration:none;margin-top:4px;letter-spacing:0.5px;">${escapeHtml(phone)}</a>
           </div>
         </td></tr>` : ''}
 
@@ -112,7 +113,7 @@ module.exports = async function handler(req, res) {
         <tr><td style="padding:18px 32px 0 32px;text-align:right;">
           <div style="border-top:1px solid #eef0f3;padding-top:18px;">
             <div style="font-size:13px;color:#6b7280;font-weight:700;">🔧 שירות מבוקש</div>
-            <div style="display:inline-block;background:#fff1e6;color:#9a3412;font-size:16px;font-weight:800;padding:8px 16px;border-radius:10px;margin-top:8px;">${escapeHtml(service)}</div>
+            <div style="display:inline-block;background:#fff1e6;color:#9a3412;font-size:16px;font-weight:700;padding:8px 16px;border-radius:10px;margin-top:8px;">${escapeHtml(service)}</div>
           </div>
         </td></tr>` : ''}
 
@@ -126,8 +127,8 @@ module.exports = async function handler(req, res) {
 
         <!-- CTA buttons (full width, easy tap) -->
         <tr><td style="padding:26px 32px 8px 32px;">
-          ${telUrl ? `<a href="${telUrl}" style="display:block;background:#F97316;color:#ffffff;font-size:17px;font-weight:800;padding:15px;border-radius:12px;text-decoration:none;text-align:center;margin-bottom:12px;">📞 התקשר עכשיו</a>` : ''}
-          ${waUrl ? `<a href="${waUrl}" style="display:block;background:#0e7a33;color:#ffffff;font-size:17px;font-weight:800;padding:15px;border-radius:12px;text-decoration:none;text-align:center;">💬 שלח וואטסאפ</a>` : ''}
+          ${telUrl ? `<a href="${telUrl}" style="display:block;background:#F97316;color:#ffffff;font-size:17px;font-weight:700;padding:15px;border-radius:12px;text-decoration:none;text-align:center;margin-bottom:12px;">📞 התקשר עכשיו</a>` : ''}
+          ${waUrl ? `<a href="${waUrl}" style="display:block;background:#0e7a33;color:#ffffff;font-size:17px;font-weight:700;padding:15px;border-radius:12px;text-decoration:none;text-align:center;">💬 שלח וואטסאפ</a>` : ''}
         </td></tr>
 
         <tr><td style="padding:6px 32px 24px 32px;text-align:center;">
