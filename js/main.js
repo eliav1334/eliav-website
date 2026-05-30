@@ -289,12 +289,52 @@ function sendToBrevo(name, email, phone, source) {
   }).catch(() => {}); // Silent fail - don't block main form
 }
 
-// AJAX form submission - send via our nicely-formatted /api/notify-lead.
-// Falls back to FormSubmit.co if our endpoint fails, so leads are never lost.
+// Deliver a lead via BOTH channels for reliability: our branded Brevo email
+// (/api/notify-lead) + FormSubmit. Resolves true if at least one was accepted.
+// The FormSubmit leg is a safety net during the Brevo domain-auth rollout; once
+// the branded email is confirmed arriving, the FormSubmit leg can be removed.
+function deliverLead(payload, formEl) {
+  var brevo = fetch('/api/notify-lead', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(function (r) { return r.ok; }).catch(function () { return false; });
+
+  var fsReq;
+  if (formEl && /formsubmit\.co/.test(formEl.action)) {
+    fsReq = fetch(formEl.action, { method: 'POST', body: new FormData(formEl), headers: { Accept: 'application/json' } });
+  } else {
+    fsReq = fetch('https://formsubmit.co/ajax/eliav1334@gmail.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        name: payload.name || '', phone: payload.phone || '', email: payload.email || '',
+        service: payload.service || '', message: payload.message || '',
+        _subject: payload._subject || '🔔 ליד חדש מהאתר', _template: 'table'
+      })
+    });
+  }
+  var fs = fsReq.then(function (r) { return r.ok; }).catch(function () { return false; });
+  return Promise.all([brevo, fs]).then(function (res) { return res[0] || res[1]; });
+}
+
+// Show a real error with phone/WhatsApp fallback — never fake a "thanks" on total failure.
+function showLeadError(anchorEl) {
+  if (anchorEl.parentNode && anchorEl.parentNode.querySelector('.lead-error')) return;
+  var box = document.createElement('div');
+  box.className = 'lead-error';
+  box.setAttribute('role', 'alert');
+  box.style.cssText = 'margin-top:12px;padding:12px 14px;background:#fde8e8;color:#9b1c1c;border-radius:8px;font-size:14px;line-height:1.6';
+  box.innerHTML = 'אירעה תקלה בשליחה. אנא התקשרו <a href="tel:+972529556123" style="color:#9b1c1c;font-weight:bold">052-9556123</a> או שלחו הודעה ב<a href="https://wa.me/972529556123" style="color:#9b1c1c;font-weight:bold">וואטסאפ</a>.';
+  if (anchorEl.parentNode) anchorEl.parentNode.insertBefore(box, anchorEl.nextSibling);
+}
+
+// AJAX form submission — branded Brevo email + FormSubmit safety net.
 document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn.innerHTML;
     btn.innerHTML = 'שולח...';
     btn.disabled = true;
     if (typeof gtag !== 'undefined') {
@@ -311,22 +351,19 @@ document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
       email: fd.get('email') || '',
       service: fd.get('service') || '',
       message: fd.get('message') || '',
+      _subject: fd.get('_subject') || '',
       page_path: window.location.pathname
     };
     // Brevo contact list (parallel, non-blocking)
     sendToBrevo(payload.name, payload.email, payload.phone, window.location.pathname);
-    // Primary: our own pretty-email endpoint
-    fetch('/api/notify-lead', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).then(r => {
-      if (r.ok) { window.location.href = '/thanks'; return; }
-      throw new Error('notify-lead failed');
-    }).catch(() => {
-      // Fallback: FormSubmit so a lead is never lost if our endpoint breaks
-      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
-        .finally(() => { window.location.href = '/thanks'; });
+    deliverLead(payload, form).then(function (ok) {
+      if (ok) {
+        window.location.href = '/thanks';
+      } else {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        showLeadError(btn);
+      }
     });
   });
 });
@@ -380,13 +417,6 @@ document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
       btn.textContent = 'שולח...';
       btn.disabled = true;
 
-      sendToBrevo(f.name.value, f.email.value, f.phone.value, 'popup-' + location.pathname)
-        .then(function() {
-          f.style.display = 'none';
-          document.getElementById('lead-popup-success').style.display = 'block';
-          setTimeout(function() { overlay.remove(); }, 3000);
-        });
-
       // GA4 tracking
       if (typeof gtag !== 'undefined') {
         gtag('event', 'generate_lead', {
@@ -395,6 +425,29 @@ document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
           page_path: location.pathname
         });
       }
+
+      sendToBrevo(f.name.value, f.email.value, f.phone.value, 'popup-' + location.pathname);
+      deliverLead({
+        name: f.name.value, phone: f.phone.value, email: f.email.value,
+        _subject: '🔔 ליד חדש מהאתר — פופאפ הצעת מחיר',
+        source: 'popup-' + location.pathname
+      }).then(function (ok) {
+        if (ok) {
+          f.style.display = 'none';
+          document.getElementById('lead-popup-success').style.display = 'block';
+          setTimeout(function() { overlay.remove(); }, 3000);
+        } else {
+          btn.textContent = 'שלחו לי הצעה';
+          btn.disabled = false;
+          if (!f.querySelector('.popup-err')) {
+            var p = document.createElement('p');
+            p.className = 'popup-err';
+            p.style.cssText = 'color:#9b1c1c;font-size:13px;margin-top:8px;text-align:center';
+            p.innerHTML = 'תקלה בשליחה. התקשרו <a href="tel:+972529556123">052-9556123</a>';
+            f.appendChild(p);
+          }
+        }
+      });
     });
   }, POPUP_DELAY);
 })();
@@ -553,20 +606,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
-      // Send to Brevo (parallel, non-blocking)
+      // Send to Brevo contact list (parallel, non-blocking)
       if (typeof sendToBrevo === 'function') {
         sendToBrevo(form.name.value, form.email.value || null, form.phone.value, 'scroll-popup-' + location.pathname);
       }
 
-      // Send to FormSubmit via AJAX
-      fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      }).then(function() {
-        window.location.href = '/thanks';
-      }).catch(function() {
-        window.location.href = '/thanks';
+      deliverLead({
+        name: form.name.value, phone: form.phone.value, email: form.email.value || '',
+        _subject: '🔔 ליד חדש מהאתר — פופאפ הצעת מחיר',
+        source: 'scroll-popup-' + location.pathname
+      }, form).then(function (ok) {
+        if (ok) {
+          window.location.href = '/thanks';
+        } else {
+          btn.textContent = originalText;
+          btn.disabled = false;
+          if (!form.querySelector('.scroll-popup-err')) {
+            var p = document.createElement('p');
+            p.className = 'scroll-popup-err';
+            p.style.cssText = 'color:#fff;background:#9b1c1c;padding:8px;border-radius:6px;font-size:13px;margin-top:8px';
+            p.innerHTML = 'תקלה בשליחה. התקשרו <a href="tel:+972529556123" style="color:#fff;font-weight:bold">052-9556123</a>';
+            form.appendChild(p);
+          }
+        }
       });
     });
   }
