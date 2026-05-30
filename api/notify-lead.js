@@ -74,8 +74,8 @@ module.exports = async function handler(req, res) {
   const htmlContent = `<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>פנייה חדשה מהאתר</title>
-<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet"></head>
-<body style="margin:0;padding:0;background:#eef0f3;font-family:'Assistant','Segoe UI','Heebo',Arial,sans-serif;direction:rtl;">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet"></head>
+<body style="margin:0;padding:0;background:#eef0f3;font-family:'Heebo','Rubik','Assistant',Arial,sans-serif;direction:rtl;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#eef0f3;padding:28px 12px;">
     <tr><td align="center">
       <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(17,24,39,0.10);">
