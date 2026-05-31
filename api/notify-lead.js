@@ -80,11 +80,11 @@ module.exports = async function handler(req, res) {
     <tr><td align="center">
       <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(17,24,39,0.10);">
 
-        <!-- Header (solid color + bgcolor for Outlook, which ignores gradients) -->
-        <tr><td bgcolor="#C05621" style="background-color:#C05621;padding:28px 32px;text-align:right;color:#ffffff;">
-          <div style="font-size:14px;font-weight:700;letter-spacing:0.5px;opacity:0.95;">א.א. עבודות קידוחים ופיתוח</div>
-          <div style="font-size:26px;font-weight:700;line-height:1.25;margin-top:8px;">🔔 פנייה חדשה מהאתר</div>
-          <div style="font-size:13px;font-weight:500;opacity:0.92;margin-top:10px;">${escapeHtml(originName)} • ${escapeHtml(dateStr)}</div>
+        <!-- Header: white bg, orange title — renders in every client (no colored-bg dependency, Outlook-safe) -->
+        <tr><td style="padding:26px 32px 6px 32px;text-align:right;border-top:4px solid #C05621;">
+          <div style="font-size:13px;color:#9ca3af;font-weight:600;letter-spacing:0.3px;">א.א. עבודות קידוחים ופיתוח</div>
+          <div style="font-size:24px;color:#C05621;font-weight:700;line-height:1.3;margin-top:6px;">🔔 פנייה חדשה מהאתר</div>
+          <div style="font-size:13px;color:#9ca3af;font-weight:500;margin-top:8px;">${escapeHtml(originName)} • ${escapeHtml(dateStr)}</div>
         </td></tr>
 
         <!-- Name -->
