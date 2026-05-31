@@ -1390,6 +1390,10 @@
       background: var(--border-strong);
       opacity: 1;
       transition: all 0.3s ease;
+      /* a11y (WCAG 2.5.8): 24px tap target without changing the visible dot */
+      box-sizing: content-box;
+      padding: 6px;
+      background-clip: content-box;
     }
 
     .testimonials-swiper .swiper-pagination-bullet-active {
