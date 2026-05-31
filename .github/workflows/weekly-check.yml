@@ -493,6 +493,26 @@ jobs:
             echo "status=⚠️ ${SECURITY_FAILS} headers חסרים" >> $GITHUB_OUTPUT
           fi
 
+      - name: "📨 בדיקת מערכת לידים (notify-lead)"
+        id: leads
+        run: |
+          # Health probe — confirms the lead endpoint is live AND Brevo is configured,
+          # without sending a real email. Catches the silent "leads vanish" failure.
+          RESP=$(curl -s --max-time 15 "https://eliavafar.co.il/api/notify-lead?health=1" 2>/dev/null)
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 "https://eliavafar.co.il/api/notify-lead?health=1" 2>/dev/null)
+          BREVO=$(echo "$RESP" | jq -r '.brevoConfigured // false' 2>/dev/null)
+
+          if [ "$CODE" = "200" ] && [ "$BREVO" = "true" ]; then
+            echo "status=✅ endpoint לידים תקין + Brevo מוגדר (פניות מהאתר יישלחו)" >> $GITHUB_OUTPUT
+            echo "problem=false" >> $GITHUB_OUTPUT
+          elif [ "$CODE" = "200" ] && [ "$BREVO" != "true" ]; then
+            echo "status=🚨 endpoint עונה אבל BREVO_API_KEY חסר — לידים לא יישלחו!" >> $GITHUB_OUTPUT
+            echo "problem=true" >> $GITHUB_OUTPUT
+          else
+            echo "status=🚨 endpoint הלידים לא תקין (HTTP ${CODE}) — ייתכן שפניות נופלות!" >> $GITHUB_OUTPUT
+            echo "problem=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: "📋 יצירת דוח Issue"
         id: create_issue
         uses: actions/github-script@v9
@@ -544,9 +564,11 @@ jobs:
             const linksDetails = `${{ steps.links.outputs.details }}`;
             const redirectsStatus = `${{ steps.redirects.outputs.status }}`;
             const securityStatus = `${{ steps.security.outputs.status }}`;
+            const leadsStatus = `${{ steps.leads.outputs.status }}`;
 
             const hasProblems = failCount !== '0' ||
               `${{ steps.ssl.outputs.urgent }}` === 'true' ||
+              `${{ steps.leads.outputs.problem }}` === 'true' ||
               linksStatus.includes('❌');
             const urgencyTag = hasProblems ? '🚨 ' : '';
 
@@ -643,6 +665,9 @@ jobs:
               '| קובץ | סטטוס |',
               '|------|-------|',
               `${{ steps.infra.outputs.results }}`,
+              '',
+              '### 📨 מערכת לידים (פניות מהאתר)',
+              leadsStatus,
               '',
               '### 🔒 אבטחה',
               `**SSL:** ${sslStatus}`,
@@ -753,6 +778,7 @@ jobs:
               <div style="background:#16213e;padding:16px;border-radius:8px;margin-bottom:16px">
                 <h3 style="color:#F97316;margin-top:0">📋 סטטוס</h3>
                 <p>🌐 דפים: ${{ steps.pages.outputs.status }}</p>
+                <p>📨 לידים: ${{ steps.leads.outputs.status }}</p>
                 <p>🔒 SSL: ${{ steps.ssl.outputs.status }}</p>
                 <p>🔄 Redirects: ${{ steps.redirects.outputs.status }}</p>
                 <p>🔗 לינקים: ${{ steps.links.outputs.status }}</p>

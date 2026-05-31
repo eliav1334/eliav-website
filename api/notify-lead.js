@@ -8,6 +8,18 @@ module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
+
+  // Lightweight health probe for monitoring (daily/weekly checks).
+  // Confirms the function is deployed AND the Brevo key is configured —
+  // catches the silent "leads vanish" failure class without sending a real email.
+  if (req.method === 'GET' && (req.query?.health === '1' || /[?&]health=1/.test(req.url || ''))) {
+    return res.status(200).json({
+      ok: true,
+      service: 'notify-lead',
+      brevoConfigured: !!process.env.BREVO_API_KEY
+    });
+  }
+
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const body = req.body || {};

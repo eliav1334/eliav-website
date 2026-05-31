@@ -117,6 +117,34 @@ async function checkPerf() {
   return time > 2000 ? 1 : 0;
 }
 
+// Lead pipeline health — pings the notify-lead endpoint's health probe.
+// This is the silent-failure class we got burned by: forms returned 200 but
+// emails never arrived. A daily ping catches a broken/misconfigured endpoint.
+async function checkLeadEndpoint() {
+  console.log(`\n=== מערכת לידים (notify-lead) ===`);
+  try {
+    const res = await fetch(SITE + '/api/notify-lead?health=1');
+    if (res.status !== 200) {
+      console.log(`❌ ALERT: endpoint הלידים החזיר ${res.status} (צפוי 200)`);
+      return 1;
+    }
+    const data = await res.json().catch(() => ({}));
+    if (!data.ok) {
+      console.log(`❌ ALERT: endpoint הלידים החזיר תשובה לא תקינה: ${JSON.stringify(data)}`);
+      return 1;
+    }
+    if (!data.brevoConfigured) {
+      console.log(`❌ ALERT: BREVO_API_KEY חסר בשרת — לידים לא יישלחו!`);
+      return 1;
+    }
+    console.log(`✅ endpoint הלידים תקין + Brevo מוגדר`);
+    return 0;
+  } catch (err) {
+    console.log(`❌ ALERT: endpoint הלידים לא נגיש: ${err.message}`);
+    return 1;
+  }
+}
+
 async function checkSSL() {
   console.log(`\n=== SSL ===`);
   const { headers } = await fetchStatus(SITE);
@@ -187,6 +215,7 @@ async function main() {
     await checkSchema(),
     await checkPerf(),
     await checkSSL(),
+    await checkLeadEndpoint(),
     await checkLighthouse(),
   ].reduce((a, b) => a + b, 0);
 
