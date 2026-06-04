@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "check-site": "node scripts/check-site.mjs"
+    "check-site": "node scripts/check-site.mjs",
+    "build:critical-css": "node scripts/gen-critical-css.cjs"
   },
   "repository": {
     "type": "git",
