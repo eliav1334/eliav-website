@@ -374,7 +374,10 @@ document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
 // ===== LEAD CAPTURE POPUP =====
 (function() {
   var POPUP_KEY = 'aa_popup_shown';
-  var POPUP_DELAY = 45000; // 45 seconds
+  var isMobile = window.matchMedia('(max-width: 768px)').matches;
+  var POPUP_DELAY = isMobile ? 30000 : 45000; // mobile visitors decide faster
+  var popupShown = false;
+  var engaged = false;
 
   // Don't show on thanks page or contact page
   if (location.pathname === '/thanks' || location.pathname === '/contact') return;
@@ -382,7 +385,16 @@ document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
   var lastShown = localStorage.getItem(POPUP_KEY);
   if (lastShown && Date.now() - parseInt(lastShown) < 7 * 24 * 60 * 60 * 1000) return;
 
-  setTimeout(function() {
+  // If the visitor already tapped call/WhatsApp, they're already converting — don't interrupt.
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a') : null;
+    var href = (a && a.getAttribute('href')) || '';
+    if (/^tel:|wa\.me|whatsapp/i.test(href)) engaged = true;
+  }, true);
+
+  function showPopup() {
+    if (popupShown || engaged) return;
+    popupShown = true;
     var overlay = document.createElement('div');
     overlay.id = 'lead-popup-overlay';
     overlay.innerHTML = '\
@@ -452,7 +464,20 @@ document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
         }
       });
     });
-  }, POPUP_DELAY);
+  }
+
+  // Triggers: timer always; on mobile also fire at 50% scroll depth (whichever first).
+  setTimeout(showPopup, POPUP_DELAY);
+  if (isMobile) {
+    var onScroll = function () {
+      var h = document.documentElement;
+      if ((window.scrollY + window.innerHeight) / h.scrollHeight >= 0.5) {
+        showPopup();
+        window.removeEventListener('scroll', onScroll);
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
 })();
 
 // ===== GA4 CLICK TRACKING =====
