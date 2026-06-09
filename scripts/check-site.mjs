@@ -165,6 +165,7 @@ async function fetchPSI(key) {
     perf: Math.round((data.lighthouseResult?.categories?.performance?.score ?? 0) * 100),
     lcpMs: data.lighthouseResult?.audits?.['largest-contentful-paint']?.numericValue ?? 0,
     fcpMs: data.lighthouseResult?.audits?.['first-contentful-paint']?.numericValue ?? 0,
+    cls: data.lighthouseResult?.audits?.['cumulative-layout-shift']?.numericValue ?? 0,
     fieldLcp: data.loadingExperience?.metrics?.LARGEST_CONTENTFUL_PAINT_MS?.category || null,
   };
 }
@@ -195,23 +196,29 @@ async function checkLighthouse() {
   const lcpMs = median(samples.map((s) => s.lcpMs));
   const lcpS = (lcpMs / 1000).toFixed(1);
   const fcpS = (median(samples.map((s) => s.fcpMs)) / 1000).toFixed(1);
+  const cls = median(samples.map((s) => s.cls));
   const field = samples.map((s) => s.fieldLcp).find(Boolean) || 'no field data';
   const fieldGood = samples.some((s) => s.fieldLcp === 'FAST' || s.fieldLcp === 'AVERAGE');
 
   const perfIcon = perf >= 70 ? '✅' : perf >= 50 ? '🟡' : '❌';
   const lcpIcon = lcpMs <= 4000 ? '✅' : lcpMs <= 5000 ? '🟡' : '❌';
+  const clsIcon = cls <= 0.1 ? '✅' : cls <= 0.25 ? '🟡' : '❌';
   console.log(`${perfIcon} Performance (median of ${samples.length}): ${perf}/100`);
   console.log(`${lcpIcon} LCP (median): ${lcpS}s  (lab; יעד ≤4s, קריטי >5s)`);
+  console.log(`${clsIcon} CLS (median): ${cls.toFixed(3)}  (יעד ≤0.1, קריטי >0.25)`);
   console.log(`   FCP (median): ${fcpS}s | CrUX field LCP (real users): ${field}`);
 
-  // Real users (CrUX) override noisy lab numbers.
-  if (fieldGood && (perf < 50 || lcpMs > 5000)) {
-    console.log('ℹ️  Lab numbers noisy this run, but CrUX field data is OK — no alert.');
-    return 0;
-  }
   let fails = 0;
-  if (perf < 50) { console.log(`❌ ALERT: Performance median ${perf} < 50 (קריטי)`); fails++; }
-  if (lcpMs > 5000) { console.log(`❌ ALERT: LCP median ${lcpS}s > 5s (קריטי)`); fails++; }
+  // CLS regression guard — ALWAYS checked. This is the bug class that once slipped
+  // through (critical-CSS swap shifted layout to CLS 1.0, caught only days later).
+  if (cls > 0.25) { console.log(`❌ ALERT: CLS median ${cls.toFixed(3)} > 0.25 (קפיצות עיצוב חמורות)`); fails++; }
+  // LCP/perf: real-user CrUX data overrides noisy single-run lab numbers.
+  if (fieldGood && (perf < 50 || lcpMs > 5000)) {
+    console.log('ℹ️  Lab LCP/perf noisy this run, but CrUX field data is OK — no alert.');
+  } else {
+    if (perf < 50) { console.log(`❌ ALERT: Performance median ${perf} < 50 (קריטי)`); fails++; }
+    if (lcpMs > 5000) { console.log(`❌ ALERT: LCP median ${lcpS}s > 5s (קריטי)`); fails++; }
+  }
   return fails;
 }
 
