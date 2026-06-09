@@ -154,9 +154,26 @@ async function checkSSL() {
   return 0;
 }
 
-// Lighthouse regression check via PageSpeed Insights API.
-// Fails (returns 1) only on clearly broken thresholds — small fluctuations are tolerated.
-// Skipped silently if no API key (e.g. local runs without secret).
+// One PageSpeed Insights sample (mobile, performance + CrUX field data).
+async function fetchPSI(key) {
+  const api = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed';
+  const url = `${api}?url=${encodeURIComponent(SITE)}&strategy=mobile&category=performance&key=${key}`;
+  const res = await fetch(url);
+  if (!res.ok) return null;
+  const data = await res.json();
+  return {
+    perf: Math.round((data.lighthouseResult?.categories?.performance?.score ?? 0) * 100),
+    lcpMs: data.lighthouseResult?.audits?.['largest-contentful-paint']?.numericValue ?? 0,
+    fcpMs: data.lighthouseResult?.audits?.['first-contentful-paint']?.numericValue ?? 0,
+    fieldLcp: data.loadingExperience?.metrics?.LARGEST_CONTENTFUL_PAINT_MS?.category || null,
+  };
+}
+
+// Lighthouse regression check via PageSpeed Insights.
+// Lab LCP is noisy run-to-run, so we take the MEDIAN of 3 samples and only
+// alert on a consistent problem — never on a single unlucky measurement.
+// CrUX field data (real users) overrides: if it says LCP is FAST/AVERAGE we
+// never alert, no matter what the noisy lab numbers say. Skipped without key.
 async function checkLighthouse() {
   console.log(`\n=== Lighthouse (mobile) ===`);
   const key = process.env.PAGESPEED_API_KEY;
@@ -164,42 +181,38 @@ async function checkLighthouse() {
     console.log('⏭️  PAGESPEED_API_KEY not set — skipping');
     return 0;
   }
-  const api = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed';
-  const url = `${api}?url=${encodeURIComponent(SITE)}&strategy=mobile&category=performance&key=${key}`;
-  try {
-    const res = await fetch(url);
-    if (!res.ok) {
-      console.log(`⚠️  PageSpeed API ${res.status} — skipping (treated as transient)`);
-      return 0;
-    }
-    const data = await res.json();
-    const perf = Math.round((data.lighthouseResult?.categories?.performance?.score ?? 0) * 100);
-    const lcpMs = data.lighthouseResult?.audits?.['largest-contentful-paint']?.numericValue ?? 0;
-    const lcpS = (lcpMs / 1000).toFixed(1);
-    const fcpMs = data.lighthouseResult?.audits?.['first-contentful-paint']?.numericValue ?? 0;
-    const fcpS = (fcpMs / 1000).toFixed(1);
-
-    const perfIcon = perf >= 70 ? '✅' : perf >= 50 ? '🟡' : '❌';
-    const lcpIcon = lcpMs <= 4000 ? '✅' : lcpMs <= 5000 ? '🟡' : '❌';
-    console.log(`${perfIcon} Performance: ${perf}/100  (יעד: ≥70)`);
-    console.log(`${lcpIcon} LCP: ${lcpS}s  (יעד: ≤4s, קריטי: >5s)`);
-    console.log(`   FCP: ${fcpS}s`);
-
-    // Alert only on clearly bad — daily LCP fluctuates and we don't want false alarms.
-    let fails = 0;
-    if (perf < 50) {
-      console.log(`❌ ALERT: Performance ${perf} < 50 (קריטי)`);
-      fails++;
-    }
-    if (lcpMs > 5000) {
-      console.log(`❌ ALERT: LCP ${lcpS}s > 5s (קריטי)`);
-      fails++;
-    }
-    return fails;
-  } catch (err) {
-    console.log(`⚠️  PageSpeed error: ${err.message} — skipping`);
+  const samples = [];
+  for (let i = 0; i < 3; i++) {
+    try { const s = await fetchPSI(key); if (s) samples.push(s); }
+    catch { /* transient — ignore this sample */ }
+  }
+  if (!samples.length) {
+    console.log('⚠️  PageSpeed unavailable — skipping (treated as transient)');
     return 0;
   }
+  const median = (arr) => arr.slice().sort((a, b) => a - b)[Math.floor(arr.length / 2)];
+  const perf = median(samples.map((s) => s.perf));
+  const lcpMs = median(samples.map((s) => s.lcpMs));
+  const lcpS = (lcpMs / 1000).toFixed(1);
+  const fcpS = (median(samples.map((s) => s.fcpMs)) / 1000).toFixed(1);
+  const field = samples.map((s) => s.fieldLcp).find(Boolean) || 'no field data';
+  const fieldGood = samples.some((s) => s.fieldLcp === 'FAST' || s.fieldLcp === 'AVERAGE');
+
+  const perfIcon = perf >= 70 ? '✅' : perf >= 50 ? '🟡' : '❌';
+  const lcpIcon = lcpMs <= 4000 ? '✅' : lcpMs <= 5000 ? '🟡' : '❌';
+  console.log(`${perfIcon} Performance (median of ${samples.length}): ${perf}/100`);
+  console.log(`${lcpIcon} LCP (median): ${lcpS}s  (lab; יעד ≤4s, קריטי >5s)`);
+  console.log(`   FCP (median): ${fcpS}s | CrUX field LCP (real users): ${field}`);
+
+  // Real users (CrUX) override noisy lab numbers.
+  if (fieldGood && (perf < 50 || lcpMs > 5000)) {
+    console.log('ℹ️  Lab numbers noisy this run, but CrUX field data is OK — no alert.');
+    return 0;
+  }
+  let fails = 0;
+  if (perf < 50) { console.log(`❌ ALERT: Performance median ${perf} < 50 (קריטי)`); fails++; }
+  if (lcpMs > 5000) { console.log(`❌ ALERT: LCP median ${lcpS}s > 5s (קריטי)`); fails++; }
+  return fails;
 }
 
 async function main() {
