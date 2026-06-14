@@ -219,15 +219,26 @@ jobs:
             fi
           }
 
-          echo "--- PageSpeed: Mobile ---"
+          echo "--- PageSpeed: Mobile (median of 3 — lab LCP is noisy run-to-run) ---"
           MOBILE=$(fetch_pagespeed "mobile" "$URL")
+          MOBILE2=$(fetch_pagespeed "mobile" "$URL")
+          MOBILE3=$(fetch_pagespeed "mobile" "$URL")
+          med() { printf '%s\n' "$@" | grep -v '^$' | sort -n | awk '{a[NR]=$0} END{if(NR)print a[int((NR+1)/2)]}'; }
+          P1=$(echo "$MOBILE"  | jq -r '.lighthouseResult.categories.performance.score // empty' 2>/dev/null)
+          P2=$(echo "$MOBILE2" | jq -r '.lighthouseResult.categories.performance.score // empty' 2>/dev/null)
+          P3=$(echo "$MOBILE3" | jq -r '.lighthouseResult.categories.performance.score // empty' 2>/dev/null)
+          L1=$(echo "$MOBILE"  | jq -r '.lighthouseResult.audits["largest-contentful-paint"].numericValue // empty' 2>/dev/null)
+          L2=$(echo "$MOBILE2" | jq -r '.lighthouseResult.audits["largest-contentful-paint"].numericValue // empty' 2>/dev/null)
+          L3=$(echo "$MOBILE3" | jq -r '.lighthouseResult.audits["largest-contentful-paint"].numericValue // empty' 2>/dev/null)
+          MED_P=$(med "$P1" "$P2" "$P3")
+          MED_L=$(med "$L1" "$L2" "$L3")
 
-          MOBILE_PERF=$(to_percent "$(echo "$MOBILE" | jq -r '.lighthouseResult.categories.performance.score // empty' 2>/dev/null)")
+          MOBILE_PERF=$(to_percent "$MED_P")
           MOBILE_A11Y=$(to_percent "$(echo "$MOBILE" | jq -r '.lighthouseResult.categories.accessibility.score // empty' 2>/dev/null)")
           MOBILE_SEO=$(to_percent "$(echo "$MOBILE" | jq -r '.lighthouseResult.categories.seo.score // empty' 2>/dev/null)")
           MOBILE_BP=$(to_percent "$(echo "$MOBILE" | jq -r '.lighthouseResult.categories["best-practices"].score // empty' 2>/dev/null)")
 
-          MOBILE_LCP=$(echo "$MOBILE" | jq -r '.lighthouseResult.audits["largest-contentful-paint"].displayValue // "N/A"' 2>/dev/null)
+          if [ -n "$MED_L" ]; then MOBILE_LCP=$(awk "BEGIN{printf \"%.1f s\", $MED_L/1000}"); else MOBILE_LCP=$(echo "$MOBILE" | jq -r '.lighthouseResult.audits["largest-contentful-paint"].displayValue // "N/A"' 2>/dev/null); fi
           MOBILE_FCP=$(echo "$MOBILE" | jq -r '.lighthouseResult.audits["first-contentful-paint"].displayValue // "N/A"' 2>/dev/null)
           MOBILE_TBT=$(echo "$MOBILE" | jq -r '.lighthouseResult.audits["total-blocking-time"].displayValue // "N/A"' 2>/dev/null)
           MOBILE_CLS=$(echo "$MOBILE" | jq -r '.lighthouseResult.audits["cumulative-layout-shift"].displayValue // "N/A"' 2>/dev/null)
