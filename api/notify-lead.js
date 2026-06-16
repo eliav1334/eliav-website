@@ -35,6 +35,19 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'Name or phone required' });
   }
 
+  // --- Spam filter: block B2B solicitation that floods contact forms ---
+  // A real drilling lead is a name + Israeli phone + a short Hebrew note; it
+  // never contains a link or marketing-pitch language. Silently drop those so
+  // they never reach the inbox (and the FormSubmit fallback stays quiet).
+  const honeypot = String(body._honey || body._gotcha || '').trim();
+  const linkRe = /(https?:\/\/|www\.|bit\.ly|tinyurl|goo\.gl|t\.me\b|calendar\.app|calendly\.com|wa\.me\/)/i;
+  const pitchRe = /(revenue share|partnership|back[- ]?link|\bseo\b|web (?:design|development)|software (?:development|house|agency)|digital marketing|lead generation|grow your (?:business|revenue)|cold (?:email|outreach)|\bcrypto\b|invest(?:ment)? opportunity|חלוקת הכנסות|שיתוף פעולה עסקי|קידום אתרים|בניית אתרים|שיווק דיגיטלי|לידים בחינם)/i;
+  const isSpam = !!honeypot || linkRe.test(`${name} ${message}`) || pitchRe.test(`${name} ${message} ${service}`);
+  if (isSpam) {
+    console.log('[notify-lead] spam filtered:', JSON.stringify({ name, hasLink: linkRe.test(`${name} ${message}`), honeypot: !!honeypot }));
+    return res.status(200).json({ success: true, filtered: true });
+  }
+
   const apiKey = process.env.BREVO_API_KEY;
   if (!apiKey) return res.status(500).json({ error: 'Server configuration error' });
 
