@@ -32,6 +32,7 @@
     { "source": "/earthworks", "destination": "/earthworks.html" },
     { "source": "/equipment-rental", "destination": "/equipment-rental.html" },
     { "source": "/drainage-pits", "destination": "/drainage-pits.html" },
+    { "source": "/drainage-calculator", "destination": "/drainage-calculator.html" },
     { "source": "/contact", "destination": "/contact.html" },
     { "source": "/thanks", "destination": "/thanks.html" },
     { "source": "/blog", "destination": "/blog.html" },

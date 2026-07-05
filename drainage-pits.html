@@ -408,6 +408,27 @@
     </div>
   </section>
 
+  <!-- Price Calculator -->
+  <section class="service-content">
+    <div class="container">
+      <div class="section-header">
+        <h2>מחשבון מחיר לבור חלחול</h2>
+        <p>בדקו כמה יעלה בור חלחול בבית שלכם — אומדן מיידי, ללא התחייבות.</p>
+      </div>
+      <iframe id="pitCalc" src="drainage-calculator.html" title="מחשבון מחיר לבור חלחול" loading="lazy" scrolling="no" style="width:100%;max-width:640px;margin:0 auto;border:0;display:block;height:560px;transition:height .25s ease;overflow:hidden"></iframe>
+    </div>
+    <script>
+      (function(){
+        var f=document.getElementById('pitCalc');
+        window.addEventListener('message',function(e){
+          if(e&&e.data&&typeof e.data.pcHeight==='number'&&e.data.pcHeight>200){
+            f.style.height=(e.data.pcHeight+8)+'px';
+          }
+        });
+      })();
+    </script>
+  </section>
+
   <!-- Service Gallery -->
   <section class="service-gallery">
     <div class="container">
