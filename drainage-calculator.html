@@ -313,6 +313,8 @@
           +(nm?'• שם: '+nm+'\n':'')+(ph?'• טלפון: '+ph+'\n':'')+'אשמח לקבל הצעת מחיר מדויקת. תודה!';
     window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg),'_blank','noopener');});
 
+  // when embedded in a page, hide the internal header to avoid a duplicate title
+  if(window.self!==window.top){var _h=document.querySelector('.head');if(_h)_h.style.display='none';}
   // iframe auto-height
   if('ResizeObserver' in window){new ResizeObserver(reportH).observe(document.body);}
   window.addEventListener('load',reportH);
