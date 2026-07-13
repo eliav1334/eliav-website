@@ -38,9 +38,16 @@ module.exports = async function handler(req, res) {
   // Build contact attributes
   const attributes = {};
   if (contactName) attributes.FIRSTNAME = contactName;
+
+  // Brevo's phone attributes want international format.
+  let intlPhone = '';
   if (contactPhone) {
-    const cleanPhone = contactPhone.replace(/[\s\-()]/g, '');
-    attributes.PHONE = cleanPhone.replace(/^0/, '+972');
+    const digits = String(contactPhone).replace(/\D/g, '');
+    if (digits) {
+      intlPhone = '+' + (digits.startsWith('0') ? '972' + digits.slice(1) : digits);
+      attributes.PHONE = intlPhone;
+      attributes.SMS = intlPhone;
+    }
   }
   if (contactSource) attributes.SOURCE = contactSource;
 
@@ -50,7 +57,13 @@ module.exports = async function handler(req, res) {
     attributes
   };
 
+  // Brevo needs an IDENTIFIER, not just attributes. We made email optional on the
+  // forms for conversion, so most leads arrive phone-only — and those were being
+  // POSTed with no identifier at all, which Brevo rejects. The lead still reached
+  // the owner (that's /api/notify-lead, a separate path), but the contact never
+  // made it into the list. Fall back to the phone as ext_id so it does.
   if (contactEmail) brevoBody.email = contactEmail;
+  else if (intlPhone) brevoBody.ext_id = intlPhone;
 
   try {
     const response = await fetch('https://api.brevo.com/v3/contacts', {

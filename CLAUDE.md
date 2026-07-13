@@ -288,9 +288,7 @@ All pages use: `style.min.css?v=1772308892` — when updating CSS, change this v
 ### SEO טכני
 | # | משימה | סטטוס |
 |---|--------|--------|
-| 1 | **Image optimization** — homepage-project + hero-new-2/3 | ✅ הושלם 30/04/2026 (~312KB נחסך, q=70-75) |
 | 2 | **Contrast ratio fix** — כפתורי מובייל (sticky-bar, mobile-cta) | ⏸️ דורש אישור אליאב (שינוי ויזואלי) |
-| 3 | **Node.js 24** — GitHub Actions deprecation ב-02/06/2026 | ✅ הושלם 30/04/2026 (github-script v9, action-send-mail v17) |
 
 ### שיווק (דורש פעולה של אליאב)
 | # | משימה | סטטוס |
