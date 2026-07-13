@@ -419,6 +419,7 @@ window.__aaPopupBlocked = function () {
         <h3>רוצים הצעת מחיר?</h3>\
         <p>השאירו פרטים ונחזור אליכם תוך שעות</p>\
         <form id="lead-popup-form">\
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">\
           <input type="text" name="name" placeholder="שם מלא" required>\
           <input type="tel" name="phone" placeholder="טלפון *" required>\
           <input type="email" name="email" placeholder="אימייל (לא חובה)">\

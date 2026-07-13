@@ -2,7 +2,7 @@
 // when someone submits a form on the site. Replaces FormSubmit.co's plain look.
 // Uses Brevo's Transactional Email API (already provisioned for /api/subscribe).
 
-const { checkRateLimit } = require('../lib/rate-limit');
+const { checkRateLimit, checkOrigin } = require('../lib/rate-limit');
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'https://eliavafar.co.il');
@@ -24,7 +24,10 @@ module.exports = async function handler(req, res) {
 
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  // Throttle before touching Brevo — every accepted request costs a real email.
+  // Both guards run before anything touches Brevo — every accepted request costs a real email.
+  const badOrigin = checkOrigin(req);
+  if (badOrigin) return res.status(badOrigin.status).json(badOrigin.body);
+
   const limited = checkRateLimit(req);
   if (limited) {
     res.setHeader('Retry-After', String(limited.retryAfter));

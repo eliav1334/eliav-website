@@ -1,4 +1,4 @@
-const { checkRateLimit } = require('../lib/rate-limit');
+const { checkRateLimit, checkOrigin } = require('../lib/rate-limit');
 
 module.exports = async function handler(req, res) {
   // CORS headers
@@ -13,6 +13,9 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  const badOrigin = checkOrigin(req);
+  if (badOrigin) return res.status(badOrigin.status).json(badOrigin.body);
 
   const limited = checkRateLimit(req);
   if (limited) {
