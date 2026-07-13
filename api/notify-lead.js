@@ -2,6 +2,8 @@
 // when someone submits a form on the site. Replaces FormSubmit.co's plain look.
 // Uses Brevo's Transactional Email API (already provisioned for /api/subscribe).
 
+const { checkRateLimit } = require('../lib/rate-limit');
+
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'https://eliavafar.co.il');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -21,6 +23,13 @@ module.exports = async function handler(req, res) {
   }
 
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+  // Throttle before touching Brevo — every accepted request costs a real email.
+  const limited = checkRateLimit(req);
+  if (limited) {
+    res.setHeader('Retry-After', String(limited.retryAfter));
+    return res.status(limited.status).json(limited.body);
+  }
 
   const body = req.body || {};
   const name = (body.name || '').trim();
@@ -51,10 +60,13 @@ module.exports = async function handler(req, res) {
   const apiKey = process.env.BREVO_API_KEY;
   if (!apiKey) return res.status(500).json({ error: 'Server configuration error' });
 
-  // Build clean WhatsApp URL — international format, no leading zero
-  const cleanPhone = phone.replace(/[\s\-()]/g, '').replace(/^0/, '972');
-  const waUrl = cleanPhone ? `https://wa.me/${cleanPhone}` : '';
-  const telUrl = phone ? `tel:${phone.replace(/[\s\-()]/g, '')}` : '';
+  // Strip the phone to digits before it ever reaches an href. Stripping only
+  // spaces/dashes/parens left quotes intact, so a crafted "phone" could break
+  // out of the attribute and inject an event handler into the email we send
+  // ourselves. A phone number is digits — anything else is not a phone number.
+  const digits = String(phone).replace(/\D/g, '');
+  const waUrl = digits ? `https://wa.me/${digits.replace(/^0/, '972')}` : '';
+  const telUrl = digits ? `tel:${digits}` : '';
 
   // Israel time, formatted in Hebrew
   const now = new Date();
@@ -210,8 +222,11 @@ module.exports = async function handler(req, res) {
     });
 
     if (response.ok) return res.status(200).json({ success: true });
+    // Log Brevo's reason for us, but don't echo it to the caller — it can carry
+    // provider-internal detail (key state, quota) that a visitor has no business seeing.
     const data = await response.json().catch(() => ({}));
-    return res.status(response.status).json({ error: data.message || 'Brevo error' });
+    console.error('[notify-lead] brevo error:', response.status, data.message || '(no message)');
+    return res.status(502).json({ error: 'Failed to send notification' });
   } catch (err) {
     return res.status(500).json({ error: 'Failed to send notification' });
   }

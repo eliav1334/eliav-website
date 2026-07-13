@@ -376,6 +376,7 @@ document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
 // it hides the estimate the visitor came for and asks for the same phone number.
 window.__aaCalcEngaged = false;
 window.addEventListener('message', function (e) {
+  if (e.origin !== location.origin) return; // the calculator is same-origin; ignore anyone else
   if (e && e.data && e.data.pcEngaged) window.__aaCalcEngaged = true;
 });
 window.__aaPopupBlocked = function () {

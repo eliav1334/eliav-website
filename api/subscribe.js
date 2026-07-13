@@ -1,3 +1,5 @@
+const { checkRateLimit } = require('../lib/rate-limit');
+
 module.exports = async function handler(req, res) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', 'https://eliavafar.co.il');
@@ -10,6 +12,12 @@ module.exports = async function handler(req, res) {
 
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  const limited = checkRateLimit(req);
+  if (limited) {
+    res.setHeader('Retry-After', String(limited.retryAfter));
+    return res.status(limited.status).json(limited.body);
   }
 
   const body = req.body || {};
@@ -66,7 +74,8 @@ module.exports = async function handler(req, res) {
       return res.status(200).json({ success: true, existing: true });
     }
 
-    return res.status(response.status).json({ error: data.message || 'Brevo API error' });
+    console.error('[subscribe] brevo error:', response.status, data.message || '(no message)');
+    return res.status(502).json({ error: 'Failed to connect to email service' });
   } catch (error) {
     return res.status(500).json({ error: 'Failed to connect to email service' });
   }
