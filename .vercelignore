@@ -1,0 +1,32 @@
+# Files that belong in the repo but must never be served from eliavafar.co.il.
+#
+# Vercel serves this project as a static site, which means every file in the repo
+# was reachable over the public web — verified: docs/ISSUES-LOG.md, CLAUDE.md,
+# scripts/*.mjs and the CI workflows all returned 200. The issues log in particular
+# is a written record of this site's security findings; publishing it is a gift to
+# anyone poking at the forms.
+#
+# Anything listed here is excluded from the deployment upload only. It stays in git,
+# stays on disk, and stays available to GitHub Actions (which checks out the repo
+# rather than pulling from the deployment).
+#
+# Do NOT add lib/ here — api/notify-lead.js requires it at runtime, so excluding it
+# from the upload would break the lead pipeline.
+
+# Internal docs and agent instructions
+docs/
+CLAUDE.md
+.claude/
+
+# Tooling — run locally or in CI, never in the browser
+scripts/
+.github/
+check-rotation.js
+fix-images.js
+
+# Unminified sources. Pages load the .min versions; these are dead weight in prod.
+js/main.js
+css/style.css
+
+# Personal/business data that has no business being on a public web server
+טלפונים/
