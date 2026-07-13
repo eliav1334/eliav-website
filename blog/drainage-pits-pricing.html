@@ -374,15 +374,22 @@
         <p style="margin-top: 16px; padding: 16px; background: rgba(249, 115, 22, 0.08); border-radius: 10px; border-right: 4px solid #F97316;"><strong>שימו לב:</strong> המחירים המוצגים הם טווחים מקובלים בשוק ועשויים להשתנות בהתאם לתנאי הקרקע, נגישות האתר וכמות הבורות בפרויקט. לקבלת הצעת מחיר מדויקת ומפורטת, מומלץ לפנות אלינו עם פרטי הפרויקט.</p>
       </div>
 
-      <!-- CTA Box -->
-      <div class="cta-highlight" style="background: #F0F8FF; border: 2px solid rgba(0, 115, 168, 0.2); padding: 32px; border-radius: 16px; text-align: center; margin: 0 auto 40px; max-width: 900px;">
+      <!-- Price Calculator -->
+      <div class="cta-highlight" style="background: #F0F8FF; border: 2px solid rgba(0, 115, 168, 0.2); padding: 32px 24px; border-radius: 16px; text-align: center; margin: 0 auto 40px; max-width: 900px;">
         <h2 style="color: #1E293B; margin-bottom: 8px; font-size: 1.5rem;">רוצים לדעת כמה יעלה בור החלחול שלכם?</h2>
-        <p style="color: #64748B; margin-bottom: 20px; font-size: 1rem;">צוות המומחים שלנו יבצע הערכה מקצועית וימסור הצעת מחיר מפורטת ללא התחייבות</p>
-        <a href="../contact.html" class="btn btn-primary" style="padding: 12px 28px; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-          צרו קשר להצעת מחיר
-        </a>
+        <p style="color: #64748B; margin-bottom: 20px; font-size: 1rem;">הזינו עומק, קוטר וסוג קרקע — ותקבלו אומדן מיידי, ללא התחייבות</p>
+        <iframe id="pitCalc" src="../drainage-calculator.html" title="מחשבון מחיר לבור חלחול" loading="lazy" scrolling="no" style="width:100%;max-width:640px;margin:0 auto;border:0;display:block;height:560px;transition:height .25s ease;overflow:hidden"></iframe>
       </div>
+      <script>
+        (function(){
+          var f=document.getElementById('pitCalc');
+          window.addEventListener('message',function(e){
+            if(e&&e.data&&typeof e.data.pcHeight==='number'&&e.data.pcHeight>200){
+              f.style.height=(e.data.pcHeight+8)+'px';
+            }
+          });
+        })();
+      </script>
 
       <!-- Section 4: שלבי ביצוע בור חלחול -->
       <div class="service-detail-card" style="max-width: 900px; margin: 0 auto 40px;">

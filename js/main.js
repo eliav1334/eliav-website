@@ -371,6 +371,21 @@ document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
   });
 });
 
+// ===== POPUP GUARD: never cover the price calculator =====
+// The calculator IS a lead form. A popup on top of it competes with itself:
+// it hides the estimate the visitor came for and asks for the same phone number.
+window.__aaCalcEngaged = false;
+window.addEventListener('message', function (e) {
+  if (e && e.data && e.data.pcEngaged) window.__aaCalcEngaged = true;
+});
+window.__aaPopupBlocked = function () {
+  if (window.__aaCalcEngaged) return true; // visitor is mid-estimate — leave them alone
+  var f = document.getElementById('pitCalc');
+  if (!f) return false;
+  var r = f.getBoundingClientRect();
+  return r.top < window.innerHeight && r.bottom > 0; // calculator on screen → defer, don't cancel
+};
+
 // ===== LEAD CAPTURE POPUP =====
 (function() {
   var POPUP_KEY = 'aa_popup_shown';
@@ -393,7 +408,7 @@ document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
   }, true);
 
   function showPopup() {
-    if (popupShown || engaged) return;
+    if (popupShown || engaged || window.__aaPopupBlocked()) return;
     popupShown = true;
     var overlay = document.createElement('div');
     overlay.id = 'lead-popup-overlay';
@@ -561,7 +576,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function createScrollPopup() {
-    if (scrollPopupTriggered) return;
+    if (scrollPopupTriggered || window.__aaPopupBlocked()) return;
     scrollPopupTriggered = true;
     sessionStorage.setItem(SCROLL_POPUP_KEY, '1');
 

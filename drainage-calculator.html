@@ -237,7 +237,10 @@
   var revealed=false,calcTimer=null;
 
   function reportH(){try{parent.postMessage({pcHeight:document.documentElement.scrollHeight},'*');}catch(e){}}
-  function press(btn,grp){grp.querySelectorAll('.opt').forEach(function(b){b.setAttribute('aria-pressed','false')});btn.setAttribute('aria-pressed','true');}
+  // Tell the host page the visitor started an estimate, so it won't cover us with a lead popup.
+  var engagedSent=false;
+  function reportEngaged(){if(engagedSent)return;engagedSent=true;try{parent.postMessage({pcEngaged:true},'*');}catch(e){}}
+  function press(btn,grp){reportEngaged();grp.querySelectorAll('.opt').forEach(function(b){b.setAttribute('aria-pressed','false')});btn.setAttribute('aria-pressed','true');}
   function round100(n){return Math.round(n/100)*100;}
   function heb(n){return Math.round(n).toLocaleString('he-IL');}
   function countTo(el,to){var from=parseInt((el.textContent||'0').replace(/[^\d]/g,''))||0;
