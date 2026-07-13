@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "check-site": "node scripts/check-site.mjs",
-    "stamp": "node scripts/stamp-assets.mjs"
+    "stamp": "node scripts/stamp-assets.mjs",
+    "check-meta": "node scripts/check-meta.mjs"
   },
   "repository": {
     "type": "git",
