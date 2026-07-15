@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR לביקורות — להדפסה | א.א. עבודות קידוחים ופיתוח</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&family=Rubik:wght@600;700;800&display=swap">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Heebo',sans-serif;background:#eef2f7;color:#0B2C46;padding:30px 16px;display:flex;flex-direction:column;align-items:center;gap:22px}
+    .toolbar{max-width:420px;width:100%;text-align:center}
+    .toolbar p{color:#64748b;font-size:14px;margin-bottom:14px}
+    .print-btn{background:#0073a8;color:#fff;border:none;font-family:'Heebo';font-weight:700;font-size:16px;padding:13px 30px;border-radius:11px;cursor:pointer;box-shadow:0 8px 20px rgba(0,115,168,.3)}
+    .print-btn:hover{background:#005075}
+    /* The printable card */
+    .card{background:#fff;width:340px;border-radius:22px;padding:34px 30px 30px;text-align:center;box-shadow:0 16px 44px rgba(11,44,70,.16);border:1px solid #e2e8f0}
+    .brand{font-family:'Rubik',sans-serif;font-weight:800;font-size:17px;color:#0B2C46;line-height:1.35;margin-bottom:4px}
+    .tag{font-size:12.5px;color:#0073a8;font-weight:600;letter-spacing:.5px;margin-bottom:20px}
+    .stars{display:flex;gap:5px;justify-content:center;margin-bottom:14px}
+    .stars svg{width:26px;height:26px;color:#FBBF24}
+    h1{font-size:22px;font-weight:900;margin-bottom:6px}
+    .lead{font-size:14px;color:#475569;margin-bottom:20px}
+    .qr{width:220px;height:220px;margin:0 auto 16px;padding:12px;background:#fff;border:2px solid #eef2f7;border-radius:16px}
+    .qr img{width:100%;height:100%;display:block}
+    .scan{font-size:15px;font-weight:800;color:#0B2C46;margin-bottom:4px}
+    .url{font-family:'Rubik',sans-serif;font-size:13px;color:#0073a8;font-weight:700;direction:ltr}
+    .divider{height:1px;background:#eef2f7;margin:18px 0 14px}
+    .phone{font-size:13px;color:#64748b;direction:ltr}
+    @media print{
+      body{background:#fff;padding:0}
+      .toolbar{display:none}
+      .card{box-shadow:none;border:1px dashed #cbd5e1;margin:0 auto}
+      @page{margin:14mm}
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <p>זה הכרטיס להדפסה או צילום. לחצו "הדפס", או צלמו מסך ושלחו ללקוחות. אפשר גם להדביק על כרטיס ביקור / חשבונית / הרכב.</p>
+    <button class="print-btn" onclick="window.print()">🖨️ הדפס את הכרטיס</button>
+  </div>
+
+  <div class="card">
+    <div class="brand">א.א. עבודות קידוחים ופיתוח</div>
+    <div class="tag">קידוחים · עבודות עפר · פיתוח</div>
+    <div class="stars">
+      <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+    </div>
+    <h1>מרוצים מהעבודה?</h1>
+    <p class="lead">נשמח לדירוג קצר בגוגל — לוקח 20 שניות ועוזר לנו המון 🙏</p>
+    <div class="qr"><img src="/images/review-qr.svg" alt="קוד QR לדירוג בגוגל" width="220" height="220"></div>
+    <div class="scan">סרקו את הקוד עם המצלמה</div>
+    <div class="url">eliavafar.co.il/review</div>
+    <div class="divider"></div>
+    <div class="phone">☎ 052-9556123</div>
+  </div>
+</body>
+</html>

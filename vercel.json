@@ -55,7 +55,9 @@
     { "source": "/blog/equipment-rental-cost", "destination": "/blog/equipment-rental-cost.html" },
     { "source": "/about", "destination": "/about.html" },
     { "source": "/accessibility-statement", "destination": "/accessibility-statement.html" },
-    { "source": "/card", "destination": "/business-card.html" }
+    { "source": "/card", "destination": "/business-card.html" },
+    { "source": "/review", "destination": "/review.html" },
+    { "source": "/review-qr", "destination": "/review-qr.html" }
   ],
   "headers": [
     {
