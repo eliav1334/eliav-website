@@ -3655,11 +3655,15 @@
       margin: 0;
     }
 
+    /* NOT flex: a flex li splits "<strong>label</strong> — text" into two
+       separate flex items, so in RTL the trailing text wraps to its own line
+       and leaves a large gap after the bold label. Icon is absolutely placed
+       and the text flows as normal inline content — robust for any length. */
     .service-features li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
+      display: block;
+      position: relative;
       padding: 10px 0;
+      padding-inline-start: 32px;
       color: var(--text-secondary);
       font-size: 1rem;
       line-height: 1.6;
@@ -3669,7 +3673,9 @@
       width: 20px;
       height: 20px;
       min-width: 20px;
-      margin-top: 3px;
+      position: absolute;
+      inset-inline-start: 0;
+      top: 13px;
     }
 
     /* ===== SERVICE DETAIL: COLUMNS ===== */
