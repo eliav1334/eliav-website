@@ -2682,11 +2682,15 @@
       list-style: none;
     }
 
+    /* NOT flex: a flex li splits "<strong>label</strong> — text" into two
+       separate flex items, so in RTL the trailing text wraps to its own line
+       with a large gap after the bold label. Block + absolute icon lets the
+       text flow as normal inline content, robust for any length. (ISS-011) */
     .service-detail-card ul li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
+      display: block;
+      position: relative;
       padding: 10px 0;
+      padding-inline-start: 32px;
       color: var(--text-secondary);
       font-size: 1rem;
       line-height: 1.6;
@@ -2697,7 +2701,9 @@
       height: 20px;
       min-width: 20px;
       color: var(--success);
-      margin-top: 3px;
+      position: absolute;
+      inset-inline-start: 0;
+      top: 13px;
     }
 
     /* ===== MULTI-PAGE: SEO ARTICLE ===== */

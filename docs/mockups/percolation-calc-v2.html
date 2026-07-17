@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מחשבון מחיר לבור חלחול — מוקאפ V2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Rubik:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0073a8;
+    --primary-dark: #005075;
+    --primary-light: #3399cc;
+    --primary-alpha-10: rgba(0, 115, 168, 0.1);
+    --primary-alpha-20: rgba(0, 115, 168, 0.2);
+    --dark: #0F172A;
+    --dark-secondary: #1E293B;
+    --dark-tertiary: #334155;
+    --secondary-bg: #F1F5F9;
+    --secondary-border: #CBD5E1;
+    --success: #059669;
+    --success-bg: #ECFDF5;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-tertiary: #64748B;
+    --text-muted: #94A3B8;
+    --bg-white: #FFFFFF;
+    --bg-light: #F8FAFC;
+    --border-light: #F1F5F9;
+    --border-default: #E2E8F0;
+    --border-strong: #CBD5E1;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.04);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.06);
+    --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.12), 0 8px 10px -6px rgba(0,0,0,0.08);
+    --shadow-primary: 0 8px 16px rgba(0, 115, 168, 0.25);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-2xl: 24px;
+    --orange-grad: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+    --whatsapp: #0e7a33;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  *:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; border-radius: var(--radius-sm); }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+
+  body {
+    font-family: 'Heebo', sans-serif;
+    color: var(--text-primary);
+    line-height: 1.7;
+    background:
+      radial-gradient(1100px 500px at 85% -10%, var(--primary-alpha-10), transparent 60%),
+      var(--bg-light);
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    padding: 56px 20px 120px;
+  }
+
+  .calc-wrap { max-width: 1060px; margin: 0 auto; }
+
+  /* ===== Header ===== */
+  .calc-head { text-align: center; margin-bottom: 40px; }
+
+  .trust-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--bg-white);
+    border: 1px solid var(--border-default);
+    border-radius: 50px;
+    padding: 8px 18px;
+    font-size: .92rem; font-weight: 600; color: var(--text-secondary);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 20px;
+  }
+  .trust-badge svg { width: 17px; height: 17px; color: var(--primary); flex: none; }
+  .trust-badge b { color: var(--text-primary); font-weight: 700; }
+
+  .calc-head h1 {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.9rem, 4.4vw, 2.7rem);
+    line-height: 1.25;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+  }
+  .calc-head h1 em { font-style: normal; color: var(--primary); }
+  .calc-head p { color: var(--text-secondary); max-width: 560px; margin: 0 auto; font-size: 1.05rem; }
+
+  /* ===== Layout ===== */
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 28px;
+    align-items: start;
+  }
+
+  /* ===== Form card ===== */
+  .calc-form {
+    background: var(--bg-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-xl);
+    padding: 36px;
+  }
+
+  fieldset { border: 0; margin: 0 0 30px; }
+  fieldset:last-of-type { margin-bottom: 0; }
+  fieldset.is-disabled { opacity: .38; pointer-events: none; filter: saturate(.4); transition: opacity .3s; }
+
+  legend {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700; font-size: 1.12rem;
+    margin-bottom: 6px; width: 100%;
+  }
+  .step-num {
+    display: inline-flex; align-items: center; justify-content: center; flex: none;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--primary-alpha-10); color: var(--primary);
+    font-family: 'Heebo', sans-serif; font-size: .95rem; font-weight: 700;
+  }
+  .step-hint {
+    color: var(--text-tertiary); font-size: .9rem; font-weight: 400;
+    margin: 0 40px 14px 0;
+  }
+
+  /* option cards */
+  .opts { display: grid; gap: 12px; }
+  .opts.cols-2 { grid-template-columns: 1fr 1fr; }
+  .opts.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .opts.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+  .opt { position: relative; }
+  .opt label {
+    display: flex; flex-direction: column; gap: 2px;
+    min-height: 58px; height: 100%;
+    justify-content: center;
+    padding: 14px 16px;
+    background: var(--bg-white);
+    border: 2px solid var(--border-default);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: border-color .2s, background .2s, box-shadow .2s, transform .15s;
+    text-align: center;
+  }
+  .opt label:hover { border-color: var(--primary-light); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+  .opt .t { font-weight: 700; font-size: 1.02rem; line-height: 1.35; }
+  .opt .s { font-size: .84rem; color: var(--text-tertiary); line-height: 1.45; }
+
+  .opt input:checked + label {
+    border-color: var(--primary);
+    background: linear-gradient(180deg, rgba(0,115,168,.07), rgba(0,115,168,.11));
+    box-shadow: var(--shadow-primary);
+  }
+  .opt input:checked + label .t { color: var(--primary-dark); }
+
+  /* checkmark */
+  .opt label::after {
+    content: ''; position: absolute; top: -9px; inset-inline-start: -9px;
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--primary) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>') center/13px no-repeat;
+    border: 2.5px solid var(--bg-white);
+    transform: scale(0); opacity: 0;
+    transition: transform .22s cubic-bezier(.34,1.56,.64,1), opacity .15s;
+  }
+  .opt input:checked + label::after { transform: scale(1); opacity: 1; }
+
+  /* tag inside option (e.g. סטנדרט) */
+  .opt .tag {
+    position: absolute; bottom: -9px; right: 50%; transform: translateX(50%);
+    background: var(--success-bg); color: var(--success);
+    border: 1px solid rgba(5,150,105,.25);
+    font-size: .7rem; font-weight: 700; line-height: 1;
+    padding: 4px 9px; border-radius: 50px; white-space: nowrap;
+  }
+
+  /* ===== Price panel ===== */
+  .price-panel {
+    position: sticky; top: 24px;
+    background:
+      radial-gradient(500px 260px at 80% -60px, rgba(51,153,204,.28), transparent 65%),
+      linear-gradient(165deg, var(--dark-secondary), var(--dark) 70%);
+    color: #E2E8F0;
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-xl);
+    padding: 28px 28px 24px;
+    overflow: hidden;
+  }
+  .price-panel::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image: repeating-linear-gradient(0deg, rgba(148,163,184,.06) 0 1px, transparent 1px 26px);
+  }
+
+  .pp-label {
+    display: flex; align-items: center; gap: 8px;
+    font-size: .88rem; font-weight: 600; color: #94A3B8;
+    letter-spacing: .3px; margin-bottom: 4px;
+  }
+  .pp-label .dot { width: 8px; height: 8px; border-radius: 50%; background: #34D399; box-shadow: 0 0 0 4px rgba(52,211,153,.18); }
+
+  .pp-price {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 3.4vw, 2.55rem);
+    line-height: 1.15;
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 2px;
+    min-height: 1.2em;
+  }
+  .pp-price .range { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+  .pp-price .shekel { font-size: .62em; font-weight: 700; color: #7DD3FC; margin-inline-start: 6px; }
+  .pp-sub { font-size: .85rem; color: #94A3B8; margin-bottom: 18px; }
+
+  /* diagram */
+  .pp-diagram { margin: 4px 0 14px; position: relative; }
+  .pp-diagram svg { width: 100%; height: auto; display: block; }
+
+  .pp-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .pp-chips span {
+    background: rgba(148,163,184,.14);
+    border: 1px solid rgba(148,163,184,.22);
+    color: #CBD5E1;
+    font-size: .82rem; font-weight: 600;
+    padding: 5px 12px; border-radius: 50px;
+    transition: background .25s;
+  }
+
+  .pp-ctas { display: grid; gap: 10px; position: relative; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 14px 24px;
+    font-family: 'Heebo', sans-serif;
+    font-size: 1.02rem; font-weight: 700;
+    border-radius: var(--radius-md);
+    border: 2px solid transparent;
+    cursor: pointer; text-decoration: none;
+    transition: all .25s cubic-bezier(.4,0,.2,1);
+  }
+  .btn svg { width: 19px; height: 19px; flex: none; }
+  .btn-whatsapp { background: var(--whatsapp); color: #fff; border-color: var(--whatsapp); box-shadow: 0 6px 16px rgba(37,211,102,.3); }
+  .btn-whatsapp:hover { background: #1ea952; border-color: #1ea952; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,211,102,.4); }
+  .btn-call { background: transparent; color: #E2E8F0; border-color: rgba(226,232,240,.35); }
+  .btn-call:hover { border-color: #7DD3FC; color: #7DD3FC; transform: translateY(-2px); }
+
+  .pp-note {
+    margin-top: 14px; font-size: .8rem; color: #94A3B8; text-align: center; position: relative;
+  }
+  .pp-note b { color: #CBD5E1; }
+
+  /* personal quote state (בור החדרה) */
+  .pp-personal { display: none; }
+  .price-panel.mode-personal .pp-estimate { display: none; }
+  .price-panel.mode-personal .pp-personal { display: block; }
+  .pp-personal h3 {
+    font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 1.35rem; color: #fff;
+    margin: 6px 0 8px;
+  }
+  .pp-personal p { font-size: .92rem; color: #CBD5E1; margin-bottom: 18px; }
+
+  /* ===== lead strip ===== */
+  .lead-strip {
+    grid-column: 1 / -1;
+    background: var(--bg-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    padding: 26px 30px;
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+  }
+  .lead-strip .txt { flex: 1 1 260px; }
+  .lead-strip h2 { font-family: 'Rubik', sans-serif; font-size: 1.25rem; font-weight: 700; margin-bottom: 2px; }
+  .lead-strip p { color: var(--text-tertiary); font-size: .92rem; }
+  .lead-strip form { display: flex; gap: 10px; flex: 2 1 420px; flex-wrap: wrap; }
+  .lead-strip input {
+    flex: 1 1 150px; min-height: 50px;
+    font: inherit; font-size: 1rem;
+    padding: 0 16px;
+    border: 2px solid var(--border-default);
+    border-radius: var(--radius-md);
+    background: var(--bg-light);
+    transition: border-color .2s;
+  }
+  .lead-strip input:focus { border-color: var(--primary); outline: none; background: #fff; }
+  .btn-primary {
+    background: var(--orange-grad); color: #fff;
+    border: 2px solid #FF6B35;
+    box-shadow: 0 8px 16px rgba(255,107,53,.3);
+    flex: 0 0 auto; min-height: 50px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(255,107,53,.4); }
+
+  /* ===== mobile sticky bar ===== */
+  .mobile-bar {
+    display: none;
+    position: fixed; bottom: 0; right: 0; left: 0; z-index: 50;
+    background: rgba(15,23,42,.97);
+    backdrop-filter: blur(8px);
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    box-shadow: 0 -8px 24px rgba(0,0,0,.25);
+    align-items: center; gap: 14px;
+  }
+  .mobile-bar .mb-price { flex: 1; color: #fff; line-height: 1.3; }
+  .mobile-bar .mb-price .l { display: block; font-size: .72rem; color: #94A3B8; font-weight: 600; }
+  .mobile-bar .mb-price .v { font-family: 'Rubik', sans-serif; font-weight: 800; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+  .mobile-bar .mb-price .v .range { direction: ltr; unicode-bidi: isolate; }
+  .mobile-bar .btn { padding: 12px 20px; font-size: .95rem; }
+
+  @media (max-width: 900px) {
+    body { padding: 36px 14px 130px; }
+    .calc-grid { grid-template-columns: 1fr; }
+    .price-panel { position: static; }
+    .calc-form { padding: 24px 18px; }
+    .opts.cols-4 { grid-template-columns: 1fr 1fr; }
+    .opts.cols-3 { grid-template-columns: 1fr 1fr; }
+    .opts.cols-2 { grid-template-columns: 1fr; }
+    .mobile-bar { display: flex; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="calc-wrap">
+
+  <header class="calc-head">
+    <span class="trust-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 7.7l5.4-.8z"/></svg>
+      א.א. קידוחים ופיתוח · <b>קבלן רשום 36281</b>
+    </span>
+    <h1>מחשבון מחיר <em>לבור חלחול</em></h1>
+    <p>הזינו את נתוני הקידוח וקבלו אומדן מחיר מיידי — מבוסס על מחירון א.א. קידוחים ופיתוח וניסיון של למעלה מ־10 שנים בתחום.</p>
+  </header>
+
+  <div class="calc-grid">
+
+    <!-- ============ FORM ============ -->
+    <form class="calc-form" id="calcForm" novalidate>
+
+      <fieldset>
+        <legend><span class="step-num">1</span> סוג הבור</legend>
+        <div class="opts cols-2">
+          <div class="opt">
+            <input type="radio" name="pitType" id="pt1" value="percolation" class="sr-only" checked>
+            <label for="pt1">
+              <span class="t">בור חלחול לבית פרטי</span>
+              <span class="s">ניקוז מי גשם וספיגה לקרקע</span>
+            </label>
+          </div>
+          <div class="opt">
+            <input type="radio" name="pitType" id="pt2" value="infiltration" class="sr-only">
+            <label for="pt2">
+              <span class="t">בור החדרת מי נגר</span>
+              <span class="s">לפי נספח ניקוז / יועץ קרקע</span>
+            </label>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset id="fsDepth">
+        <legend><span class="step-num">2</span> עומק קידוח</legend>
+        <p class="step-hint">עומק הקידוח נקבע לפי תנאי הקרקע במגרש — היעד הוא חדירה של כ־2 מ׳ לפחות אל תוך שכבת החול המחלחלת.</p>
+        <div class="opts cols-2">
+          <div class="opt">
+            <input type="radio" name="depth" id="d6" value="6" class="sr-only" checked>
+            <label for="d6"><span class="t">6 מ׳</span><span class="s">מתאים לרוב המגרשים</span></label>
+          </div>
+          <div class="opt">
+            <input type="radio" name="depth" id="d12" value="12" class="sr-only">
+            <label for="d12"><span class="t">12 מ׳</span><span class="s">כאשר שכבת החול עמוקה יותר</span></label>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset id="fsDiam">
+        <legend><span class="step-num">3</span> קוטר הקידוח</legend>
+        <div class="opts cols-4">
+          <div class="opt">
+            <input type="radio" name="diam" id="q40" value="40" class="sr-only">
+            <label for="q40"><span class="t">40 ס״מ</span><span class="tag">סטנדרט</span></label>
+          </div>
+          <div class="opt">
+            <input type="radio" name="diam" id="q50" value="50" class="sr-only" checked>
+            <label for="q50"><span class="t">50 ס״מ</span></label>
+          </div>
+          <div class="opt">
+            <input type="radio" name="diam" id="q60" value="60" class="sr-only">
+            <label for="q60"><span class="t">60 ס״מ</span></label>
+          </div>
+          <div class="opt">
+            <input type="radio" name="diam" id="q70" value="70" class="sr-only">
+            <label for="q70"><span class="t">70 ס״מ</span></label>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset id="fsSoil">
+        <legend><span class="step-num">4</span> סוג הקרקע</legend>
+        <p class="step-hint">סוג הקרקע משפיע על קצב החלחול ועל אופן ביצוע הקידוח.</p>
+        <div class="opts cols-3">
+          <div class="opt">
+            <input type="radio" name="soil" id="s1" value="sand" class="sr-only">
+            <label for="s1"><span class="t">חולית</span></label>
+          </div>
+          <div class="opt">
+            <input type="radio" name="soil" id="s2" value="hamra" class="sr-only" checked>
+            <label for="s2"><span class="t">חמרה</span></label>
+          </div>
+          <div class="opt">
+            <input type="radio" name="soil" id="s3" value="unknown" class="sr-only">
+            <label for="s3"><span class="t">לא ידוע</span><span class="s">נבדוק בשטח</span></label>
+          </div>
+        </div>
+      </fieldset>
+
+    </form>
+
+    <!-- ============ PRICE PANEL ============ -->
+    <aside class="price-panel" id="pricePanel" aria-live="polite">
+
+      <div class="pp-estimate">
+        <div class="pp-label"><span class="dot"></span> אומדן מחיר ראשוני</div>
+        <div class="pp-price">
+          <span class="range" id="priceRange">7,400–9,400</span><span class="shekel">₪</span>
+        </div>
+        <div class="pp-sub">כולל קידוח, התקנת הצינור ויישור החומר העודף במידת האפשר<br>המחיר אינו כולל מע״מ</div>
+
+        <div class="pp-diagram" aria-hidden="true">
+          <svg viewBox="0 0 340 212">
+            <!-- ground -->
+            <line x1="10" y1="38" x2="330" y2="38" stroke="#64748B" stroke-width="2"/>
+            <g stroke="#475569" stroke-width="1.5">
+              <line x1="18" y1="38" x2="10" y2="46"/><line x1="46" y1="38" x2="38" y2="46"/>
+              <line x1="74" y1="38" x2="66" y2="46"/><line x1="102" y1="38" x2="94" y2="46"/>
+              <line x1="270" y1="38" x2="262" y2="46"/><line x1="298" y1="38" x2="290" y2="46"/>
+              <line x1="326" y1="38" x2="318" y2="46"/>
+            </g>
+            <!-- house hint -->
+            <g stroke="#7DD3FC" stroke-width="1.8" fill="none" opacity=".8">
+              <path d="M262 38 v-16 h30 v16"/>
+              <path d="M258 24 l19 -13 19 13"/>
+            </g>
+            <!-- gutter pipe -->
+            <path d="M262 30 h-64 q-8 0 -8 8 v4" stroke="#7DD3FC" stroke-width="1.8" fill="none" stroke-dasharray="4 4" opacity=".7"/>
+            <!-- shaft -->
+            <g id="shaft">
+              <rect id="shaftRect" x="172" y="38" width="36" height="96" fill="rgba(125,211,252,.12)" stroke="#7DD3FC" stroke-width="2" style="transition: all .45s cubic-bezier(.4,0,.2,1)"/>
+              <!-- percolation pipe -->
+              <rect id="pipe" x="184" y="38" width="12" height="88" fill="none" stroke="#7DD3FC" stroke-width="1.5" stroke-dasharray="4 3" opacity=".55" style="transition: all .45s cubic-bezier(.4,0,.2,1)"/>
+            </g>
+            <!-- depth dimension -->
+            <g id="dimDepth" style="transition: all .45s cubic-bezier(.4,0,.2,1)">
+              <line id="dimDepthLine" x1="150" y1="38" x2="150" y2="134" stroke="#94A3B8" stroke-width="1.2" stroke-dasharray="3 3"/>
+              <text id="depthLabel" x="142" y="90" fill="#CBD5E1" font-size="13" font-weight="600" text-anchor="end" font-family="Heebo, sans-serif">6 מ׳</text>
+            </g>
+            <!-- diameter dimension -->
+            <g id="dimDiam">
+              <line id="dimDiamLine" x1="172" y1="152" x2="208" y2="152" stroke="#94A3B8" stroke-width="1.2" style="transition: all .45s cubic-bezier(.4,0,.2,1)"/>
+              <text id="diamLabel" x="190" y="172" fill="#CBD5E1" font-size="13" font-weight="600" text-anchor="middle" font-family="Heebo, sans-serif">50 ס״מ</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="pp-chips" id="chips">
+          <span id="chipDepth">עומק 6 מ׳</span>
+          <span id="chipDiam">קוטר 50 ס״מ</span>
+          <span id="chipSoil">קרקע חמרה</span>
+        </div>
+      </div>
+
+      <div class="pp-personal">
+        <div class="pp-label"><span class="dot"></span> הצעה אישית</div>
+        <h3>בור החדרה מתומחר אישית</h3>
+        <p>בורות החדרת מי נגר מבוצעים לפי נספח ניקוז ודרישות יועץ הקרקע — נחזור אליכם עם הצעה מותאמת לפרויקט, בדרך כלל תוך יום עסקים.</p>
+      </div>
+
+      <div class="pp-ctas">
+        <a class="btn btn-whatsapp" href="https://wa.me/972529556123?text=%D7%94%D7%99%D7%99%2C%20%D7%A7%D7%99%D7%91%D7%9C%D7%AA%D7%99%20%D7%90%D7%95%D7%9E%D7%93%D7%9F%20%D7%91%D7%9E%D7%97%D7%A9%D7%91%D7%95%D7%9F%20%D7%9C%D7%91%D7%95%D7%A8%20%D7%97%D7%9C%D7%97%D7%95%D7%9C">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.9 1.22 3.1.15.2 2.11 3.22 5.1 4.51.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.4 9.4 0 01-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.4 9.4 0 01-1.44-5.03c0-5.2 4.23-9.43 9.43-9.43a9.37 9.37 0 016.67 2.77 9.37 9.37 0 012.76 6.67c0 5.2-4.23 9.43-9.42 9.43zm8.02-17.45A11.3 11.3 0 0012.04.5C5.75.5.63 5.62.63 11.9c0 2.01.52 3.97 1.52 5.7L.5 23.5l6.05-1.59a11.37 11.37 0 005.48 1.4h.01c6.28 0 11.4-5.12 11.4-11.4 0-3.05-1.19-5.91-3.35-8.06z"/></svg>
+          קבלו הצעה בוואטסאפ
+        </a>
+        <a class="btn btn-call" href="tel:0529556123">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.12.96.37 1.9.72 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.35 1.85.6 2.81.72A2 2 0 0122 16.92z"/></svg>
+          052-955-6123
+        </a>
+      </div>
+
+      <p class="pp-note"><b>ללא עלות וללא התחייבות.</b> המחיר הסופי ייקבע לאחר בדיקת שטח קצרה.</p>
+
+    </aside>
+
+    <!-- ============ LEAD STRIP ============ -->
+    <section class="lead-strip">
+      <div class="txt">
+        <h2>מעדיפים שנחזור אליכם?</h2>
+        <p>השאירו פרטים ונחזור אליכם עם הצעת מחיר מסודרת — בדרך כלל תוך שעה בשעות הפעילות.</p>
+      </div>
+      <form onsubmit="return false">
+        <input type="text" name="name" placeholder="שם מלא" autocomplete="name" aria-label="שם מלא" required>
+        <input type="tel" name="phone" placeholder="טלפון נייד" autocomplete="tel" aria-label="טלפון נייד" required dir="rtl">
+        <button class="btn btn-primary" type="submit">קבלו הצעת מחיר מדויקת</button>
+      </form>
+    </section>
+
+  </div>
+</div>
+
+<!-- ============ MOBILE STICKY BAR ============ -->
+<div class="mobile-bar" id="mobileBar">
+  <div class="mb-price">
+    <span class="l">אומדן ראשוני</span>
+    <span class="v"><span class="range" id="priceRangeMobile">7,400–9,400</span> ₪</span>
+  </div>
+  <a class="btn btn-whatsapp" href="https://wa.me/972529556123">וואטסאפ</a>
+</div>
+
+<script>
+(function () {
+  var MODEL = {
+    depth: { '6': [7000, 9000], '12': [9500, 12000] },
+    diam:  { '40': 0, '50': 400, '60': 800, '70': 1200 },
+    CAP: 12000, FLOOR: 7000
+  };
+
+  var form = document.getElementById('calcForm');
+  var panel = document.getElementById('pricePanel');
+  var rangeEl = document.getElementById('priceRange');
+  var rangeMobileEl = document.getElementById('priceRangeMobile');
+  var mobileBar = document.getElementById('mobileBar');
+  var current = { min: 0, max: 0 };
+
+  function val(name) { return form.querySelector('input[name="' + name + '"]:checked').value; }
+  function fmt(n) { return n.toLocaleString('en-US'); }
+
+  function compute() {
+    var d = MODEL.depth[val('depth')].slice();
+    var add = MODEL.diam[val('diam')];
+    var min = d[0] + add, max = d[1] + add;
+    var soil = val('soil');
+    if (soil === 'sand') { min -= 300; max -= 300; }
+    if (soil === 'unknown') { min -= 300; max += 300; }
+    min = Math.round(min / 100) * 100; max = Math.round(max / 100) * 100;
+    max = Math.min(max, MODEL.CAP); min = Math.max(Math.min(min, max), MODEL.FLOOR - 300);
+    return { min: min, max: max };
+  }
+
+  var raf;
+  function animatePrice(to) {
+    var from = { min: current.min || to.min, max: current.max || to.max };
+    var start = null, DUR = 300;
+    cancelAnimationFrame(raf);
+    function step(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / DUR, 1);
+      p = 1 - Math.pow(1 - p, 3); /* ease-out */
+      var mn = Math.round((from.min + (to.min - from.min) * p) / 100) * 100;
+      var mx = Math.round((from.max + (to.max - from.max) * p) / 100) * 100;
+      var txt = fmt(mn) + '–' + fmt(mx);
+      rangeEl.textContent = txt;
+      rangeMobileEl.textContent = txt;
+      if (p < 1) raf = requestAnimationFrame(step);
+      else current = to;
+    }
+    raf = requestAnimationFrame(step);
+  }
+
+  /* diagram geometry */
+  var shaft = document.getElementById('shaftRect');
+  var pipe = document.getElementById('pipe');
+  var depthLine = document.getElementById('dimDepthLine');
+  var depthLabel = document.getElementById('depthLabel');
+  var diamLine = document.getElementById('dimDiamLine');
+  var diamLabel = document.getElementById('diamLabel');
+
+  function updateDiagram() {
+    var depth = val('depth'), diam = +val('diam');
+    var h = depth === '6' ? 96 : 138;
+    var w = 24 + (diam - 40) * 0.6;             /* 40→24px … 70→42px */
+    var cx = 190, x = cx - w / 2, bottom = 38 + h;
+    shaft.setAttribute('height', h);
+    shaft.setAttribute('width', w);
+    shaft.setAttribute('x', x);
+    pipe.setAttribute('height', h - 8);
+    pipe.setAttribute('x', cx - 6);
+    depthLine.setAttribute('y2', bottom - 4);
+    depthLabel.setAttribute('y', 38 + h / 2 + 4);
+    depthLabel.textContent = depth + ' מ׳';
+    diamLine.setAttribute('x1', x); diamLine.setAttribute('x2', x + w);
+    diamLine.setAttribute('y1', bottom + 9); diamLine.setAttribute('y2', bottom + 9);
+    diamLabel.setAttribute('y', bottom + 27);
+    diamLabel.textContent = diam + ' ס״מ';
+  }
+
+  var chipDepth = document.getElementById('chipDepth');
+  var chipDiam = document.getElementById('chipDiam');
+  var chipSoil = document.getElementById('chipSoil');
+  var soilNames = { sand: 'חולית', hamra: 'חמרה', unknown: 'לא ידועה' };
+
+  function updateChips() {
+    chipDepth.textContent = 'עומק ' + val('depth') + ' מ׳';
+    chipDiam.textContent = 'קוטר ' + val('diam') + ' ס״מ';
+    chipSoil.textContent = val('soil') === 'unknown' ? 'קרקע לא ידועה' : 'קרקע ' + soilNames[val('soil')];
+  }
+
+  function updateMode() {
+    var personal = val('pitType') === 'infiltration';
+    panel.classList.toggle('mode-personal', personal);
+    mobileBar.style.display = personal ? 'none' : '';
+    ['fsDepth', 'fsDiam', 'fsSoil'].forEach(function (id) {
+      var fs = document.getElementById(id);
+      fs.classList.toggle('is-disabled', personal);
+      fs.querySelectorAll('input').forEach(function (i) { i.disabled = personal; });
+    });
+  }
+
+  function refresh() {
+    updateMode();
+    if (val('pitType') === 'percolation') {
+      animatePrice(compute());
+      updateDiagram();
+      updateChips();
+    }
+  }
+
+  form.addEventListener('change', refresh);
+  current = compute();
+  rangeEl.textContent = fmt(current.min) + '–' + fmt(current.max);
+  rangeMobileEl.textContent = rangeEl.textContent;
+  updateDiagram(); updateChips();
+})();
+</script>
+
+</body>
+</html>

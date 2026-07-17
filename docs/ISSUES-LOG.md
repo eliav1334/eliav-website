@@ -30,8 +30,10 @@
 ### סיבת שורש
 `display:flex` על ה-`li` אינו מתאים לתוכן inline מעורב (אלמנט מודגש + טקסט חופשי). flex מפצל כל רצף לפריט נפרד. הבאג היה **סמוי בכל דפי השירות** — התגלה רק כשהתוכן היה ארוך מספיק כדי לגלוש.
 
+⚠️ **לקח ספציפיות (חשוב!):** בניסיון הראשון תיקנתי את `.service-features li` — אבל הרשימות יושבות בתוך `.service-detail-card`, ויש כלל **ספציפי יותר** `.service-detail-card ul li{display:flex}` (0,1,2 מול 0,1,1) שדרס אותו. התיקון "עבד" רק על רשימה שהיתה עטופה ב-`<span>` (שם flex לא מזיק כי הכל פריט אחד), ולכן חשבתי שהוא תקין — עד שהמשתמש הצביע על רשימה לא-עטופה. **מוסר: כשתיקון CSS "לא נתפס", לחפש סלקטור ספציפי יותר עם `getComputedStyle` + לאמת ויזואלית את *כל* המופעים, לא רק אחד.**
+
 ### הפתרון
-שינוי `.service-features li` מ-`display:flex` ל-`display:block` עם אייקון ב-`position:absolute; inset-inline-start:0` ו-`padding-inline-start:32px`. כך הטקסט זורם כתוכן inline רגיל (תווית+טקסט באותה שורה, גלישה טבעית) **ללא תלות באורך או בעטיפת span**. אומת ויזואלית בדסקטופ (1280) ובמובייל (390).
+שינוי הכלל הנכון `.service-detail-card ul li` (וגם `.service-features li`) מ-`display:flex` ל-`display:block` עם אייקון ב-`position:absolute; inset-inline-start:0; top:13px` ו-`padding-inline-start:32px`. כך הטקסט זורם כתוכן inline רגיל **ללא תלות באורך או בעטיפת span**. מתקן את **כל** דפי השירות. אומת ויזואלית: dph (רשימה ממוספרת) + drainage-pits (ללא רגרסיה), מובייל 390.
 
 ### 🛡️ מניעה (GUARD)
 1. **לעולם לא `display:flex` על אלמנט שמכיל אלמנט-inline + טקסט-אח** (strong/a/b ואז טקסט). להשתמש ב-block+absolute-icon או לעטוף הכל ב-`<span>` יחיד.
