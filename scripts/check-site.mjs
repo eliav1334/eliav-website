@@ -17,6 +17,14 @@ const MAIN_PAGES = [
   ['/about', 'אודות'],
   ['/projects', 'פרויקטים'],
   ['/card', 'כרטיס ביקור'],
+  // Added 19/07/2026 — these were live but unmonitored, so a break would have
+  // gone unnoticed. drainage-pit-home and drainage-calculator are money pages
+  // (the calculator sits in the article carrying the most search traffic), and
+  // review/review-qr are the request flow that took reviews from 8 to 13.
+  ['/drainage-pit-home', 'בור חלחול לבית פרטי'],
+  ['/drainage-calculator', 'מחשבון בור חלחול'],
+  ['/review', 'בקשת ביקורת'],
+  ['/review-qr', 'בקשת ביקורת QR'],
 ];
 
 const BLOG_PAGES = [
