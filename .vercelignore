@@ -28,5 +28,21 @@ fix-images.js
 js/main.js
 css/style.css
 
+# Logo option mockups. Internal review pages for the pending logo decision — no page
+# links to them, but Vercel served them publicly all the same. Excluded from the
+# upload rather than deleted, so they stay reviewable locally until a logo is chosen.
+# Once the logo is final, delete the files and drop this block.
+logos.html
+logos-v2.html
+logos-v3.html
+logos-v4.html
+logos-v5.html
+logos-v6.html
+logos-v7.html
+logos-v8.html
+logos-v9.html
+logos-final.html
+logo-options/
+
 # Personal/business data that has no business being on a public web server
 טלפונים/

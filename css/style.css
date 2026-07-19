@@ -4927,3 +4927,33 @@
 .breadcrumbs .current {
   color: rgba(255,255,255,0.6);
 }
+
+/* Header logo — mobile sizing.
+   The header is a fixed 80px tall, but .logo had no mobile rule at all: it stayed
+   1.5rem/700, so "א.א. עבודות קידוחים ופיתוח" wrapped to two lines on phones and the
+   second line spilled out of the header onto the breadcrumbs below it. Verified on
+   every inner page at 390px, not just one. Shrink the text and lock it to one line. */
+@media (max-width: 768px) {
+  header .logo {
+    font-size: 1.15rem;
+    gap: 8px;
+    white-space: nowrap;
+    min-width: 0;
+  }
+  header .logo-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 400px) {
+  header .logo {
+    font-size: 1rem;
+  }
+  header .logo-icon {
+    width: 30px;
+    height: 30px;
+  }
+}
