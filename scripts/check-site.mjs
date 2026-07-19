@@ -21,6 +21,7 @@ const MAIN_PAGES = [
 
 const BLOG_PAGES = [
   '/blog/bentonite-guide', '/blog/drainage-pits-guide', '/blog/drilling-netanya',
+  '/blog/drilling-hadera',
   '/blog/earthworks-tips', '/blog/choose-drilling-contractor', '/blog/bentonite-vs-polymer',
   '/blog/drilling-hod-hasharon', '/blog/equipment-rental-guide', '/blog/contractor-license-guide',
   '/blog/site-development-guide', '/blog/drainage-pits-pricing', '/blog/waste-removal-guide',
