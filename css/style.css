@@ -4904,6 +4904,13 @@
   }
 }
 
+/* Keeps a phrase on one line. Used where a break would orphan a separator or
+   split a figure from its unit — "10+" landing alone above "שנות ניסיון", or a
+   "|" starting a line by itself in the hero badge on a narrow screen. */
+.nowrap {
+  white-space: nowrap;
+}
+
 /* Breadcrumbs Navigation */
 .breadcrumbs {
   padding: 12px 0;

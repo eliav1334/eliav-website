@@ -87,6 +87,28 @@ if (mobileFooter) {
   note('css/style.css', 'footer-under-fixed-ui', 'could not find a mobile footer padding-bottom rule to verify.');
 }
 
+// ── 4. separators and figures that can be orphaned by a line break ──
+// On a narrow screen "קבלן רשום | מעל 10 שנות ניסיון | ק.ר 36281" broke so that a
+// lone "|" started a line, and "10+" landed above "שנות ניסיון". Both read as
+// broken text. A .nowrap span (or &nbsp;) around the phrase prevents it.
+for (const file of htmlFiles) {
+  const html = readFileSync(join(ROOT, file), 'utf8');
+  for (const m of html.matchAll(/<(p|div|span|h[1-6])[^>]*class="[^"]*(?:badge|subtitle|hero)[^"]*"[^>]*>([\s\S]{0,400}?)<\/\1>/g)) {
+    const inner = m[2];
+    const text = inner.replace(/<[^>]*>/g, '');
+    const guarded = inner.includes('nowrap') || inner.includes('&nbsp;');
+    if (guarded) continue;
+    if (/ \| /.test(text)) {
+      note(file, 'orphanable-separator',
+        `"${text.trim().slice(0, 55)}…" has a " | " separator with plain spaces — a line break can leave the "|" alone on a line. Wrap each segment in <span class="nowrap"> or bind the pipe with &nbsp;.`);
+    }
+    if (/\d\+ [֐-׿]/.test(text)) {
+      note(file, 'orphanable-figure',
+        `"${text.trim().slice(0, 55)}…" lets a figure like "10+" break away from the words after it. Wrap the phrase in <span class="nowrap">.`);
+    }
+  }
+}
+
 // ── report ──
 if (problems.length === 0) {
   console.log(`✅ אין בעיות ויזואליות ידועות (${htmlFiles.length} דפים נבדקו)`);
