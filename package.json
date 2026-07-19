@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "check-site": "node scripts/check-site.mjs",
     "stamp": "node scripts/stamp-assets.mjs",
-    "check-meta": "node scripts/check-meta.mjs"
+    "check-meta": "node scripts/check-meta.mjs",
+    "check-visual": "node scripts/check-visual.mjs",
+    "check-all": "npm run check-meta && npm run check-visual && npm run check-site"
   },
   "repository": {
     "type": "git",

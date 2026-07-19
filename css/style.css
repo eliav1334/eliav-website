@@ -4260,10 +4260,16 @@
         margin-bottom: 16px !important;
       }
 
-      /* Footer */
+      /* Footer.
+         Three fixed elements sit over the bottom of the viewport on mobile: the
+         WhatsApp/call CTA bar (last ~75px), the floating buttons, and the
+         accessibility toggle (~160-205px up from the bottom, left edge). At 80px
+         the copyright line and — of all things — the "הצהרת נגישות" link ended up
+         underneath the accessibility button itself. Measured at 390x844; 220px
+         clears the highest of the three with a little margin. */
       footer {
         padding-top: 32px !important;
-        padding-bottom: 80px !important;
+        padding-bottom: 220px !important;
       }
     }
 
