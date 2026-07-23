@@ -388,7 +388,10 @@ window.__aaPopupBlocked = function () {
 };
 
 // ===== LEAD CAPTURE POPUP =====
-(function() {
+// Removed 21/07/2026 (owner decision): 5 months live, zero leads with subject
+// "פופאפ הצעת מחיר" in Gmail. The scroll-triggered popup below stays —
+// re-evaluate its usefulness on 01/11/2026 (see .claude/last-session.md).
+/* (function() {
   var POPUP_KEY = 'aa_popup_shown';
   var isMobile = window.matchMedia('(max-width: 768px)').matches;
   var POPUP_DELAY = isMobile ? 30000 : 45000; // mobile visitors decide faster
@@ -495,7 +498,7 @@ window.__aaPopupBlocked = function () {
     };
     window.addEventListener('scroll', onScroll, { passive: true });
   }
-})();
+})(); */
 
 // ===== GA4 CLICK TRACKING =====
 document.addEventListener('DOMContentLoaded', () => {

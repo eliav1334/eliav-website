@@ -11,7 +11,7 @@
 ## Tech Stack
 - Pure HTML/CSS/JS — ללא frameworks
 - פונטים: Heebo + Rubik (Google Fonts)
-- צבע ראשי: `#F97316` (כתום), ערכת נושא כהה
+- צבע ראשי: `#0073a8` (כחול, `--primary` ב-style.css) · כתום `#F97316` = הדגשה/CTA בלבד
 - RTL עברית
 - Deployed on Vercel
 
