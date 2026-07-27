@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/AlonHarpaz/eliav-website#readme",
   "dependencies": {
-    "sharp": "^0.34.5"
+    "sharp": "^0.35.3"
   },
   "devDependencies": {
     "clean-css": "^5.3.3"
