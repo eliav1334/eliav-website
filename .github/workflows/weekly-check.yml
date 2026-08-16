@@ -376,6 +376,8 @@ jobs:
           set +e
           AUTHORITY_RESULTS=""
           OPR_RANK="N/A"
+          # ⚠️ תמיד ערך קריא — המייל השבועי הדפיס "/10" ריק כשהשליפה נכשלה (16/08/2026)
+          OPR_DISPLAY="⚪ לא נשלף"
 
           # --- 1. Open Page Rank (חינמי, דורש מפתח מ-openpagerank.com) ---
           if [ -n "$OPR_KEY" ]; then
@@ -388,11 +390,16 @@ jobs:
               else ICON="🔴"; fi
               AUTHORITY_RESULTS="${AUTHORITY_RESULTS}| Page Rank (0-10) | ${ICON} ${OPR_RANK}/10 |\n"
               AUTHORITY_RESULTS="${AUTHORITY_RESULTS}| דירוג עולמי | 🌐 #${OPR_DOMAIN_RANK} |\n"
+              OPR_DISPLAY="${ICON} ${OPR_RANK}/10"
             else
               AUTHORITY_RESULTS="${AUTHORITY_RESULTS}| Page Rank (OPR) | ⚪ שגיאה בשליפה |\n"
+              OPR_DISPLAY="⚪ שגיאה בשליפה — בדוק את OPEN_PAGE_RANK_KEY"
+              # מדפיס את תשובת ה-API ללוג כדי שנדע בשבוע הבא אם זה מפתח פגום או API שנפל
+              echo "::warning::OPR fetch failed. API response (first 200 chars): $(echo "$OPR_RESULT" | head -c 200)"
             fi
           else
             AUTHORITY_RESULTS="${AUTHORITY_RESULTS}| Page Rank (OPR) | ⚪ הוסף OPEN_PAGE_RANK_KEY לסודות |\n"
+            OPR_DISPLAY="⚪ חסר OPEN_PAGE_RANK_KEY בסודות"
           fi
 
           # --- 2. Wayback Machine (מתי האתר נסרק לאחרונה) ---
@@ -433,6 +440,7 @@ jobs:
           echo -e "$AUTHORITY_RESULTS" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
           echo "opr_rank=${OPR_RANK}" >> $GITHUB_OUTPUT
+          echo "opr_display=${OPR_DISPLAY}" >> $GITHUB_OUTPUT
 
       - name: "🔗 בדיקת לינקים חיצוניים"
         id: links
@@ -780,7 +788,7 @@ jobs:
                 <table style="width:100%;border-collapse:collapse;color:#eee">
                   <tr style="border-bottom:1px solid #333">
                     <td style="padding:6px">Page Rank (OPR)</td>
-                    <td style="padding:6px">${{ steps.authority.outputs.opr_rank }}/10</td>
+                    <td style="padding:6px">${{ steps.authority.outputs.opr_display }}</td>
                   </tr>
                 </table>
                 <p style="color:#888;font-size:11px;margin-top:8px">לפרטים מלאים: Schema, Wayback, Bing — ראה דוח GitHub</p>
