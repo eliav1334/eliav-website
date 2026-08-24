@@ -558,6 +558,23 @@ GSC יוני: 6,560 חשיפות, 95 קליקים, **0 דפים במיקום ר�
 
 ---
 
+## ISS-020 — גוף ה-404 היה HTML, לא markdown: הבדיקה האחרונה שנשארה פתוחה (24/08/2026)
+
+**מה זה:** אחרי ISS-019 הציון עלה ל-97/100 ונשארה בדיקת Essential אחת אחת ב-50%: `agent-friendly-404`. הראיה של is-agentic: *"Nonexistent paths return a real HTTP 404. For full credit, include a short markdown body (site map links, where to look next) so agents can recover."*
+
+**סיבת השורש:** הסטטוס היה תקין (404) והבלוק `agent-recovery` אכן נוסף ל-`404.html` — אבל הוא יושב **בתוך** דף HTML של 23KB. הבדיקה האחות `markdown-url-fallback` מגלה מה הסורק בעצם מודד: *"text/markdown content-type **or a heading-led non-HTML body**"*. דף HTML שלם לא עונה על זה בשום צורה, גם אם יש בתוכו `<pre>` עם markdown.
+
+**מה נעשה:** (`0fb52c1`)
+- `404.md` — גוף ההתאוששות הקצר (886 תווים) כקובץ אמיתי: קישורים ל-sitemap, ל-llms.txt, לעמודים הראשיים ולפרטי קשר.
+- `middleware.js` עונה לנתיב-עמוד לא-קיים ב-404 **עם הגוף הזה** כש-`Accept` **לא** כולל `text/html`, או כשה-User-Agent נראה כמו בוט. כל דפדפן אמיתי שולח `Accept: text/html` — ולכן ממשיך לקבל את `404.html` המעוצב, בלי שינוי.
+- ⚠️ **ל-Edge Middleware אין מערכת קבצים** — הוא לא יכול לדעת אילו נתיבים קיימים. לכן `scripts/gen-middleware-data.mjs` מייצר את `middleware-data.js` מקבצי ה-`.html`/`.md` שעל הדיסק **ובנוסף** מכל מקור `rewrites`/`redirects` ב-`vercel.json` — כי middleware רץ **לפני שניהם**, ומקור-הפניה שחסר ברשימה היה נענה כ-404 במקום להיות מופנה.
+
+**🛡️ מניעה — שתי שכבות, כי נתיב אמיתי שנענה ב-404 הוא נזק SEO:**
+1. המחולל **נכשל בהרצה** אם URL כלשהו ב-`sitemap.xml` לא נמצא ב-`KNOWN_PATHS`. הוא רץ ראשון ב-`npm run check-all`.
+2. `check-agentic.mjs` מושך 6 נתיבים אמיתיים מהפרוד ודורש 200 מכולם, בודק ש-`Accept: */*` מקבל `text/markdown` שפותח בכותרת `#` וקצר מ-4KB, **וגם** שדפדפן עדיין מקבל `text/html` עם הבלוק `agent-recovery`.
+
+**אומת:** 25/25 טענות עוברות מול `https://eliavafar.co.il` (24/08, אחרי הדפלוי). `curl` על נתיב לא-קיים → `404` + `text/markdown` · דפדפן → `404` + `text/html` + הדף המעוצב.
+
 ## ISS-019 — מוכנות לסוכני AI: `rewrites` ב-Vercel לא עוקפים את מערכת הקבצים (24/08/2026)
 
 **מה זה:** סריקת [is-agentic.com](https://is-agentic.com/scan/eliavafar.co.il) נתנה 80/100 עם 5 ממצאים. אליאב ביקש להגיע ל-100 ולהכניס את הבדיקה לבדיקות התקינות ולדוח השבועי.
