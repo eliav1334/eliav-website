@@ -13,6 +13,9 @@ jobs:
       issues: write
 
     steps:
+      # נדרש כדי ש-scripts/check-agentic.mjs יהיה זמין לריצה בסוכן
+      - uses: actions/checkout@v4
+
       - name: "🔍 בדיקת כל דפי האתר (28 דפים)"
         id: pages
         run: |
@@ -532,6 +535,56 @@ jobs:
             echo "problem=true" >> $GITHUB_OUTPUT
           fi
 
+      - name: "🤖 בדיקת מוכנות לסוכני AI (is-agentic)"
+        id: agentic
+        run: |
+          # שתי שכבות: הציון החיצוני מ-is-agentic.com + הבדיקות המקומיות שלנו
+          # (משא-ומתן markdown, Vary, 404 עם קישורי-התאוששות, contactPoint, דפי אמון).
+          # כישלון של השירות החיצוני לעולם לא מפיל את הריצה — זו לא רגרסיה באתר.
+          AGENTIC_JSON=$(curl -s --max-time 120 \
+            "https://is-agentic.com/api/v1/report?url=https://eliavafar.co.il" \
+            -H "accept: application/json" 2>/dev/null)
+
+          SCORE=$(echo "$AGENTIC_JSON" | jq -r '.score // empty' 2>/dev/null)
+          if [ -z "$SCORE" ]; then
+            echo "::warning::is-agentic fetch failed. Response head: $(echo "$AGENTIC_JSON" | head -c 200)"
+            echo "score=N/A" >> $GITHUB_OUTPUT
+            echo "display=⚪ לא נשלף — is-agentic.com לא הגיב" >> $GITHUB_OUTPUT
+            echo "results=| ציון is-agentic | ⚪ לא נשלף |\n" >> $GITHUB_OUTPUT
+            echo "local_status=⚪ לא נבדק" >> $GITHUB_OUTPUT
+          else
+            LABEL=$(echo "$AGENTIC_JSON" | jq -r '.score_label // ""')
+            if [ "$SCORE" -ge 95 ] 2>/dev/null; then ICON="✅"
+            elif [ "$SCORE" -ge 80 ] 2>/dev/null; then ICON="⚠️"
+            else ICON="🚨"; fi
+
+            RESULTS="| **ציון כולל** | ${ICON} **${SCORE}**/100 — ${LABEL} |\n"
+            OPEN=$(echo "$AGENTIC_JSON" | jq -r '[.issues[]? | select(.result != "passed")] | length')
+            if [ "$OPEN" = "0" ]; then
+              RESULTS="${RESULTS}| ממצאים פתוחים | ✅ אין |\n"
+            else
+              while IFS=$'\t' read -r RES TIER NAME DETAILS; do
+                [ -z "$NAME" ] && continue
+                if [ "$RES" = "failed" ]; then RICON="❌"; else RICON="⚠️"; fi
+                RESULTS="${RESULTS}| ${RICON} ${NAME} (${TIER}) | ${DETAILS} |\n"
+              done < <(echo "$AGENTIC_JSON" | jq -r '.issues[]? | select(.result != "passed") | [.result, .tier, .name, .details] | @tsv')
+            fi
+
+            echo "score=${SCORE}" >> $GITHUB_OUTPUT
+            echo "display=${ICON} ${SCORE}/100 — ${LABEL}" >> $GITHUB_OUTPUT
+            echo "results<<EOF" >> $GITHUB_OUTPUT
+            echo -e "$RESULTS" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
+
+          # השכבה המקומית — אלה הבדיקות שאנחנו שולטים בהן ושעלולות להישבר בשקט
+          if node scripts/check-agentic.mjs --no-remote > /tmp/agentic-local.txt 2>&1; then
+            echo "local_status=✅ כל הבדיקות המקומיות עברו" >> $GITHUB_OUTPUT
+          else
+            echo "local_status=🚨 בדיקות מוכנות-סוכנים מקומיות נכשלו — ראה לוג" >> $GITHUB_OUTPUT
+            cat /tmp/agentic-local.txt
+          fi
+
       - name: "📋 יצירת דוח Issue"
         id: create_issue
         uses: actions/github-script@v9
@@ -621,6 +674,18 @@ jobs:
               `| TBT (Total Blocking Time) | ${mTbt} | < 200ms |`,
               `| CLS (Cumulative Layout Shift) | ${mCls} | < 0.1 |`,
               `| Speed Index | ${mSi} | < 3.4s |`,
+              '',
+              '---',
+              '',
+              '### 🤖 מוכנות לסוכני AI (is-agentic.com)',
+              '',
+              '| בדיקה | תוצאה |',
+              '|-------|-------|',
+              `${{ steps.agentic.outputs.results }}`,
+              '',
+              `**בדיקות מקומיות:** ${{ steps.agentic.outputs.local_status }}`,
+              '',
+              '_דוח מלא: https://is-agentic.com/scan/eliavafar.co.il_',
               '',
               '---',
               '',
@@ -742,6 +807,20 @@ jobs:
           html_body: |
             <div dir="rtl" style="font-family:Arial,sans-serif;max-width:700px;margin:0 auto;background:#1a1a2e;color:#eee;padding:24px;border-radius:12px">
               <h2 style="color:#F97316;margin-top:0">📊 דוח שבועי מורחב — eliavafar.co.il</h2>
+
+              <div style="background:#16213e;padding:16px;border-radius:8px;margin-bottom:16px">
+                <h3 style="color:#F97316;margin-top:0">🤖 מוכנות לסוכני AI</h3>
+                <table style="width:100%;border-collapse:collapse;color:#eee">
+                  <tr style="border-bottom:1px solid #333">
+                    <td style="padding:8px"><strong>ציון is-agentic</strong></td>
+                    <td style="padding:8px;text-align:center;font-size:1.1em"><strong>${{ steps.agentic.outputs.display }}</strong></td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px">בדיקות מקומיות</td>
+                    <td style="padding:8px;text-align:center">${{ steps.agentic.outputs.local_status }}</td>
+                  </tr>
+                </table>
+              </div>
 
               <div style="background:#16213e;padding:16px;border-radius:8px;margin-bottom:16px">
                 <h3 style="color:#F97316;margin-top:0">⚡ ביצועים (Lighthouse מובייל)</h3>
