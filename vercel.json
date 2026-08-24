@@ -129,17 +129,6 @@
   ],
   "rewrites": [
     {
-      "source": "/",
-      "has": [
-        {
-          "type": "header",
-          "key": "accept",
-          "value": ".*text/markdown.*"
-        }
-      ],
-      "destination": "/index.md"
-    },
-    {
       "source": "/bentonite-drilling",
       "destination": "/bentonite-drilling.html"
     },
