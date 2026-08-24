@@ -63,19 +63,48 @@ try {
   fail('משא-ומתן Markdown', e.message);
 }
 
-// ── 2. Agent-friendly 404 ─────────────────────────────────────────────────
+// -- 2. Agent-friendly 404 ------------------------------------------------
+// is-agentic wants BOTH: a real 404 status and a short markdown recovery body.
+// middleware.js decides by Accept - no text/html means "not a browser", so the
+// markdown body is served. Browsers keep getting 404.html.
 console.log('\n2. דף 404 ידידותי לסוכנים');
 try {
-  const r = await get('/this-path-does-not-exist-' + Date.now());
+  const path = '/this-path-does-not-exist-' + Date.now();
+
+  // 2a. agent view (fetch sends Accept: */*)
+  const r = await get(path);
   if (r.status === 404 || r.status === 410) pass('סטטוס HTTP', String(r.status));
   else fail('סטטוס HTTP', `${r.status} במקום 404 — סוכן יחשוב שכל נתיב קיים`);
 
-  const hasRecovery = r.body.includes('sitemap.xml') && r.body.includes('llms.txt');
-  if (hasRecovery) pass('קישורי התאוששות', 'sitemap.xml + llms.txt מופיעים בגוף');
+  const ct = (r.headers.get('content-type') || '').toLowerCase();
+  if (ct.includes('text/markdown')) pass('לקוח שאינו דפדפן מקבל markdown', ct);
+  else fail('גוף ה-404 לסוכן', `הוחזר ${ct || 'ללא Content-Type'} במקום text/markdown`);
+
+  if (/^#\s/.test(r.body.trim())) pass('הגוף פותח בכותרת markdown');
+  else fail('גוף ה-404', 'לא פותח בכותרת # — is-agentic לא יזהה אותו כ-markdown');
+
+  if (r.body.includes('sitemap.xml') && r.body.includes('llms.txt')) pass('קישורי התאוששות', 'sitemap.xml + llms.txt');
   else fail('קישורי התאוששות', 'הגוף לא מפנה ל-sitemap.xml ול-llms.txt');
 
-  if (r.body.includes('agent-recovery')) pass('מפת התאוששות בפורמט markdown');
-  else warn('מפת התאוששות', 'בלוק agent-recovery חסר');
+  if (r.body.length < 4096) pass('גוף קצר', `${r.body.length} תווים`);
+  else warn('גוף ה-404', `${r.body.length} תווים — is-agentic מבקש גוף קצר`);
+
+  // 2b. browser view - must still be the designed HTML page
+  const h = await get(path, { Accept: 'text/html,application/xhtml+xml' });
+  const hct = (h.headers.get('content-type') || '').toLowerCase();
+  if (h.status === 404 && hct.includes('text/html') && h.body.includes('agent-recovery'))
+    pass('דפדפן עדיין מקבל את דף ה-404 המעוצב');
+  else fail('דף 404 לדפדפן', `סטטוס ${h.status}, ${hct || 'ללא Content-Type'} — 404.html לא מוגש לדפדפנים`);
+
+  // 2c. safety net - real pages must NOT be swallowed by the markdown-404 path
+  const realPaths = ['/', '/contact', '/bentonite-drilling', '/blog/bentonite-guide', '/about.html', '/index.md'];
+  const swallowed = [];
+  for (const rp of realPaths) {
+    const rr = await get(rp);
+    if (rr.status !== 200) swallowed.push(`${rp} → ${rr.status}`);
+  }
+  if (!swallowed.length) pass('עמודים אמיתיים עדיין 200', `${realPaths.length} נתיבים נבדקו`);
+  else fail('KNOWN_PATHS', `עמוד אמיתי נענה כ-404: ${swallowed.join(', ')} — הרץ npm run gen-middleware-data`);
 } catch (e) {
   fail('בדיקת 404', e.message);
 }
