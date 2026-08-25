@@ -8,13 +8,13 @@
 **2. is-agentic 80/100 → 97/100, כל 5 הממצאים נסגרו** — `f97f618` · `c71f185` · `e7ff99d`
 מתועד ב-`docs/ISSUES-LOG.md` → **ISS-019**. תמצית: `middleware.js` (משא-ומתן markdown) · `index.md` · `404.html` · `privacy.html` · `contactPoint` בסכמה · `When to Use`/`When NOT to` ב-llms.txt · `scripts/check-agentic.mjs` + שלב `agentic` ב-`weekly-check.yml`.
 
-**3. הבדיקה האחרונה שנשארה: `agent-friendly-404` מ-50% ל-100%** — `0fb52c1` · **ISS-020**
+**3. 97 → 100/100: `agent-friendly-404` מ-50% ל-100%** — `0fb52c1` · **ISS-020**
 הסטטוס 404 היה תקין, אבל הגוף היה דף HTML של 23KB. הסורק מודד "text/markdown content-type **או** גוף לא-HTML שפותח בכותרת" (נלמד מהראיה של הבדיקה האחות `markdown-url-fallback`).
 - `404.md` — גוף התאוששות של 886 תווים (sitemap · llms.txt · עמודים ראשיים · פרטי קשר).
 - `middleware.js` מחזיר אותו עם סטטוס 404 כש-`Accept` **לא** כולל `text/html`, או כש-UA נראה כמו בוט. דפדפנים ממשיכים לקבל את `404.html` המעוצב — בלי שינוי.
 - `scripts/gen-middleware-data.mjs` → `middleware-data.js` (201 נתיבים). ל-Edge Middleware אין מערכת קבצים, ולכן הרשימה מיוצרת מהדיסק **וגם** מכל מקור `rewrites`/`redirects` ב-`vercel.json` — middleware רץ לפני שניהם.
 
-**אימות:** `npm run check-agentic -- --no-remote` → **25/25 עוברות מול הפרוד החי** (אחרי הדפלוי). `curl` על נתיב לא-קיים → `404 text/markdown`; דפדפן → `404 text/html` עם הבלוק `agent-recovery`; 6 נתיבים אמיתיים → 200.
+**אימות:** **הציון בעמוד הדוח הוא 100/100** — סריקה טרייה 24/08 15:58 UTC, `agent-friendly-404` = `pass 2/2` ("the strongest 404 contract"), ורשימת "מה לשפר" בעמוד ריקה. `npm run check-agentic -- --no-remote` → **25/25 עוברות מול הפרוד החי**. `curl` על נתיב לא-קיים → `404 text/markdown`; דפדפן → `404 text/html` עם הבלוק `agent-recovery`; 6 נתיבים אמיתיים → 200.
 
 ## ⛔ מלכודות שאסור לחזור עליהן
 
@@ -22,16 +22,16 @@
 2. **middleware רץ לפני `redirects` גם כן** — כל מקור-הפניה חייב להיות ב-`KNOWN_PATHS`, אחרת הוא נענה כ-404 לסוכנים במקום להיות מופנה. המחולל נכשל בהרצה אם URL מ-`sitemap.xml` חסר ברשימה.
 3. **`String.replace` עם מחרוזת החלפה שמכילה `$'` משכפל את שאר הקובץ.** להשתמש ב-callback: `s.replace(a, () => b)`.
 4. `weekly-check.yml` הוא **CRLF** — סקריפט שמזריק לתוכו חייב לנרמל EOL בשני הכיוונים.
-5. **המטמון של is-agentic.com הוא ברמת-דומיין ולא ניתן לעקיפה מה-API** — `refresh=1`, `force=1`, `www.`, `/api/scan/stream` — כולם מחזירים `servedFromCache:true` עם אותו `scannedAt`. רק כפתור ה-Rescan בעמוד או המתנה לפקיעת המטמון מרעננים.
+5. **לרענן את is-agentic זה שני שלבים, ורק אחד מהם מספיק.** `refresh=1` לא עובד; **`?force=1`** על `/api/scan/stream` כן מריץ סריקה חדשה. בנוסף, **עמוד הדוח עצמו הוא Next.js ISR עם `X-Nextjs-Stale-Time: 21600` (6 שעות)** — הוא ימשיך להציג את הציון הישן עד שמוסיפים פרמטר שובר-מטמון: `https://is-agentic.com/scan/eliavafar.co.il?v=<timestamp>`.
 
 ## פתוח
 
 | # | מה | מי |
 |---|-----|-----|
-| 1 | **לאמת שהציון עלה ל-98** — התיקון בפרוד ואומת מקומית 25/25, אבל is-agentic עדיין מגיש את הסריקה של 24/08 10:37 UTC. ללחוץ **Rescan** ב-https://is-agentic.com/scan/eliavafar.co.il ולראות ש-`agent-friendly-404` הפך ל-Pass מלא | אליאב (כפתור), ואז אני |
+| 1 | ✅ **נסגר — 100/100.** אין בדיקות Essential פתוחות | |
 | 1b | **`OPEN_PAGE_RANK_KEY` שבור** — המייל מציג "שגיאה בשליפה" (הפולבק עובד; המפתח לא). לחדש ב-openpagerank.com ולעדכן ב-GitHub Secrets | אליאב |
 | 1c | המייל של 24/08 עדיין בלי כרטיס "מוכנות לסוכני AI" — הריצה קדמה לדחיפה. **לאמת בריצה הבאה** שהכרטיס והסעיף ב-Issue מופיעים | אני, שבוע הבא |
-| 1d | **בונוס פתוח: `markdown-url-fallback` 1/2** — יש `/index.md` בלבד; הסורק רוצה תאום `.md` לכל עמוד תוכן (`/blog/x` → `/blog/x.md`). ~37 עמודים, שווה נקודה אחת | לא נעשה — החלטה |
+| 1d | **בונוס (לא נדרש ל-100): `markdown-url-fallback` 1/2** — יש `/index.md` בלבד; הסורק רוצה תאום `.md` לכל עמוד תוכן (`/blog/x` → `/blog/x.md`). ~37 עמודים, שווה נקודה אחת | לא נעשה — החלטה |
 | 2 | מיזוג GBP + 26 ביקורות מפוצלות → אחרי המיזוג לעדכן `aggregateRating` ל-26/4.8 ב-`index.html` ו-`drainage-pit-home.html` | אליאב, ואז אני |
 | 3 | LCP/FCP 3.0s — הראיות נאספו, **התיקון לא בוצע**: החשוד היחיד הוא `style.min.css` החוסם-ציור, והפתרון המתבקש (critical-CSS inline) הוא בדיוק מה ש-ISS-006 אוסר (יצר CLS 1.0). ה-CLS=0 הנוכחי הוא נכס. ההמלצה: להשאיר, או לצמצם CSS (114KB) בלי לגעת ב-inline | החלטה של אליאב |
 | 4-8 | אחידות שם ברשת · מקרי-בוחן עם תמונות · סרטונים · היטל הטמנה 2026 · דוח GSC אוגוסט | אליאב |
