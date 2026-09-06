@@ -1570,6 +1570,10 @@
       color: var(--text-primary);
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       background: var(--bg-white);
+      width: 100%;
+      border: none;
+      text-align: inherit;
+      font-family: inherit;
     }
 
     .faq-question:hover {
@@ -3072,7 +3076,7 @@
     /* ===== HOME: SERVICE SUMMARY CARDS ===== */
     .service-summary-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 30px;
     }
 
