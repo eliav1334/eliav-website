@@ -1547,6 +1547,7 @@
       overflow: hidden;
       box-shadow: var(--shadow-xs);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
     }
 
     .faq-item:hover {
@@ -1560,7 +1561,7 @@
     }
 
     .faq-question {
-      display: flex;
+      display: flex !important;
       align-items: center;
       justify-content: space-between;
       padding: 24px 28px;
@@ -1570,10 +1571,15 @@
       color: var(--text-primary);
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       background: var(--bg-white);
-      width: 100%;
+      width: 100% !important;
+      box-sizing: border-box !important;
       border: none;
       text-align: inherit;
       font-family: inherit;
+    }
+
+    .faq-item > .faq-question {
+      width: 100% !important;
     }
 
     .faq-question:hover {
@@ -2233,7 +2239,7 @@
       position: fixed;
       right: 30px;
       bottom: 30px;
-      z-index: 9999;
+      z-index: 998;
       display: flex;
       flex-direction: column;
       gap: 20px;
@@ -2243,7 +2249,7 @@
     @media (max-width: 768px) {
       .floating-buttons {
         right: 16px;
-        bottom: 20px;
+        bottom: 95px;
         gap: 12px;
       }
 
@@ -3076,7 +3082,7 @@
     /* ===== HOME: SERVICE SUMMARY CARDS ===== */
     .service-summary-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, 1fr) !important;
       gap: 30px;
     }
 
@@ -3132,12 +3138,17 @@
       margin-top: auto;
     }
 
-    @media (max-width: 768px) {
-      .service-summary-grid { grid-template-columns: 1fr; }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .service-summary-grid { 
+        grid-template-columns: repeat(2, 1fr) !important;
+        max-width: 100%; 
+      }
     }
 
-    @media (max-width: 1024px) {
-      .service-summary-grid { max-width: 100%; }
+    @media (max-width: 768px) {
+      .service-summary-grid { 
+        grid-template-columns: 1fr !important;
+      }
     }
 
     /* ===== HOMEPAGE: NAV-CONTAINER ALIASES ===== */
@@ -5002,5 +5013,18 @@
   header .logo-icon {
     width: 30px;
     height: 30px;
+  }
+  
+  /* Prevent hero h1 RTL clipping on very small screens */
+  .hero h1 {
+    font-size: 1.65rem !important;
+    line-height: 1.25 !important;
+    max-width: 100%;
+    padding-right: 4px !important;
+    padding-left: 4px !important;
+  }
+  
+  .hero .container {
+    padding: 0 12px !important;
   }
 }

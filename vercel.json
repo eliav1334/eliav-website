@@ -2,6 +2,26 @@
   "version": 2,
   "redirects": [
     {
+      "source": "/index.html",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/index",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/business-card.html",
+      "destination": "/card",
+      "statusCode": 301
+    },
+    {
+      "source": "/business-card",
+      "destination": "/card",
+      "statusCode": 301
+    },
+    {
       "source": "/demolition",
       "destination": "/earthworks.html",
       "statusCode": 301
