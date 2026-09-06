@@ -691,3 +691,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 200));
 })();
+
+// ===== FORM VALIDATION: PHONE & EMAIL =====
+document.addEventListener('DOMContentLoaded', function() {
+  // Phone validation: digits, +, spaces, dashes only
+  var phoneInputs = document.querySelectorAll('input[type="tel"]');
+  phoneInputs.forEach(function(input) {
+    input.setAttribute('inputmode', 'tel');
+    input.setAttribute('pattern', '[0-9+\\s\\-]+');
+    
+    input.addEventListener('input', function(e) {
+      var cleaned = e.target.value.replace(/[^0-9+\s\-]/g, '');
+      if (cleaned !== e.target.value) {
+        e.target.value = cleaned;
+      }
+    });
+    
+    input.addEventListener('invalid', function(e) {
+      e.target.setCustomValidity('נא להזין מספר טלפון תקין (ספרות בלבד)');
+    });
+    
+    input.addEventListener('input', function(e) {
+      e.target.setCustomValidity('');
+    });
+  });
+  
+  // Email validation: show clear message in Hebrew
+  var emailInputs = document.querySelectorAll('input[type="email"]');
+  emailInputs.forEach(function(input) {
+    input.addEventListener('invalid', function(e) {
+      if (e.target.value === '') {
+        e.target.setCustomValidity('');
+      } else {
+        e.target.setCustomValidity('נא להזין כתובת אימייל תקינה (לדוגמה: example@email.com)');
+      }
+    });
+    
+    input.addEventListener('input', function(e) {
+      e.target.setCustomValidity('');
+    });
+  });
+});

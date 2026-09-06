@@ -78,10 +78,10 @@
   .opt[aria-pressed="true"]{border-color:var(--primary);background:var(--primary-10);
     box-shadow:0 6px 14px -6px rgba(0,115,168,.4)}
   .opt[aria-pressed="true"] .s{color:var(--primary-dark)}
-  .opt[aria-pressed="true"]::after{content:"✓";position:absolute;top:6px;inset-inline-start:8px;
+  .opt[aria-pressed="true"]::after{content:"✓";position:absolute;top:6px;inset-inline-end:8px;
     font-size:.72rem;font-weight:800;color:#fff;background:var(--primary);width:17px;height:17px;
     border-radius:50%;display:grid;place-items:center;line-height:1}
-  .opts.g4 .opt[aria-pressed="true"]::after,.opts.g3 .opt[aria-pressed="true"]::after{top:5px;inset-inline-start:5px}
+  .opts.g4 .opt[aria-pressed="true"]::after,.opts.g3 .opt[aria-pressed="true"]::after{top:5px;inset-inline-end:5px}
   .opt:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
 
   .hint{display:flex;gap:9px;align-items:flex-start;margin-top:.7rem;font-size:.88rem;color:var(--text-2)}
