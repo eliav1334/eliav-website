@@ -9,7 +9,7 @@
 
 | סה"כ בעיות | נפתרו | פתוחות |
 |------------|--------|--------|
-| 24         | 22     | 2      |
+| 25         | 25     | 0      |
 
 ---
 
@@ -469,6 +469,225 @@ GSC יוני: 6,560 חשיפות, 95 קליקים, **0 דפים במיקום ר�
 **⇒ בדיקה שעוברת היא חסרת ערך עד שהוכח שהיא נכשלת על הבאג שהיא אמורה לתפוס. תמיד להחזיר את הבאג ולוודא כישלון.**
 **⇒ `document.fonts` / מדדי ביצועים: לקרוא רק אחרי `await document.fonts.ready` + השהיה. קריאה מוקדמת מחזירה 0 ומובילה לאבחון שגוי.**
 **⇒ מדידה לא-מחונקת אינה ניתנת להשוואה לדוח Lighthouse מחונק. לשחזר את התנאים לפני שמסיקים.**
+
+---
+
+## ISS-025 — תיקוני PR #42/43 לא עבדו בפרוד: specificity חלשה, !important חסר, phone validation חלקית (06/09/2026)
+
+| שדה | פרטים |
+|-----|-------|
+| **תאריך גילוי** | 2026-09-06 (דיווח של אליאב + צילומי מסך QA) |
+| **תאריך תיקון** | 2026-09-06 |
+| **חומרה** | קריטית (4 באגים ויזואליים + UX בפרוד, תיקון קודם נכשל) |
+| **קטגוריה** | Regression / CSS Specificity / JS Validation / Routing |
+| **קבצים מושפעים** | `css/style.css`, `css/style.min.css`, `js/main.js`, `js/main.min.js`, `vercel.json`, כל 37 דפי HTML |
+| **commit שיצר את הבעיה** | PR #42 (המרת FAQ ל-buttons, שינוי grid) |
+| **commit שניסה לתקן** | `8afa885` (PR #43) — נכשל |
+| **commit שתיקן בפועל** | (commit של תיקון נוכחי) |
+
+### תיאור הבעיות
+
+#### בעיה 1: כפתורי FAQ לא ממלאים רוחב מלא (עדיין לא תוקן ב-PR #43)
+התיקון הקודם הוסיף `width: 100%` ל-`.faq-question`, אבל הדפדפן **התעלם** ממנו בפרוד. שאלות FAQ נשארו בתיבה צרה עם רווח לבן גדול.
+
+**סיבת שורש:** 
+1. חסר `box-sizing: border-box !important` — padding של 24px+28px לא נכנס בחישוב רוחב
+2. חסר `!important` על `width: 100%` — יכול היה להידרס ע"י כללים ספציפיים יותר
+3. `.faq-item` עצמו לא הוגדר `width: 100%` — מכיל shrink-to-content
+
+**תיקון חזק (specificity עם !important):**
+```css
+.faq-item {
+  width: 100%;
+}
+
+.faq-question {
+  display: flex !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.faq-item > .faq-question {
+  width: 100% !important;
+}
+```
+
+#### בעיה 2: רשת השירותים בעמוד הבית — עדיין 3+1 במקום 2×2 (נכשל ב-PR #43)
+התיקון הקודם שינה ל-`repeat(2, 1fr)`, אבל בדסקטופ 1280px עדיין הוצגה רשת 3+1. 
+
+**סיבת שורש:** יש **שני media queries שונים** עם `grid-template-columns: 1fr !important` (שורה 3135 ושורה 4131), ואחד מהם פעל גם על דסקטופ בגלל specificity או סדר. הכלל במובייל עם `!important` **דרס** את הכלל הדסקטופ הרגיל.
+
+**תיקון חזק:**
+```css
+/* Desktop - force 2×2 */
+.service-summary-grid {
+  grid-template-columns: repeat(2, 1fr) !important;
+}
+
+/* Tablet - keep 2 columns */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .service-summary-grid { 
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Mobile - single column */
+@media (max-width: 768px) {
+  .service-summary-grid { 
+    grid-template-columns: 1fr !important;
+  }
+}
+```
+
+#### בעיה 3: ולידציית טלפון חלקית — paste/composition/Hebrew עוברים (לא תוקן ב-PR #43)
+התיקון הקודם הוסיף `input` event handler, אבל **אוטומציה/paste/composition יכולים לעקוף** — משתמש יכול להדביק טקסט עברי או להקליד דרך IME.
+
+**סיבת שורש:** הסתמכות רק על `input` event. `paste` מגיע **אחרי** הטקסט כבר בשדה; `beforeinput` נדרש לחסימה מונעת; `composition` לתמיכה ב-IME.
+
+**תיקון חזק:**
+```javascript
+// 1. Input event - real-time filtering עם cursor position
+input.addEventListener('input', function(e) {
+  var cleaned = cleanPhone(e.target.value);
+  if (cleaned !== e.target.value) {
+    var start = e.target.selectionStart;
+    var diff = e.target.value.length - cleaned.length;
+    e.target.value = cleaned;
+    e.target.setSelectionRange(start - diff, start - diff);
+  }
+});
+
+// 2. Paste event - clean before it enters
+input.addEventListener('paste', function(e) {
+  e.preventDefault();
+  var pastedText = (e.clipboardData || window.clipboardData).getData('text');
+  var cleaned = cleanPhone(pastedText);
+  // ... insert cleaned text at cursor
+});
+
+// 3. BeforeInput event - catch IME composition
+input.addEventListener('beforeinput', function(e) {
+  if (e.data && /[^\d+\s\-]/.test(e.data)) {
+    e.preventDefault();
+  }
+});
+
+// 4. Submit-time sanitization - final safety net
+form.addEventListener('submit', function(e) {
+  phoneFields.forEach(field => {
+    field.value = field.value.replace(/[^\d+\s\-]/g, '');
+  });
+});
+```
+
+#### בעיה 4: `/index.html` → 301 loop → 404 (לא תוקן ב-PR #43)
+הכלל הכללי `/:path*.html` → `/:path*` בשורה 130 של `vercel.json` תופס `/index.html` ומפנה ל-`/index`, שלא קיים → 404.
+
+**סיבת שורש:** redirects רצים לפי סדר, ואין כלל ספציפי ל-`/index.html` **לפני** הכלל הכללי.
+
+**תיקון:**
+```json
+"redirects": [
+  {
+    "source": "/index.html",
+    "destination": "/",
+    "statusCode": 301
+  },
+  {
+    "source": "/index",
+    "destination": "/",
+    "statusCode": 301
+  },
+  {
+    "source": "/business-card.html",
+    "destination": "/card",
+    "statusCode": 301
+  },
+  {
+    "source": "/business-card",
+    "destination": "/card",
+    "statusCode": 301
+  },
+  // ... ואז הכלל הכללי
+]
+```
+
+#### בעיות נוספות שתוקנו
+5. **Mobile hero RTL clipping** — כותרת ארוכה גולשת מעבר ל-container ב-≤400px. תוקן: `font-size: 1.65rem`, `padding: 0 12px`, `max-width: 100%`.
+6. **WhatsApp float מכסה CTA** — `z-index: 9999` + `bottom: 20px` במובייל גורם לכיסוי כפתורי שירות. תוקן: `z-index: 998`, `bottom: 95px` במובייל.
+7. **Cache busting לא עודכן** — דפדפנים שירתו CSS/JS ישן. תוקן: hashes חדשים ב-37 דפי HTML.
+
+### הקבצים שעודכנו
+- `css/style.css` — FAQ width + box-sizing, service grid עם !important, floating buttons z-index + position, hero mobile
+- `css/style.min.css` — רה-מיניפיקציה
+- `js/main.js` — phone validation רב-שכבתי (input + paste + beforeinput + submit)
+- `js/main.min.js` — רה-מיניפיקציה
+- `vercel.json` — redirects ספציפיים לפני הכלל הכללי
+- כל 37 דפי HTML — cache-bust ?v= מעודכן
+
+### אימות
+- **FAQ**: DevTools → `.faq-question` מקבל `width: 487px` (100% של container), `box-sizing: border-box`
+- **Service grid**: `index.html` ברזולוציה 1280×720 → grid של 2 עמודות בדיוק, 4 כרטיסים ב-2 שורות
+- **Phone validation**: 
+  - הקלדת "אבג" → מוחק מיד
+  - paste של "שלום 054-1234567" → רק "054-1234567" נכנס
+  - הודעת שגיאה: "נא להזין מספר טלפון תקין (ספרות, +, רווחים ומקפים בלבד)"
+- **Redirects**: `curl -I https://eliavafar.co.il/index.html` → 301 → `/`; `/index` → 301 → `/`
+- **Mobile hero**: 390px viewport → כותרת נקראת בלי גלילה צידית
+- **WA float**: במובייל, כפתור WhatsApp צף מעל sticky bar, לא מכסה CTA
+- **Cache**: קבצים חדשים עם `?v=102cac92`, `?v=cfc1e4c2`, `?v=93361b69`, `?v=746a0c3a`
+
+### מניעה לעתיד — הלקחים הקריטיים מ-ISS-025
+
+1. **⚠️ תיקון CSS שלא עובד בפרוד = בעיית specificity או !important חסר**
+   - כש-`width: 100%` נכתב אבל לא עובד → תמיד לבדוק ב-DevTools את `getComputedStyle(element).width`
+   - אם הערך המחושב ≠ הערך שכתבת → יש כלל אחר שדורס אותו
+   - הפתרון: `!important` + סלקטור ספציפי יותר (`.parent > .child`)
+   - **לעולם לא להניח שתיקון CSS "עובד" אם לא ראית אותו פועל בפרוד**
+
+2. **Media queries עם !important חייבים להיות ארגונזים לפי min/max בצורה ברורה**
+   - אם יש `@media (max-width: 768px) { grid: 1fr !important }` **והוא פועל גם ב-1280px** → הבעיה בסדר הכללים או שיש עוד media query
+   - **הפתרון**: כתוב media queries מפורש: `@media (min-width: 769px)` לדסקטופ + `@media (max-width: 768px)` למובייל
+   - אל תסמוך על "ברירת מחדל" שתעבוד בדסקטופ — כתוב את זה מפורש
+
+3. **Validation של קלט משתמש = 4 שכבות, לא 1**
+   - `input` event לבד **לא מספיק** — paste/composition/automation עוקפים
+   - השכבות הנדרשות:
+     1. `input` — real-time filtering
+     2. `paste` — clean before paste completes (e.preventDefault)
+     3. `beforeinput` — catch IME composition
+     4. `submit` — final sanitization
+   - **כל שכבה שחסרה = דלת פתוחה לקלט לא תקין**
+
+4. **Vercel redirects רצים לפי סדר — redirects ספציפיים תמיד לפני כלליים**
+   - `/index.html` → `/:path*.html` **יתפס אותו** אלא אם תכתוב את `/index.html` לפניו
+   - **כלל**: redirects מיוחדים (index, business-card, וכו') בראש הרשימה
+   - redirect loop (301 → 404) = אין redirect מפורש לנתיב המיועד
+
+5. **Cache busting אחרי שינוי CSS/JS — hash חדש בכל 37 דפי HTML**
+   - `style.min.css?v=OLD` ממשיך לשרת גרסה ישנה גם אחרי שה-CSS עודכן
+   - **אוטומציה נדרשת**: hash מתוכן הקובץ (`md5sum`), לא ידני
+   - `sed` על כל דפי ה-HTML במקביל — לא לעדכן ידנית
+
+6. **⛔ הטעות המרכזית: PR #43 "תיקן" אבל לא אימת בפרוד**
+   - התיקון נבדק **מקומית** ונראה תקין
+   - בפרוד — **cache הגיש CSS ישן**, או specificity נמוכה גרמה לכלל להידרס
+   - **חובה לאמת כל תיקון CSS/JS בפרוד עם `?cb=$RANDOM`** כדי לעקוף cache
+   - **חובה לבדוק `getComputedStyle`** ב-DevTools כדי לראות מה בפועל חל
+
+### הסיבה שהתיקון הקודם נכשל
+PR #43 (commit `8afa885`) הוסיף:
+- `width: 100%` ל-`.faq-question` **בלי !important**
+- `repeat(2, 1fr)` ל-`.service-summary-grid` **בלי !important**
+- `input` event ל-phone **בלי paste/beforeinput**
+
+**למה זה לא עבד בפרוד:**
+1. CSS cache — דפדפנים שירתו `style.min.css?v=OLD` למשך שעות/ימים
+2. Specificity — יש כללים עם `!important` שדרסו את הכללים החדשים
+3. Media queries — הכלל המובייל עם `!important` פעל גם על דסקטופ
+4. JS validation — קלט דרך paste/IME עקף את `input` event בלבד
+
+**⇒ הלקח המרכזי: תיקון = קוד נכון + specificity חזקה + אימות בפרוד + cache-bust. חסרה שכבה אחת → התיקון נכשל.**
 
 ---
 

@@ -695,24 +695,72 @@ document.addEventListener('DOMContentLoaded', () => {
 // ===== FORM VALIDATION: PHONE & EMAIL =====
 document.addEventListener('DOMContentLoaded', function() {
   // Phone validation: digits, +, spaces, dashes only
-  var phoneInputs = document.querySelectorAll('input[type="tel"]');
+  // Phone validation: digits/+/space/hyphen only; strip Hebrew; paste-safe; Hebrew error messages
+  var phoneInputs = document.querySelectorAll('input[type="tel"], input[name="phone"]');
   phoneInputs.forEach(function(input) {
     input.setAttribute('inputmode', 'tel');
     input.setAttribute('pattern', '[0-9+\\s\\-]+');
     
+    // Function to clean phone input - remove Hebrew, English letters, keep only phone chars
+    function cleanPhone(value) {
+      return value.replace(/[^\d+\s\-]/g, '');
+    }
+    
+    // Input event - real-time filtering
     input.addEventListener('input', function(e) {
-      var cleaned = e.target.value.replace(/[^0-9+\s\-]/g, '');
+      var cleaned = cleanPhone(e.target.value);
       if (cleaned !== e.target.value) {
+        var start = e.target.selectionStart;
+        var diff = e.target.value.length - cleaned.length;
         e.target.value = cleaned;
+        // Maintain cursor position after cleaning
+        if (start !== null) {
+          e.target.setSelectionRange(start - diff, start - diff);
+        }
       }
     });
     
-    input.addEventListener('invalid', function(e) {
-      e.target.setCustomValidity('נא להזין מספר טלפון תקין (ספרות בלבד)');
+    // Paste event - clean pasted content before it enters the input
+    input.addEventListener('paste', function(e) {
+      e.preventDefault();
+      var pastedText = (e.clipboardData || window.clipboardData).getData('text');
+      var cleaned = cleanPhone(pastedText);
+      var start = input.selectionStart;
+      var end = input.selectionEnd;
+      var before = input.value.substring(0, start);
+      var after = input.value.substring(end);
+      input.value = before + cleaned + after;
+      var newPos = start + cleaned.length;
+      input.setSelectionRange(newPos, newPos);
+      // Trigger input event for any listeners
+      input.dispatchEvent(new Event('input', { bubbles: true }));
     });
     
+    // BeforeInput event - catch IME composition and other input methods
+    input.addEventListener('beforeinput', function(e) {
+      if (e.data && /[^\d+\s\-]/.test(e.data)) {
+        e.preventDefault();
+      }
+    });
+    
+    // Invalid event - Hebrew message
+    input.addEventListener('invalid', function(e) {
+      e.target.setCustomValidity('נא להזין מספר טלפון תקין (ספרות, +, רווחים ומקפים בלבד)');
+    });
+    
+    // Clear custom validity on input
     input.addEventListener('input', function(e) {
       e.target.setCustomValidity('');
+    });
+  });
+  
+  // Add submit-time sanitization to all forms with phone fields
+  document.querySelectorAll('form').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      var phoneFields = form.querySelectorAll('input[type="tel"], input[name="phone"]');
+      phoneFields.forEach(function(field) {
+        field.value = field.value.replace(/[^\d+\s\-]/g, '');
+      });
     });
   });
   
