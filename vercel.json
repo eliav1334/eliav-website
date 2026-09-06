@@ -125,6 +125,11 @@
       "source": "/blog/index.html",
       "destination": "/blog.html",
       "statusCode": 301
+    },
+    {
+      "source": "/:path*.html",
+      "destination": "/:path*",
+      "statusCode": 301
     }
   ],
   "rewrites": [

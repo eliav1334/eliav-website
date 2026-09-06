@@ -61,12 +61,15 @@ function toggleFaq(question) {
   // Close all
   document.querySelectorAll('.faq-item').forEach(i => {
     i.classList.remove('open');
+    const btn = i.querySelector('.faq-question');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
     const a = i.querySelector('.faq-answer');
     if (a) a.style.maxHeight = '0';
   });
   // Open clicked if was closed
   if (!isOpen) {
     item.classList.add('open');
+    question.setAttribute('aria-expanded', 'true');
     answer.style.maxHeight = answer.scrollHeight + 'px';
   }
 }

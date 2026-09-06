@@ -9,9 +9,10 @@
     "stamp": "node scripts/stamp-assets.mjs",
     "check-meta": "node scripts/check-meta.mjs",
     "check-visual": "node scripts/check-visual.mjs",
-    "check-all": "npm run gen-middleware-data && npm run check-meta && npm run check-visual && npm run check-site && npm run check-agentic",
+    "check-all": "npm run gen-middleware-data && npm run gen-sitemap && npm run check-meta && npm run check-visual && npm run check-site && npm run check-agentic",
     "check-agentic": "node scripts/check-agentic.mjs",
-    "gen-middleware-data": "node scripts/gen-middleware-data.mjs"
+    "gen-middleware-data": "node scripts/gen-middleware-data.mjs",
+    "gen-sitemap": "node scripts/gen-sitemap.js"
   },
   "repository": {
     "type": "git",
