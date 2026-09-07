@@ -21,6 +21,8 @@ export const KNOWN_PATHS = new Set([
   "/404.md",
   "/404.md/",
   "/404/",
+  "/:path*.html",
+  "/:path*.html/",
   "/CLAUDE.md",
   "/CLAUDE.md/",
   "/about",

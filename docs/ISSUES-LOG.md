@@ -9,7 +9,7 @@
 
 | סה"כ בעיות | נפתרו | פתוחות |
 |------------|--------|--------|
-| 25         | 25     | 0      |
+| 26         | 26     | 0      |
 
 ---
 
@@ -951,3 +951,95 @@ input.addEventListener('invalid', e => {
 
 ### לקח מרכזי
 **PR #42 הוסיף נגישות (aria-expanded) אבל פספס 4 השלכות ויזואליות/UX.** זו דוגמה קלאסית לכך ש-**תיקון טכני חייב בדיקה ויזואלית מלאה** — accessibility ו-visual design הם שני מישורים שצריכים לעבור ביחד.
+
+---
+
+## ISS-026 — FormSubmit חשוף ב-HTML מאפשר ספאם ישיר עם עקיפת כל ההגנות (07/09/2026)
+
+| שדה | פרטים |
+|-----|-------|
+| **תאריך גילוי** | 2026-09-07 (דיווח מאליאב — ספאם עוקף JS) |
+| **תאריך תיקון** | 2026-09-07 |
+| **חומרה** | קריטית (מאפשר ספאם ישיר לתיבה, עוקף rate-limit + honeypot) |
+| **קטגוריה** | Security / Form Spam |
+| **קבצים מושפעים** | כל 13 קבצי HTML עם טפסים, `js/main.js`, `js/main.min.js` |
+| **commit שתיקן** | (commit של תיקון נוכחי) |
+
+### תיאור הבעיה
+בוטים גורדים את `action="https://formsubmit.co/eliav1334@gmail.com"` ישירות מקוד המקור של ה-HTML ושולחים POST ישירות ל-FormSubmit, **עוקפים לגמרי:**
+- את `deliverLead()` ב-JS — המסלול שעובר דרך `/api/notify-lead` (Brevo)
+- את ה-honeypot field `_honey`
+- את ה-rate limiting
+- את כל ה-JS validation והגנות
+
+**התוצאה:** המייל של אליאב מקבל ספאם ישירות דרך FormSubmit כאילו הגיע מטופס אמיתי, בלי שום הגנה.
+
+### סיבת שורש
+**FormSubmit תוכנן כ-fallback** (ISS-008) — כשגולש אמיתי עם JS מנסה לשלוח ליד והנתיב הראשי דרך Brevo נכשל, `deliverLead()` מדלג אליו כרשת ביטחון. **אבל הכתובת עצמו היתה חשופה ב-HTML בשדה `action`**, כי זו הייתה הדרך היחידה שבה FormSubmit פעל מלכתחילה (לפני שהוספנו את Brevo).
+
+כשהבוט גורד את הדף, הוא רואה:
+```html
+<form action="https://formsubmit.co/eliav1334@gmail.com" method="POST">
+```
+וזה **כל מה שהוא צריך** כדי לשלוח פוסט ישיר. הוא לא צריך JS, לא צריך דפדפן, ופשוט `curl -X POST` עם payload מזויף.
+
+### הפתרון
+1. **הסרת FormSubmit מכל קבצי ה-HTML** — 13 טפסים עודכנו ל-`action="#"` במקום `action="https://formsubmit.co/eliav1334@gmail.com"`:
+   - 9 דפים ראשיים: `index.html`, `contact.html`, `bentonite-drilling.html`, `drainage-pits.html`, `equipment-rental.html`, `earthworks.html`, `about.html`, `projects.html`, `drainage-pit-home.html`
+   - 4 מאמרי בלוג: `blog/drilling-netanya.html`, `blog/drainage-pits-guide.html`, `blog/drilling-hod-hasharon.html`, `blog/drilling-hadera.html`
+
+2. **תיקון הפופאפ ב-`main.js`** — הפופאפ נבנה דינמית כמחרוזת HTML בשורה 599. שונה מ-`action="https://formsubmit.co/eliav1334@gmail.com"` ל-`action="#"`.
+
+3. **עדכון ה-selector של event listener** — שורה 339 היתה `document.querySelectorAll('form[action*="formsubmit.co"]')` — כבר לא עובד אחרי שהסרנו את formsubmit מה-action. שונה ל-selector ספציפי:
+   ```javascript
+   document.querySelectorAll('form.mini-contact-form, form.contact-form, #scroll-popup-form, #lead-popup-form')
+   ```
+
+4. **ניקוי קוד מיותר ב-`deliverLead()`** — הסרת בדיקת `if (formEl && /formsubmit\.co/.test(formEl.action))` שכבר לא רלוונטית. FormSubmit נשאר **אך ורק** בתוך הקוד כ-fallback:
+   ```javascript
+   fetch('https://formsubmit.co/ajax/eliav1334@gmail.com', {
+     method: 'POST',
+     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+     body: JSON.stringify({ ... })
+   })
+   ```
+
+5. **Cache-bust חדש** — הרצת `npm run stamp` עדכנה את `?v=` של `main.min.js` בכל 28 דפי ה-HTML (31 לפי הפלט).
+
+### אימות
+אחרי התיקון, `formsubmit.co` מופיע **אך ורק** ב-3 מקומות מותרים:
+- `js/main.js` — בתוך הקוד של `deliverLead()` fallback
+- `js/main.min.js` — גרסה ממוזערת
+- `vercel.json` — ב-CSP header בסעיף `connect-src` (נדרש כדי שה-fetch יעבוד)
+
+**אפס מופעים ב-HTML** — אומת עם:
+```bash
+grep -r "formsubmit.co" *.html blog/*.html
+# (ללא תוצאות)
+```
+
+### מניעה לעתיד
+1. **⚠️ endpoint של צד שלישי לא צריך להיות חשוף בקוד המקור של ה-HTML בשום מקרה.**
+   - אם זה fallback → הוא צריך להיות **רק בתוך JS**
+   - אם זה ה-endpoint הראשי → צריך לעטוף אותו ב-serverless function (`/api/`) שעושה proxy
+
+2. **כל טופס צריך הגנה רב-שכבתית:**
+   - Honeypot (`_honey`) — אומת בצד שרת ב-`/api/notify-lead`
+   - Rate limiting — לפי IP (כבר קיים ב-ISS-008)
+   - Origin check — לוודא שהבקשה מגיעה מהדומיין הנכון (כבר קיים ב-ISS-008)
+   - Phone validation — מסנן מספרים מזויפים (`555-01\d\d`, sequential, וכו')
+
+3. **בדיקת אבטחה אחרי כל שינוי בטופס:**
+   - לוודא שאין endpoints חשופים ב-HTML
+   - לבדוק שהגנות rate-limit + honeypot פעילות
+   - לאמת שליד אמיתי עדיין עובד (קצה-לקצה)
+
+### הקשר להיסטוריה
+- **ISS-008** (13/07/2026) — הוספנו rate-limiting ל-`/api/notify-lead` וחסימת XSS בשדה טלפון
+- **ISS-022** (30/08/2026) — אימתנו קצה-לקצה שליד מגיע (Brevo ראשי, FormSubmit fallback)
+- **ISS-023** (01/09/2026) — ספאם ראשון מהטופס, זיהינו שדה `_honey` לא מאומת בצד שרת
+
+⇒ **ISS-026 הוא החסם האמיתי שהיה צריך להיסגר ב-ISS-008** — הגנת rate-limit וה-honeypot לא שוות כלום כשהבוט יכול לעקוף את כולן ולפנות ישירות ל-FormSubmit.
+
+### לקח מרכזי
+**כתובת מייל ב-HTML = תיבת דואר זבל.** FormSubmit, Mailchimp, כל שירות שמקבל מיילים דרך POST ציבורי — **אסור** שהכתובת תהיה גלויה בקוד המקור. אם המשתמש צריך JS כדי שהטופס יעבוד, אז הבוט לא יכול להפעיל אותו. זו הגנה פשוטה וחזקה.

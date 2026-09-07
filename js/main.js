@@ -306,20 +306,15 @@ function deliverLead(payload, formEl) {
     throw new Error('notify-lead failed');
   }).catch(function () {
     // Brevo failed → fall back to FormSubmit so the lead still reaches the inbox.
-    var fsReq;
-    if (formEl && /formsubmit\.co/.test(formEl.action)) {
-      fsReq = fetch(formEl.action, { method: 'POST', body: new FormData(formEl), headers: { Accept: 'application/json' } });
-    } else {
-      fsReq = fetch('https://formsubmit.co/ajax/eliav1334@gmail.com', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          name: payload.name || '', phone: payload.phone || '', email: payload.email || '',
-          service: payload.service || '', message: payload.message || '',
-          _subject: payload._subject || '🔔 ליד חדש מהאתר', _template: 'table'
-        })
-      });
-    }
+    var fsReq = fetch('https://formsubmit.co/ajax/eliav1334@gmail.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        name: payload.name || '', phone: payload.phone || '', email: payload.email || '',
+        service: payload.service || '', message: payload.message || '',
+        _subject: payload._subject || '🔔 ליד חדש מהאתר', _template: 'table'
+      })
+    });
     return fsReq.then(function (r) { return r.ok; }).catch(function () { return false; });
   });
 }
@@ -336,7 +331,7 @@ function showLeadError(anchorEl) {
 }
 
 // AJAX form submission — branded Brevo email + FormSubmit safety net.
-document.querySelectorAll('form[action*="formsubmit.co"]').forEach(form => {
+document.querySelectorAll('form.mini-contact-form, form.contact-form, #scroll-popup-form, #lead-popup-form').forEach(form => {
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     const btn = form.querySelector('button[type="submit"]');
@@ -596,7 +591,7 @@ document.addEventListener('DOMContentLoaded', () => {
         '<span class="scroll-popup-icon">&#128221;</span>' +
         '<h3>\u05E8\u05D5\u05E6\u05D9\u05DD \u05D4\u05E6\u05E2\u05EA \u05DE\u05D7\u05D9\u05E8 \u05D7\u05D9\u05E0\u05DD?</h3>' +
         '<p class="scroll-popup-subtitle">\u05D4\u05E9\u05D0\u05D9\u05E8\u05D5 \u05E4\u05E8\u05D8\u05D9\u05DD \u05D5\u05E0\u05D7\u05D6\u05D5\u05E8 \u05D0\u05DC\u05D9\u05DB\u05DD \u05EA\u05D5\u05DA \u05E9\u05E2\u05D5\u05EA \u05E1\u05E4\u05D5\u05E8\u05D5\u05EA</p>' +
-        '<form id="scroll-popup-form" action="https://formsubmit.co/eliav1334@gmail.com" method="POST">' +
+        '<form id="scroll-popup-form" action="#" method="POST">' +
           '<input type="hidden" name="_subject" value="\uD83D\uDD14 \u05DC\u05D9\u05D3 \u05D7\u05D3\u05E9 \u05DE\u05D4\u05D0\u05EA\u05E8 \u2014 \u05E4\u05D5\u05E4\u05D0\u05E4 \u05D4\u05E6\u05E2\u05EA \u05DE\u05D7\u05D9\u05E8">' +
           '<input type="hidden" name="_captcha" value="false">' +
           '<input type="text" name="_honey" style="display:none">' +
