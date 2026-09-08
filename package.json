@@ -31,6 +31,7 @@
     "sharp": "^0.35.3"
   },
   "devDependencies": {
-    "clean-css": "^5.3.3"
+    "clean-css": "^5.3.3",
+    "terser": "^5.51.2"
   }
 }
