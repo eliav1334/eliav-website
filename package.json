@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node tests/spam-filter.test.js",
+    "test:spam": "node tests/spam-filter.test.js",
     "check-site": "node scripts/check-site.mjs",
     "stamp": "node scripts/stamp-assets.mjs",
     "check-meta": "node scripts/check-meta.mjs",
@@ -30,6 +31,7 @@
     "sharp": "^0.35.3"
   },
   "devDependencies": {
-    "clean-css": "^5.3.3"
+    "clean-css": "^5.3.3",
+    "terser": "^5.51.2"
   }
 }

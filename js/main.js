@@ -331,7 +331,17 @@ function showLeadError(anchorEl) {
 }
 
 // AJAX form submission — branded Brevo email + FormSubmit safety net.
+// Time-trap initialization: record when each form becomes visible (for spam filtering).
 document.querySelectorAll('form.mini-contact-form, form.contact-form, #scroll-popup-form, #lead-popup-form').forEach(form => {
+  // Inject timestamp hidden field when form loads (client-side time-trap)
+  if (!form.querySelector('input[name="_formts"]')) {
+    var tsField = document.createElement('input');
+    tsField.type = 'hidden';
+    tsField.name = '_formts';
+    tsField.value = Date.now();
+    form.appendChild(tsField);
+  }
+
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     const btn = form.querySelector('button[type="submit"]');
@@ -353,6 +363,8 @@ document.querySelectorAll('form.mini-contact-form, form.contact-form, #scroll-po
       service: fd.get('service') || '',
       message: fd.get('message') || '',
       _subject: fd.get('_subject') || '',
+      _formts: parseInt(fd.get('_formts') || '0', 10),
+      _honey: fd.get('_honey') || '',
       page_path: window.location.pathname
     };
     // Brevo contact list (parallel, non-blocking)
@@ -421,6 +433,7 @@ window.__aaPopupBlocked = function () {
         <p>השאירו פרטים ונחזור אליכם תוך שעות</p>\
         <form id="lead-popup-form">\
           <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">\
+          <input type="hidden" name="_formts" value="' + Date.now() + '">\
           <input type="text" name="name" placeholder="שם מלא" required>\
           <input type="tel" name="phone" placeholder="טלפון *" required>\
           <input type="email" name="email" placeholder="אימייל (לא חובה)">\
@@ -461,10 +474,14 @@ window.__aaPopupBlocked = function () {
 
       sendToBrevo(f.name.value, f.email.value, f.phone.value, 'popup-' + location.pathname);
       deliverLead({
-        name: f.name.value, phone: f.phone.value, email: f.email.value,
+        name: f.name.value, 
+        phone: f.phone.value, 
+        email: f.email.value,
         _subject: '🔔 ליד חדש מהאתר — פופאפ הצעת מחיר',
+        _formts: parseInt(f._formts.value || '0', 10),
+        _honey: f._honey.value || '',
         source: 'popup-' + location.pathname
-      }).then(function (ok) {
+      }, f).then(function (ok) {
         if (ok) {
           f.style.display = 'none';
           document.getElementById('lead-popup-success').style.display = 'block';
@@ -595,6 +612,7 @@ document.addEventListener('DOMContentLoaded', () => {
           '<input type="hidden" name="_subject" value="\uD83D\uDD14 \u05DC\u05D9\u05D3 \u05D7\u05D3\u05E9 \u05DE\u05D4\u05D0\u05EA\u05E8 \u2014 \u05E4\u05D5\u05E4\u05D0\u05E4 \u05D4\u05E6\u05E2\u05EA \u05DE\u05D7\u05D9\u05E8">' +
           '<input type="hidden" name="_captcha" value="false">' +
           '<input type="text" name="_honey" style="display:none">' +
+          '<input type="hidden" name="_formts" value="' + Date.now() + '">' +
           '<input type="hidden" name="_template" value="box">' +
           '<input type="hidden" name="_next" value="https://eliavafar.co.il/thanks.html">' +
           '<input type="text" name="name" placeholder="\u05E9\u05DD" required>' +
@@ -658,8 +676,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       deliverLead({
-        name: form.name.value, phone: form.phone.value, email: form.email.value || '',
+        name: form.name.value, 
+        phone: form.phone.value, 
+        email: form.email.value || '',
         _subject: '🔔 ליד חדש מהאתר — פופאפ הצעת מחיר',
+        _formts: parseInt(form._formts.value || '0', 10),
+        _honey: form._honey.value || '',
         source: 'scroll-popup-' + location.pathname
       }, form).then(function (ok) {
         if (ok) {

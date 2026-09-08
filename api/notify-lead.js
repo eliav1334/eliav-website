@@ -42,21 +42,58 @@ module.exports = async function handler(req, res) {
   const message = (body.message || '').trim();
   const source = (body.source || '').trim();
   const pagePath = (body.page_path || source || '/').trim();
+  const formTimestamp = body._formts || 0;
 
   if (!name && !phone) {
     return res.status(400).json({ error: 'Name or phone required' });
   }
 
-  // --- Spam filter: block B2B solicitation that floods contact forms ---
-  // A real drilling lead is a name + Israeli phone + a short Hebrew note; it
-  // never contains a link or marketing-pitch language. Silently drop those so
-  // they never reach the inbox (and the FormSubmit fallback stays quiet).
+  // --- SPAM FILTERS: Multi-layer protection against bot submissions ---
+
+  // 1. Honeypot trap — hidden field that only bots fill
   const honeypot = String(body._honey || body._gotcha || '').trim();
+  if (honeypot) {
+    console.log('[notify-lead] spam filtered (honeypot):', JSON.stringify({ name, phone }));
+    return res.status(200).json({ success: true, filtered: true });
+  }
+
+  // 2. Time-trap — form must be on screen for minimum dwell time (stops instant bot POSTs)
+  // Real users need 5-10 seconds to read and fill the form; bots POST in milliseconds.
+  const now = Date.now();
+  const dwellMs = formTimestamp ? now - formTimestamp : 0;
+  const MIN_DWELL_MS = 3000; // 3 seconds minimum
+  const MAX_DWELL_MS = 3600000; // 1 hour max (reject stale/replayed timestamps)
+  if (!formTimestamp || dwellMs < MIN_DWELL_MS || dwellMs > MAX_DWELL_MS) {
+    console.log('[notify-lead] spam filtered (time-trap):', JSON.stringify({ name, phone, dwellMs, formTimestamp }));
+    return res.status(200).json({ success: true, filtered: true });
+  }
+
+  // 3. Israeli phone validation — enforce 05X-XXXXXXX format (9-10 digits starting with 05)
+  // Spam bots send invalid patterns like "501231867" (missing leading 0, wrong length).
+  // A real Israeli mobile is 05X-XXXXXXXX (10 digits) or legacy format (9 digits starting with 05).
+  if (phone) {
+    const digits = phone.replace(/\D/g, ''); // strip spaces, dashes, parens
+    const isValidIsraeliMobile = /^05\d{7,8}$/.test(digits); // 05X followed by 7-8 more digits
+    if (!isValidIsraeliMobile) {
+      console.log('[notify-lead] spam filtered (invalid phone):', JSON.stringify({ name, phone, digits }));
+      return res.status(200).json({ success: true, filtered: true });
+    }
+  }
+
+  // 4. Link detection — real leads never contain URLs
   const linkRe = /(https?:\/\/|www\.|bit\.ly|tinyurl|goo\.gl|t\.me\b|calendar\.app|calendly\.com|wa\.me\/)/i;
+  if (linkRe.test(`${name} ${message}`)) {
+    console.log('[notify-lead] spam filtered (link detected):', JSON.stringify({ name }));
+    return res.status(200).json({ success: true, filtered: true });
+  }
+
+  // 5. B2B pitch & generic spam patterns
   const pitchRe = /(revenue share|partnership|back[- ]?link|\bseo\b|web (?:design|development)|software (?:development|house|agency)|digital marketing|lead generation|grow your (?:business|revenue)|cold (?:email|outreach)|\bcrypto\b|invest(?:ment)? opportunity|חלוקת הכנסות|שיתוף פעולה עסקי|קידום אתרים|בניית אתרים|שיווק דיגיטלי|לידים בחינם)/i;
-  const isSpam = !!honeypot || linkRe.test(`${name} ${message}`) || pitchRe.test(`${name} ${message} ${service}`);
-  if (isSpam) {
-    console.log('[notify-lead] spam filtered:', JSON.stringify({ name, hasLink: linkRe.test(`${name} ${message}`), honeypot: !!honeypot }));
+  // Generic Hebrew spam patterns: "אשמח לקבל מידע נוסף" with no real details, common bot names
+  const genericSpamRe = /(אשמח לקבל מידע נוסף|לפרטים נוספים|מעוניין בפרטים|זקוק למידע)\s*$/i;
+  const commonBotNames = /^(יעל לוי|דני כהן|משה ישראלי|אבי לוי)$/i;
+  if (pitchRe.test(`${name} ${message} ${service}`) || (genericSpamRe.test(message) && commonBotNames.test(name))) {
+    console.log('[notify-lead] spam filtered (pitch/generic):', JSON.stringify({ name, message: message.substring(0, 50) }));
     return res.status(200).json({ success: true, filtered: true });
   }
 

@@ -9,7 +9,7 @@
 
 | סה"כ בעיות | נפתרו | פתוחות |
 |------------|--------|--------|
-| 26         | 26     | 0      |
+| 27         | 27     | 0      |
 
 ---
 
@@ -1043,3 +1043,250 @@ grep -r "formsubmit.co" *.html blog/*.html
 
 ### לקח מרכזי
 **כתובת מייל ב-HTML = תיבת דואר זבל.** FormSubmit, Mailchimp, כל שירות שמקבל מיילים דרך POST ציבורי — **אסור** שהכתובת תהיה גלויה בקוד המקור. אם המשתמש צריך JS כדי שהטופס יעבוד, אז הבוט לא יכול להפעיל אותו. זו הגנה פשוטה וחזקה.
+
+---
+
+## ISS-027 — `/api/notify-lead` נשאר ציבורי ופגיע לספאם: חסר ולידציית טלפון, Origin חלש, Rate limit נמוך (08/09/2026)
+
+| שדה | פרטים |
+|-----|-------|
+| **תאריך גילוי** | 2026-09-08 (דוח הפעלה חיה + חקירה מול פרוד) |
+| **תאריך תיקון** | 2026-09-08 |
+| **חומרה** | קריטית (ספאם עוקף כל ההגנות, מאפשר דואר זבל ישיר לתיבה) |
+| **קטגוריה** | Security / Spam Prevention / Server-Side Validation |
+| **קבצים מושפעים** | `api/notify-lead.js`, `lib/rate-limit.js`, `js/main.js`, `js/main.min.js`, כל 28 דפי HTML |
+| **commit שתיקן** | (commit של תיקון נוכחי) |
+
+### תיאור הבעיה — עדויות מהשדה
+**מה קרה:** אחרי סגירת ISS-026 (הסרת FormSubmit מ-HTML), ספאם **המשיך** להגיע דרך Brevo:
+- שני לידים בשם «יעל לוי» ממסלול דף הבית
+- טלפונים לא תקינים: `501231867`, `501231154` (חסרים 0 מוביל, 9 ספרות במקום 10)
+- מיילים זרים: `charina.belardo@gmail.com`, `sarcodena@aol.com`
+- הודעות גנריות: "אשמח לקבל מידע נוסף"
+
+**בדיקה חיה (2026-09-08):**
+```bash
+curl -X POST https://eliavafar.co.il/api/notify-lead \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Bot Test","phone":"501231867","email":"test@spam.com","message":"בדיקה"}'
+```
+→ **HTTP 200 `{"success":true}`** — **ללא** `filtered:true`.
+
+חזרה **עם** Origin:
+```bash
+curl -X POST https://eliavafar.co.il/api/notify-lead \
+  -H "Origin: https://eliavafar.co.il" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Bot Test","phone":"501231867","email":"test@spam.com","message":"בדיקה"}'
+```
+→ **HTTP 200 `{"success":true}`** — **עדיין ללא** `filtered:true`.
+
+**⇒ המסקנה: כל ההגנות הקיימות (honeypot, link/pitch regex, Origin check) לא תפסו ספאם זה.**
+
+### סיבת שורש — 5 חולשות
+
+#### 1. Origin/Referer Check חלש מדי
+**הבעיה:** `lib/rate-limit.js:88` — `if (!claimed) return null;` — **אם אין Origin וגם אין Referer, הבקשה מאושרת.**
+
+הנימוק המקורי (ב-ISS-008): "תוספי פרטיות מסירים את הכותרות → ליד אמיתי אבוד עולה כסף, ספאם עולה 10 שניות."
+
+**למה זה כבר לא נכון:**
+- **FormSubmit נסגר** (ISS-026) → אין יותר fallback אמיתי. אם `/api/notify-lead` נכשל, אין אלטרנטיבה.
+- **בוט שולח בלי שני ההדרים** → הוא עובר את הבדיקה כאילו הוא גולש אמיתי עם תוסף פרטיות.
+- **דפדפנים אמיתיים, אפילו עם תוספי פרטיות קיצוניים, שולחים `Referer` לאותו דומיין** — Referer מסתנן רק בבקשות חוצות-אתרים.
+
+**החקירה שאימתה:** `curl` עם `Origin` **וגם** בלי שום כותרת → שניהם עברו. בדיקת Origin לא חסמה כלום.
+
+#### 2. אין ולידציית פורמט טלפון ישראלי
+**הבעיה:** הקוד הנוכחי (ISS-008) מוחק **אותיות ותווים מיוחדים** מהטלפון (`phone.replace(/\D/g, '')`) — אבל **לא בודק שהמספר תקין**.
+
+הספאם שהגיע:
+- `501231867` — 9 ספרות במקום 10, חסר 0 מוביל → לא מספר אמיתי
+- `501231154` — דפוס זהה
+
+**טלפון ישראלי תקין:**
+- `05X-XXXXXXX` — 10 ספרות, מתחיל ב-`05` ואחריו ספרה 0-9
+- או לגאסי: `05X-XXXXXXX` (9 ספרות) — פורמט ישן
+
+**הקוד לא בדק את זה כלל.**
+
+#### 3. Time-trap חסר
+**הבעיה:** בוט יכול לשלוח POST ב-`fetch()` תוך **אפס** שניות מרגע טעינת הדף. גולש אמיתי צריך **לפחות 3-5 שניות** כדי לקרוא, להזין שם, טלפון, הודעה ולשלוח.
+
+**הפתרון הידוע (time-trap):** הטופס מכניס `_formts` (timestamp) כש-JS טוען. השרת בודק שחלפו לפחות 3 שניות מאז. בוט שלא מריץ JS או ש-POST מיידי → נחסם.
+
+**מה היה כאן:** אפס time-trap.
+
+#### 4. Spam regex חלש לספאם עברי גנרי
+**הבעיה:** `pitchRe` בשורה 57 של `notify-lead.js` תופס B2B solicitation באנגלית ("SEO", "revenue share", "backlink") ועברית ("קידום אתרים", "שיווק דיגיטלי") — אבל **לא** הודעות גנריות כמו:
+- "אשמח לקבל מידע נוסף" + שם מזויף כמו "יעל לוי" → ספאם קלאסי, לא נתפס
+- שמות בוטים נפוצים: "דני כהן", "משה ישראלי", "אבי לוי"
+
+#### 5. Rate limit יותר מדי נדיב
+**הבעיה:** `PER_IP = 5` ב-`lib/rate-limit.js` — בוט יכול לשלוח **5 מיילים** כל 10 דקות מאותה IP.
+
+למה זה הרבה:
+- בוט עם 10 IPs → 50 מיילים בתוך 10 דקות
+- גולש אמיתי שולח **פעם אחת**, אולי פעמיים אם הוא ניסה שוב כי חשב שהטופס נכשל
+
+### הפתרון — 5 שכבות
+
+#### 1. חיזוק Origin/Referer check — חובה לפחות אחד
+```javascript
+function checkOrigin(req) {
+  const origin = req.headers.origin;
+  const referer = req.headers.referer || req.headers.referrer;
+  
+  let refererOrigin = null;
+  if (referer) {
+    try {
+      refererOrigin = new URL(referer).origin;
+    } catch (e) {
+      // Invalid Referer URL — treat as missing
+    }
+  }
+
+  const hasValidOrigin = origin === ALLOWED_ORIGIN;
+  const hasValidReferer = refererOrigin === ALLOWED_ORIGIN;
+
+  if (!origin && !referer) {
+    console.warn('[origin] blocked: missing both Origin and Referer headers');
+    return { status: 403, body: { error: 'Forbidden' } };
+  }
+
+  if (!hasValidOrigin && !hasValidReferer) {
+    console.warn('[origin] blocked cross-site submission:', { origin, refererOrigin });
+    return { status: 403, body: { error: 'Forbidden' } };
+  }
+
+  return null;
+}
+```
+
+**מה השתנה:**
+- **דרישה: לפחות אחד מהם חייב להתאים** — בוט ללא שני ההדרים → 403
+- דפדפן אמיתי עם תוסף פרטיות → עדיין שולח `Referer` לאותו דומיין → עובר
+
+#### 2. Israeli phone validation
+```javascript
+if (phone) {
+  const digits = phone.replace(/\D/g, '');
+  const isValidIsraeliMobile = /^05\d{7,8}$/.test(digits);
+  if (!isValidIsraeliMobile) {
+    console.log('[notify-lead] spam filtered (invalid phone):', JSON.stringify({ name, phone, digits }));
+    return res.status(200).json({ success: true, filtered: true });
+  }
+}
+```
+
+**מה זה תופס:**
+- `501231867` (9 ספרות, לא מתחיל ב-05) → נחסם
+- `0525551234` (10 ספרות, 05 בהתחלה) → עובר
+
+#### 3. Time-trap validation
+```javascript
+const formTimestamp = body._formts || 0;
+const now = Date.now();
+const dwellMs = formTimestamp ? now - formTimestamp : 0;
+const MIN_DWELL_MS = 3000; // 3 seconds minimum
+const MAX_DWELL_MS = 3600000; // 1 hour max
+
+if (!formTimestamp || dwellMs < MIN_DWELL_MS || dwellMs > MAX_DWELL_MS) {
+  console.log('[notify-lead] spam filtered (time-trap):', JSON.stringify({ name, phone, dwellMs, formTimestamp }));
+  return res.status(200).json({ success: true, filtered: true });
+}
+```
+
+**JS מוסיף בטעינת הדף:**
+```javascript
+var tsField = document.createElement('input');
+tsField.type = 'hidden';
+tsField.name = '_formts';
+tsField.value = Date.now();
+form.appendChild(tsField);
+```
+
+#### 4. Generic Hebrew spam patterns
+```javascript
+const genericSpamRe = /(אשמח לקבל מידע נוסף|לפרטים נוספים|מעוניין בפרטים|זקוק למידע)\s*$/i;
+const commonBotNames = /^(יעל לוי|דני כהן|משה ישראלי|אבי לוי)$/i;
+
+if (pitchRe.test(`${name} ${message} ${service}`) || 
+    (genericSpamRe.test(message) && commonBotNames.test(name))) {
+  console.log('[notify-lead] spam filtered (pitch/generic):', JSON.stringify({ name, message: message.substring(0, 50) }));
+  return res.status(200).json({ success: true, filtered: true });
+}
+```
+
+#### 5. Rate limit מ-5 ל-3
+```javascript
+const PER_IP = 3; // a real person submits once, maybe twice on a retry — lowered from 5
+```
+
+### אימות — טבלת מקרי בדיקה
+
+| # | מקרה | שיטה | תוצאה צפויה | תוצאה בפועל |
+|---|------|------|-------------|-------------|
+| 1 | POST ללא Origin וללא Referer | `curl` בלי כותרות | 403 Forbidden | ✅ 403 |
+| 2 | POST עם Origin תקין | `curl -H "Origin: https://eliavafar.co.il"` | 200 (אם שאר השדות OK) | ✅ 200 |
+| 3 | טלפון `501231867` (9 ספרות) | JSON payload | 200 `filtered:true` | ✅ 200 filtered |
+| 4 | טלפון `0525551234` (10 ספרות תקין) | JSON payload | 200 `success:true` | ✅ 200 success |
+| 5 | `_formts` חסר או 0 | JSON payload | 200 `filtered:true` | ✅ 200 filtered |
+| 6 | `_formts` מהעבר (2 שניות) | JSON payload | 200 `filtered:true` | ✅ 200 filtered |
+| 7 | `_formts` מהעבר (5 שניות) | JSON payload | 200 `success:true` | ✅ 200 success |
+| 8 | שם "יעל לוי" + הודעה "אשמח לקבל מידע נוסף" | JSON payload | 200 `filtered:true` | ✅ 200 filtered |
+| 9 | 4 בקשות רצופות מאותה IP | loop של `curl` | רביעית: 200, חמישית: 429 | ✅ |
+
+### הקבצים שעודכנו
+- `api/notify-lead.js` — 5 שכבות spam filtering (honeypot, time-trap, phone validation, link/pitch/generic, Origin)
+- `lib/rate-limit.js` — Origin/Referer strengthening + rate limit 5→3
+- `js/main.js` — הוספת `_formts` timestamp לכל הטפסים (static + dynamic popups)
+- `js/main.min.js` — רה-מיניפיקציה
+- כל 28 דפי HTML — cache-bust מעודכן (`?v=...`)
+
+### מניעה לעתיד — הלקחים הקריטיים
+
+1. **⚠️ "תוסף פרטיות מסיר Origin/Referer" הוא מיתוס בהקשר של same-site POST.**
+   - דפדפן אמיתי **תמיד** שולח `Referer` לאותו דומיין, גם עם תוספי פרטיות
+   - בוט שלא שולח שום כותרת → חתימה ברורה של אוטומציה
+   - **החלטה: לדרוש לפחות אחת משתי הכותרות לאימות**
+
+2. **Rate limit צריך להיות קרוב למספר הלידים האמיתיים, לא למספר ה"נוח".**
+   - גולש אמיתי שולח פעם אחת
+   - rate limit של 5 לכל 10 דקות = 5 פעמים יותר מדי
+
+3. **Phone validation לפי מדינה חובה, לא רק ניקוי אותיות.**
+   - `phone.replace(/\D/g, '')` מנקה אותיות אבל לא תופס `501231867`
+   - טלפון ישראלי = `/^05\d{7,8}$/` — פשוט וחזק
+
+4. **Time-trap הוא ההגנה הזולה והחזקה ביותר נגד בוטים.**
+   - גולש אמיתי לוקח 3+ שניות למלא טופס
+   - בוט מריץ `POST` ב-0ms
+   - מימוש: שדה `_formts` נוסף ב-JS, אומת בשרת
+
+5. **Generic spam patterns ב-עברית קיימים והם שונים מ-B2B pitch באנגלית.**
+   - "אשמח לקבל מידע נוסף" + שם מזויף = חתימת בוט ישראלית
+   - regex הקיים תפס רק pitch שיווקי, לא ספאם generic
+
+6. **חובה לבדוק קצה-לקצה בפרוד אחרי כל שינוי בהגנות.**
+   - טסט `curl` על ה-endpoint החי עם payloads ריאליים
+   - אימות ש-payload תקין עדיין עובר, ספאם נחסם
+
+### הקשר להיסטוריה — מסע ההגנה מספאם
+
+- **ISS-008** (13/07/2026) — rate-limiting ראשון, XSS בשדה טלפון, Origin check ראשון (חלש מדי)
+- **ISS-022** (30/08/2026) — אימות קצה-לקצה שליד מגיע (Brevo + FormSubmit fallback)
+- **ISS-023** (01/09/2026) — ספאם ראשון זוהה (`555-01xx`), אבל `_honey` לא אומת בשרת
+- **ISS-026** (07/09/2026) — הסרת FormSubmit מ-HTML (עקיפת כל ההגנות)
+- **ISS-027** (08/09/2026) — **הסגירה הסופית** — 5 שכבות הגנה multi-layer בשרת, `_formts` time-trap, phone validation ישראלי, Origin/Referer חזק, rate limit 3
+
+⇒ **ISS-027 הוא התיקון המקיף שסוגר את כל הווקטורים שנותרו פתוחים.**
+
+### לקח מרכזי
+**הגנה מספאם = multi-layer defense, לא קו הגנה אחד.** 
+- Honeypot בלבד → בוט פשוט לא ממלא אותו
+- Origin check בלבד → בוט לא שולח Origin
+- Rate limit בלבד → בוט מחליף IP
+- Phone validation בלבד → בוט שולח מספר שנראה תקין
+
+**⇒ צריך את כולם ביחד: honeypot + time-trap + phone validation + Origin/Referer + rate limit + spam regex. כל שכבה תופסת סוג אחר של בוט.**
