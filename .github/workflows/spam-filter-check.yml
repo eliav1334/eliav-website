@@ -1,0 +1,33 @@
+name: "🛡️ Spam Filter & API Syntax Check"
+
+# Runs on every PR and push to main to catch spam filter regressions and syntax errors.
+# Context: ISS-027 added spam-filter tests. PRs previously shipped with SyntaxErrors
+# because no CI ran node --check or the spam tests.
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  spam-and-syntax:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: "📥 Checkout"
+        uses: actions/checkout@v5
+      
+      - name: "🔧 Setup Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: "🛡️ Run spam filter regression tests"
+        run: node tests/spam-filter.test.js
+      
+      - name: "✅ Syntax check: api/notify-lead.js"
+        run: node --check api/notify-lead.js
+      
+      - name: "✅ Syntax check: lib/rate-limit.js"
+        run: node --check lib/rate-limit.js
