@@ -62,7 +62,7 @@ eliav-website/
 | `earthworks.html` | שירות עבודות עפר ופיתוח |
 | `drainage-pits.html` | שירות בורות חלחול וניקוז |
 | `equipment-rental.html` | שירות השכרת ציוד (תמיד כולל מפעיל!) |
-| `contact.html` | טופס צור קשר (FormSubmit.co) |
+| `contact.html` | טופס צור קשר (Brevo via /api/notify-lead) |
 | `blog.html` | עמוד בלוג ראשי + 16 כרטיסי מאמרים |
 | `accessibility-statement.html` | הצהרת נגישות |
 | `thanks.html` | עמוד תודה אחרי שליחת טופס |
@@ -163,7 +163,7 @@ From `docs/ISSUES-LOG.md` — lessons learned from past bugs:
 | Service | Purpose | Config |
 |---------|---------|--------|
 | **Vercel** | Hosting + CDN | vercel.json (28 rewrites, 26 redirects, security headers) |
-| **FormSubmit.co** | Contact form → email | eliav1334@gmail.com |
+| **Brevo** | Contact form emails | /api/notify-lead endpoint |
 | **GA4** | Analytics | G-EN4K9ELZC5 |
 | **Microsoft Clarity** | Heatmaps + recordings | vjveyed1u4 |
 | **Google Fonts** | Heebo + Rubik | Preloaded in `<head>` |
@@ -198,7 +198,7 @@ All pages use: `style.min.css?v=1772308892` — when updating CSS, change this v
 3. Infrastructure files (sitemap.xml, robots.txt, llms.txt, manifest.json)
 4. SSL certificate + expiry
 5. Lighthouse: Performance, Accessibility, SEO, Best Practices + Core Web Vitals
-6. External links (FormSubmit, Google Fonts, etc.)
+6. External links (Google Fonts, Brevo API, etc.)
 7. Security headers scan
 
 ### Output
@@ -267,7 +267,7 @@ All pages use: `style.min.css?v=1772308892` — when updating CSS, change this v
 | **SSL** | תעודה בתוקף + ימים לפקיעה | התראה מתחת 30 יום |
 | **Lighthouse Mobile** | Performance, Accessibility, SEO, Best Practices | ירוק ≥90, כתום ≥50, אדום <50 |
 | **Core Web Vitals** | FCP, LCP, TBT, CLS | לפי סטנדרט Google |
-| **לינקים חיצוניים** | FormSubmit, Google Fonts, CDN, Analytics | כולם חייבים להגיב |
+| **לינקים חיצוניים** | Google Fonts, Brevo API, CDN, Analytics | כולם חייבים להגיב |
 | **Security Headers** | HSTS, CSP, X-Frame-Options, וכו' | כולם חייבים להיות מוגדרים |
 
 ### דגלים
