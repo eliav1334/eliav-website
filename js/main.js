@@ -292,10 +292,8 @@ function sendToBrevo(name, email, phone, source) {
   }).catch(() => {}); // Silent fail - don't block main form
 }
 
-// Deliver a lead: our branded Brevo email (/api/notify-lead) is primary.
-// FormSubmit fires ONLY if Brevo fails — a safety net so a lead is never lost,
-// without sending duplicate emails in the normal (Brevo works) case.
-// Resolves true if a channel accepted the lead.
+// Deliver a lead via Brevo (/api/notify-lead).
+// Resolves true if the lead was accepted, false on failure.
 function deliverLead(payload, formEl) {
   return fetch('/api/notify-lead', {
     method: 'POST',
@@ -305,17 +303,7 @@ function deliverLead(payload, formEl) {
     if (r.ok) return true;
     throw new Error('notify-lead failed');
   }).catch(function () {
-    // Brevo failed → fall back to FormSubmit so the lead still reaches the inbox.
-    var fsReq = fetch('https://formsubmit.co/ajax/eliav1334@gmail.com', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({
-        name: payload.name || '', phone: payload.phone || '', email: payload.email || '',
-        service: payload.service || '', message: payload.message || '',
-        _subject: payload._subject || '🔔 ליד חדש מהאתר', _template: 'table'
-      })
-    });
-    return fsReq.then(function (r) { return r.ok; }).catch(function () { return false; });
+    return false;
   });
 }
 
@@ -330,7 +318,7 @@ function showLeadError(anchorEl) {
   if (anchorEl.parentNode) anchorEl.parentNode.insertBefore(box, anchorEl.nextSibling);
 }
 
-// AJAX form submission — branded Brevo email + FormSubmit safety net.
+// AJAX form submission — branded Brevo email via /api/notify-lead.
 // Time-trap initialization: record when each form becomes visible (for spam filtering).
 document.querySelectorAll('form.mini-contact-form, form.contact-form, #scroll-popup-form, #lead-popup-form').forEach(form => {
   // Inject timestamp hidden field when form loads (client-side time-trap)
