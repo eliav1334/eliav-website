@@ -59,8 +59,8 @@ module.exports = async function handler(req, res) {
 
   // 2. Time-trap — form must be on screen for minimum dwell time (stops instant bot POSTs)
   // Real users need 5-10 seconds to read and fill the form; bots POST in milliseconds.
-  const now = Date.now();
-  const dwellMs = formTimestamp ? now - formTimestamp : 0;
+  const nowMs = Date.now();
+  const dwellMs = formTimestamp ? nowMs - formTimestamp : 0;
   const MIN_DWELL_MS = 3000; // 3 seconds minimum
   const MAX_DWELL_MS = 3600000; // 1 hour max (reject stale/replayed timestamps)
   if (!formTimestamp || dwellMs < MIN_DWELL_MS || dwellMs > MAX_DWELL_MS) {
